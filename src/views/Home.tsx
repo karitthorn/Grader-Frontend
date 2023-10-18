@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "reactstrap";
+import { Button } from "../components/Button";
 
 const Home = () => {
 	return (
 		<div>
 			<h1 className="border-2">Home</h1>
-			<Button color="danger">Click</Button>
+			<Button>Click</Button>
 		</div>
 	);
 };
