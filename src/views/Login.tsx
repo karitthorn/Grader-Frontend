@@ -19,6 +19,7 @@ import {
 	CardTitle,
 } from "../components/Card";
 import { Checkbox } from "../components/Checkbox";
+import CenterContainer from "../layout/CenterContainer";
 
 // import { getAuthorization, login } from "../services/auth.service";
 
@@ -31,11 +32,8 @@ const Login = () => {
 	};
 
 	return (
-		<div className="">
-			<div
-				className="w-[350px] justify-center mx-auto mt-[20vh]" /* className="m-auto w-1/2" */
-			>
-				<Card>
+		<CenterContainer>
+			<Card>
 					<CardHeader>
 						<CardTitle>Login</CardTitle>
 						<CardDescription>Login to your account</CardDescription>
@@ -108,8 +106,7 @@ const Login = () => {
 						</Form>
 					</CardContent>
 				</Card>
-			</div>
-		</div>
+		</CenterContainer>
 	);
 };
 
