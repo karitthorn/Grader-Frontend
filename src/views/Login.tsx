@@ -7,9 +7,9 @@ import {
 	FormLabel,
 	FormControl,
 	FormMessage,
-} from "../components/Form";
-import { Button } from "../components/Button";
-import { Input } from "../components/Input";
+} from "../components/shadcn/Form";
+import { Button } from "../components/shadcn/Button";
+import { Input } from "../components/shadcn/Input";
 import { useForm } from "react-hook-form";
 import {
 	Card,
@@ -17,8 +17,8 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "../components/Card";
-import { Checkbox } from "../components/Checkbox";
+} from "../components/shadcn/Card";
+import { Checkbox } from "../components/shadcn/Checkbox";
 import CenterContainer from "../layout/CenterLayout";
 
 // import { getAuthorization, login } from "../services/auth.service";
