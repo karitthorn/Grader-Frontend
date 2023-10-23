@@ -19,7 +19,7 @@ import {
 	CardTitle,
 } from "../components/Card";
 import { Checkbox } from "../components/Checkbox";
-import CenterContainer from "../layout/CenterContainer";
+import CenterContainer from "../layout/CenterLayout";
 
 // import { getAuthorization, login } from "../services/auth.service";
 
@@ -32,7 +32,7 @@ const Login = () => {
 	};
 
 	return (
-		<CenterContainer>
+		<CenterContainer className="w-[350px]">
 			<Card>
 					<CardHeader>
 						<CardTitle>Login</CardTitle>
@@ -104,6 +104,7 @@ const Login = () => {
 								</Button>
 							</form>
 						</Form>
+						<CardDescription className="mt-2">Doesn't has an account? Create one <a className="underline text-blue-700" href="/register">here</a></CardDescription>
 					</CardContent>
 				</Card>
 		</CenterContainer>
