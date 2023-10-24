@@ -11,18 +11,25 @@ import {
  } from "../components/shadcn/NevigationMenu";
 import { cn } from "../lib/utils";
 import NavigationBar from "../components/NavigationBar";
+import { InferProps, any } from "prop-types";
 
 
-
-const NavbarMenuLayout = ({ children }: Props) => {
+export const NavbarMenuLayout = ({ children, padding=true }:any) => {
 	return (
 		<div>
-            <div className="z-50 border-2 fixed w-full">
+            <div className="z-50 fixed w-full">
                 <NavigationBar/>
             </div>
-			{children}
+            <div className={padding ? "pt-10" : ""}>
+			    {children}
+            </div>
 		</div>
 	);
 };
+
+NavbarMenuLayout.propTypes = {
+    children: any,
+    padding: Boolean,
+}
 
 export default NavbarMenuLayout;

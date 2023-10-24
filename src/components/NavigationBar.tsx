@@ -14,8 +14,19 @@ import { components } from "../constants/NavigationBarData";
 
 const NavigationBar = () => {
 	return (
-		<NavigationMenu>
+		<NavigationMenu className="">
+
 			<NavigationMenuList>
+				<NavigationMenuItem>
+					<NavigationMenuLink
+						className={navigationMenuTriggerStyle()}
+					>
+						Home
+					</NavigationMenuLink>
+				</NavigationMenuItem>
+			</NavigationMenuList>
+
+			<NavigationMenuList className="">
 				<NavigationMenuItem>
 					<NavigationMenuTrigger>
 						Getting started
@@ -77,13 +88,11 @@ const NavigationBar = () => {
 					</NavigationMenuContent>
 				</NavigationMenuItem>
 				<NavigationMenuItem>
-					{/* <Link href="/docs" legacyBehavior passHref> */}
-						<NavigationMenuLink
-							className={navigationMenuTriggerStyle()}
-						>
-							Documentation
-						</NavigationMenuLink>
-					{/* </Link> */}
+					<NavigationMenuLink
+						className={navigationMenuTriggerStyle()}
+					>
+						Documentation
+					</NavigationMenuLink>
 				</NavigationMenuItem>
 			</NavigationMenuList>
 		</NavigationMenu>
