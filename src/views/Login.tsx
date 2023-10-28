@@ -89,7 +89,7 @@ const Login = () => {
 												/>
 												
 											</FormControl>
-											<FormLabel>
+											<FormLabel className="cursor-pointer">
 												Remember Me
 											</FormLabel>
 											

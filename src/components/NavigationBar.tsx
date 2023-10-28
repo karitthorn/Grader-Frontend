@@ -11,6 +11,7 @@ import {
 import { cn } from "../lib/utils";
 import { ListItem } from "./shadcn/ListItem";
 import { components } from "../constants/NavigationBarData";
+import Register from './../views/Register';
 
 const NavigationBar = () => {
 	return (
@@ -87,11 +88,20 @@ const NavigationBar = () => {
 						</ul>
 					</NavigationMenuContent>
 				</NavigationMenuItem>
-				<NavigationMenuItem>
+				<NavigationMenuItem >
 					<NavigationMenuLink
+						href="/login"
 						className={navigationMenuTriggerStyle()}
 					>
-						Documentation
+						Login
+					</NavigationMenuLink>
+				</NavigationMenuItem>
+				<NavigationMenuItem >
+					<NavigationMenuLink
+						href="/register"
+						className={navigationMenuTriggerStyle()}
+					>
+						Register
 					</NavigationMenuLink>
 				</NavigationMenuItem>
 			</NavigationMenuList>
