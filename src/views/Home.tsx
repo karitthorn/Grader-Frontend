@@ -3,6 +3,8 @@ import { Button } from "../components/shadcn/Button";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import DataTable from "../components/DataTable";
 import { TableCell, TableRow } from "../components/shadcn/Table";
+import PlateEditor from "../components/plate-editor";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip";
 const invoices = [
 	{
 		invoice: "INV001",
@@ -52,8 +54,14 @@ const Home = () => {
 		<NavbarMenuLayout>
 			<h1 className="border-2">Home</h1>
 			<Button>Click</Button>
-			<div className="mx-32 border-2">
-				<DataTable>
+			<TooltipProvider>
+				<Tooltip>
+					
+				</Tooltip>
+			</TooltipProvider>
+			<PlateEditor />
+			{/* <div className="mx-32 border-2">
+				< DataTable>
 					{invoices.map((invoice) => (
 						<TableRow key={invoice.invoice}>
 							<TableCell className="font-medium">
@@ -67,7 +75,7 @@ const Home = () => {
 						</TableRow>
 					))}
 				</DataTable>
-			</div>
+			</div> */}
 		</NavbarMenuLayout>
 	);
 };
