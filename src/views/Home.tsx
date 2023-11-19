@@ -3,8 +3,13 @@ import { Button } from "../components/shadcn/Button";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import DataTable from "../components/DataTable";
 import { TableCell, TableRow } from "../components/shadcn/Table";
-import PlateEditor from "../components/plate-editor";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip";
+import PlateEditor from "../components/PlateEditor";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@radix-ui/react-tooltip";
 const invoices = [
 	{
 		invoice: "INV001",
@@ -54,12 +59,10 @@ const Home = () => {
 		<NavbarMenuLayout>
 			<h1 className="border-2">Home</h1>
 			<Button>Click</Button>
-			<TooltipProvider>
-				<Tooltip>
-					
-				</Tooltip>
-			</TooltipProvider>
-			<PlateEditor />
+
+			<div className="overflow-y-scroll h-[80vh] w-[50%] rounded-lg border bg-background shadow">
+				<PlateEditor />
+			</div>
 			{/* <div className="mx-32 border-2">
 				< DataTable>
 					{invoices.map((invoice) => (

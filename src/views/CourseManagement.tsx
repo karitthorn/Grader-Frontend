@@ -11,7 +11,7 @@ import {
 
 const CourseManagement = () => {
 	return (
-		<NavbarMenuLayout padding={false}>
+		<NavbarMenuLayout yPad={false} xPad={false}>
 			<div className="flex">
 				<div className="w-1/6 border-2 h-screen pt-10">
 					{/* <h1>Course Management</h1> */}

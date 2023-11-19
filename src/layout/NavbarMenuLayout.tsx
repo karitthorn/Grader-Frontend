@@ -14,22 +14,21 @@ import NavigationBar from "../components/NavigationBar";
 import { InferProps, any } from "prop-types";
 
 
-export const NavbarMenuLayout = ({ children, padding=true }:any) => {
+export const NavbarMenuLayout = ({ children, yPad=true, xPad=true }:{
+    children: any,
+    yPad?: boolean,
+    xPad?: boolean
+}) => {
 	return (
 		<div>
             <div className="z-50 fixed w-full">
                 <NavigationBar/>
             </div>
-            <div className={padding ? "pt-10" : ""}>
+            <div className={(yPad ? "pt-10" : "") + " " + (xPad ? "pl-10" : "")}>
 			    {children}
             </div>
 		</div>
 	);
 };
-
-NavbarMenuLayout.propTypes = {
-    children: any,
-    padding: Boolean,
-}
 
 export default NavbarMenuLayout;
