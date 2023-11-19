@@ -42,9 +42,9 @@ export default function PlateEditor() {
               '[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4'
             )}
           >
-            {/* <FixedToolbar>
+            <FixedToolbar>
               <FixedToolbarButtons />
-            </FixedToolbar> */}
+            </FixedToolbar>
 
             <Editor
               className="px-[96px] py-16"
@@ -54,15 +54,15 @@ export default function PlateEditor() {
               size="md"
             />
 
-            {/* <FloatingToolbar>
+            <FloatingToolbar>
               <FloatingToolbarButtons />
-            </FloatingToolbar> */}
+            </FloatingToolbar>
 
-            {/* <MentionCombobox items={MENTIONABLES} /> */}
+            <MentionCombobox items={MENTIONABLES} />
 
-            {/* <CommentsPopover /> */}
+            <CommentsPopover />
 
-            {/* <CursorOverlay containerRef={containerRef} /> */}
+            <CursorOverlay containerRef={containerRef} />
           </div>
         </Plate>
       </CommentsProvider>

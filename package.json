@@ -36,6 +36,7 @@
     "@udecode/plate-code-block": "^24.5.2",
     "@udecode/plate-combobox": "^24.5.2",
     "@udecode/plate-comments": "^24.5.2",
+    "@udecode/plate-cursor": "^24.3.5",
     "@udecode/plate-dnd": "^24.5.2",
     "@udecode/plate-emoji": "^24.5.2",
     "@udecode/plate-excalidraw": "^24.5.2",
