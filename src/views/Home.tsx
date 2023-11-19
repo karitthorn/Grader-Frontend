@@ -3,7 +3,7 @@ import { Button } from "../components/shadcn/Button";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import DataTable from "../components/DataTable";
 import { TableCell, TableRow } from "../components/shadcn/Table";
-import PlateEditor from "../components/PlateEditor";
+import PlateEditor from "../components/plate-editor";
 import {
 	Tooltip,
 	TooltipContent,
