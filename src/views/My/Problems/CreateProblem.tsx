@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarMenuLayout from "../../../../layout/NavbarMenuLayout";
+import NavbarMenuLayout from "../../../layout/NavbarMenuLayout";
 import {
 	Form,
 	FormField,
@@ -7,18 +7,18 @@ import {
 	FormLabel,
 	FormControl,
 	FormMessage,
-} from "../../../../components/shadcn/Form";
+} from "../../../components/shadcn/Form";
 import { useForm } from "react-hook-form";
-import { Input } from "../../../../components/shadcn/Input";
-import { Checkbox } from "../../../../components/shadcn/Checkbox";
-import { Button } from "../../../../components/shadcn/Button";
-import PlateEditor from "../../../../components/plate-editor";
+import { Input } from "../../../components/shadcn/Input";
+import { Checkbox } from "../../../components/shadcn/Checkbox";
+import { Button } from "../../../components/shadcn/Button";
+import PlateEditor from "../../../components/plate-editor";
 import {
 	Tabs,
 	TabsList,
 	TabsTrigger,
-} from "../../../../components/shadcn/Tabs";
-import Sidebar from "../../../../layout/Sidebar";
+} from "../../../components/shadcn/Tabs";
+import Sidebar from "../../../layout/Sidebar";
 
 const GeneralDetail = () => {
 	const form = useForm();
