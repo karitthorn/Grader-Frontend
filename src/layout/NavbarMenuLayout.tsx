@@ -15,7 +15,7 @@ import { InferProps, any } from "prop-types";
 
 
 export const NavbarMenuLayout = ({ children, yPad=true, xPad=true }:{
-    children: any,
+    children: React.ReactNode,
     yPad?: boolean,
     xPad?: boolean
 }) => {
