@@ -21,7 +21,11 @@ import { Editor as MonacoEditor } from "@monaco-editor/react";
 import TestcaseValidationAccordian from "../../../components/TestcaseValidationAccordian";
 import { Combobox } from "../../../components/shadcn/Combobox";
 import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
-import { RadioGroup, RadioGroupItem } from "../../../components/shadcn/RadioGroup";
+import {
+	RadioGroup,
+	RadioGroupItem,
+} from "../../../components/shadcn/RadioGroup";
+import { Switch } from "../../../components/shadcn/Switch";
 
 const GeneralDetail = () => {
 	const form = useForm();
@@ -170,18 +174,15 @@ const Requirement = () => {
 const Privacy = () => {
 	return (
 		<div>
-			<Label>Visibility</Label>
-			<RadioGroup defaultValue="private">
-				<div className="flex items-center space-x-2">
-					<RadioGroupItem value="private" id="private" />
-					<Label htmlFor="private">Private</Label>
-				</div>
-				<div className="flex items-center space-x-2">
-					<RadioGroupItem value="publish" id="publish" />
-					<Label htmlFor="publish">Publish</Label>
-				</div>
-			</RadioGroup>
-			asdwa
+			<div className="flex items-center space-x-2">
+				<Label htmlFor="airplane-mode">Visibility</Label>
+				<Switch id="airplane-mode" />
+			</div>
+
+			<div className="flex items-center space-x-2">
+				<Label htmlFor="airplane-mode">Allow Reference</Label>
+				<Switch id="airplane-mode" />
+			</div>
 		</div>
 	);
 };

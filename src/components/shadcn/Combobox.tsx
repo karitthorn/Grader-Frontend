@@ -46,15 +46,16 @@ export type ComboboxOption = {
     label: string
 }
 
-export function Combobox({label,options=[],placeholder,emptyMessage,onSelect}: {
+export function Combobox({label,options=[],placeholder,emptyMessage,onSelect,initialValue}: {
     label?: string
     options?: ComboboxOption[]
     placeholder?: string
     emptyMessage?: string
+    initialValue?: string
     onSelect?: (value: string) => void
 }) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+  const [value, setValue] = React.useState(initialValue)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -75,7 +76,7 @@ export function Combobox({label,options=[],placeholder,emptyMessage,onSelect}: {
         <Command>
           <CommandInput placeholder={placeholder} />
           <CommandEmpty>{emptyMessage}</CommandEmpty>
-          <CommandGroup onChange={() => console.log("Change!")}>
+          <CommandGroup>
             {options.map((framework) => (
               <CommandItem
                 key={framework.value}
@@ -84,7 +85,8 @@ export function Combobox({label,options=[],placeholder,emptyMessage,onSelect}: {
                   if (onSelect) {
                     onSelect(currentValue)
                   }
-                  setValue(currentValue === value ? "" : currentValue)
+                  // setValue(currentValue === value ? "" : currentValue)
+                  setValue(currentValue)
                   setOpen(false)
                 }}
               >
