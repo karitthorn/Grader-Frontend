@@ -4,7 +4,7 @@ import NavbarMenuLayout from "./NavbarMenuLayout";
 
 const CenterContainer = ({ children, className = "" }: Props) => {
 	return (
-		<NavbarMenuLayout padding={false}>
+		<NavbarMenuLayout yPad={false} xPad={false}>
 			<div className="flex h-screen">
 				<div
 					className={
