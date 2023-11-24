@@ -7,6 +7,7 @@ import CourseManagement from "./views/CourseManagement";
 import CreateProblem from "./views/My/Problems/CreateProblem";
 import MyProblems from "./views/My/Problems/MyProblems";
 import ViewProblem from "./views/ViewProblem";
+import MyCollections from "./views/My/Collections/MyCollections";
 
 const Router = () => {
 	return (
@@ -16,6 +17,7 @@ const Router = () => {
 			<Route path="/register" element={<Register />} />
 			<Route path="/management" element={<CourseManagement />} />
 			<Route path="/my/problems" element={<MyProblems />} />
+			<Route path="/my/collections" element={<MyCollections />} />
 			<Route path="/my/problems/create" element={<CreateProblem />} />
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
 		</Routes>
