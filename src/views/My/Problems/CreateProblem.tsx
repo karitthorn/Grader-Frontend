@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { Input } from "../../../components/shadcn/Input";
 import { Checkbox } from "../../../components/shadcn/Checkbox";
 import { Button } from "../../../components/shadcn/Button";
-import PlateEditor from "../../../components/plate-editor";
+import PlateEditor from "../../../components/PlateEditor";
 import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Label } from "../../../components/shadcn/Label";

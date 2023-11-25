@@ -6,7 +6,7 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { cva, VariantProps } from 'class-variance-authority';
 
 import { cn } from '../../lib/utils';
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 

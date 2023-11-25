@@ -17,7 +17,7 @@ import {
 } from '@udecode/plate-link';
 
 import { cn } from '../../lib/utils';
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import { buttonVariants } from './button';
 import { inputVariants } from './input';

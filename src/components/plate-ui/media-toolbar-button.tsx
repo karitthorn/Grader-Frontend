@@ -5,7 +5,7 @@ import {
   useMediaToolbarButton,
 } from '@udecode/plate-media';
 
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import { ToolbarButton } from './toolbar';
 

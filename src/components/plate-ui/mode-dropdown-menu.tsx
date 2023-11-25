@@ -7,7 +7,7 @@ import {
   usePlateStore,
 } from '@udecode/plate-common';
 
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import {
   DropdownMenu,

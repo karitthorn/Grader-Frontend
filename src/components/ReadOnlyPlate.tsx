@@ -21,7 +21,9 @@ import { FloatingToolbarButtons } from './plate-ui/floating-toolbar-buttons';
 import { MentionCombobox } from './plate-ui/mention-combobox';
 import { DummyEditorValue } from '../constants/DummyEditorValue';
 
-export default function ReadOnlyPlate() {
+export default function ReadOnlyPlate({className}: {
+  className?: string
+}) {
   const containerRef = useRef(null);
 
   const initialValue = [
@@ -46,7 +48,7 @@ export default function ReadOnlyPlate() {
             
 
             <Editor
-              className="px-[96px] py-0 h-[80vh] overflow-y-scroll"
+              className={"px-[96px] py-0 overflow-y-scroll " + className}
               autoFocus
               focusRing={false}
               variant="ghost"

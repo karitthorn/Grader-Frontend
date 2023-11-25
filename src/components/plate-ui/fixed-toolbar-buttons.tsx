@@ -11,7 +11,7 @@ import { MARK_BG_COLOR, MARK_COLOR } from '@udecode/plate-font';
 import { ListStyleType } from '@udecode/plate-indent-list';
 import { ELEMENT_IMAGE } from '@udecode/plate-media';
 
-import { Icons, iconVariants } from '../icons';
+import { Icons, iconVariants } from './icons';
 import { AlignDropdownMenu } from './align-dropdown-menu';
 import { ColorDropdownMenu } from './color-dropdown-menu';
 import { CommentToolbarButton } from './comment-toolbar-button';

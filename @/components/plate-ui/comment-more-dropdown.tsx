@@ -9,7 +9,7 @@ import {
 } from '@udecode/plate-comments';
 
 import { cn } from '../../lib/utils';
-import { Icons } from '../icons';
+import { Icons } from './icons';
 import { Button } from './button';
 import {
   DropdownMenu,

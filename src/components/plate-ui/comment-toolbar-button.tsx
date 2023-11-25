@@ -3,7 +3,7 @@
 import React from 'react';
 import { useCommentAddButton } from '@udecode/plate-comments';
 
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import { ToolbarButton } from './toolbar';
 

@@ -20,7 +20,7 @@ const ViewProblem = () => {
 			<div className="flex mt-10">
 				<div className="w-1/2">
 					{/* <h1 className="text-3xl font-bold">Problem Name</h1> */}
-					<ReadOnlyPlate />
+					<ReadOnlyPlate className="h-[80vh]" />
 				</div>
 				<div className="mx-3">
 					<Separator orientation="vertical" />
@@ -39,15 +39,17 @@ const ViewProblem = () => {
 							/>
 						</div>
 						<div>
-                            <TestcasesGradingIndicator />
-                        </div>
+							<TestcasesGradingIndicator />
+						</div>
 					</div>
-					<MonacoEditor
-						theme="vs-dark"
-						height="80vh"
-						defaultLanguage="python"
-						language={selectedLanguage}
-					/>
+					<div className="">
+						<MonacoEditor
+							theme="vs-dark"
+							height="80vh"
+							defaultLanguage="python"
+							language={selectedLanguage}
+						/>
+					</div>
 
 					<div className="flex justify-end mt-1">
 						<Button className="px-10">Submit</Button>

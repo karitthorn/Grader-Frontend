@@ -8,7 +8,7 @@ import {
 } from '@udecode/plate-basic-marks';
 import { useEditorReadOnly } from '@udecode/plate-common';
 
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import { InsertDropdownMenu } from './insert-dropdown-menu';
 import { MarkToolbarButton } from './mark-toolbar-button';

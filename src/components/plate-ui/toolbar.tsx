@@ -6,7 +6,7 @@ import * as ToolbarPrimitive from '@radix-ui/react-toolbar';
 import { cva, VariantProps } from 'class-variance-authority';
 
 import { cn } from '../../lib/utils';
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import { Separator } from './separator';
 import { ToggleProps, toggleVariants } from './toggle';

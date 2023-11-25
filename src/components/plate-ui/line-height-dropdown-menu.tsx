@@ -5,7 +5,7 @@ import {
   useLineHeightDropdownMenuState,
 } from '@udecode/plate-line-height';
 
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import {
   DropdownMenu,

@@ -5,7 +5,7 @@ import {
   useIndentListToolbarButtonState,
 } from '@udecode/plate-indent-list';
 
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import { ToolbarButton, ToolbarButtonProps } from './toolbar';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useOutdentButton } from '@udecode/plate-indent';
 
-import { Icons } from '../icons';
+import { Icons } from './icons';
 
 import { ToolbarButton } from './toolbar';
 

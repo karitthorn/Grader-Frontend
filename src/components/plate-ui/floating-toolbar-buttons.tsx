@@ -8,7 +8,7 @@ import {
 } from '@udecode/plate-basic-marks';
 import { useEditorReadOnly } from '@udecode/plate-common';
 
-import { Icons } from '../icons';
+import { Icons } from './icons';
 import { CommentToolbarButton } from './comment-toolbar-button';
 import { LinkToolbarButton } from './link-toolbar-button';
 
