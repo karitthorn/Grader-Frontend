@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -43,6 +43,7 @@ import {
 	Cloud,
 	LogOut,
 } from "lucide-react";
+import { AuthService } from "../services/Auth.service";
 
 const ProfileDropdown = ({ children }: { children: React.ReactNode }) => {
 	return (
@@ -132,13 +133,32 @@ const ProfileDropdown = ({ children }: { children: React.ReactNode }) => {
 	);
 };
 
-const NavigationBar = ({ isLogin = false }: { isLogin?: boolean }) => {
+const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
+
+	const [isLogin, setIsLogin] = useState(false);
+
 	const customNavigationMenuTriggerStyle = () => {
 		return (
 			navigationMenuTriggerStyle() +
 			" bg-green-600 hover:bg-green-700 hover:text-white text-white"
 		);
 	};
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		const account_id = Number(localStorage.getItem("account_id"));
+
+		if (!token || !account_id) {
+			return
+		}
+
+		AuthService.authorize({ token, account_id }).then(response => {
+			console.log(response)
+			if (response.result) {
+				setIsLogin(true)
+			}
+		})
+	})
 
 	return (
 		<NavigationMenu className="bg-green-600">
@@ -243,7 +263,7 @@ const NavigationBar = ({ isLogin = false }: { isLogin?: boolean }) => {
 										className={customNavigationMenuTriggerStyle()}
 										href="#"
 									>
-										KanonKC
+										{localStorage.getItem("username")}
 									</NavigationMenuLink>
 								</ProfileDropdown>
 							</NavigationMenuItem>

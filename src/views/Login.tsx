@@ -20,15 +20,22 @@ import {
 } from "../components/shadcn/Card";
 import { Checkbox } from "../components/shadcn/Checkbox";
 import CenterContainer from "../layout/CenterLayout";
-
+import { AuthService } from "../services/Auth.service";
+import { AccountModel } from "../types/models/Account";
 // import { getAuthorization, login } from "../services/auth.service";
 
 const Login = () => {
 	const form = useForm();
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(form.getValues());
+		const { username, password } = form.getValues()
+		const account = await AuthService.login({username, password}) as AccountModel
+		localStorage.setItem('account_id',String(account.account_id))
+		localStorage.setItem('username',account.username)
+		if (account.token) {
+			localStorage.setItem('token',account.token)
+		}
 	};
 
 	return (
