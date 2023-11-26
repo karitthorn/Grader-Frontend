@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { useParams } from "react-router-dom";
 import { Separator } from "../components/shadcn/Seperator";
-import PlateEditor from "../components/plate-editor";
+import PlateEditor from "../components/PlateEditor";
 import ReadOnlyPlate from "../components/ReadOnlyPlate";
 import { Editor as MonacoEditor } from "@monaco-editor/react";
 import { Label } from "../components/shadcn/Label";
@@ -10,6 +10,7 @@ import { Combobox } from "../components/shadcn/Combobox";
 import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
 import { Button } from "../components/shadcn/Button";
 import TestcasesGradingIndicator from "../components/TestcasesGradingIndicator";
+import { styled } from "styled-components";
 
 const ViewProblem = () => {
 	const { problemId } = useParams();
@@ -17,7 +18,7 @@ const ViewProblem = () => {
 
 	return (
 		<NavbarMenuLayout xPad={false}>
-			<div className="flex mt-10">
+			<div className="flex xxl:mt-10 md:mt-5">
 				<div className="w-1/2">
 					{/* <h1 className="text-3xl font-bold">Problem Name</h1> */}
 					<ReadOnlyPlate className="h-[80vh]" />
@@ -43,12 +44,13 @@ const ViewProblem = () => {
 						</div>
 					</div>
 					<div className="">
-						<MonacoEditor
-							theme="vs-dark"
-							height="80vh"
-							defaultLanguage="python"
-							language={selectedLanguage}
-						/>
+						<MonacoEditorWrapper>
+							<MonacoEditor
+								theme="vs-dark"
+								defaultLanguage="python"
+								language={selectedLanguage}
+							/>
+						</MonacoEditorWrapper>
 					</div>
 
 					<div className="flex justify-end mt-1">
@@ -60,4 +62,11 @@ const ViewProblem = () => {
 	);
 };
 
+const MonacoEditorWrapper = styled.div`
+	height: 80vh;
+
+	@media (max-height: 1000px) {
+		height: 75vh;
+	}
+`;
 export default ViewProblem;
