@@ -14,14 +14,14 @@ import { styled } from "styled-components";
 
 const ViewProblem = () => {
 	const { problemId } = useParams();
+
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
 
 	return (
 		<NavbarMenuLayout xPad={false}>
 			<div className="flex xxl:mt-10 md:mt-5">
 				<div className="w-1/2">
-					{/* <h1 className="text-3xl font-bold">Problem Name</h1> */}
-					<ReadOnlyPlate className="h-[80vh]" />
+					<ReadOnlyPlate className="xl:h-[85vh] md:h-[75vh]" />
 				</div>
 				<div className="mx-3">
 					<Separator orientation="vertical" />
@@ -65,7 +65,7 @@ const ViewProblem = () => {
 const MonacoEditorWrapper = styled.div`
 	height: 80vh;
 
-	@media (max-height: 1000px) {
+	@media (max-height: 900px) {
 		height: 75vh;
 	}
 `;

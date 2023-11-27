@@ -10,7 +10,7 @@ import {
     navigationMenuTriggerStyle,
  } from "../components/shadcn/NevigationMenu";
 import { cn } from "../lib/utils";
-import NavigationBar from "../components/NavigationBar";
+import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { InferProps, any } from "prop-types";
 
 

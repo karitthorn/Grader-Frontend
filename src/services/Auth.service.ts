@@ -6,17 +6,17 @@ export const AuthService: AuthServiceAPI = {
     login: async (request) => {
         const response = await axios.post(`${BASE_URL}/api/login`, request);
         console.log(response)
-        return response.data;
+        return response;
     },
 
     logout: async (request) => {
         const response = await axios.post(`${BASE_URL}/api/logout`, request);
-        return response.data;
+        return response;
     },
 
     authorize: async (request) => {
         const response = await axios.put(`${BASE_URL}/api/token`, request);
-        return response.data;
+        return response;
     }
 
 }

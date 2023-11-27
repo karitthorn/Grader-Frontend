@@ -1,45 +1,40 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardTitle } from "./shadcn/Card";
 import { Button } from "./shadcn/Button";
+import { Check, CheckCircle2, X } from "lucide-react";
 
 const ProblemCard = () => {
-
-    const [toolVisible, setToolVisible] = useState(false);
+	const [toolVisible, setToolVisible] = useState(true);
 
 	return (
-		<Card onMouseOver={() => setToolVisible(true)} onMouseOut={() => setToolVisible(false)} className="pt-4 px-5 h-[200px]">
+		<Card
+			onMouseOver={() => setToolVisible(true)}
+			onMouseOut={() => setToolVisible(false)}
+			className="pt-4 px-5"
+		>
 			<div className="flex justify-between">
 				<div>
 					<CardTitle>Problem Name</CardTitle>
 				</div>
-				<div className={"flex gap-2 " + (toolVisible ? "" : "invisible")}>
-					<Button>View</Button>
-					<Button>Edit</Button>
-					<Button>Delete</Button>
-				</div>
 			</div>
 			<CardContent>
-				<div className="flex">
-					<div className="text-md w-1/2 h-[120px] text-ellipsis overflow-hidden">
-						Lorem ipsum dolor, sit amet consectetur adipisicing
-						elit. Et laudantium nobis dicta cum modi molestias quas
-						aliquid earum repudiandae a optio adipisci laboriosam
-						fugiat harum eaque assumenda sint similique, debitis
-						maxime? Dignissimos nam iste unde, dicta, quia non
-						itaque vero earum voluptatem, molestias quaerat dawdsad
-						asdwasdwa Lorem ipsum dolor, sit amet consectetur
-						adipisicing elit. Et laudantium nobis dicta cum modi
-						molestias quas aliquid earum repudiandae a optio
-						adipisci laboriosam fugiat harum eaque assumenda sint
-						similique, debitis maxime? Dignissimos nam iste unde,
-						dicta, quia non itaque vero earum voluptatem, molestias
-						quaerat dawdsad sdwasdwasdw asdwasdwa
+				<div className="flex justify-between">
+					<div className="flex justify-between w-5/6 items-center">
+						<div>Last Updated: 12/34/2123</div>
+						<div className="flex justify-between gap-10 text-base">
+							<div className="flex items-center"><Check className="mr-2 h-4 w-4 text-green-400" /> Source Code</div>
+							<div className="flex items-center"><X className="mr-2 h-4 w-4 text-green-400" /> Testcases</div>
+							<div className="flex items-center"><Check className="mr-2 h-4 w-4 text-green-400" /> No Runtime Error</div>
+						</div>
 					</div>
-
-					<div className="grid ml-10">
-						<p>Source Code</p>
-						<p>Testcases</p>
-						<p>No Runtime Error</p>
+					<div
+						className={
+							"flex gap-2 " + (toolVisible ? "" : "invisible")
+						}
+					>
+						<Button>View</Button>
+						<Button>Edit</Button>
+						<Button>Delete</Button>
 					</div>
 				</div>
 			</CardContent>

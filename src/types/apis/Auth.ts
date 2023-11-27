@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { AccountModel } from "../models/Account";
 import { AuthenticationResultResponse } from "../models/Auth";
 import { ErrorResponse } from "./ErrorHandling";
@@ -18,7 +19,7 @@ export type AuthorizationRequest = {
 }
 
 export type AuthServiceAPI = {
-    login: (request: LoginRequest) => Promise<AccountModel | ErrorResponse>;
-    logout: (request: LogoutRequest) => Promise<AuthenticationResultResponse>;
-    authorize: (request: AuthorizationRequest) => Promise<AuthenticationResultResponse>;
+    login: (request: LoginRequest) => Promise<AxiosResponse<AccountModel>>;
+    logout: (request: LogoutRequest) => Promise<AxiosResponse<AccountModel>>;
+    authorize: (request: AuthorizationRequest) => Promise<AxiosResponse<AuthenticationResultResponse>>;
 }

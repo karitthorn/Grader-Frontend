@@ -6,16 +6,16 @@ import axios from 'axios';
 export const AccountService: AccountServiceAPI = {
     create: async (request) => {
         const response = await axios.post<AccountModel>(`${BASE_URL}/api/accounts`, request);
-        return response.data;
+        return response;
     },
 
     getAll: async () => {
         const response = await axios.get<AccountModel[]>(`${BASE_URL}/api/accounts`);
-        return response.data;
+        return response;
     },
 
     get: async (id) => {
         const response = await axios.get<AccountModel>(`${BASE_URL}/api/accounts/${id}`);
-        return response.data;
+        return response;
     }
 }

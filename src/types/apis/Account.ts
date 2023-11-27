@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { AccountModel, AccountSecureModel } from "../models/Account";
 import { ErrorResponse } from "./ErrorHandling";
 
@@ -8,7 +9,7 @@ export type AccountCreateRequest = {
 }
 
 export type AccountServiceAPI = {
-    create: (request: AccountCreateRequest) => Promise<AccountModel | ErrorResponse>;
-    getAll: () => Promise<AccountSecureModel[]>;
-    get: (id:number) => Promise<AccountModel | ErrorResponse>;
+    create: (request: AccountCreateRequest) => Promise<AxiosResponse<AccountModel>>;
+    getAll: () => Promise<AxiosResponse<AccountModel[]>>;
+    get: (accountId:number) => Promise<AxiosResponse<AccountModel>>;
 }
