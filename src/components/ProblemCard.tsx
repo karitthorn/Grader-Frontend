@@ -10,17 +10,18 @@ const ProblemCard = () => {
 		<Card
 			onMouseOver={() => setToolVisible(true)}
 			onMouseOut={() => setToolVisible(false)}
-			className="pt-4 px-5"
+			className="pt-6 px-5"
 		>
-			<div className="flex justify-between">
+			{/* <div className="flex justify-between">
 				<div>
 					<CardTitle>Problem Name</CardTitle>
 				</div>
-			</div>
+			</div> */}
 			<CardContent>
 				<div className="flex justify-between">
 					<div className="flex justify-between w-5/6 items-center">
-						<div>Last Updated: 12/34/2123</div>
+						<h1 className="font-bold">Problem Name</h1>
+						<div className="text-base text-gray-400">Last Updated: 12/34/2123</div>
 						<div className="flex justify-between gap-10 text-base">
 							<div className="flex items-center"><Check className="mr-2 h-4 w-4 text-green-400" /> Source Code</div>
 							<div className="flex items-center"><X className="mr-2 h-4 w-4 text-green-400" /> Testcases</div>

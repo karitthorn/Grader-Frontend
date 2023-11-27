@@ -26,6 +26,8 @@ import {
 	RadioGroupItem,
 } from "../../../components/shadcn/RadioGroup";
 import { Switch } from "../../../components/shadcn/Switch";
+import { ChevronLeftIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const GeneralDetail = () => {
 	const form = useForm();
@@ -188,6 +190,9 @@ const Privacy = () => {
 };
 
 const CreateProblem = () => {
+
+	const navigate = useNavigate();
+
 	const [currentForm, setCurrentForm] = React.useState("general");
 
 	const handleFormSwitching = (e: any) => {
@@ -217,7 +222,8 @@ const CreateProblem = () => {
 		<NavbarSidebarLayout>
 			<div className="w-[96%] mx-auto mt-10">
 				<div className="flex justify-between">
-					<h1 className="text-3xl font-bold tracking-tight">
+					<h1 className="text-3xl font-bold tracking-tight flex">
+						<ChevronLeftIcon size={40} className="text-gray-300 cursor-pointer" onClick={() => navigate("/my/problems")}/>
 						Create Problem
 					</h1>
 					<div>
