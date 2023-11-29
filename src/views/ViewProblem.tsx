@@ -33,6 +33,7 @@ const ViewProblem = () => {
 								label="Select Language"
 								options={ProgrammingLanguageOptions}
 								onSelect={(value) => setSelectedLanguage(value)}
+								initialValue={selectedLanguage}
 							/>
 							<Combobox
 								label="Previous Submission"

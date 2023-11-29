@@ -36,7 +36,7 @@ const Login = () => {
 			username,
 			password,
 		});
-
+		
 		const WRONG_PASSWORD = status === 406
 		const SUCCESS = status === 202
 
