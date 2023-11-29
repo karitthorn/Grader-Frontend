@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { useParams } from "react-router-dom";
 import { Separator } from "../components/shadcn/Seperator";
@@ -11,17 +11,26 @@ import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
 import { Button } from "../components/shadcn/Button";
 import TestcasesGradingIndicator from "../components/TestcasesGradingIndicator";
 import { styled } from "styled-components";
+import { ProblemService } from "../services/Problem.service";
+import { Problem, ProblemPoplulateCreator } from "../types/models/Problem";
 
 const ViewProblem = () => {
 	const { problemId } = useParams();
 
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
+	const [problem, setProblem] = useState<ProblemPoplulateCreator>();
+
+	useEffect(() => {
+		ProblemService.get(Number(problemId)).then((response) => {
+			setProblem(response.data);
+		})
+	},[])
 
 	return (
 		<NavbarMenuLayout xPad={false}>
 			<div className="flex xxl:mt-10 md:mt-5">
 				<div className="w-1/2">
-					<ReadOnlyPlate className="xl:h-[85vh] md:h-[75vh]" />
+					<ReadOnlyPlate value={problem?.description} className="xl:h-[85vh] md:h-[75vh]" />
 				</div>
 				<div className="mx-3">
 					<Separator orientation="vertical" />

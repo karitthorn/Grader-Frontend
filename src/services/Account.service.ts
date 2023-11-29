@@ -10,7 +10,7 @@ export const AccountService: AccountServiceAPI = {
     },
 
     getAll: async () => {
-        const response = await axios.get<AccountModel[]>(`${BASE_URL}/api/accounts`);
+        const response = await axios.get<{accounts: AccountModel[]}>(`${BASE_URL}/api/accounts`);
         return response;
     },
 

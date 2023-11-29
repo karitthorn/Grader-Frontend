@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CommentsProvider } from '@udecode/plate-comments';
 import { Plate } from '@udecode/plate-common';
 import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
@@ -21,8 +21,9 @@ import { FloatingToolbarButtons } from './plate-ui/floating-toolbar-buttons';
 import { MentionCombobox } from './plate-ui/mention-combobox';
 import { DummyEditorValue } from '../constants/DummyEditorValue';
 
-export default function ReadOnlyPlate({className}: {
+export default function ReadOnlyPlate({className,value=null}: {
   className?: string
+  value?: any
 }) {
   const containerRef = useRef(null);
 
@@ -34,10 +35,24 @@ export default function ReadOnlyPlate({className}: {
     },
   ];
 
+  const lazyFormat = (description: string) => {
+    return [
+      {
+        id: '1',
+        type: ELEMENT_PARAGRAPH,
+        children: [{ text: description }],
+      },
+    ];
+  }
+
+  useEffect(() => {
+    console.log(value)
+  },[value])
+
   return (
     <DndProvider backend={HTML5Backend}>
       <CommentsProvider users={commentsUsers} myUserId={myUserId}>
-        <Plate plugins={plugins} initialValue={DummyEditorValue}>
+        <Plate plugins={plugins} initialValue={initialValue} value={[{ id:'2',type: 'p', children: [{ text: 'asdwa' }]}]}>
           <div
             ref={containerRef}
             className={cn(
@@ -54,7 +69,7 @@ export default function ReadOnlyPlate({className}: {
               variant="ghost"
               size="md"
               readOnly
-            />
+            /> 
 
             {/* <FloatingToolbar>
               <FloatingToolbarButtons />
