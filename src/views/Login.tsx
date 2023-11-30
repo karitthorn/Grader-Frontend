@@ -21,7 +21,7 @@ import {
 import { Checkbox } from "../components/shadcn/Checkbox";
 import CenterContainer from "../layout/CenterLayout";
 import { AuthService } from "../services/Auth.service";
-import { AccountModel } from "../types/models/Account";
+import { AccountModel } from "../types/models/Account.model";
 import { useNavigate } from "react-router-dom";
 // import { getAuthorization, login } from "../services/auth.service";
 

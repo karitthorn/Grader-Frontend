@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
-import { AccountModel } from "../models/Account";
-import { AuthenticationResultResponse } from "../models/Auth";
+import { AccountModel } from "../models/Account.model";
+import { AuthenticationResultResponse } from "../models/Auth.model";
 import { ErrorResponse } from "./ErrorHandling";
 
 export type LoginRequest = {
