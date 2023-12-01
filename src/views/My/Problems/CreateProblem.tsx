@@ -28,62 +28,93 @@ import {
 import { Switch } from "../../../components/shadcn/Switch";
 import { ChevronLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { PlateEditorValueType } from "../../../types/models/PlateEditorValueType";
+import DetailPlateEditor from "../../../components/DetailPlateEditor";
+import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+import { ProblemService } from "../../../services/Problem.service";
+import { ValidateProgramResponse } from "../../../types/apis/Problem.api";
 
-const GeneralDetail = () => {
-	const form = useForm();
+type CreateRequestForm = {
+	title: string,
+	description: PlateEditorValueType,
+	solution: string,
+	testcases: string,
+	time_limit: number
+}
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		console.log(form.getValues());
-	};
+const GeneralDetail = ({createRequest,setCreateRequest}:{
+	createRequest:CreateRequestForm,
+	setCreateRequest:React.Dispatch<React.SetStateAction<CreateRequestForm>>
+}) => {
+
+	const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
+
+	const handleEditorChange = (value:PlateEditorValueType) => {
+		if (!editorUpdateCooldown) {
+
+			setCreateRequest({...createRequest,description: value})
+
+			setEditorUpdateCooldown(true)
+			setTimeout(()=>{
+				setEditorUpdateCooldown(false)
+			},1000)
+		}
+	}
 
 	return (
-		<Form {...form}>
-			<form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
-				<FormField
-					control={form.control}
-					name="username"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Title</FormLabel>
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+		<div>
 
-				<FormField
-					control={form.control}
-					name="password"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Detail</FormLabel>
-							<FormControl>
-								<div className="rounded-lg border bg-background shadow">
-									<PlateEditor />
-								</div>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-			</form>
-		</Form>
+			<Label>Title</Label>
+			<Input value={createRequest.title} onChange={(e) => setCreateRequest({...createRequest,title: e.target.value})} type="text"/>
+
+			<Label>Detail</Label>
+			<div className="rounded-lg border bg-background shadow">
+				<DetailPlateEditor value={createRequest.description} onChange={e => handleEditorChange(e)}/>
+			</div>
+		</div>
+		
 	);
 };
 
-const Scoring = () => {
+const Scoring = ({createRequest,setCreateRequest}:{
+	createRequest:CreateRequestForm,
+	setCreateRequest:React.Dispatch<React.SetStateAction<CreateRequestForm>>
+}) => {
 	const [loading, setLoading] = useState(false);
 	const [displayResult, setDisplayResult] = useState(false);
 
 	const [delimeter, setDelimeter] = useState(":::");
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
 
+	const [validationResult, setValidationResult] = useState<ValidateProgramResponse>();
+
+	const testcaseFormat = (testcases: string) => {
+		// console.log({'a': testcases});
+		// // Replace all \r\n to \n
+		// let testcasesArray = testcases.replace(/\r\n/g, "\n");
+		// console.log({'a': testcasesArray});
+		// let testcasesArray1 = testcasesArray.split(delimeter + "\r\n")
+		// console.log({'a': testcasesArray1});
+		return testcases.replace(/\r\n/g, "\n").split(delimeter + "\n")
+	}
+
 	const handleValidation = () => {
 		// setLoading(true);
-		setDisplayResult(true);
+
+		// console.log({
+		// 	og: createRequest.testcases,
+		// 	testcaseFormat: testcaseFormat(createRequest.testcases)
+		// });
+		ProblemService.validateProgram({
+			source_code: createRequest.solution.replace(/\r\n/g, "\n"),
+			testcases: testcaseFormat(createRequest.testcases),
+			time_limited: createRequest.time_limit,
+			language: selectedLanguage,
+		}).then(response => {
+			console.log(response.data);
+			setValidationResult(response.data);
+			setDisplayResult(true);
+		})
 	};
 
 	useEffect(() => {
@@ -102,6 +133,7 @@ const Scoring = () => {
 							label="Select Language"
 							options={ProgrammingLanguageOptions}
 							onSelect={(value) => setSelectedLanguage(value)}
+							initialValue={selectedLanguage}
 						/>
 					</div>
 				</div>
@@ -109,7 +141,8 @@ const Scoring = () => {
 					theme="vs-dark"
 					height="35vh"
 					defaultLanguage="python"
-					// Change language base on selected language
+					value={createRequest.solution}
+					onChange={(e) => setCreateRequest({...createRequest,solution: String(e)})}
 					language={selectedLanguage}
 				/>
 
@@ -127,6 +160,8 @@ const Scoring = () => {
 					</div>
 				</div>
 				<MonacoEditor
+					value={createRequest.testcases}
+					onChange={(e) => setCreateRequest({...createRequest,testcases: String(e)})}
 					theme="vs-dark"
 					height="35vh"
 					defaultLanguage="python"
@@ -148,10 +183,10 @@ const Scoring = () => {
 				</div>
 			)}
 
-			{displayResult && (
+			{(displayResult && validationResult) && (
 				<div className="wrap w-full">
 					<div className="pr-5  h-[75vh] overflow-y-scroll">
-						<TestcaseValidationAccordian />
+						<TestcaseValidationAccordian runtimeResults={validationResult?.runtime_results}/>
 					</div>
 					<div className="flex justify-end mt-5">
 						<Button onClick={handleValidation} className="px-10">
@@ -164,16 +199,26 @@ const Scoring = () => {
 	);
 };
 
-const Requirement = () => {
+const Requirement = ({createRequest,setCreateRequest}:{
+	createRequest:CreateRequestForm,
+	setCreateRequest:React.Dispatch<React.SetStateAction<CreateRequestForm>>
+}) => {
 	return (
 		<div>
 			<Label>Time Limit Exceeded (seconds)</Label>
-			<Input type="number" />
+			<Input type="number" value={createRequest.time_limit} onChange={(e) => setCreateRequest({...createRequest,time_limit: Number(e.target.value)})} />
 		</div>
 	);
 };
 
-const Privacy = () => {
+const Privacy = ({createRequest,setCreateRequest}:{
+	createRequest:CreateRequestForm,
+	setCreateRequest:React.Dispatch<React.SetStateAction<CreateRequestForm>>
+}) => {
+
+	createRequest
+	setCreateRequest
+	
 	return (
 		<div>
 			<div className="flex items-center space-x-2">
@@ -190,10 +235,22 @@ const Privacy = () => {
 };
 
 const CreateProblem = () => {
-
 	const navigate = useNavigate();
 
 	const [currentForm, setCurrentForm] = React.useState("general");
+	const [createRequest,setCreateRequest] = useState<CreateRequestForm>({
+		title: "",
+		description: [
+			{
+			  id: '1',
+			  type: ELEMENT_PARAGRAPH,
+			  children: [{ text: '' }],
+			},
+		],
+		solution: "",
+		testcases: "",
+		time_limit: 1.5
+	})
 
 	const handleFormSwitching = (e: any) => {
 		console.log(e);
@@ -223,15 +280,20 @@ const CreateProblem = () => {
 			<div className="w-[96%] mx-auto mt-10">
 				<div className="flex justify-between">
 					<h1 className="text-3xl font-bold tracking-tight flex">
-						<ChevronLeftIcon size={40} className="text-gray-300 cursor-pointer" onClick={() => navigate("/my/problems")}/>
+						<ChevronLeftIcon
+							size={40}
+							className="text-gray-300 cursor-pointer"
+							onClick={() => navigate("/my/problems")}
+						/>
 						Create Problem
 					</h1>
 					<div>
 						<div className="flex">
 							<Tabs defaultValue="general">
 								<TabsList>
-									{TabList.map((tab) => (
+									{TabList.map((tab,index) => (
 										<TabsTrigger
+											key={index}
 											value={tab.value}
 											onClick={() =>
 												setCurrentForm(tab.value)
@@ -248,10 +310,18 @@ const CreateProblem = () => {
 				</div>
 
 				<div className="mt-3">
-					{currentForm === "general" && <GeneralDetail />}
-					{currentForm === "scoring" && <Scoring />}
-					{currentForm === "requirement" && <Requirement />}
-					{currentForm === "privacy" && <Privacy />}
+					{currentForm === "general" && <GeneralDetail 
+						createRequest={createRequest} setCreateRequest={setCreateRequest}
+					/>}
+					{currentForm === "scoring" && <Scoring 
+						createRequest={createRequest} setCreateRequest={setCreateRequest}
+					/>}
+					{currentForm === "requirement" && <Requirement 
+						createRequest={createRequest} setCreateRequest={setCreateRequest}
+					/>}
+					{currentForm === "privacy" && <Privacy 
+						createRequest={createRequest} setCreateRequest={setCreateRequest}
+					/>}
 				</div>
 			</div>
 		</NavbarSidebarLayout>

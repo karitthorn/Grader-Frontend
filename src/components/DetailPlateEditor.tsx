@@ -19,22 +19,28 @@ import { FixedToolbarButtons } from './plate-ui/fixed-toolbar-buttons';
 import { FloatingToolbar } from './plate-ui/floating-toolbar';
 import { FloatingToolbarButtons } from './plate-ui/floating-toolbar-buttons';
 import { MentionCombobox } from './plate-ui/mention-combobox';
+import { PlateEditorValueType } from '../types/models/PlateEditorValueType';
 
-export default function PlateEditor() {
+export default function DetailPlateEditor({value,onChange}:{
+    value?: PlateEditorValueType,
+    onChange?: (value: PlateEditorValueType) => void
+}) {
   const containerRef = useRef(null);
 
   const initialValue = [
     {
       id: '1',
       type: ELEMENT_PARAGRAPH,
-      children: [{ text: 'Hello, World!' }],
+      children: [{ text: 'Type something ...' }],
     },
   ];
 
   return (
     <DndProvider backend={HTML5Backend}>
       <CommentsProvider users={commentsUsers} myUserId={myUserId}>
-        <Plate plugins={plugins} initialValue={initialValue}>
+        <Plate plugins={plugins} initialValue={value} onChange={(e) => {
+            onChange && onChange(e)
+        }}>
           <div
             ref={containerRef}
             className={cn(

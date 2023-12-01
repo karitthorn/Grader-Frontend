@@ -8,30 +8,41 @@ import {
 } from "./shadcn/Accordion";
 import { Label } from "./shadcn/Label";
 import { Input } from "./shadcn/Input";
+import { Textarea } from "./shadcn/Textarea";
+import { RuntimeResult } from "../types/apis/Problem.api";
+import { Files } from "lucide-react";
+import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
 
-const TestcaseValidationInstance = ({value} : {
-    value: string
+const TestcaseValidationInstance = ({
+	value,
+	inputValue,
+	outputValue,
+	status,
+}: {
+	value: string;
+	inputValue: string;
+	outputValue: string;
+	status: string;
 }) => {
-
-	const [inputValue, setInputValue] = useState("1 2 3");
-	const [outputValue, setOutputValue] = useState("Hello World!");
+	// const [inputValue, setInputValue] = useState("1 2 3");
+	// const [outputValue, setOutputValue] = useState("Hello World!");
 
 	return (
 		<AccordionItem value={value}>
-			<AccordionTrigger>Testcase #1</AccordionTrigger>
+			<AccordionTrigger>Testcase #{value}</AccordionTrigger>
 			<AccordionContent>
-				<div className="flex gap-5">
+				<div className="flex gap-5 pl-1">
 					<div className="w-5/12">
 						<Label>Input</Label>
-						<Input className="mt-1" value={inputValue} />
+						<Textarea readOnly className="mt-1 font-mono cursor-pointer" value={inputValue} onClick={() => navigator.clipboard.writeText(inputValue)}/>
 					</div>
 					<div className="w-5/12">
 						<Label>Output</Label>
-						<Input className="mt-1" value={outputValue} />
+						<Textarea readOnly className="mt-1 font-mono cursor-pointer" value={outputValue} onClick={() => navigator.clipboard.writeText(outputValue)}/>
 					</div>
 					<div className="w-2/12">
 						<Label>Runtime Status</Label>
-						<p className="text-xl font-bold">OK</p>
+						<p className={"text-xl font-bold " + TestcaseStatusIndicatorColor[status as TestcaseGradingResultStatus]}>{status}</p>
 					</div>
 				</div>
 			</AccordionContent>
@@ -39,19 +50,22 @@ const TestcaseValidationInstance = ({value} : {
 	);
 };
 
-const TestcaseValidationAccordian = () => {
-	return <Accordion type="multiple">
-        <TestcaseValidationInstance value="1"/>
-        <TestcaseValidationInstance value="2"/>
-        <TestcaseValidationInstance value="3"/>
-        <TestcaseValidationInstance value="4"/>
-		<TestcaseValidationInstance value="5"/>
-		<TestcaseValidationInstance value="6"/>
-		<TestcaseValidationInstance value="7"/>
-		<TestcaseValidationInstance value="8"/>
-		<TestcaseValidationInstance value="9"/>
-
-    </Accordion>;
+const TestcaseValidationAccordian = ({runtimeResults=[]}:{
+	runtimeResults?: RuntimeResult[]
+}) => {
+	return (
+		<Accordion type="multiple">
+			{runtimeResults?.map((result, index) => (
+				<TestcaseValidationInstance
+					key={index}
+					value={String(index + 1)}
+					inputValue={result.input}
+					outputValue={result.output}
+					status={result.runtime_status}
+				/>
+			))}
+		</Accordion>
+	);
 };
 
 export default TestcaseValidationAccordian;

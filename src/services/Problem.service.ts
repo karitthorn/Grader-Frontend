@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProblemServiceAPI } from "../types/apis/Problem.api";
+import { GetAllProblemsByAccountResponse, ProblemServiceAPI, ValidateProgramResponse } from "../types/apis/Problem.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
 import {  ProblemModel, ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
 import { ErrorResponse } from "../types/apis/ErrorHandling";
@@ -13,6 +13,10 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.get<{problems: ProblemPoplulateCreatorModel[]}>(`${BASE_URL}/api/problems?account_id=${accountId}`);
     },
 
+    getAllByAccount: async (accountId) => {
+        return axios.get<GetAllProblemsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/problems`);
+    },
+
     get: async (problemId) => {
         return axios.get<ProblemPoplulateCreatorModel>(`${BASE_URL}/api/problems/${problemId}`);
     },
@@ -23,5 +27,9 @@ export const ProblemService: ProblemServiceAPI = {
 
     deleteMultiple: async (problemIds) => {
         return axios.put<null>(`${BASE_URL}/api/problems/`, {problem: problemIds});
+    },
+
+    validateProgram: async (request) => {
+        return axios.post<ValidateProgramResponse>(`${BASE_URL}/api/problems/validate`, request);
     }
 }
