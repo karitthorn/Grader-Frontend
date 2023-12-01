@@ -17,6 +17,7 @@ import { SubmissionService } from "../services/Submission.service";
 import {
 	GetSubmissionByAccountProblemResponse,
 	SubmissionModel,
+	SubmissionPopulateSubmissionTestcasesSecureModel,
 } from "../types/models/Submission.model";
 import { SubmitProblemResponse } from "../types/apis/Submission.api";
 import PreviousSubmissionsCombobox from "../components/PreviousSubmissionsCombobox";
@@ -28,36 +29,35 @@ const ViewProblem = () => {
 
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
 	const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
-	const [previousSubmissions, setPreviousSubmissions] =
-		useState<GetSubmissionByAccountProblemResponse>();
 
 	const [grading, setGrading] = useState<boolean>(false);
-	const [submitCodeValue, setSubmitCodeValue] = useState<any>(
-		""
-	);
-	const [lastedSubmission, setLastedSubmission] =
+	const [submitCodeValue, setSubmitCodeValue] = useState<any>("");
+
+	const [previousSubmissions, setPreviousSubmissions] =
 		useState<GetSubmissionByAccountProblemResponse>();
+	const [lastedSubmission, setLastedSubmission] =
+		useState<SubmissionPopulateSubmissionTestcasesSecureModel>();
 
-	const handleSelectPreviousSubmission = (submissionId:number) => {
-		let submission = null
-		if (submissionId === previousSubmissions?.best_submission?.submission_id) {
-			submission = previousSubmissions?.best_submission
-		}
-		else {
-
+	const handleSelectPreviousSubmission = (submissionId: number) => {
+		let submission = null;
+		if (
+			submissionId === previousSubmissions?.best_submission?.submission_id
+		) {
+			submission = previousSubmissions?.best_submission;
+		} else {
 			previousSubmissions?.submissions?.forEach((sub) => {
 				if (sub.submission_id === submissionId) {
-					submission = sub
-					return
+					submission = sub;
+					return;
 				}
-			})
+			});
 		}
 
 		if (submission) {
-			setSubmitCodeValue(submission.submission_code)
-			setLastedSubmission(submission)
+			setSubmitCodeValue(submission.submission_code);
+			setLastedSubmission(submission);
 		}
-	}
+	};
 
 	useEffect(() => {
 		ProblemService.get(Number(problemId)).then((response) => {
@@ -77,8 +77,7 @@ const ViewProblem = () => {
 		SubmissionService.submit(accountId, Number(problemId), {
 			submission_code: String(submitCodeValue),
 		}).then((response) => {
-			const submission = SubmitProblemResponse2GetSubmissionByAccountProblemResponse(response.data)
-			setLastedSubmission(submission);
+			setLastedSubmission(response.data);
 			setGrading(false);
 		});
 	};
@@ -133,7 +132,11 @@ const ViewProblem = () => {
 								previousSubmissions?.best_submission
 							}
 							submissions={previousSubmissions?.submissions}
-							onSelect={(submissionId) => handleSelectPreviousSubmission(Number(submissionId))}
+							onSelect={(submissionId) =>
+								handleSelectPreviousSubmission(
+									Number(submissionId)
+								)
+							}
 						/>
 						<Button
 							disabled={grading || !submitCodeValue}

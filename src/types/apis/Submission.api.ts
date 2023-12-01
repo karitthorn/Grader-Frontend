@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { GetSubmissionByAccountProblemResponse, SubmissionModel, SubmissionTestcaseSecureModel } from "../models/Submission.model";
+import { GetSubmissionByAccountProblemResponse, SubmissionModel, SubmissionPopulateSubmissionTestcasesSecureModel, SubmissionTestcaseSecureModel } from "../models/Submission.model";
 import { ProblemPopulateAccountSecureModel } from "../models/Problem.model";
 
 export type SubmitProblemRequest = {
@@ -20,6 +20,6 @@ export type SubmitProblemResponse = {
 }
 
 export type SubmissionServiceAPI = {
-    submit: (accountId:number,problemId:number,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmitProblemResponse>>;
+    submit: (accountId:number,problemId:number,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
     getByAccountProblem: (accountId:number,problemId:number) => Promise<AxiosResponse<GetSubmissionByAccountProblemResponse>>;
 }

@@ -69,6 +69,18 @@ export type GetSubmissionByAccountProblemSubmissionModel = {
 }
 
 export type GetSubmissionByAccountProblemResponse = {
-    best_submission: GetSubmissionByAccountProblemSubmissionModel
-    submissions: GetSubmissionByAccountProblemSubmissionModel[]
+    best_submission: SubmissionPopulateSubmissionTestcasesSecureModel
+    submissions: SubmissionPopulateSubmissionTestcasesSecureModel[]
+}
+
+export type SubmissionPopulateSubmissionTestcasesSecureModel = {
+    submission_id: number
+    problem: number
+    submission_code: string
+    is_passed: boolean
+    date: string
+    score: number
+    max_score: number
+    passed_ratio: number
+    runtime_output: SubmissionTestcaseSecureModel[]
 }

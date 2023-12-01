@@ -73,7 +73,7 @@ export function PreviousSubmissionsCombobox({
 		label: (
 			<div className="w-full">
 				<div className="flex justify-between items-center">
-					<div>
+					<div className="font-mono">
 						{readableDateFormat(bestSubmission?.date)}
 					</div>
 					<div>
@@ -92,7 +92,7 @@ export function PreviousSubmissionsCombobox({
 			label: (
 				<div className="w-full">
 					<div className="flex justify-between items-center">
-						<div>
+						<div className="font-mono">
 							{readableDateFormat(submission?.date)}{" "}
 						</div>
 						<div>
@@ -109,7 +109,7 @@ export function PreviousSubmissionsCombobox({
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
-			<PopoverTrigger asChild>
+			<PopoverTrigger disabled={submissions.length === 0} asChild>
 				<Button
 					variant="outline"
 					role="combobox"
@@ -119,7 +119,7 @@ export function PreviousSubmissionsCombobox({
 					{value
 						? options.find((framework) => framework.value === value)
 								?.label
-						: "Previous Submission"}
+						: (submissions.length === 0 ?  "No Previous Submission" : "Previous Submissions")}
 					<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 				</Button>
 			</PopoverTrigger>
@@ -157,7 +157,7 @@ export function PreviousSubmissionsCombobox({
 					</CommandGroup>
                     <Separator/>
 					<CommandGroup className="h-[50vh] overflow-y-scroll">
-						{options.map((framework, index) => (
+						{options.map((framework) => (
 							<CommandItem
 								key={framework.value}
 								value={framework.value}

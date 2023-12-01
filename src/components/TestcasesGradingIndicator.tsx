@@ -19,7 +19,10 @@ const TestcaseGradingResult = ({ no,status }: {
 	return (
 		<HoverCard>
 			<HoverCardTrigger>
-				<div className={"px-2 py-4 cursor-pointer " + 'bg-' + ColorMap[status]}></div>
+				{status === "OK" && <div className={"px-2 py-4 cursor-pointer " + 'bg-green-400'}></div>}
+				{status === "TIMEOUT" && <div className={"px-2 py-4 cursor-pointer " + 'bg-yellow-400'}></div>}
+				{status === "ERROR" && <div className={"px-2 py-4 cursor-pointer " + 'bg-red-400'}></div>}
+				{status === "FAILED" && <div className={"px-2 py-4 cursor-pointer " + 'bg-zinc-300'}></div>}
 			</HoverCardTrigger>
 			<HoverCardContent>
         <p className="font-bold">Testcase #{no}</p>
