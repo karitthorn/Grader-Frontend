@@ -27,13 +27,21 @@ import {
 } from "../../../components/shadcn/RadioGroup";
 import { Switch } from "../../../components/shadcn/Switch";
 import { ChevronLeftIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PlateEditorValueType } from "../../../types/models/PlateEditorValueType";
 import DetailPlateEditor from "../../../components/DetailPlateEditor";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { ProblemService } from "../../../services/Problem.service";
-import { CreateProblemRequest, ValidateProgramResponse } from "../../../types/apis/Problem.api";
+import {
+	CreateProblemRequest,
+	RuntimeResult,
+	ValidateProgramResponse,
+} from "../../../types/apis/Problem.api";
 import styled from "styled-components";
+import {
+	ProblemModel,
+	ProblemPoplulateCreatorModel,
+} from "../../../types/models/Problem.model";
 
 type CreateRequestForm = {
 	title: string;
@@ -45,22 +53,25 @@ type CreateRequestForm = {
 	time_limit: number;
 };
 
-const testcaseFormat = (testcases: string,delimeter: string) => {
+const testcaseFormat = (testcases: string, delimeter: string) => {
 	return testcases.replace(/\r\n/g, "\n").split(delimeter + "\n");
 };
 
-const transformCreateRequestForm2CreateProblemRequest = (createRequest: CreateRequestForm): CreateProblemRequest => {
+const transformCreateRequestForm2CreateProblemRequest = (
+	createRequest: CreateRequestForm
+): CreateProblemRequest => {
 	return {
 		title: createRequest.title,
 		language: createRequest.language,
 		description: JSON.stringify(createRequest.description),
 		solution: createRequest.solution,
-		testcases: testcaseFormat(createRequest.testcases,createRequest.testcase_delimeter),
+		testcases: testcaseFormat(
+			createRequest.testcases,
+			createRequest.testcase_delimeter
+		),
 		time_limit: createRequest.time_limit,
-	}
-}
-
-
+	};
+};
 
 const GeneralDetail = ({
 	createRequest,
@@ -82,6 +93,10 @@ const GeneralDetail = ({
 		}
 	};
 
+	useEffect(() => {
+		console.log(createRequest.description);
+	}, [createRequest]);
+
 	return (
 		<div>
 			<Label>Title</Label>
@@ -98,32 +113,34 @@ const GeneralDetail = ({
 
 			<Label>Detail</Label>
 			<div className="rounded-lg border bg-background shadow">
-				<DetailPlateEditor
-					value={createRequest.description}
-					onChange={(e) => handleEditorChange(e)}
-				/>
+				{createRequest.description.length > 0 && (
+					<DetailPlateEditor
+						value={createRequest.description}
+						onChange={(e) => handleEditorChange(e)}
+					/>
+				)}
 			</div>
 		</div>
 	);
 };
 
 const Scoring = ({
+	problem,
 	createRequest,
 	setCreateRequest,
 }: {
+	problem: ProblemPoplulateCreatorModel;
 	createRequest: CreateRequestForm;
 	setCreateRequest: React.Dispatch<React.SetStateAction<CreateRequestForm>>;
 }) => {
 	const [loading, setLoading] = useState(false);
-	const [displayResult, setDisplayResult] = useState(false);
+	const [displayResult, setDisplayResult] = useState(true);
 
 	const [delimeter, setDelimeter] = useState(":::");
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
 
 	const [validationResult, setValidationResult] =
 		useState<ValidateProgramResponse>();
-
-	
 
 	const handleValidation = () => {
 		// setLoading(true);
@@ -134,7 +151,10 @@ const Scoring = ({
 		// });
 		ProblemService.validateProgram({
 			source_code: createRequest.solution.replace(/\r\n/g, "\n"),
-			testcases: testcaseFormat(createRequest.testcases,createRequest.testcase_delimeter),
+			testcases: testcaseFormat(
+				createRequest.testcases,
+				createRequest.testcase_delimeter
+			),
 			time_limited: createRequest.time_limit,
 			language: selectedLanguage,
 		}).then((response) => {
@@ -150,7 +170,7 @@ const Scoring = ({
 
 	return (
 		<div className="flex">
-			<div className="w-1/2 h-[80vh] overflow-y-scroll">
+			<div className="h-[80vh] overflow-y-scroll">
 				<div className="flex justify-between mb-1">
 					<div>
 						<Label>Source Code</Label>
@@ -159,12 +179,19 @@ const Scoring = ({
 						<Combobox
 							label="Select Language"
 							options={ProgrammingLanguageOptions}
-							onSelect={(value) => setCreateRequest({...createRequest,language: value})}
+							onSelect={(value) =>
+								setCreateRequest({
+									...createRequest,
+									language: value,
+								})
+							}
 							initialValue={selectedLanguage}
 						/>
 					</div>
 				</div>
+				<div>
 					<MonacoEditor
+						className=""
 						theme="vs-dark"
 						height="35vh"
 						defaultLanguage="python"
@@ -177,6 +204,7 @@ const Scoring = ({
 						}
 						language={createRequest.language}
 					/>
+				</div>
 
 				<div className="my-1 flex justify-between items-center">
 					<Label className="">Testcases</Label>
@@ -187,11 +215,18 @@ const Scoring = ({
 						<Input
 							className="w-1/2"
 							value={createRequest.testcase_delimeter}
-							onChange={(e) => setCreateRequest({...createRequest,testcase_delimeter: e.target.value})}
+							onChange={(e) =>
+								setCreateRequest({
+									...createRequest,
+									testcase_delimeter: e.target.value,
+								})
+							}
 						/>
 					</div>
 				</div>
+				<div>
 					<MonacoEditor
+						className=""
 						value={createRequest.testcases}
 						onChange={(e) =>
 							setCreateRequest({
@@ -203,12 +238,13 @@ const Scoring = ({
 						height="35vh"
 						defaultLanguage="python"
 					/>
+				</div>
 			</div>
 			<div>
 				<Separator className="mx-2" orientation="vertical" />
 			</div>
 
-			{!displayResult && (
+			{/* {!displayResult && (
 				<div className="m-auto">
 					{!loading ? (
 						<Button onClick={handleValidation} className="px-10">
@@ -220,12 +256,12 @@ const Scoring = ({
 				</div>
 			)}
 
-			{displayResult && validationResult && (
-				<div className="wrap w-full">
+			{(validationResult || problem) && (
+				<div className="wrap w-full w-1/2">
 					<div className="pr-5 h-[80vh] overflow-y-scroll">
-						<TestcaseValidationAccordian
-							runtimeResults={validationResult?.runtime_results}
-						/>
+						{<TestcaseValidationAccordian
+							runtimeResults={validationResult ? validationResult.runtime_results : problem.testcases}
+						/>}
 					</div>
 					<div className="flex justify-end mt-5">
 						<Button onClick={handleValidation} className="px-10">
@@ -233,7 +269,7 @@ const Scoring = ({
 						</Button>
 					</div>
 				</div>
-			)}
+			)} */}
 		</div>
 	);
 };
@@ -287,46 +323,37 @@ const Privacy = ({
 	);
 };
 
-const CreateProblem = () => {
-
+const EditProblem = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
+	const { problemId } = useParams();
+
 	const navigate = useNavigate();
+
+	const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
 
 	const [currentForm, setCurrentForm] = React.useState("general");
 	const [createRequest, setCreateRequest] = useState<CreateRequestForm>({
 		title: "",
-		description: [
-			{
-				id: "1",
-				type: ELEMENT_PARAGRAPH,
-				children: [{ text: "" }],
-			},
-		],
+		description: [],
 		language: "python",
 		solution: "",
 		testcases: "",
 		testcase_delimeter: ":::",
 		time_limit: 1.5,
 	});
-	const [problemId, setProblemId] = useState(-1);
 
 	const handleFormSwitching = (e: any) => {
 		console.log(e);
 	};
 
 	const handleSave = () => {
-		if (problemId === -1) {
-			ProblemService.create(accountId,transformCreateRequestForm2CreateProblemRequest(createRequest)).then(response => {
-				setProblemId(response.data.problem_id)
-				console.log('Create Completed',response.data)
-			})
-		}
-		else {
-			ProblemService.update(problemId,transformCreateRequestForm2CreateProblemRequest(createRequest)).then(response => {
-				console.log('Update Completed',response.data)
-			}) 
-		}
-	}
+		ProblemService.update(
+			Number(problemId),
+			transformCreateRequestForm2CreateProblemRequest(createRequest)
+		).then((response) => {
+			console.log("Update Completed", response.data);
+		});
+	};
 
 	const TabList = [
 		{
@@ -347,6 +374,24 @@ const CreateProblem = () => {
 		},
 	];
 
+	useEffect(() => {
+		ProblemService.get(Number(problemId)).then((response) => {
+			console.log(response.data);
+			setProblem(response.data);
+			setCreateRequest({
+				title: response.data.title,
+				description: JSON.parse(response.data.description),
+				language: response.data.language,
+				solution: response.data.solution,
+				testcases: response.data.testcases
+					.map((testcase) => testcase.input)
+					.join(":::\n"),
+				testcase_delimeter: ":::",
+				time_limit: response.data.time_limit,
+			});
+		});
+	}, []);
+
 	return (
 		<NavbarSidebarLayout>
 			<div className="w-[96%] mx-auto mt-10">
@@ -357,7 +402,9 @@ const CreateProblem = () => {
 							className="text-gray-300 cursor-pointer"
 							onClick={() => navigate("/my/problems")}
 						/>
-						{createRequest.title === "" ? "Create Problem" : createRequest.title}
+						{createRequest.title === ""
+							? "Create Problem"
+							: createRequest.title}
 					</h1>
 					<div>
 						<div className="flex">
@@ -376,7 +423,9 @@ const CreateProblem = () => {
 									))}
 								</TabsList>
 							</Tabs>
-							<Button onClick={handleSave} className="px-10 ml-5">Save</Button>
+							<Button onClick={handleSave} className="px-10 ml-5">
+								Save
+							</Button>
 						</div>
 					</div>
 				</div>
@@ -390,6 +439,7 @@ const CreateProblem = () => {
 					)}
 					{currentForm === "scoring" && (
 						<Scoring
+							problem={problem as ProblemPoplulateCreatorModel}
 							createRequest={createRequest}
 							setCreateRequest={setCreateRequest}
 						/>
@@ -420,4 +470,4 @@ const MonacoEditorWrapper = styled.div`
 	}
 `;
 
-export default CreateProblem;
+export default EditProblem;

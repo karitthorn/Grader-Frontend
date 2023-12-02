@@ -5,6 +5,7 @@ export type TestcaseModel = {
     input: string
     output: string
     problem: number
+    runtime_status: string
 }
 
 export type ProblemModel = {

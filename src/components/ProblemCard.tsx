@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Card, CardContent, CardTitle } from "./shadcn/Card";
 import { Button } from "./shadcn/Button";
 import { Check, CheckCircle2, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const ProblemCard = ({ title }: { title: string }) => {
+const ProblemCard = ({ title,problemId }: { title: string,problemId:number }) => {
+
+	const navigate = useNavigate();
+
 	const [highlightTitle, setHighlightTitle] = useState(false);
 	const [toolVisible, setToolVisible] = useState(true);
 
@@ -19,6 +23,7 @@ const ProblemCard = ({ title }: { title: string }) => {
 
 	return (
 		<Card
+			onClick={() => navigate(`/my/problems/${problemId}`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			className="pt-6 px-5"

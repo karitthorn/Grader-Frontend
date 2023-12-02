@@ -10,7 +10,6 @@ function App() {
 	const [isLogin, setIsLogin] = useState(false);
 
 	useEffect(() => {
-		console.log("OKๅ")
 		
 		const token = localStorage.getItem("token");
 		const account_id = Number(localStorage.getItem("account_id"));
@@ -19,9 +18,7 @@ function App() {
 			return;
 		}
 
-		console.log("OK")
 		AuthService.authorize({ token, account_id }).then((response) => {
-			console.log(response);
 			if (response.data.result) {
 				setIsLogin(true);
 			}

@@ -7,7 +7,6 @@ import { AuthenticationResultResponse } from "../types/models/Auth.model";
 export const AuthService: AuthServiceAPI = {
     login: async (request) => {
         const response = await axios.post<AccountModel>(`${BASE_URL}/api/login`, request);
-        console.log(response)
         return response;
     },
 

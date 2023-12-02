@@ -31,7 +31,7 @@ const Register = () => {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (validatedForm()) {
-			console.log(form.getValues());
+			// console.log(form.getValues());
 		}
 	};
 

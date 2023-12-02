@@ -41,8 +41,8 @@ const MyProblems = () => {
 
 				<div className="grid gap-y-3 mt-6 h-[80vh] pr-5 overflow-y-scroll">
 					{
-						problems.map((problem) => (
-							<ProblemCard title={problem.title}/>
+						problems.map((problem,index) => (
+							<ProblemCard problemId={problem.problem_id} key={index} title={problem.title}/>
 						))
 					}
 				</div>
