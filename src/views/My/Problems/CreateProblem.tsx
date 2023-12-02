@@ -8,7 +8,7 @@ import {
 	FormControl,
 	FormMessage,
 } from "../../../components/shadcn/Form";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { Input } from "../../../components/shadcn/Input";
 import { Checkbox } from "../../../components/shadcn/Checkbox";
 import { Button } from "../../../components/shadcn/Button";
@@ -32,8 +32,12 @@ import { PlateEditorValueType } from "../../../types/models/PlateEditorValueType
 import DetailPlateEditor from "../../../components/DetailPlateEditor";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { ProblemService } from "../../../services/Problem.service";
-import { CreateProblemRequest, ValidateProgramResponse } from "../../../types/apis/Problem.api";
+import {
+	CreateProblemRequest,
+	ValidateProgramResponse,
+} from "../../../types/apis/Problem.api";
 import styled from "styled-components";
+import { toast } from "../../../components/shadcn/UseToast";
 
 type CreateRequestForm = {
 	title: string;
@@ -45,22 +49,44 @@ type CreateRequestForm = {
 	time_limit: number;
 };
 
-const testcaseFormat = (testcases: string,delimeter: string) => {
+const TabList = [
+	{
+		value: "general",
+		label: "General Detail",
+	},
+	{
+		value: "scoring",
+		label: "Scoring",
+	},
+	{
+		value: "requirement",
+		label: "Requirement",
+	},
+	{
+		value: "privacy",
+		label: "Privacy",
+	},
+];
+
+const testcaseFormat = (testcases: string, delimeter: string) => {
 	return testcases.replace(/\r\n/g, "\n").split(delimeter + "\n");
 };
 
-const transformCreateRequestForm2CreateProblemRequest = (createRequest: CreateRequestForm): CreateProblemRequest => {
+const transformCreateRequestForm2CreateProblemRequest = (
+	createRequest: CreateRequestForm
+): CreateProblemRequest => {
 	return {
 		title: createRequest.title,
 		language: createRequest.language,
 		description: JSON.stringify(createRequest.description),
 		solution: createRequest.solution,
-		testcases: testcaseFormat(createRequest.testcases,createRequest.testcase_delimeter),
+		testcases: testcaseFormat(
+			createRequest.testcases,
+			createRequest.testcase_delimeter
+		),
 		time_limit: createRequest.time_limit,
-	}
-}
-
-
+	};
+};
 
 const GeneralDetail = ({
 	createRequest,
@@ -123,8 +149,6 @@ const Scoring = ({
 	const [validationResult, setValidationResult] =
 		useState<ValidateProgramResponse>();
 
-	
-
 	const handleValidation = () => {
 		// setLoading(true);
 
@@ -134,7 +158,10 @@ const Scoring = ({
 		// });
 		ProblemService.validateProgram({
 			source_code: createRequest.solution.replace(/\r\n/g, "\n"),
-			testcases: testcaseFormat(createRequest.testcases,createRequest.testcase_delimeter),
+			testcases: testcaseFormat(
+				createRequest.testcases,
+				createRequest.testcase_delimeter
+			),
 			time_limited: createRequest.time_limit,
 			language: selectedLanguage,
 		}).then((response) => {
@@ -159,24 +186,29 @@ const Scoring = ({
 						<Combobox
 							label="Select Language"
 							options={ProgrammingLanguageOptions}
-							onSelect={(value) => setCreateRequest({...createRequest,language: value})}
+							onSelect={(value) =>
+								setCreateRequest({
+									...createRequest,
+									language: value,
+								})
+							}
 							initialValue={selectedLanguage}
 						/>
 					</div>
 				</div>
-					<MonacoEditor
-						theme="vs-dark"
-						height="35vh"
-						defaultLanguage="python"
-						value={createRequest.solution}
-						onChange={(e) =>
-							setCreateRequest({
-								...createRequest,
-								solution: String(e),
-							})
-						}
-						language={createRequest.language}
-					/>
+				<MonacoEditor
+					theme="vs-dark"
+					height="35vh"
+					defaultLanguage="python"
+					value={createRequest.solution}
+					onChange={(e) =>
+						setCreateRequest({
+							...createRequest,
+							solution: String(e),
+						})
+					}
+					language={createRequest.language}
+				/>
 
 				<div className="my-1 flex justify-between items-center">
 					<Label className="">Testcases</Label>
@@ -187,53 +219,68 @@ const Scoring = ({
 						<Input
 							className="w-1/2"
 							value={createRequest.testcase_delimeter}
-							onChange={(e) => setCreateRequest({...createRequest,testcase_delimeter: e.target.value})}
+							onChange={(e) =>
+								setCreateRequest({
+									...createRequest,
+									testcase_delimeter: e.target.value,
+								})
+							}
 						/>
 					</div>
 				</div>
-					<MonacoEditor
-						value={createRequest.testcases}
-						onChange={(e) =>
-							setCreateRequest({
-								...createRequest,
-								testcases: String(e),
-							})
-						}
-						theme="vs-dark"
-						height="35vh"
-						defaultLanguage="python"
-					/>
+				<MonacoEditor
+					value={createRequest.testcases}
+					onChange={(e) =>
+						setCreateRequest({
+							...createRequest,
+							testcases: String(e),
+						})
+					}
+					theme="vs-dark"
+					height="35vh"
+					defaultLanguage="python"
+				/>
 			</div>
 			<div>
 				<Separator className="mx-2" orientation="vertical" />
 			</div>
 
-			{!displayResult && (
-				<div className="m-auto">
-					{!loading ? (
-						<Button onClick={handleValidation} className="px-10">
-							Validate
-						</Button>
-					) : (
-						<h1>Validation ...</h1>
-					)}
-				</div>
-			)}
+			<div className="w-1/2">
+				{!displayResult && (
+					<div className="m-auto">
+						{!loading ? (
+							<Button
+								onClick={handleValidation}
+								className="px-10"
+							>
+								Validate
+							</Button>
+						) : (
+							<h1>Validation ...</h1>
+						)}
+					</div>
+				)}
 
-			{displayResult && validationResult && (
-				<div className="wrap w-full">
-					<div className="pr-5 h-[80vh] overflow-y-scroll">
-						<TestcaseValidationAccordian
-							runtimeResults={validationResult?.runtime_results}
-						/>
+				{displayResult && validationResult && (
+					<div className="wrap w-full">
+						<div className="pr-5 h-[80vh] overflow-y-scroll">
+							<TestcaseValidationAccordian
+								runtimeResults={
+									validationResult?.runtime_results
+								}
+							/>
+						</div>
+						<div className="flex justify-end mt-5">
+							<Button
+								onClick={handleValidation}
+								className="px-10"
+							>
+								Validate Again
+							</Button>
+						</div>
 					</div>
-					<div className="flex justify-end mt-5">
-						<Button onClick={handleValidation} className="px-10">
-							Validate Again
-						</Button>
-					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 };
@@ -288,9 +335,10 @@ const Privacy = ({
 };
 
 const CreateProblem = () => {
-
 	const accountId = Number(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
+
+	const [loading, setLoading] = useState(false);
 
 	const [currentForm, setCurrentForm] = React.useState("general");
 	const [createRequest, setCreateRequest] = useState<CreateRequestForm>({
@@ -315,37 +363,35 @@ const CreateProblem = () => {
 	};
 
 	const handleSave = () => {
+		setLoading(true);
 		if (problemId === -1) {
-			ProblemService.create(accountId,transformCreateRequestForm2CreateProblemRequest(createRequest)).then(response => {
-				setProblemId(response.data.problem_id)
-				console.log('Create Completed',response.data)
-			})
+			ProblemService.create(
+				accountId,
+				transformCreateRequestForm2CreateProblemRequest(createRequest)
+			).then((response) => {
+				setProblemId(response.data.problem_id);
+				console.log("Create Completed", response.data);
+				setLoading(false);
+				toast({
+					title: "Create Completed"
+				})
+			});
+			
+		} else {
+			ProblemService.update(
+				problemId,
+				transformCreateRequestForm2CreateProblemRequest(createRequest)
+			).then((response) => {
+				console.log("Update Completed", response.data);
+				setLoading(false);
+				toast({
+					title: "Update Completed"
+				})
+			});
 		}
-		else {
-			ProblemService.update(problemId,transformCreateRequestForm2CreateProblemRequest(createRequest)).then(response => {
-				console.log('Update Completed',response.data)
-			}) 
-		}
-	}
+	};
 
-	const TabList = [
-		{
-			value: "general",
-			label: "General Detail",
-		},
-		{
-			value: "scoring",
-			label: "Scoring",
-		},
-		{
-			value: "requirement",
-			label: "Requirement",
-		},
-		{
-			value: "privacy",
-			label: "Privacy",
-		},
-	];
+	
 
 	return (
 		<NavbarSidebarLayout>
@@ -357,7 +403,9 @@ const CreateProblem = () => {
 							className="text-gray-300 cursor-pointer"
 							onClick={() => navigate("/my/problems")}
 						/>
-						{createRequest.title === "" ? "Create Problem" : createRequest.title}
+						{createRequest.title === ""
+							? "Create Problem"
+							: createRequest.title}
 					</h1>
 					<div>
 						<div className="flex">
@@ -376,7 +424,9 @@ const CreateProblem = () => {
 									))}
 								</TabsList>
 							</Tabs>
-							<Button onClick={handleSave} className="px-10 ml-5">Save</Button>
+							<Button disabled={loading} onClick={handleSave} className="px-10 ml-5">
+								{loading ? "Saving..." : "Save"}
+							</Button>
 						</div>
 					</div>
 				</div>

@@ -42,6 +42,7 @@ import {
 	ProblemModel,
 	ProblemPoplulateCreatorModel,
 } from "../../../types/models/Problem.model";
+import { toast } from "../../../components/shadcn/UseToast";
 
 type CreateRequestForm = {
 	title: string;
@@ -93,9 +94,9 @@ const GeneralDetail = ({
 		}
 	};
 
-	useEffect(() => {
-		console.log(createRequest.description);
-	}, [createRequest]);
+	// useEffect(() => {
+	// 	console.log(createRequest.description);
+	// }, [createRequest]);
 
 	return (
 		<div>
@@ -170,7 +171,7 @@ const Scoring = ({
 
 	return (
 		<div className="flex">
-			<div className="h-[80vh] overflow-y-scroll">
+			<div className="h-[80vh] overflow-y-scroll w-1/2 pr-3">
 				<div className="flex justify-between mb-1">
 					<div>
 						<Label>Source Code</Label>
@@ -244,32 +245,34 @@ const Scoring = ({
 				<Separator className="mx-2" orientation="vertical" />
 			</div>
 
-			{/* {!displayResult && (
-				<div className="m-auto">
-					{!loading ? (
-						<Button onClick={handleValidation} className="px-10">
-							Validate
-						</Button>
-					) : (
-						<h1>Validation ...</h1>
-					)}
-				</div>
-			)}
+			<div className="w-1/2">
+				{!displayResult && (
+					<div className="m-auto">
+						{!loading ? (
+							<Button onClick={handleValidation} className="px-10">
+								Validate
+							</Button>
+						) : (
+							<h1>Validation ...</h1>
+						)}
+					</div>
+				)}
 
-			{(validationResult || problem) && (
-				<div className="wrap w-full w-1/2">
-					<div className="pr-5 h-[80vh] overflow-y-scroll">
-						{<TestcaseValidationAccordian
-							runtimeResults={validationResult ? validationResult.runtime_results : problem.testcases}
-						/>}
+				{(validationResult || problem) && (
+					<div className="wrap w-full w-1/2">
+						<div className="pr-5 h-[75vh] overflow-y-scroll">
+							{<TestcaseValidationAccordian
+								runtimeResults={validationResult ? validationResult.runtime_results : problem.testcases}
+							/>}
+						</div>
+						<div className="flex justify-end mt-5">
+							<Button onClick={handleValidation} className="px-10">
+								Validate Again
+							</Button>
+						</div>
 					</div>
-					<div className="flex justify-end mt-5">
-						<Button onClick={handleValidation} className="px-10">
-							Validate Again
-						</Button>
-					</div>
-				</div>
-			)} */}
+				)}
+			</div>
 		</div>
 	);
 };
@@ -330,6 +333,7 @@ const EditProblem = () => {
 	const navigate = useNavigate();
 
 	const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
+	const [loading, setLoading] = useState(false);
 
 	const [currentForm, setCurrentForm] = React.useState("general");
 	const [createRequest, setCreateRequest] = useState<CreateRequestForm>({
@@ -347,11 +351,16 @@ const EditProblem = () => {
 	};
 
 	const handleSave = () => {
+		setLoading(true);
 		ProblemService.update(
 			Number(problemId),
 			transformCreateRequestForm2CreateProblemRequest(createRequest)
 		).then((response) => {
 			console.log("Update Completed", response.data);
+			setLoading(false);
+			toast({
+				title: "Problem Updated"
+			})
 		});
 	};
 
@@ -374,13 +383,27 @@ const EditProblem = () => {
 		},
 	];
 
+	const handleDeprecatedDescription = (description: string):string => {
+		if (description[0] === "[") {
+			return description;
+		}
+		else {
+			return JSON.stringify([
+				{
+					id: "1",
+					type: ELEMENT_PARAGRAPH,
+					children: [{ text: description }],
+				},
+			])
+		}
+	}
+
 	useEffect(() => {
 		ProblemService.get(Number(problemId)).then((response) => {
-			console.log(response.data);
 			setProblem(response.data);
 			setCreateRequest({
 				title: response.data.title,
-				description: JSON.parse(response.data.description),
+				description: JSON.parse(handleDeprecatedDescription(response.data.description)),
 				language: response.data.language,
 				solution: response.data.solution,
 				testcases: response.data.testcases
@@ -423,8 +446,8 @@ const EditProblem = () => {
 									))}
 								</TabsList>
 							</Tabs>
-							<Button onClick={handleSave} className="px-10 ml-5">
-								Save
+							<Button disabled={loading} onClick={handleSave} className="px-10 ml-5">
+								{loading ? "Saving..." : "Save"}
 							</Button>
 						</div>
 					</div>

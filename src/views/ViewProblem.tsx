@@ -23,6 +23,22 @@ import { SubmitProblemResponse } from "../types/apis/Submission.api";
 import PreviousSubmissionsCombobox from "../components/PreviousSubmissionsCombobox";
 import { SubmitProblemResponse2GetSubmissionByAccountProblemResponse } from "../types/models/adapters/Submission.adapter";
 
+const handleDeprecatedDescription = (description: string):string => {
+	if (description[0] === "[") {
+		return description;
+	}
+	else {
+		return JSON.stringify([
+			{
+				id: "1",
+				type: ELEMENT_PARAGRAPH,
+				children: [{ text: description }],
+			},
+		])
+	}
+}
+
+
 const ViewProblem = () => {
 	const { problemId } = useParams();
 	const accountId = Number(localStorage.getItem("account_id"));
@@ -86,10 +102,10 @@ const ViewProblem = () => {
 		<NavbarMenuLayout xPad={false}>
 			<div className="flex xxl:mt-10 md:mt-5">
 				<div className="w-1/2">
-					<ReadOnlyPlate
-						value={problem?.description}
+					{problem && <ReadOnlyPlate
+						value={JSON.parse(handleDeprecatedDescription(problem.description))}
 						className="xl:h-[85vh] md:h-[75vh]"
-					/>
+					/>}
 				</div>
 				<div className="mx-3">
 					<Separator orientation="vertical" />

@@ -5,6 +5,7 @@ import "./App.css";
 import Router from "./router";
 import { AuthService } from "./services/Auth.service";
 import { LoginContext } from "./contexts/LoginContext";
+import { Toaster } from "./components/shadcn/Toaster";
 
 function App() {
 	const [isLogin, setIsLogin] = useState(false);
@@ -30,6 +31,7 @@ function App() {
 			<div className="App">
 				<LoginContext.Provider value={{isLogin, setIsLogin}}>
 					<Router />
+					<Toaster/>
 				</LoginContext.Provider>
 			</div>
 		</div>

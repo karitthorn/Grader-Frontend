@@ -66,7 +66,7 @@ export default function ReadOnlyPlate({
 					<Plate
 						id="view-problem-plate"
 						plugins={plugins}
-						initialValue={lazyFormat(value)}
+						initialValue={value}
 					>
 						<div
 							ref={containerRef}
