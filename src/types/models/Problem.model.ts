@@ -20,6 +20,8 @@ export type ProblemModel = {
     submission_regex: string
     creator: number
     testcases: TestcaseModel[]
+    created_date: string;
+    updated_date: string;
 }
 
 export type ProblemSecureModel = {

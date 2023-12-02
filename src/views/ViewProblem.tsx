@@ -22,6 +22,7 @@ import {
 import { SubmitProblemResponse } from "../types/apis/Submission.api";
 import PreviousSubmissionsCombobox from "../components/PreviousSubmissionsCombobox";
 import { SubmitProblemResponse2GetSubmissionByAccountProblemResponse } from "../types/models/adapters/Submission.adapter";
+import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 
 const handleDeprecatedDescription = (description: string):string => {
 	if (description[0] === "[") {

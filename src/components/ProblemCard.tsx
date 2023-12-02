@@ -3,8 +3,10 @@ import { Card, CardContent, CardTitle } from "./shadcn/Card";
 import { Button } from "./shadcn/Button";
 import { Check, CheckCircle2, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { ProblemModel } from "../types/models/Problem.model";
+import { readableDateFormat } from "../utilities/ReadableDateFormat";
 
-const ProblemCard = ({ title,problemId }: { title: string,problemId:number }) => {
+const ProblemCard = ({ problem }: { problem: ProblemModel }) => {
 
 	const navigate = useNavigate();
 
@@ -23,7 +25,7 @@ const ProblemCard = ({ title,problemId }: { title: string,problemId:number }) =>
 
 	return (
 		<Card
-			onClick={() => navigate(`/my/problems/${problemId}`)}
+			onClick={() => navigate(`/my/problems/${problem.problem_id}`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			className="pt-6 px-5"
@@ -38,17 +40,17 @@ const ProblemCard = ({ title,problemId }: { title: string,problemId:number }) =>
 					<div className="flex w-5/6 items-center">
 						<div className="w-1/3">
 							{!highlightTitle && (
-								<h1 className="	font-bold">{title}</h1>
+								<h1 className="	font-bold">{problem.title}</h1>
 							)}
 							{highlightTitle && (
 								<h1 className="font-bold text-green-900 underline underline-offset-2">
-									{title}
+									{problem.title}
 								</h1>
 							)}
 						</div>
 
 						<div className="text-base text-gray-400 w-1/3">
-							Last Updated: 12/34/2123
+							Last Updated: {readableDateFormat(problem.updated_date)}
 						</div>
 						<div className="flex justify-between gap-5 text-base">
 							<div className="flex items-center">
