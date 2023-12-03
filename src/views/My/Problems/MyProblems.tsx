@@ -29,7 +29,7 @@ const MyProblems = () => {
 							My Problems
 						</h1>
 					</div>
-					<div className="w-9/12">
+					<div className="w-9/12 md:w-8/12">
 						<Input placeholder="Search ..." />
 					</div>
 					<div>
@@ -39,7 +39,7 @@ const MyProblems = () => {
 					</div>
 				</div>
 
-				<div className="grid gap-y-3 mt-6 h-[80vh] pr-5 overflow-y-scroll">
+				<div className="grid gap-y-3 mt-6 h-[80vh] md:h-[75vh] pr-5 overflow-y-scroll">
 					{
 						problems.map((problem,index) => (
 							<ProblemCard problem={problem} key={index}/>

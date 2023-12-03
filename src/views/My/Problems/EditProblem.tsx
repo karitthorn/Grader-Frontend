@@ -260,7 +260,7 @@ const Scoring = ({
 
 				{(validationResult || problem) && (
 					<div className="wrap w-full w-1/2">
-						<div className="pr-5 h-[75vh] overflow-y-scroll">
+						<div className="pr-5 h-[75vh] md:h-[70vh] overflow-y-scroll">
 							{<TestcaseValidationAccordian
 								runtimeResults={validationResult ? validationResult.runtime_results : problem.testcases}
 							/>}

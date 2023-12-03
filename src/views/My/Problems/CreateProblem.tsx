@@ -241,7 +241,7 @@ const Scoring = ({
 					defaultLanguage="python"
 				/>
 			</div>
-			<div>
+			<div className="h-[80vh]">
 				<Separator className="mx-2" orientation="vertical" />
 			</div>
 
@@ -263,7 +263,7 @@ const Scoring = ({
 
 				{displayResult && validationResult && (
 					<div className="wrap w-full">
-						<div className="pr-5 h-[80vh] overflow-y-scroll">
+						<div className="pr-5 h-[80vh] md:h-[70vh] overflow-y-scroll">
 							<TestcaseValidationAccordian
 								runtimeResults={
 									validationResult?.runtime_results
