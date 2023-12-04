@@ -3,6 +3,7 @@ import { GetSubmissionByAccountProblemResponse, SubmissionModel, SubmissionPopul
 import { ProblemPopulateAccountSecureModel } from "../models/Problem.model";
 
 export type SubmitProblemRequest = {
+    language: string
     submission_code: string
 }
 

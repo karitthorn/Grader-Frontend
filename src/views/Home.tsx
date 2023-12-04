@@ -10,76 +10,24 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@radix-ui/react-tooltip";
-const invoices = [
-	{
-		invoice: "INV001",
-		paymentStatus: "Paid",
-		totalAmount: "$250.00",
-		paymentMethod: "Credit Card",
-	},
-	{
-		invoice: "INV002",
-		paymentStatus: "Pending",
-		totalAmount: "$150.00",
-		paymentMethod: "PayPal",
-	},
-	{
-		invoice: "INV003",
-		paymentStatus: "Unpaid",
-		totalAmount: "$350.00",
-		paymentMethod: "Bank Transfer",
-	},
-	{
-		invoice: "INV004",
-		paymentStatus: "Paid",
-		totalAmount: "$450.00",
-		paymentMethod: "Credit Card",
-	},
-	{
-		invoice: "INV005",
-		paymentStatus: "Paid",
-		totalAmount: "$550.00",
-		paymentMethod: "PayPal",
-	},
-	{
-		invoice: "INV006",
-		paymentStatus: "Pending",
-		totalAmount: "$200.00",
-		paymentMethod: "Bank Transfer",
-	},
-	{
-		invoice: "INV007",
-		paymentStatus: "Unpaid",
-		totalAmount: "$300.00",
-		paymentMethod: "Credit Card",
-	},
-];
+import CenterContainer from "../layout/CenterLayout";
+import { Card, CardContent, CardTitle } from "../components/shadcn/Card";
+import { FileSpreadsheet } from "lucide-react";
+
 const Home = () => {
 	return (
-		<NavbarMenuLayout>
-			<h1 className="border-2">Home</h1>
-			<Button>Click</Button>
+		<CenterContainer>
+			<h1 className="mx-auto text-6xl font-bold">
+				Welcome to <span className="text-green-500">Grader</span>
+			</h1>
 
-			<div className="overflow-y-scroll h-[80vh] w-[50%] rounded-lg border bg-background shadow">
-				<PlateEditor />
-			</div>
-			{/* <div className="mx-32 border-2">
-				< DataTable>
-					{invoices.map((invoice) => (
-						<TableRow key={invoice.invoice}>
-							<TableCell className="font-medium">
-								{invoice.invoice}
-							</TableCell>
-							<TableCell>{invoice.paymentStatus}</TableCell>
-							<TableCell>{invoice.paymentMethod}</TableCell>
-							<TableCell className="text-right">
-								{invoice.totalAmount}
-							</TableCell>
-						</TableRow>
-					))}
-				</DataTable>
-			</div> */}
-		</NavbarMenuLayout>
+			{/* <Card className="w-1/2 p-5">
+				<CardTitle className="flex text-5xl font-bold items-center justify-center">
+					<FileSpreadsheet size={100} className="text-green-500"/> Solve The Problem
+				</CardTitle>
+			</Card> */}
+
+		</CenterContainer>
 	);
 };
 

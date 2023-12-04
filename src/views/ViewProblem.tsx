@@ -73,6 +73,7 @@ const ViewProblem = () => {
 		if (submission) {
 			setSubmitCodeValue(submission.submission_code);
 			setLastedSubmission(submission);
+			setSelectedLanguage(submission.language);
 		}
 	};
 
@@ -92,6 +93,7 @@ const ViewProblem = () => {
 	const handleSubmit = () => {
 		setGrading(true);
 		SubmissionService.submit(accountId, Number(problemId), {
+			language: selectedLanguage,
 			submission_code: String(submitCodeValue),
 		}).then((response) => {
 			setLastedSubmission(response.data);
@@ -119,6 +121,8 @@ const ViewProblem = () => {
 								options={ProgrammingLanguageOptions}
 								onSelect={(value) => setSelectedLanguage(value)}
 								initialValue={selectedLanguage}
+								value={selectedLanguage}
+								setValue={setSelectedLanguage}
 							/>
 						</div>
 						<div>

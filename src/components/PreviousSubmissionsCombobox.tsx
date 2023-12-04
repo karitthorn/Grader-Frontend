@@ -21,6 +21,7 @@ import {
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
 import { Separator } from "./shadcn/Seperator";
+import { ProgrammingLanguageLabel } from "../constants/ProgrammingLanguage";
 
 const TestcaseGradingMiniResult = ({
 	status,
@@ -74,7 +75,7 @@ export function PreviousSubmissionsCombobox({
 			<div className="w-full">
 				<div className="flex justify-between items-center">
 					<div className="font-mono">
-						{readableDateFormat(bestSubmission?.date)}
+						{readableDateFormat(bestSubmission?.date)} {ProgrammingLanguageLabel[bestSubmission?.language]}
 					</div>
 					<div>
 						<TestcasesGradingMiniIndicator
@@ -93,7 +94,7 @@ export function PreviousSubmissionsCombobox({
 				<div className="w-full">
 					<div className="flex justify-between items-center">
 						<div className="font-mono">
-							{readableDateFormat(submission?.date)}{" "}
+							{readableDateFormat(submission?.date)} {ProgrammingLanguageLabel[submission?.language]}
 						</div>
 						<div>
 							<TestcasesGradingMiniIndicator

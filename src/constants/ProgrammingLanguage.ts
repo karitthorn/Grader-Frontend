@@ -16,3 +16,10 @@ export const ProgrammingLanguageOptions = [
         label: 'Javascript'
     },
 ]
+
+export const ProgrammingLanguageLabel = {
+    'c': 'C',
+    'cpp': 'C++',
+    'python': 'Python',
+    'javascript': 'Javascript'
+}

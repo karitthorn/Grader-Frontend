@@ -58,6 +58,7 @@ export type SubmissionPopulateSubmissionTestcaseSecureSerializer = {
 export type GetSubmissionByAccountProblemSubmissionModel = {
     submission_id: number
     problem: number
+    language: string
     submission_code: string
     is_passed: boolean
     date: string
@@ -76,6 +77,7 @@ export type GetSubmissionByAccountProblemResponse = {
 export type SubmissionPopulateSubmissionTestcasesSecureModel = {
     submission_id: number
     problem: number
+    language: string
     submission_code: string
     is_passed: boolean
     date: string
