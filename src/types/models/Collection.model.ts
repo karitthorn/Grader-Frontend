@@ -1,4 +1,4 @@
-import { ProblemModel } from "./Problem.model";
+import { ProblemModel, ProblemSecureModel } from "./Problem.model";
 
 export type CollectionModel = {
     collection_id: number;
@@ -9,7 +9,27 @@ export type CollectionModel = {
     is_private: boolean;
 }
 
-export type CollectionProblemModel = {
-    collection: CollectionModel;
-    problem: ProblemModel[];
+export type CollectionProblemModel = CollectionModel & {
+    problems: CollectionProblemPopulateProblemSecureModel[];
+}
+
+export type CollectionCreateRequest = {
+    name: string;
+    description?: string;
+}
+
+export type CollectionUpdateRequest = {
+    name?: string;
+    description?: string;
+}
+
+export type CollectionProblemPopulateProblemSecureModel = {
+    id: number;
+    problem: ProblemSecureModel;
+    order: number;
+    collection: number;
+}
+
+export type GetCollectionByAccountResponse = {
+    collections: CollectionModel[];
 }

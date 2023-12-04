@@ -5,6 +5,7 @@ export function SubmitProblemResponse2GetSubmissionByAccountProblemResponse(subm
     return {
         submission_id: submission.submission_id,
         problem: submission.problem.problem_id,
+        language: submission.language,
         submission_code: submission.submission_code,
         is_passed: submission.is_passed,
         date: submission.date,

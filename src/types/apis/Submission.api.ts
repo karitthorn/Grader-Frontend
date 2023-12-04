@@ -10,6 +10,7 @@ export type SubmitProblemRequest = {
 export type SubmitProblemResponse = {
     submission_id: number
     problem: ProblemPopulateAccountSecureModel
+    language: string
     submission_code: string
     is_passed: boolean
     date: string
