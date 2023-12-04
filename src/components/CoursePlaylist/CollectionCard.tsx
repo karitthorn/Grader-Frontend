@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardDescription } from "../shadcn/Card";
 
-const CollectionCard = () => {
+const MyCollectionCard = () => {
 	return (
 		<Card>
 			<CardContent className="p-2 pl-5">
@@ -13,4 +13,4 @@ const CollectionCard = () => {
 	);
 };
 
-export default CollectionCard;
+export default MyCollectionCard;

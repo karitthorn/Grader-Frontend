@@ -49,8 +49,8 @@ export function Combobox({
 	emptyMessage,
 	onSelect,
 	initialValue,
-  value,
-  setValue
+	value,
+	setValue
 }: {
 	label?: string;
 	options?: ComboboxOption[];

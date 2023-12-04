@@ -3,7 +3,7 @@ import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Input } from "../../../components/shadcn/Input";
 import { Button } from "../../../components/shadcn/Button";
 import { Card, CardContent, CardTitle } from "../../../components/shadcn/Card";
-import ProblemCard from "../../../components/ProblemCard";
+import MyProblemCard from "../../../components/MyProblemCard";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemModel } from "../../../types/models/Problem.model";
@@ -42,7 +42,7 @@ const MyProblems = () => {
 				<div className="grid gap-y-3 mt-6 h-[80vh] md:h-[75vh] pr-5 overflow-y-scroll">
 					{
 						problems.map((problem,index) => (
-							<ProblemCard problem={problem} key={index}/>
+							<MyProblemCard problem={problem} key={index}/>
 						))
 					}
 				</div>

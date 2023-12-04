@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
-import CollectionCard from "../../../components/CollectionCard";
+import MyCollectionCard from "../../../components/MyCollectionCard";
 
 const MyCollections = () => {
+
+	const [collections, setCollections] = useState([]);
+
+	useEffect(() => {
+		
+	},[])
+
 	return (
 		<NavbarSidebarLayout>
 			<div className="w-[96%] mx-auto mt-10">
@@ -18,18 +25,28 @@ const MyCollections = () => {
 						<Input placeholder="Search ..." />
 					</div>
 					<div>
-						<Button>
-							Create Collection
-						</Button>
+						<Button>Create Collection</Button>
 					</div>
 				</div>
 
-				<div className="grid gap-y-3 mt-6 h-[80vh] pr-5 overflow-y-scroll">
-					<CollectionCard/>
-					<CollectionCard/>
-					<CollectionCard/>
-					<CollectionCard/>
-					<CollectionCard/>
+				<div className="mt-6 h-[80vh] pr-5 overflow-y-scroll">
+					<div className="grid gap-y-3">
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+						<MyCollectionCard />
+					</div>
 				</div>
 			</div>
 		</NavbarSidebarLayout>

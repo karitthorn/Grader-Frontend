@@ -1,7 +1,7 @@
 import React from "react";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { Card, CardContent, CardDescription } from "../components/shadcn/Card";
-import CollectionCard from "../components/CoursePlaylist/CollectionCard";
+import MyCollectionCard from "../components/CoursePlaylist/CollectionCard";
 import {
 	Accordion,
 	AccordionItem,
@@ -23,10 +23,10 @@ const CourseManagement = () => {
 							</AccordionTrigger>
 							<AccordionContent>
 								<div className="grid gap-y-1">
-									<CollectionCard />
-									<CollectionCard />
-									<CollectionCard />
-									<CollectionCard />
+									<MyCollectionCard />
+									<MyCollectionCard />
+									<MyCollectionCard />
+									<MyCollectionCard />
 								</div>
 							</AccordionContent>
 						</AccordionItem>
@@ -39,10 +39,10 @@ const CourseManagement = () => {
 							</AccordionTrigger>
 							<AccordionContent>
 								<div className="grid gap-y-1">
-									<CollectionCard />
-									<CollectionCard />
-									<CollectionCard />
-									<CollectionCard />
+									<MyCollectionCard />
+									<MyCollectionCard />
+									<MyCollectionCard />
+									<MyCollectionCard />
 								</div>
 							</AccordionContent>
 						</AccordionItem>

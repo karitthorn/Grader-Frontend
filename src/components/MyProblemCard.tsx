@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ProblemModel } from "../types/models/Problem.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
 
-const ProblemCard = ({ problem }: { problem: ProblemModel }) => {
+const MyProblemCard = ({ problem }: { problem: ProblemModel }) => {
 
 	const navigate = useNavigate();
 
@@ -82,4 +82,4 @@ const ProblemCard = ({ problem }: { problem: ProblemModel }) => {
 	);
 };
 
-export default ProblemCard;
+export default MyProblemCard;

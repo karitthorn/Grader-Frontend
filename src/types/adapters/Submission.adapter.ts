@@ -1,5 +1,5 @@
-import { SubmitProblemResponse } from "../../apis/Submission.api";
-import { GetSubmissionByAccountProblemSubmissionModel } from "../Submission.model";
+import { SubmitProblemResponse } from "../apis/Submission.api";
+import { GetSubmissionByAccountProblemSubmissionModel } from "../models/Submission.model";
 
 export function SubmitProblemResponse2GetSubmissionByAccountProblemResponse(submission: SubmitProblemResponse):GetSubmissionByAccountProblemSubmissionModel  {
     return {
