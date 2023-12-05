@@ -3,10 +3,10 @@ import { Card, CardContent, CardTitle } from "./shadcn/Card";
 import { Button } from "./shadcn/Button";
 import { Check, CheckCircle2, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { ProblemModel } from "../types/models/Problem.model";
+import { ProblemModel, ProblemSecureModel } from "../types/models/Problem.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
 
-const MyProblemCard = ({ problem }: { problem: ProblemModel }) => {
+const MyProblemCard = ({ problem }: { problem: ProblemModel | ProblemSecureModel }) => {
 
 	const navigate = useNavigate();
 

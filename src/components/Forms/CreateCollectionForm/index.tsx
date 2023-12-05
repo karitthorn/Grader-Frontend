@@ -23,7 +23,7 @@ const TabList = [
 	},
 	{
 		value: "problems",
-		label: "Problems",
+		label: "Manage Problems",
 	},
 ]
 
@@ -85,7 +85,7 @@ const CreateCollectionForm = ({
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{currentForm === "scoring" && (
+				{currentForm === "problems" && (
 					<ManageProblems
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}

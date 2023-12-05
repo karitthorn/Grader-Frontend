@@ -13,7 +13,7 @@ const formInitialValue: CreateCollectionRequestForm = {
 			children: [{ text: "" }],
 		},
 	],
-	problemIds: [],
+	problems: [],
 };
 
 const CreateCollection = () => {

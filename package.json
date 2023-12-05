@@ -86,8 +86,10 @@
     "react-hook-form": "^7.47.0",
     "react-lite-youtube-embed": "^2.3.52",
     "react-router-dom": "^6.15.0",
+    "react-sortablejs": "^6.1.4",
     "react-tweet": "^3.1.1",
     "reactstrap": "^9.2.0",
+    "sortablejs": "^1.15.1",
     "styled-components": "^6.1.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
@@ -96,6 +98,7 @@
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/sortablejs": "^1.15.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",

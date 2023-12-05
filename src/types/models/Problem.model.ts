@@ -29,6 +29,8 @@ export type ProblemSecureModel = {
     title: string
     description: string
     creator: AccountSecureModel
+    created_date: string;
+    updated_date: string;
 }
 
 export type ProblemPoplulateCreatorModel = {
