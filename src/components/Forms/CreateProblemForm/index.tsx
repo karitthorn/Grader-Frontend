@@ -9,7 +9,7 @@ import { ChevronLeftIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import { CreateProblemRequest } from "../../../types/apis/Problem.api";
 import { Button } from "../../shadcn/Button";
-import { CreateRequestForm } from "../../../types/forms/CreateRequestForm";
+import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 import GeneralDetail from "./GeneralDetail";
 import Scoring from "./Scoring";
 import Requirement from "./Requirement";
@@ -39,8 +39,8 @@ const testcaseFormat = (testcases: string, delimeter: string) => {
 	return testcases.replace(/\r\n/g, "\n").split(delimeter + "\n");
 };
 
-const transformCreateRequestForm2CreateProblemRequest = (
-	createRequest: CreateRequestForm
+const transformCreateProblemRequestForm2CreateProblemRequest = (
+	createRequest: CreateProblemRequestForm
 ): CreateProblemRequest => {
 	return {
 		title: createRequest.title,
@@ -59,7 +59,7 @@ export type OnProblemSaveCallback = (
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 	problemId: number,
 	setProblemId: React.Dispatch<React.SetStateAction<number>>,
-	createRequest: CreateRequestForm
+	createRequest: CreateProblemRequestForm
 	) => void
 
 const CreateProblemForm = ({
@@ -67,7 +67,7 @@ const CreateProblemForm = ({
 	onProblemSave,
 	validatedTestcases=[]
 }: {
-	createRequestInitialValue: CreateRequestForm;
+	createRequestInitialValue: CreateProblemRequestForm;
 	onProblemSave: OnProblemSaveCallback;
 	validatedTestcases?: TestcaseModel[]
 }) => {
@@ -77,7 +77,7 @@ const CreateProblemForm = ({
 	const [loading, setLoading] = useState(false);
 
 	const [currentForm, setCurrentForm] = React.useState("general");
-	const [createRequest, setCreateRequest] = useState<CreateRequestForm>(
+	const [createRequest, setCreateRequest] = useState<CreateProblemRequestForm>(
 		createRequestInitialValue
 	);
 

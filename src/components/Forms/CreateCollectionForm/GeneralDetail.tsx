@@ -4,13 +4,14 @@ import { PlateEditorValueType } from '../../../types/models/PlateEditorValueType
 import { Label } from '../../shadcn/Label';
 import { Input } from '../../shadcn/Input';
 import DetailPlateEditor from '../../DetailPlateEditor';
+import { CreateCollectionRequestForm } from '../../../types/forms/CreateCollectionRequestForm';
 
 const GeneralDetail = ({
 	createRequest,
 	setCreateRequest,
 }: {
-	createRequest: CreateProblemRequestForm;
-	setCreateRequest: React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
+	createRequest: CreateCollectionRequestForm;
+	setCreateRequest: React.Dispatch<React.SetStateAction<CreateCollectionRequestForm>>;
 }) => {
 	const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
 
@@ -24,10 +25,6 @@ const GeneralDetail = ({
 			}, 1000);
 		}
 	};
-
-	useEffect(()=>{
-		console.log("General Detail",createRequest)
-	},[createRequest])
 
 	return (
 		<div>

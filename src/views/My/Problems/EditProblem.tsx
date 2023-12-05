@@ -6,8 +6,8 @@ import CreateProblemForm, {
 import { ProblemService } from "../../../services/Problem.service";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { toast } from "../../../components/shadcn/UseToast";
-import { transformCreateRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateRequestForm.adapter";
-import { CreateRequestForm } from "../../../types/forms/CreateRequestForm";
+import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
+import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 import { useParams } from "react-router-dom";
 import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.model";
 
@@ -18,7 +18,7 @@ const EditProblem = () => {
 	const [problem,setProblem] = useState<ProblemPoplulateCreatorModel>();
 
 	const [currentForm, setCurrentForm] = React.useState("general");
-	const [createRequest, setCreateRequest] = useState<CreateRequestForm>();
+	const [createRequest, setCreateRequest] = useState<CreateProblemRequestForm>();
 
 	const handleSave: OnProblemSaveCallback = (
 		setLoading,
@@ -29,7 +29,7 @@ const EditProblem = () => {
 		setLoading(true);
 		ProblemService.update(
 			Number(editProblemId),
-			transformCreateRequestForm2CreateProblemRequest(createRequest)
+			transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
 		).then((response) => {
 			console.log("Update Completed", response.data);
 			setLoading(false);

@@ -1,9 +1,9 @@
 import { testcaseParse } from "../../utilities/TestcaseFormat";
 import { CreateProblemRequest } from "../apis/Problem.api";
-import { CreateRequestForm } from "../forms/CreateRequestForm";
+import { CreateProblemRequestForm } from "../forms/CreateProblemRequestForm";
 
-export const transformCreateRequestForm2CreateProblemRequest = (
-	createRequest: CreateRequestForm
+export const transformCreateProblemRequestForm2CreateProblemRequest = (
+	createRequest: CreateProblemRequestForm
 ): CreateProblemRequest => {
 	return {
 		title: createRequest.title,

@@ -1,7 +1,7 @@
 import { PlateEditorValueType } from "../models/PlateEditorValueType";
 import { TestcaseModel } from "../models/Problem.model";
 
-export type CreateRequestForm = {
+export type CreateProblemRequestForm = {
 	title: string;
 	description: PlateEditorValueType;
 	language: string;

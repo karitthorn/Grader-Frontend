@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CreateRequestForm } from "../../../types/forms/CreateRequestForm";
+import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 import { ValidateProgramResponse } from "../../../types/apis/Problem.api";
 import { ProblemService } from "../../../services/Problem.service";
 import {
@@ -19,8 +19,8 @@ const Scoring = ({
 	createRequest,
 	setCreateRequest,
 }: {
-	createRequest: CreateRequestForm;
-	setCreateRequest: React.Dispatch<React.SetStateAction<CreateRequestForm>>;
+	createRequest: CreateProblemRequestForm;
+	setCreateRequest: React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
 }) => {
 	const [loading, setLoading] = useState(false);
 	const [displayResult, setDisplayResult] = useState(false);

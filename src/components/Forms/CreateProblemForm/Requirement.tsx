@@ -1,5 +1,5 @@
 import React from 'react'
-import { CreateRequestForm } from '../../../types/forms/CreateRequestForm';
+import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
 import { Label } from '../../shadcn/Label';
 import { Input } from '../../shadcn/Input';
 
@@ -7,8 +7,8 @@ const Requirement = ({
 	createRequest,
 	setCreateRequest,
 }: {
-	createRequest: CreateRequestForm;
-	setCreateRequest: React.Dispatch<React.SetStateAction<CreateRequestForm>>;
+	createRequest: CreateProblemRequestForm;
+	setCreateRequest: React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
 }) => {
 	return (
 		<div>

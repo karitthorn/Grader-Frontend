@@ -25,7 +25,7 @@ const MyProblemCard = () => {
 
 	return (
 		<Card
-			onClick={() => navigate(`/my/problems/${1}`)}
+			onClick={() => navigate(`/my/collections/${1}`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			className="pt-6 px-5"

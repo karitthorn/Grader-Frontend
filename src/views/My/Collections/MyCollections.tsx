@@ -3,14 +3,13 @@ import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import MyCollectionCard from "../../../components/MyCollectionCard";
+import { useNavigate } from "react-router-dom";
 
 const MyCollections = () => {
-
+	const navigate = useNavigate();
 	const [collections, setCollections] = useState([]);
 
-	useEffect(() => {
-		
-	},[])
+	useEffect(() => {}, []);
 
 	return (
 		<NavbarSidebarLayout>
@@ -25,7 +24,11 @@ const MyCollections = () => {
 						<Input placeholder="Search ..." />
 					</div>
 					<div>
-						<Button>Create Collection</Button>
+						<Button
+							onClick={() => navigate("/my/collections/create")}
+						>
+							Create Collection
+						</Button>
 					</div>
 				</div>
 

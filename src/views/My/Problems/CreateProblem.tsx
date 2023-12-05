@@ -3,9 +3,9 @@ import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import CreateProblemForm, { OnProblemSaveCallback } from "../../../components/Forms/CreateProblemForm";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { useNavigate } from "react-router-dom";
-import { CreateRequestForm } from "../../../types/forms/CreateRequestForm";
+import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 import { ProblemService } from "../../../services/Problem.service";
-import { transformCreateRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateRequestForm.adapter";
+import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
 import { toast } from "../../../components/shadcn/UseToast";
 
 const formInitialValue = {
@@ -34,7 +34,7 @@ const CreateProblem = () => {
 		if (problemId === -1) {
 			ProblemService.create(
 				accountId,
-				transformCreateRequestForm2CreateProblemRequest(createRequest)
+				transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
 			).then((response) => {
 				setProblemId(response.data.problem_id);
 				console.log("Create Completed", response.data);
@@ -46,7 +46,7 @@ const CreateProblem = () => {
 		} else {
 			ProblemService.update(
 				problemId,
-				transformCreateRequestForm2CreateProblemRequest(createRequest)
+				transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
 			).then((response) => {
 				console.log("Update Completed", response.data);
 				setLoading(false);

@@ -9,6 +9,7 @@ import MyProblems from "./views/My/Problems/MyProblems";
 import ViewProblem from "./views/ViewProblem";
 import MyCollections from "./views/My/Collections/MyCollections";
 import EditProblem from "./views/My/Problems/EditProblem";
+import CreateCollection from "./views/My/Collections/CreateCollection";
 
 const Router = () => {
 	return (
@@ -19,6 +20,7 @@ const Router = () => {
 			<Route path="/management" element={<CourseManagement />} />
 			<Route path="/my/problems" element={<MyProblems />} />
 			<Route path="/my/collections" element={<MyCollections />} />
+			<Route path="/my/collections/create" element={<CreateCollection />} />
 			<Route path="/my/problems/create" element={<CreateProblem />} />
 			<Route path="/my/problems/:problemId" element={<EditProblem />} />
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
