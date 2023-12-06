@@ -64,6 +64,7 @@ export default function ReadOnlyPlate({
 			<CommentsProvider users={commentsUsers} myUserId={myUserId}>
 				{value && (
 					<Plate
+						readOnly
 						id="view-problem-plate"
 						plugins={plugins}
 						initialValue={value}

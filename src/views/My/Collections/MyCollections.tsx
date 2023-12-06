@@ -4,6 +4,7 @@ import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import MyCollectionCard from "../../../components/MyCollectionCard";
 import { useNavigate } from "react-router-dom";
+import MyCardContainer from "../../../components/MyCardContainer";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
@@ -20,7 +21,7 @@ const MyCollections = () => {
 							My Collections
 						</h1>
 					</div>
-					<div className="w-9/12">
+					<div className="w-9/12 md:w-7/12">
 						<Input placeholder="Search ..." />
 					</div>
 					<div>
@@ -32,25 +33,23 @@ const MyCollections = () => {
 					</div>
 				</div>
 
-				<div className="mt-6 h-[80vh] pr-5 overflow-y-scroll">
-					<div className="grid gap-y-3">
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-						<MyCollectionCard />
-					</div>
-				</div>
+				<MyCardContainer>
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+					<MyCollectionCard />
+				</MyCardContainer>
 			</div>
 		</NavbarSidebarLayout>
 	);

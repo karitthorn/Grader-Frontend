@@ -7,18 +7,19 @@ import MyProblemCard from "../../../components/MyProblemCard";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemModel } from "../../../types/models/Problem.model";
+import MyCardContainer from "../../../components/MyCardContainer";
 
 const MyProblems = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
-	const [problems, setProblems] = useState<ProblemModel[]>([])
+	const [problems, setProblems] = useState<ProblemModel[]>([]);
 
 	useEffect(() => {
-		ProblemService.getAllByAccount(accountId).then(response => {
-			setProblems(response.data.problems)
+		ProblemService.getAllByAccount(accountId).then((response) => {
+			setProblems(response.data.problems);
 		});
-	},[]);
+	}, []);
 
 	return (
 		<NavbarSidebarLayout>
@@ -29,7 +30,7 @@ const MyProblems = () => {
 							My Problems
 						</h1>
 					</div>
-					<div className="w-9/12 md:w-8/12">
+					<div className="w-9/12 md:w-7/12">
 						<Input placeholder="Search ..." />
 					</div>
 					<div>
@@ -39,13 +40,11 @@ const MyProblems = () => {
 					</div>
 				</div>
 
-				<div className="grid gap-y-3 mt-6 h-[80vh] md:h-[75vh] pr-5 overflow-y-scroll">
-					{
-						problems.map((problem,index) => (
-							<MyProblemCard problem={problem} key={index}/>
-						))
-					}
-				</div>
+				<MyCardContainer>
+					{problems.map((problem, index) => (
+						<MyProblemCard problem={problem} key={index} />
+					))}
+				</MyCardContainer>
 			</div>
 		</NavbarSidebarLayout>
 	);

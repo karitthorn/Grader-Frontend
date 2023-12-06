@@ -6,9 +6,14 @@ import AddProblemDialog from "../../AddProblemDialog";
 import { Separator } from "../../shadcn/Seperator";
 import { Input } from "../../shadcn/Input";
 import { ProblemService } from "../../../services/Problem.service";
-import { ProblemModel, ProblemSecureModel } from "../../../types/models/Problem.model";
-import { ItemInterface } from './../../../../node_modules/react-sortablejs/dist/index.d';
+import {
+	ProblemModel,
+	ProblemSecureModel,
+} from "../../../types/models/Problem.model";
+import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
 import MyProblemCard from "../../MyProblemCard";
+import MyCardContainer from "../../MyCardContainer";
+import SortableMyCardContainer from "../../SortableMyCardContainer";
 
 const ManageProblems = ({
 	createRequest,
@@ -22,37 +27,39 @@ const ManageProblems = ({
 	createRequest;
 	setCreateRequest;
 
-	const [state, setState] = useState([
-		{ id: 1, name: "shrek" },
-		{ id: 2, name: "fiona" },
-	]);
+	// const [state, setState] = useState([
+	// 	{ id: 1, name: "shrek" },
+	// 	{ id: 2, name: "fiona" },
+	// ]);
 
-	
-	
-	const [allProblemsSortable2, setAllProblemsSortable2] = useState<ItemInterface[]>([])
-	const [allProblemsSortable, setAllProblemsSortable] = useState<ItemInterface[]>([])
+	const [allProblemsSortable2, setAllProblemsSortable2] = useState<
+		ItemInterface[]
+	>([]);
+	const [allProblemsSortable, setAllProblemsSortable] = useState<
+		ItemInterface[]
+	>([]);
 	const [allProblems, setAllProblems] = useState<
 		ProblemSecureModel[] | ProblemModel[]
 	>([]);
 
 	useEffect(() => {
-		ProblemService.getAllByAccount(4).then((response) => {
-			console.log(response.data.problems)
+		ProblemService.getAllByAccount(1).then((response) => {
+			console.log(response.data.problems);
 			setAllProblems(response.data.problems);
-			setAllProblemsSortable(response.data.problems.map(problem => (
-				 {
+			setAllProblemsSortable(
+				response.data.problems.map((problem) => ({
 					id: problem?.problem_id,
-					name: problem?.title
-				}
-			)))
-			setAllProblemsSortable2(response.data.problems.map(problem => (
-				{
-				   id: problem?.problem_id,
-				   name: problem?.title
-			   }
-		   )))
+					name: problem?.title,
+				}))
+			);
+			setAllProblemsSortable2(
+				response.data.problems.map((problem) => ({
+					id: problem?.problem_id,
+					name: problem?.title,
+				}))
+			);
 		});
-	},[]);
+	}, []);
 
 	return (
 		<div>
@@ -64,13 +71,31 @@ const ManageProblems = ({
 
 			<div className="flex">
 				<div className="w-1/2">
-				<ReactSortable animation={150} group="shared" list={allProblemsSortable2} setList={setAllProblemsSortable2}>
-						{allProblemsSortable2.map((item) => (
-							<MyProblemCard key={item.id} problem={
-								allProblems.find(problem => problem.problem_id === item.id) as ProblemModel | ProblemSecureModel
-							} />
-						))}
-					</ReactSortable>
+					<div className="mt-6 h-[80vh] pr-5 overflow-y-scroll">
+						<div className="grid gap-y-3">
+							<SortableMyCardContainer
+								animation={150}
+								group="shared"
+								list={allProblemsSortable2}
+								setList={setAllProblemsSortable2}
+							>
+								{allProblemsSortable2.map((item) => (
+									<MyProblemCard
+										key={item.id}
+										problem={
+											allProblems.find(
+												(problem) =>
+													problem.problem_id ===
+													item.id
+											) as
+												| ProblemModel
+												| ProblemSecureModel
+										}
+									/>
+								))}
+							</SortableMyCardContainer>
+						</div>
+					</div>
 				</div>
 
 				<div className="mx-3">
@@ -78,21 +103,33 @@ const ManageProblems = ({
 				</div>
 
 				<div className="">
-					<Input/>
-					<ReactSortable group={{
-						name: "shared",
-						pull: "clone",
-						put: false
-					}} 
-					animation={150}
-					sort={false}
-					list={allProblemsSortable} setList={setAllProblemsSortable}>
+					<Input />
+
+					<SortableMyCardContainer
+						group={{
+							name: "shared",
+							pull: "clone",
+							put: false,
+						}}
+						animation={150}
+						sort={false}
+						list={allProblemsSortable}
+						setList={setAllProblemsSortable}
+					>
 						{allProblemsSortable.map((item) => (
-							<MyProblemCard key={item.id} problem={
-								allProblems.find(problem => problem.problem_id === item.id) as ProblemModel | ProblemSecureModel
-							} />
-						))}
-					</ReactSortable>
+								<MyProblemCard
+									key={item.id}
+									problem={
+										allProblems.find(
+											(problem) =>
+												problem.problem_id === item.id
+										) as ProblemModel | ProblemSecureModel
+									}
+								/>
+							))}
+					</SortableMyCardContainer>
+							
+						
 				</div>
 			</div>
 		</div>

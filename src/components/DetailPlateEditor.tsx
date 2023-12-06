@@ -54,7 +54,7 @@ export default function DetailPlateEditor({value,onChange}:{
 
             <Editor
               
-              className="px-[96px] py-16 h-[60vh] overflow-y-scroll"
+              className="px-[96px] py-16 h-[60vh] md:h-[58vh] overflow-y-scroll"
               autoFocus
               focusRing={false}
               variant="ghost"
