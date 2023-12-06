@@ -7,7 +7,7 @@ import MyProblemCard from "../../../components/MyProblemCard";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemModel } from "../../../types/models/Problem.model";
-import MyCardContainer from "../../../components/MyCardContainer";
+import CardContainer from "../../../components/CardContainer";
 
 const MyProblems = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
@@ -40,11 +40,11 @@ const MyProblems = () => {
 					</div>
 				</div>
 
-				<MyCardContainer>
+				<CardContainer>
 					{problems.map((problem, index) => (
 						<MyProblemCard problem={problem} key={index} />
 					))}
-				</MyCardContainer>
+				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>
 	);

@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactSortable } from "react-sortablejs";
 
-const SortableMyCardContainer = ({
+const SortableCardContainer = ({
 	children,
     ...args
 }: {
@@ -14,4 +14,4 @@ const SortableMyCardContainer = ({
 	);
 };
 
-export default SortableMyCardContainer;
+export default SortableCardContainer;

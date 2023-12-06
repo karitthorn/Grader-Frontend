@@ -4,7 +4,7 @@ import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import MyCollectionCard from "../../../components/MyCollectionCard";
 import { useNavigate } from "react-router-dom";
-import MyCardContainer from "../../../components/MyCardContainer";
+import CardContainer from "../../../components/CardContainer";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
@@ -33,7 +33,7 @@ const MyCollections = () => {
 					</div>
 				</div>
 
-				<MyCardContainer>
+				<CardContainer>
 					<MyCollectionCard />
 					<MyCollectionCard />
 					<MyCollectionCard />
@@ -49,7 +49,7 @@ const MyCollections = () => {
 					<MyCollectionCard />
 					<MyCollectionCard />
 					<MyCollectionCard />
-				</MyCardContainer>
+				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>
 	);

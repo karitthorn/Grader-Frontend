@@ -10,11 +10,13 @@ import ViewProblem from "./views/ViewProblem";
 import MyCollections from "./views/My/Collections/MyCollections";
 import EditProblem from "./views/My/Problems/EditProblem";
 import CreateCollection from "./views/My/Collections/CreateCollection";
+import ExploreProblems from "./views/ExploreProblems";
 
 const Router = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
+			<Route path="/explore" element={<ExploreProblems />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
 			<Route path="/management" element={<CourseManagement />} />

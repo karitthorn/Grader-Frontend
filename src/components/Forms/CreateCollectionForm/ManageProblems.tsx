@@ -12,8 +12,8 @@ import {
 } from "../../../types/models/Problem.model";
 import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
 import MyProblemCard from "../../MyProblemCard";
-import MyCardContainer from "../../MyCardContainer";
-import SortableMyCardContainer from "../../SortableMyCardContainer";
+import CardContainer from "../../CardContainer";
+import SortableCardContainer from "../../SortableCardContainer";
 
 const ManageProblems = ({
 	createRequest,
@@ -73,7 +73,7 @@ const ManageProblems = ({
 				<div className="w-1/2">
 					<div className="mt-6 h-[80vh] pr-5 overflow-y-scroll">
 						<div className="grid gap-y-3">
-							<SortableMyCardContainer
+							<SortableCardContainer
 								animation={150}
 								group="shared"
 								list={allProblemsSortable2}
@@ -93,7 +93,7 @@ const ManageProblems = ({
 										}
 									/>
 								))}
-							</SortableMyCardContainer>
+							</SortableCardContainer>
 						</div>
 					</div>
 				</div>
@@ -105,7 +105,7 @@ const ManageProblems = ({
 				<div className="">
 					<Input />
 
-					<SortableMyCardContainer
+					<SortableCardContainer
 						group={{
 							name: "shared",
 							pull: "clone",
@@ -127,7 +127,7 @@ const ManageProblems = ({
 									}
 								/>
 							))}
-					</SortableMyCardContainer>
+					</SortableCardContainer>
 							
 						
 				</div>

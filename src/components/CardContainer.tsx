@@ -1,6 +1,6 @@
 import React from "react";
 
-const MyCardContainer = ({children}: {
+const CardContainer = ({children}: {
     children: React.ReactNode
 }) => {
 	return (
@@ -12,4 +12,4 @@ const MyCardContainer = ({children}: {
 	);
 };
 
-export default MyCardContainer;
+export default CardContainer;
