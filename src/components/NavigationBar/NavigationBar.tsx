@@ -28,7 +28,7 @@ const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
 	const customNavigationMenuTriggerStyle = () => {
 		return (
 			navigationMenuTriggerStyle() +
-			" bg-green-600 hover:bg-green-700 hover:text-white text-white"
+			" bg-green-600 hover:bg-green-700 hover:text-white text-white cursor-pointer"
 		);
 	};
 
@@ -44,6 +44,12 @@ const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
 							className={customNavigationMenuTriggerStyle()}
 						>
 							Home
+						</NavigationMenuLink>
+						<NavigationMenuLink
+							className={customNavigationMenuTriggerStyle()}
+							href="/explore"
+						>
+							Explore
 						</NavigationMenuLink>
 					</NavigationMenuItem>
 					{/* <NavigationMenuItem>

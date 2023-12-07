@@ -1,7 +1,7 @@
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PlateEditorValueType } from "../../../types/models/PlateEditorValueType";
+import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
 import { ProblemService } from "../../../services/Problem.service";
 import { toast } from "../../shadcn/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";

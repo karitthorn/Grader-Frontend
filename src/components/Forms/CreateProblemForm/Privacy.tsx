@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
-import { PlateEditorValueType } from '../../../types/models/PlateEditorValueType';
+import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
 import { Label } from '../../shadcn/Label';
 import { Input } from '../../shadcn/Input';
 import DetailPlateEditor from '../../DetailPlateEditor';

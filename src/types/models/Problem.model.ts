@@ -1,4 +1,5 @@
 import { AccountSecureModel } from "./Account.model"
+import { SubmissionPopulateSubmissionTestcasesSecureModel } from "./Submission.model"
 
 export type TestcaseModel = {
     testcase_id: number
@@ -33,18 +34,8 @@ export type ProblemSecureModel = {
     updated_date: string;
 }
 
-export type ProblemPoplulateCreatorModel = {
-    problem_id: number
-    language: string
-    title: string
-    description: string
-    solution: string
-    time_limit: number
-    is_active: boolean
-    is_private: boolean
-    submission_regex: string
+export type ProblemPoplulateCreatorModel = ProblemModel & {
     creator: AccountSecureModel
-    testcases: TestcaseModel[]
 }
 
 export type ProblemPopulateAccountSecureModel = {
@@ -52,4 +43,8 @@ export type ProblemPopulateAccountSecureModel = {
     title: string
     description: string | null
     creator: AccountSecureModel
+}
+
+export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = ProblemPoplulateCreatorModel & {
+    best_submission: SubmissionPopulateSubmissionTestcasesSecureModel | null
 }

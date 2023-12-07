@@ -1,4 +1,4 @@
-import { PlateEditorValueType } from "../models/PlateEditorValueType";
+import { PlateEditorValueType } from "../PlateEditorValueType";
 import { TestcaseModel } from "../models/Problem.model";
 
 export type CreateProblemRequestForm = {

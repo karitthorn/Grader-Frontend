@@ -1,5 +1,5 @@
 import { CollectionProblemPopulateProblemSecureModel } from "../models/Collection.model";
-import { PlateEditorValueType } from "../models/PlateEditorValueType";
+import { PlateEditorValueType } from "../PlateEditorValueType";
 
 export type CreateCollectionRequestForm = {
     title: string;

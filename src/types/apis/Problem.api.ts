@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { ErrorResponse } from "./ErrorHandling";
-import { ProblemModel, ProblemPoplulateCreatorModel } from "../models/Problem.model";
+import { ProblemModel, ProblemPoplulateCreatorModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../models/Problem.model";
 
 export type CreateProblemRequest = {
     title: string;
@@ -44,9 +44,13 @@ export type ValidateProgramResponse = {
     runtime_results: RuntimeResult[];
 }
 
+export type GetAllProblemsResponse = {
+    problems: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
+}
+
 export type ProblemServiceAPI = {
     create: (accountId:number,request: CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
-    getAll: (accountId:number) => Promise<AxiosResponse<{problems: ProblemPoplulateCreatorModel[]}>>;
+    getAll: () => Promise<AxiosResponse<GetAllProblemsResponse>>;
     getAllByAccount: (accountId:number) => Promise<AxiosResponse<GetAllProblemsByAccountResponse>>;
     get: (problemId:number) => Promise<AxiosResponse<ProblemPoplulateCreatorModel>>;
     update: (problemId:number, request: UpdateProblemRequest | CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
