@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Separator } from "../components/shadcn/Seperator";
 import PlateEditor from "../components/PlateEditor";
 import ReadOnlyPlate from "../components/ReadOnlyPlate";
@@ -23,7 +23,8 @@ import { SubmitProblemResponse } from "../types/apis/Submission.api";
 import PreviousSubmissionsCombobox from "../components/PreviousSubmissionsCombobox";
 import { SubmitProblemResponse2GetSubmissionByAccountProblemResponse } from "../types/adapters/Submission.adapter";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, ChevronLeftIcon, ChevronLeftSquareIcon, Loader2 } from "lucide-react";
+import { readableDateFormat } from "../utilities/ReadableDateFormat";
 
 const handleDeprecatedDescription = (description: string): string => {
 	if (description[0] === "[") {
@@ -40,6 +41,8 @@ const handleDeprecatedDescription = (description: string): string => {
 };
 
 const ViewProblem = () => {
+
+	const navigate = useNavigate();
 	const { problemId } = useParams();
 	const accountId = Number(localStorage.getItem("account_id"));
 
@@ -102,16 +105,43 @@ const ViewProblem = () => {
 
 	return (
 		<NavbarMenuLayout xPad={false}>
-			<div className="flex  xxl:mt-10 md:mt-5 xl:h-[85vh] md:h-[75vh]">
-				<div className="w-1/2">
-					{problem && (
-						<ReadOnlyPlate
-							value={JSON.parse(
-								handleDeprecatedDescription(String(problem.description))
-							)}
-							className="xl:h-[85vh] md:h-[75vh]"
-						/>
-					)}
+			<div className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">
+				<div className="w-1/2 grid content-between">
+					<div className="ml-20">
+						<div className="text-3xl text-green-700 font-bold mb-2 flex">
+							<ArrowLeft
+								size={40}
+								className="cursor-pointer mr-2"
+								onClick={() => navigate(-1)}
+							/>
+							{problem?.title}
+						</div>
+						<div className="flex text-base">
+							<div className="flex mr-10">
+								<b className="mr-2">Author</b>
+								<p className="">{problem?.creator.username}</p>
+							</div>
+
+							<div className="flex">
+								<b className="mr-2">Updated Date</b>
+								<p className="">
+									{readableDateFormat(String(problem?.updated_date))}
+								</p>
+							</div>
+						</div>
+					</div>
+					<div>
+						{problem && (
+							<ReadOnlyPlate
+								value={JSON.parse(
+									handleDeprecatedDescription(
+										String(problem.description)
+									)
+								)}
+								className="h-[70vh] xl:h-[80vh]"
+							/>
+						)}
+					</div>
 				</div>
 				<div className="mx-3">
 					<Separator orientation="vertical" />
@@ -136,14 +166,12 @@ const ViewProblem = () => {
 									}
 								/>
 							)}
-							{
-								grading && (
-									<div className="flex items-center">
-										<Loader2 className="animate-spin mr-2 text-green-400" />
-										Grading ...
-									</div>
-								)
-							}
+							{grading && (
+								<div className="flex items-center">
+									<Loader2 className="animate-spin mr-2 text-green-400" />
+									Grading ...
+								</div>
+							)}
 						</div>
 					</div>
 					<div className="">
@@ -163,7 +191,9 @@ const ViewProblem = () => {
 							bestSubmission={
 								previousSubmissions?.best_submission as SubmissionPopulateSubmissionTestcasesSecureModel
 							}
-							submissions={previousSubmissions?.submissions as SubmissionPopulateSubmissionTestcasesSecureModel[]}
+							submissions={
+								previousSubmissions?.submissions as SubmissionPopulateSubmissionTestcasesSecureModel[]
+							}
 							onSelect={(submissionId) =>
 								handleSelectPreviousSubmission(
 									Number(submissionId)

@@ -6,6 +6,7 @@ import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import { Button } from "./shadcn/Button";
 import { Label } from "./shadcn/Label";
 import { useNavigate } from "react-router-dom";
+import { Puzzle } from "lucide-react";
 
 const PublicProblemCard = ({
 	problem,
@@ -49,7 +50,10 @@ const PublicProblemCard = ({
 							<TestcasesGradingIndicator disableHover submissionTestcases={problem.best_submission?.runtime_output}/>
 						</div>
 						<div className="w-2/12 self-center">
-							<Button onClick={() => navigate(`/problems/${problem.problem_id}`)} color="secondary">Solve This Problem</Button>
+							<Button onClick={() => navigate(`/problems/${problem.problem_id}`)} color="secondary">
+								<Puzzle className="mr-2"/>
+								Solve This Problem
+							</Button>
 						</div>
 					</div>
 				</div>
