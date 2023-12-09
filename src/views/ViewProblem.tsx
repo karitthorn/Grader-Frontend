@@ -23,22 +23,21 @@ import { SubmitProblemResponse } from "../types/apis/Submission.api";
 import PreviousSubmissionsCombobox from "../components/PreviousSubmissionsCombobox";
 import { SubmitProblemResponse2GetSubmissionByAccountProblemResponse } from "../types/adapters/Submission.adapter";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+import { Loader2 } from "lucide-react";
 
-const handleDeprecatedDescription = (description: string):string => {
+const handleDeprecatedDescription = (description: string): string => {
 	if (description[0] === "[") {
 		return description;
-	}
-	else {
+	} else {
 		return JSON.stringify([
 			{
 				id: "1",
 				type: ELEMENT_PARAGRAPH,
 				children: [{ text: description }],
 			},
-		])
+		]);
 	}
-}
-
+};
 
 const ViewProblem = () => {
 	const { problemId } = useParams();
@@ -103,12 +102,16 @@ const ViewProblem = () => {
 
 	return (
 		<NavbarMenuLayout xPad={false}>
-			<div className="flex xxl:mt-10 md:mt-5">
+			<div className="flex  xxl:mt-10 md:mt-5 xl:h-[85vh] md:h-[75vh]">
 				<div className="w-1/2">
-					{problem && <ReadOnlyPlate
-						value={JSON.parse(handleDeprecatedDescription(problem.description))}
-						className="xl:h-[85vh] md:h-[75vh]"
-					/>}
+					{problem && (
+						<ReadOnlyPlate
+							value={JSON.parse(
+								handleDeprecatedDescription(String(problem.description))
+							)}
+							className="xl:h-[85vh] md:h-[75vh]"
+						/>
+					)}
 				</div>
 				<div className="mx-3">
 					<Separator orientation="vertical" />
@@ -133,6 +136,14 @@ const ViewProblem = () => {
 									}
 								/>
 							)}
+							{
+								grading && (
+									<div className="flex items-center">
+										<Loader2 className="animate-spin mr-2 text-green-400" />
+										Grading ...
+									</div>
+								)
+							}
 						</div>
 					</div>
 					<div className="">
@@ -150,9 +161,9 @@ const ViewProblem = () => {
 					<div className="flex justify-between mt-1">
 						<PreviousSubmissionsCombobox
 							bestSubmission={
-								previousSubmissions?.best_submission
+								previousSubmissions?.best_submission as SubmissionPopulateSubmissionTestcasesSecureModel
 							}
-							submissions={previousSubmissions?.submissions}
+							submissions={previousSubmissions?.submissions as SubmissionPopulateSubmissionTestcasesSecureModel[]}
 							onSelect={(submissionId) =>
 								handleSelectPreviousSubmission(
 									Number(submissionId)
@@ -164,7 +175,14 @@ const ViewProblem = () => {
 							onClick={handleSubmit}
 							className="px-10"
 						>
-							Submit
+							{grading ? (
+								<>
+									<Loader2 className="animate-spin mr-2" />
+									Submitting
+								</>
+							) : (
+								<>Submit</>
+							)}
 						</Button>
 					</div>
 				</div>

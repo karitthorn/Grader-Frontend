@@ -5,7 +5,7 @@ import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
 import { ProblemService } from "../../../services/Problem.service";
 import { toast } from "../../shadcn/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon, Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import { CreateProblemRequest } from "../../../types/apis/Problem.api";
 import { Button } from "../../shadcn/Button";
@@ -60,16 +60,16 @@ export type OnProblemSaveCallback = (
 	problemId: number,
 	setProblemId: React.Dispatch<React.SetStateAction<number>>,
 	createRequest: CreateProblemRequestForm
-	) => void
+) => void;
 
 const CreateProblemForm = ({
 	createRequestInitialValue,
 	onProblemSave,
-	validatedTestcases=[]
+	validatedTestcases = [],
 }: {
 	createRequestInitialValue: CreateProblemRequestForm;
 	onProblemSave: OnProblemSaveCallback;
-	validatedTestcases?: TestcaseModel[]
+	validatedTestcases?: TestcaseModel[];
 }) => {
 	const accountId = Number(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
@@ -77,24 +77,23 @@ const CreateProblemForm = ({
 	const [loading, setLoading] = useState(false);
 
 	const [currentForm, setCurrentForm] = React.useState("general");
-	const [createRequest, setCreateRequest] = useState<CreateProblemRequestForm>(
-		createRequestInitialValue
-	);
+	const [createRequest, setCreateRequest] =
+		useState<CreateProblemRequestForm>(createRequestInitialValue);
 
 	const [problemId, setProblemId] = useState(-1);
 
 	const handleSave = () => {
-		onProblemSave(setLoading,problemId,setProblemId,createRequest)
+		onProblemSave(setLoading, problemId, setProblemId, createRequest);
 	};
 
 	useEffect(() => {
 		if (validatedTestcases.length !== 0) {
 			setCreateRequest({
 				...createRequest,
-				validated_testcases: validatedTestcases
-			})
+				validated_testcases: validatedTestcases,
+			});
 		}
-	},[validatedTestcases])
+	}, [validatedTestcases]);
 
 	return (
 		<div className="w-[96%] mx-auto mt-10">
@@ -131,7 +130,14 @@ const CreateProblemForm = ({
 							onClick={handleSave}
 							className="px-10 ml-5"
 						>
-							{loading ? "Saving..." : "Save"}
+							{loading ? (
+								<>
+									<Loader2 className="animate-spin mr-2" />
+									Saving
+								</>
+							) : (
+								<>Save</>
+							)}
 						</Button>
 					</div>
 				</div>

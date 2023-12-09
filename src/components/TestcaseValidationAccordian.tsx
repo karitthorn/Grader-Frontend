@@ -35,15 +35,15 @@ const TestcaseValidationInstance = ({
 				<div className="flex gap-5 pl-1">
 					<div className="w-5/12">
 						<Label>Input</Label>
-						<Textarea rows={inputValue.split('\n').length} readOnly className="mt-1 font-mono cursor-pointer" value={inputValue} onClick={() => navigator.clipboard.writeText(inputValue)}/>
+						<Textarea rows={inputValue?.split('\n').length} readOnly className="mt-1 font-mono cursor-pointer" value={inputValue} onClick={() => navigator.clipboard.writeText(inputValue)}/>
 					</div>
 					<div className="w-5/12">
 						<Label>Output</Label>
-						<Textarea rows={outputValue.split('\n').length} readOnly className="mt-1 font-mono cursor-pointer" value={outputValue} onClick={() => navigator.clipboard.writeText(outputValue)}/>
+						<Textarea rows={outputValue?.split('\n').length} readOnly className="mt-1 font-mono cursor-pointer" value={outputValue} onClick={() => navigator.clipboard.writeText(outputValue)}/>
 					</div>
 					<div className="w-2/12">
 						<Label>Runtime Status</Label>
-						<p className={"text-xl font-bold text-green-400 " + TestcaseStatusIndicatorColor[status as TestcaseGradingResultStatus]}>{status}</p>
+						<p className={`text-xl font-bold text-${TestcaseStatusIndicatorColor[status as TestcaseGradingResultStatus]}`}>{status}</p>
 					</div>
 				</div>
 			</AccordionContent>

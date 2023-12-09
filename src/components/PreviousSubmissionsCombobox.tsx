@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./shadcn/Popover";
 import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
 import {
 	GetSubmissionByAccountProblemSubmissionModel,
+	SubmissionPopulateSubmissionTestcasesSecureModel,
 	SubmissionTestcaseSecureModel,
 } from "../types/models/Submission.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
@@ -63,8 +64,8 @@ export function PreviousSubmissionsCombobox({
 	bestSubmission,
 	onSelect,
 }: {
-	submissions: GetSubmissionByAccountProblemSubmissionModel[];
-	bestSubmission: GetSubmissionByAccountProblemSubmissionModel;
+	submissions: SubmissionPopulateSubmissionTestcasesSecureModel[];
+	bestSubmission: SubmissionPopulateSubmissionTestcasesSecureModel ;
 	onSelect?: (value: string) => void;
 }) {
 	const [open, setOpen] = React.useState(false);

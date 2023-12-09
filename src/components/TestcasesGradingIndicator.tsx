@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	HoverCard,
 	HoverCardContent,
@@ -38,6 +38,9 @@ const TestcasesGradingIndicator = ({submissionTestcases,disableHover=false}: {
 	submissionTestcases?: SubmissionTestcaseSecureModel[];
 	disableHover?: boolean;
 }) => {
+	useEffect(()=>{
+		console.log(submissionTestcases)
+	},[submissionTestcases])
 	return (
 		<div className="flex gap-0.5 items-center">
 			{

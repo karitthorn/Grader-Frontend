@@ -6,7 +6,6 @@ import {
 	testcaseParse,
 	testcasesStringify,
 } from "../../../utilities/TestcaseFormat";
-import { Label } from "@radix-ui/react-label";
 import { Combobox } from "../../shadcn/Combobox";
 import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
 import { Editor as MonacoEditor } from "@monaco-editor/react";
@@ -14,13 +13,17 @@ import { Input } from "../../shadcn/Input";
 import { Button } from "../../shadcn/Button";
 import TestcaseValidationAccordian from "../../TestcaseValidationAccordian";
 import { Separator } from "../../shadcn/Seperator";
+import { Label } from "../../shadcn/Label";
+import { Loader2 } from "lucide-react";
 
 const Scoring = ({
 	createRequest,
 	setCreateRequest,
 }: {
 	createRequest: CreateProblemRequestForm;
-	setCreateRequest: React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
+	setCreateRequest: React.Dispatch<
+		React.SetStateAction<CreateProblemRequestForm>
+	>;
 }) => {
 	const [loading, setLoading] = useState(false);
 	const [displayResult, setDisplayResult] = useState(false);
@@ -32,7 +35,7 @@ const Scoring = ({
 		useState<ValidateProgramResponse>();
 
 	const handleValidation = () => {
-		// setLoading(true);
+		setLoading(true);
 
 		// console.log({
 		// 	og: createRequest.testcases,
@@ -50,6 +53,7 @@ const Scoring = ({
 			console.log(response.data);
 			setValidationResult(response.data);
 			setDisplayResult(true);
+			setLoading(false);
 		});
 	};
 
@@ -58,8 +62,8 @@ const Scoring = ({
 	}, [selectedLanguage]);
 
 	return (
-		<div className="flex">
-			<div className="w-1/2 h-[80vh] overflow-y-scroll">
+		<div className="flex h-[80vh]">
+			<div className="w-1/2  overflow-y-scroll">
 				<div className="flex justify-between mb-1">
 					<div>
 						<Label>Source Code</Label>
@@ -95,7 +99,7 @@ const Scoring = ({
 				/>
 
 				<div className="my-1 flex justify-between items-center">
-					<Label className="">Testcases</Label>
+					<Label className="">Testcase</Label>
 					<div className="flex w-1/2 items-center">
 						<Label className="mr-3">
 							Delimeter (For seperate each testcase)
@@ -125,47 +129,40 @@ const Scoring = ({
 					defaultLanguage="python"
 				/>
 			</div>
-			<div className="h-[80vh]">
+			<div className="">
 				<Separator className="mx-2" orientation="vertical" />
 			</div>
 
-			<div className="w-1/2">
-				{!displayResult && (
-					<div className="m-auto">
-						{!loading ? (
-							<Button
-								onClick={handleValidation}
-								className="px-10"
-							>
+			<div className="w-1/2 grid content-between">
+				<div className="pr-5 overflow-y-scroll h-[70vh]">
+					{((displayResult && validationResult) ||
+						createRequest.validated_testcases) && (
+						<TestcaseValidationAccordian
+							runtimeResults={
+								validationResult?.runtime_results
+									? validationResult.runtime_results
+									: createRequest.validated_testcases
+							}
+						/>
+					)}
+				</div>
+				<div className="flex justify-end">
+					<Button disabled={loading} onClick={handleValidation} className="px-10">
+						{
+							loading ? (
+								<>
+								<Loader2 className="animate-spin mr-2"/>
+								Validating
+								</>
+							) : (
+								<>
 								Validate
-							</Button>
-						) : (
-							<h1>Validation ...</h1>
-						)}
-					</div>
-				)}
-
-				{((displayResult && validationResult) || (createRequest.validated_testcases)) && (
-					<div className="wrap w-full">
-						<div className="pr-5 h-[80vh] md:h-[70vh] overflow-y-scroll">
-							<TestcaseValidationAccordian
-								runtimeResults={
-									validationResult?.runtime_results ?
-									validationResult.runtime_results :
-									createRequest.validated_testcases
-								}
-							/>
-						</div>
-						<div className="flex justify-end mt-5">
-							<Button
-								onClick={handleValidation}
-								className="px-10"
-							>
-								Validate Again
-							</Button>
-						</div>
-					</div>
-				)}
+								</>
+							)
+						}
+						
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

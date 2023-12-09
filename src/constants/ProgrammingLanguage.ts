@@ -17,7 +17,9 @@ export const ProgrammingLanguageOptions = [
     },
 ]
 
-export const ProgrammingLanguageLabel = {
+export const ProgrammingLanguageLabel:{
+    [key: string]: string
+} = {
     'c': 'C',
     'cpp': 'C++',
     'python': 'Python',

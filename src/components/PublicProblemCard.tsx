@@ -1,59 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardTitle } from "./shadcn/Card";
 import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
 import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import { Button } from "./shadcn/Button";
 import { Label } from "./shadcn/Label";
+import { useNavigate } from "react-router-dom";
 
 const PublicProblemCard = ({
 	problem,
 }: {
 	problem: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
 }) => {
+
+	const navigate = useNavigate()
+	const [isHovering, setIsHovering] = useState(false);
+
 	return (
-		<Card className="pt-6 px-5">
+		<Card
+		
+			onMouseEnter={() => setIsHovering(true)}
+			onMouseLeave={() => setIsHovering(false)}
+			className={`pt-6 px-5 cursor-pointer ${isHovering ? "border-green-500 bg-green-100": ""}`}>
 			<CardContent>
-				{/* <div className="flex items-center">
-					<div className="w-1/6">
-						<h1 className="font-bold">{problem.title}</h1>
-					</div>
-
-					<div className="text-base w-1/6">{problem.creator.username}</div>
-					<div className="text-base w-1/6">
-						{readableDateFormat(problem.updated_date)}
-					</div>
-					<div className="flex justify-end w-2/6">
-						<TestcasesGradingIndicator
-							disableHover
-							submissionTestcases={
-								problem.best_submission?.runtime_output
-							}
-						/>
-					</div>
-
-          <div className="flex justify-end w-1/6">
-							<Button>Solve This Problem</Button>
-          </div>
-				</div> */}
 				<div>
-					<h1 className="font-bold">{problem.title}</h1>
-					<div className="flex">
-						<div className="w-1/6">
-							<div>
+					<h1 className={`font-bold ${isHovering ? "text-green-600" : ""}`}>{problem.title}</h1>
+					<div className="flex items-stretch">
+						<div className="w-2/12">
+							<div className="">
 								<Label>Author</Label>
 							</div>
-							<div className="leading-3">
+							<div className="leading-3 text-gray-400">
 								<Label>{problem.creator.username}</Label>
 							</div>
 						</div>
-						<div>
-							<div>
+						<div className="w-3/12">
+							<div className="">
 								<Label>Updated Date</Label>
 							</div>
-							<div className="leading-3">
-								<Label>{readableDateFormat(problem.updated_date)}</Label>
+							<div className="leading-3 text-gray-400">
+								<Label>
+									{readableDateFormat(problem.updated_date)}
+								</Label>
 							</div>
+						</div>
+						<div className={`w-5/12 self-end ${problem.best_submission ? "" : "invisible"}`}>
+						<Label>Best Submission</Label>
+							<TestcasesGradingIndicator disableHover submissionTestcases={problem.best_submission?.runtime_output}/>
+						</div>
+						<div className="w-2/12 self-center">
+							<Button onClick={() => navigate(`/problems/${problem.problem_id}`)} color="secondary">Solve This Problem</Button>
 						</div>
 					</div>
 				</div>

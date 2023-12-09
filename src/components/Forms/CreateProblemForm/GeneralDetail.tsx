@@ -18,10 +18,10 @@ const GeneralDetail = ({
 		if (!editorUpdateCooldown) {
 			setCreateRequest({ ...createRequest, description: value });
 
-			setEditorUpdateCooldown(true);
-			setTimeout(() => {
-				setEditorUpdateCooldown(false);
-			}, 1000);
+			// setEditorUpdateCooldown(true);
+			// setTimeout(() => {
+			// 	setEditorUpdateCooldown(false);
+			// }, 1000);
 		}
 	};
 

@@ -28,7 +28,7 @@ const MyProblemCard = ({ problem }: { problem: ProblemModel | ProblemSecureModel
 			onClick={() => navigate(`/my/problems/${problem.problem_id}`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
-			className="pt-6 px-5"
+			className={`pt-6 px-5 cursor-pointer ${highlightTitle ? "border-green-500 bg-green-100": ""}`}
 		>
 			{/* <div className="flex justify-between">
 				<div>
@@ -43,7 +43,7 @@ const MyProblemCard = ({ problem }: { problem: ProblemModel | ProblemSecureModel
 								<h1 className="	font-bold">{problem.title}</h1>
 							)}
 							{highlightTitle && (
-								<h1 className="font-bold text-green-900 underline underline-offset-2">
+								<h1 className="font-bold text-green-600">
 									{problem.title}
 								</h1>
 							)}
