@@ -45,11 +45,11 @@ const PublicProblemCard = ({
 								</Label>
 							</div>
 						</div>
-						<div className={`w-5/12 self-end ${problem.best_submission ? "" : "invisible"}`}>
+						<div className={`w-4/12 xxl:w-5/12 self-end ${problem.best_submission ? "" : "invisible"}`}>
 						<Label>Best Submission</Label>
 							<TestcasesGradingIndicator disableHover submissionTestcases={problem.best_submission?.runtime_output}/>
 						</div>
-						<div className="w-2/12 self-center">
+						<div className="w-3/12 xxl:w-2/12 self-center">
 							<Button onClick={() => navigate(`/problems/${problem.problem_id}`)} color="secondary">
 								<Puzzle className="mr-2"/>
 								Solve This Problem

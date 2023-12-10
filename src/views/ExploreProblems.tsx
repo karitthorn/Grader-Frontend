@@ -13,6 +13,7 @@ const ExploreProblems = () => {
 
 	useEffect(() => {
 		ProblemService.getAll().then((response) => {
+      console.log('prob',response.data.problems)
 			setProblems(response.data.problems);
 		});
 	}, []);

@@ -5,7 +5,7 @@ import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
 import { ProblemService } from "../../../services/Problem.service";
 import { toast } from "../../shadcn/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ChevronLeftIcon, Loader2 } from "lucide-react";
+import { ArrowLeft, ChevronLeftIcon, Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import { CreateProblemRequest } from "../../../types/apis/Problem.api";
 import { Button } from "../../shadcn/Button";
@@ -99,9 +99,9 @@ const CreateProblemForm = ({
 		<div className="w-[96%] mx-auto mt-10">
 			<div className="flex justify-between">
 				<h1 className="text-3xl font-bold tracking-tight flex">
-					<ChevronLeftIcon
+					<ArrowLeft
 						size={40}
-						className="text-gray-300 cursor-pointer"
+						className="text-gray-400 transition-all pr-0 hover:pr-1 cursor-pointer mr-2"
 						onClick={() => navigate("/my/problems")}
 					/>
 					{createRequest.title === ""
