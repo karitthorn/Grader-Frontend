@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { ErrorResponse } from "./ErrorHandling";
-import { ProblemModel, ProblemPoplulateCreatorModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../models/Problem.model";
+import { ProblemModel, ProblemPoplulateCreatorModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, ProblemPopulateTestcases } from "../models/Problem.model";
 
 export type CreateProblemRequest = {
     title: string;
@@ -21,7 +21,7 @@ export type UpdateProblemRequest = {
 }
 
 export type GetAllProblemsByAccountResponse = {
-    problems: ProblemModel[];
+    problems: ProblemPopulateTestcases[];
 }
 
 export type ValidateProgramRequest = {

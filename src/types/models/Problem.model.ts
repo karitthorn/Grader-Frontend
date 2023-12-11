@@ -48,3 +48,7 @@ export type ProblemPopulateAccountSecureModel = {
 export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = ProblemPoplulateCreatorModel & {
     best_submission: SubmissionPopulateSubmissionTestcasesSecureModel | null
 }
+
+export type ProblemPopulateTestcases = ProblemModel & {
+    testcases: TestcaseModel[]
+}

@@ -6,12 +6,14 @@ import Router from "./router";
 import { AuthService } from "./services/Auth.service";
 import { LoginContext } from "./contexts/LoginContext";
 import { Toaster } from "./components/shadcn/Toaster";
+import { NavSidebarContext } from "./contexts/NavSidebarContext";
 
 function App() {
 	const [isLogin, setIsLogin] = useState(false);
+	const [section, setSection] = useState("");
+	const [isOpenNavSidebar, setIsOpenNavSidebar] = useState(false);
 
 	useEffect(() => {
-		
 		const token = localStorage.getItem("token");
 		const account_id = Number(localStorage.getItem("account_id"));
 
@@ -24,14 +26,16 @@ function App() {
 				setIsLogin(true);
 			}
 		});
-	},[]);
+	}, []);
 
 	return (
 		<div>
 			<div className="App">
-				<LoginContext.Provider value={{isLogin, setIsLogin}}>
-					<Router />
-					<Toaster/>
+				<LoginContext.Provider value={{ isLogin, setIsLogin }}>
+					<NavSidebarContext.Provider value={{section, setSection,isOpen: isOpenNavSidebar,setIsOpen: setIsOpenNavSidebar}}>
+						<Router />
+						<Toaster />
+					</NavSidebarContext.Provider>
 				</LoginContext.Provider>
 			</div>
 		</div>

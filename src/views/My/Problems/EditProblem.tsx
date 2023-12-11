@@ -59,7 +59,7 @@ const EditProblem = () => {
 			setCreateRequest({
 				title: response.data.title,
 				description: JSON.parse(
-					handleDeprecatedDescription(response.data.description)
+					handleDeprecatedDescription(String(response.data.description))
 				),
 				language: response.data.language,
 				solution: response.data.solution,

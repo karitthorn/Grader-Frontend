@@ -1,13 +1,66 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardTitle } from "./shadcn/Card";
 import { Button } from "./shadcn/Button";
-import { Check, CheckCircle2, X } from "lucide-react";
+import {
+	Check,
+	CheckCircle2,
+	FileSpreadsheet,
+	Pencil,
+	PencilIcon,
+	Trash,
+	X,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { ProblemModel, ProblemSecureModel } from "../types/models/Problem.model";
+import {
+	ProblemModel,
+	ProblemPopulateTestcases,
+	ProblemSecureModel,
+	TestcaseModel,
+} from "../types/models/Problem.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
+import {
+	ContextMenu,
+	ContextMenuTrigger,
+	ContextMenuContent,
+	ContextMenuItem,
+} from "./shadcn/ContextMenu";
 
-const MyProblemCard = ({ problem }: { problem: ProblemModel | ProblemSecureModel }) => {
+const Checkmark = ({ status }: { status: boolean }) => {
+	return status ? (
+		<Check size={20} className="mr-2 text-green-400" />
+	) : (
+		<X size={20} className="mr-2 text-red-400" />
+	);
+};
 
+const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
+	for (const testcase of testcases) {
+		if (testcase.runtime_status !== "OK") {
+			return false;
+		}
+	}
+	return true;
+};
+
+const MyProblemContextMenu = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<ContextMenu>
+			<ContextMenuTrigger>{children}</ContextMenuTrigger>
+			<ContextMenuContent>
+				<ContextMenuItem>
+					<PencilIcon className="mr-2" size={16} />
+					Edit
+				</ContextMenuItem>
+				<ContextMenuItem>
+					<Trash className="mr-2" size={16} />
+					Delete
+				</ContextMenuItem>
+			</ContextMenuContent>
+		</ContextMenu>
+	);
+};
+
+const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 	const navigate = useNavigate();
 
 	const [highlightTitle, setHighlightTitle] = useState(false);
@@ -17,68 +70,85 @@ const MyProblemCard = ({ problem }: { problem: ProblemModel | ProblemSecureModel
 		setHighlightTitle(true);
 		setToolVisible(true);
 	};
-
 	const handleMouseOut = () => {
 		setHighlightTitle(false);
 		setToolVisible(false);
 	};
 
 	return (
-		<Card
-			onClick={() => navigate(`/my/problems/${problem.problem_id}`)}
-			onMouseOver={handleMouseOver}
-			onMouseOut={handleMouseOut}
-			className={`pt-6 px-5 cursor-pointer ${highlightTitle ? "border-green-500 bg-green-100": ""}`}
-		>
-			{/* <div className="flex justify-between">
-				<div>
-					<CardTitle>Problem Name</CardTitle>
-				</div>
-			</div> */}
-			<CardContent>
-				<div className="flex justify-between cursor-pointer">
-					<div className="flex w-5/6 items-center">
-						<div className="w-1/3">
-							{!highlightTitle && (
-								<h1 className="	font-bold">{problem.title}</h1>
-							)}
-							{highlightTitle && (
-								<h1 className="font-bold text-green-600">
-									{problem.title}
-								</h1>
-							)}
+		<MyProblemContextMenu>
+			<Card
+				onClick={() => navigate(`/my/problems/${problem.problem_id}`)}
+				onMouseOver={handleMouseOver}
+				onMouseOut={handleMouseOut}
+				className={`pt-6 px-5 cursor-pointer ${
+					highlightTitle ? "border-green-500 bg-green-100" : ""
+				}`}
+			>
+				<CardContent>
+					<div className="flex items-center mb-2">
+						<FileSpreadsheet className="text-blue-400 mr-2"/>
+						{!highlightTitle && (
+							<h1 className="	font-bold">{problem.title}</h1>
+						)}
+						{highlightTitle && (
+							<h1 className="font-bold text-green-600">
+								{problem.title}
+							</h1>
+						)}
+					</div>
+
+					<div className="flex text-sm font-medium items-stretch">
+						<div className="w-1/6 self-end grid gap-y-2">
+							<div>
+								<p className="">Lasted Updated</p>
+								<p className="text-gray-400">
+									{readableDateFormat(problem.updated_date)}
+								</p>
+							</div>
+
+							<div>
+								<p className="">Created Date</p>
+								<p className="text-gray-400">
+									{readableDateFormat(problem.created_date)}
+								</p>
+							</div>
 						</div>
 
-						<div className="text-base text-gray-400 w-1/3">
-							Last Updated: {readableDateFormat(problem.updated_date)}
+						<div className="w-1/6 self-end grid gap-y-2">
+							<div>
+								<p className="">Time Limited</p>
+								<p className="text-gray-400">
+									{problem.time_limit}s
+								</p>
+							</div>
+
+							<div>
+								<p className="">Visibility</p>
+								<p className="text-gray-400">
+									{problem.is_private ? "Private" : "Public"}
+								</p>
+							</div>
 						</div>
-						<div className="flex justify-between gap-5 text-base">
+
+						<div className="grid gap-y-1">
 							<div className="flex items-center">
-								<Check className="mr-2 h-4 w-4 text-green-400" />{" "}
+								<Checkmark status={problem.solution !== ""} />
 								Source Code
 							</div>
 							<div className="flex items-center">
-								<X className="mr-2 h-4 w-4 text-green-400" />{" "}
+								<Checkmark status={problem.testcases.length !== 0} />
 								Testcases
 							</div>
 							<div className="flex items-center">
-								<Check className="mr-2 h-4 w-4 text-green-400" />{" "}
+								<Checkmark status={checkRuntimeStatus(problem.testcases)} />
 								No Runtime Error
 							</div>
 						</div>
 					</div>
-					<div
-						className={
-							"flex gap-2 " + (toolVisible ? "" : "invisible")
-						}
-					>
-						{/* <Button>View</Button>
-						<Button>Edit</Button>
-						<Button>Delete</Button> */}
-					</div>
-				</div>
-			</CardContent>
-		</Card>
+				</CardContent>
+			</Card>
+		</MyProblemContextMenu>
 	);
 };
 

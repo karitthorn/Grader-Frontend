@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import MyCollectionCard from "../../../components/MyCollectionCard";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
+import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
 	const [collections, setCollections] = useState([]);
+	const {section,setSection} = useContext(NavSidebarContext)
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		setSection("COLLECTIONS")
+	}, []);
 
 	return (
 		<NavbarSidebarLayout>

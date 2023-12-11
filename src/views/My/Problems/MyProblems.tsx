@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Input } from "../../../components/shadcn/Input";
 import { Button } from "../../../components/shadcn/Button";
@@ -6,19 +6,24 @@ import { Card, CardContent, CardTitle } from "../../../components/shadcn/Card";
 import MyProblemCard from "../../../components/MyProblemCard";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../../services/Problem.service";
-import { ProblemModel } from "../../../types/models/Problem.model";
+import { ProblemModel, ProblemPopulateTestcases } from "../../../types/models/Problem.model";
 import CardContainer from "../../../components/CardContainer";
+import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 
 const MyProblems = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
-	const [problems, setProblems] = useState<ProblemModel[]>([]);
+	const [problems, setProblems] = useState<ProblemPopulateTestcases[]>([]);
+	const {section,setSection} = useContext(NavSidebarContext)
 
 	useEffect(() => {
 		ProblemService.getAllByAccount(accountId).then((response) => {
 			setProblems(response.data.problems);
+			console.log(response.data.problems);
 		});
+
+		setSection("PROBLEMS")
 	}, []);
 
 	return (
