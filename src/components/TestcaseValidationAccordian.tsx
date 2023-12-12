@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardTitle } from "./shadcn/Card";
 import {
 	Accordion,
@@ -22,11 +22,15 @@ const TestcaseValidationInstance = ({
 }: {
 	value: string;
 	inputValue: string;
-	outputValue: string;
+	outputValue: string | null;
 	status: string;
 }) => {
 	// const [inputValue, setInputValue] = useState("1 2 3");
 	// const [outputValue, setOutputValue] = useState("Hello World!");
+
+	useEffect(() => {
+		console.log(inputValue,outputValue,status);
+	},[outputValue])
 
 	return (
 		<AccordionItem value={value}>
@@ -39,7 +43,7 @@ const TestcaseValidationInstance = ({
 					</div>
 					<div className="w-5/12">
 						<Label>Output</Label>
-						<Textarea rows={outputValue?.split('\n').length} readOnly className="mt-1 font-mono cursor-pointer" value={outputValue} onClick={() => navigator.clipboard.writeText(outputValue)}/>
+						<Textarea rows={outputValue?.split('\n').length} readOnly className="mt-1 font-mono cursor-pointer" value={outputValue ?? ""} onClick={() => navigator.clipboard.writeText(outputValue)}/>
 					</div>
 					<div className="w-2/12">
 						<Label>Runtime Status</Label>

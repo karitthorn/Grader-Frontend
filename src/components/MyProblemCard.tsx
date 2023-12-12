@@ -138,7 +138,7 @@ const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 							</div>
 							<div className="flex items-center">
 								<Checkmark status={problem.testcases.length !== 0} />
-								Testcases
+								Testcases ({problem.testcases.length})
 							</div>
 							<div className="flex items-center">
 								<Checkmark status={checkRuntimeStatus(problem.testcases)} />

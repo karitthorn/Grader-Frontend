@@ -33,7 +33,7 @@ export type ValidateProgramRequest = {
 
 export type RuntimeResult = {
     input: string;
-    output: string;
+    output: string | null;
     runtime_status: string;
 }
 

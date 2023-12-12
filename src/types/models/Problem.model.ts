@@ -4,7 +4,7 @@ import { SubmissionPopulateSubmissionTestcasesSecureModel } from "./Submission.m
 export type TestcaseModel = {
     testcase_id: number
     input: string
-    output: string
+    output: string | null
     problem: number
     runtime_status: string
 }
