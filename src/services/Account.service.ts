@@ -2,6 +2,7 @@ import { AccountServiceAPI } from "../types/apis/Account.api";
 import { AccountModel } from "../types/models/Account.model";
 import { BASE_URL } from "../constants/BackendBaseURL";
 import axios from 'axios';
+import { ErrorResponse } from "../types/apis/ErrorHandling";
 
 export const AccountService: AccountServiceAPI = {
     create: async (request) => {

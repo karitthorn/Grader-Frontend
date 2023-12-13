@@ -13,7 +13,7 @@ import { RuntimeResult } from "../types/apis/Problem.api";
 import { Files } from "lucide-react";
 import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
 import { TestcaseModel } from "../types/models/Problem.model";
-import { Badge } from "./shadcn/badge";
+import { Badge } from "./shadcn/Badge";
 
 const TestcaseValidationInstance = ({
 	value,

@@ -19,19 +19,52 @@ import {
 } from "../components/shadcn/Card";
 import { Checkbox } from "../components/shadcn/Checkbox";
 import CenterContainer from "../layout/CenterLayout";
+import { AccountService } from "../services/Account.service";
+import {ErrorResponseType} from "../types/apis/ErrorHandling";
+import { ErrorResponseTypes } from "../constants/ErrorResponseTypes";
+
+type RegisterForm = {
+	username: string;
+	email: string;
+	password: string;
+	confirmation_password: string;
+	agreed_to_tac: boolean;
+};
 
 const Register = () => {
 	// const nevigate = useNavigate();
 	const form = useForm();
 
-	const validatedForm = (): Boolean => {
-		return true
+	const validatedForm = (formData: RegisterForm): Boolean => {
+		// Password longer than 8 characters
+		const PASSWORD_LONGER_THAN_8_CHARACTERS = formData.password.length >= 8
+		// Confirmation same as password
+		const CONFIRMATION_SAME_AS_PASSWORD = formData.password === formData.confirmation_password
+		// Agreed to TOS
+		const AGREED_TO_TAC = formData.agreed_to_tac
+
+		return PASSWORD_LONGER_THAN_8_CHARACTERS && CONFIRMATION_SAME_AS_PASSWORD && AGREED_TO_TAC
 	}
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (validatedForm()) {
-			// console.log(form.getValues());
+		const data = form.getValues() as RegisterForm
+		if (validatedForm(data)) {
+			AccountService.create({
+				username: data.username,
+				email: data.email,
+				password: data.password,
+			}).then(response => {
+				console.log(response)
+			}).catch(error => {
+				const errorType = error.response.data.message
+				if (errorType === ErrorResponseTypes.DUPLICATED_USERNAME) {
+					console.log("Username already exists")
+				}
+				else if (errorType === ErrorResponseTypes.DUPLICATED_EMAIL) {
+					console.log("Email already exists")
+				}
+			})
 		}
 	};
 
@@ -55,9 +88,11 @@ const Register = () => {
 									<FormItem>
 										<FormLabel>Username</FormLabel>
 										<FormControl>
-											<Input {...field} />
+											<Input required {...field} />
 										</FormControl>
-										<FormMessage />
+										<FormMessage>
+											Username already existes.
+										</FormMessage>
 									</FormItem>
 								)}
 							/>
@@ -69,9 +104,11 @@ const Register = () => {
 									<FormItem>
 										<FormLabel>Email</FormLabel>
 										<FormControl>
-											<Input type="email" {...field} />
+											<Input required type="email" {...field} />
 										</FormControl>
-										<FormMessage />
+										<FormMessage>
+											Email already existes.
+										</FormMessage>
 									</FormItem>
 								)}
 							/>
@@ -83,9 +120,11 @@ const Register = () => {
 									<FormItem>
 										<FormLabel>Password</FormLabel>
 										<FormControl>
-											<Input type="password" {...field} />
+											<Input required type="password" {...field} />
 										</FormControl>
-										<FormMessage />
+										<FormMessage>
+											Password must be long at least 8 characters.
+										</FormMessage>
 									</FormItem>
 								)}
 							/>
@@ -99,9 +138,11 @@ const Register = () => {
 											Confirmation Password
 										</FormLabel>
 										<FormControl>
-											<Input type="password" {...field} />
+											<Input required type="password" {...field} />
 										</FormControl>
-										<FormMessage />
+										<FormMessage>
+											Comfirmation password doesn't match with password.
+										</FormMessage>
 									</FormItem>
 								)}
 							/>
@@ -123,6 +164,9 @@ const Register = () => {
 												Terms & Conditions
 											</a>
 										</FormLabel>
+										<FormMessage>
+											You must agree to the terms and conditions.
+										</FormMessage>
 									</FormItem>
 								)}
 							/>
