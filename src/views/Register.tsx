@@ -22,6 +22,8 @@ import CenterContainer from "../layout/CenterLayout";
 import { AccountService } from "../services/Account.service";
 import {ErrorResponseType} from "../types/apis/ErrorHandling";
 import { ErrorResponseTypes } from "../constants/ErrorResponseTypes";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 type RegisterForm = {
 	username: string;
@@ -32,22 +34,42 @@ type RegisterForm = {
 };
 
 const Register = () => {
-	// const nevigate = useNavigate();
+	const nevigate = useNavigate();
 	const form = useForm();
+
+	const [loading, setLoading] = useState(false);
+
+	const [invalidPasswordLength, setInvalidPasswordLength] = useState(false);
+	const [invalidConfirmationPassword, setInvalidConfirmationPassword] = useState(false);
+	const [invalidAgreedToTAC, setInvalidAgreedToTAC] = useState(false);
+	const [invalidUsername, setInvalidUsername] = useState(false);
+	const [invalidEmail, setInvalidEmail] = useState(false);
 
 	const validatedForm = (formData: RegisterForm): Boolean => {
 		// Password longer than 8 characters
 		const PASSWORD_LONGER_THAN_8_CHARACTERS = formData.password.length >= 8
+		setInvalidPasswordLength(!PASSWORD_LONGER_THAN_8_CHARACTERS)
 		// Confirmation same as password
 		const CONFIRMATION_SAME_AS_PASSWORD = formData.password === formData.confirmation_password
+		setInvalidConfirmationPassword(!CONFIRMATION_SAME_AS_PASSWORD)
 		// Agreed to TOS
 		const AGREED_TO_TAC = formData.agreed_to_tac
+		setInvalidAgreedToTAC(!AGREED_TO_TAC)
 
 		return PASSWORD_LONGER_THAN_8_CHARACTERS && CONFIRMATION_SAME_AS_PASSWORD && AGREED_TO_TAC
 	}
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		setLoading(true)
+
+		setInvalidPasswordLength(false)
+		setInvalidConfirmationPassword(false)
+		setInvalidAgreedToTAC(false)
+		setInvalidUsername(false)
+		setInvalidEmail(false)
+
 		const data = form.getValues() as RegisterForm
 		if (validatedForm(data)) {
 			AccountService.create({
@@ -55,16 +77,23 @@ const Register = () => {
 				email: data.email,
 				password: data.password,
 			}).then(response => {
-				console.log(response)
+				nevigate("/login")
+				setLoading(false)
 			}).catch(error => {
 				const errorType = error.response.data.message
 				if (errorType === ErrorResponseTypes.DUPLICATED_USERNAME) {
 					console.log("Username already exists")
+					setInvalidUsername(true)
 				}
 				else if (errorType === ErrorResponseTypes.DUPLICATED_EMAIL) {
 					console.log("Email already exists")
+					setInvalidEmail(true)
 				}
+				setLoading(false)
 			})
+		}
+		else {
+			setLoading(false)
 		}
 	};
 
@@ -90,9 +119,12 @@ const Register = () => {
 										<FormControl>
 											<Input required {...field} />
 										</FormControl>
-										<FormMessage>
-											Username already existes.
-										</FormMessage>
+										{
+											invalidUsername &&
+											<FormMessage>
+												Username already exists.
+											</FormMessage>
+										}
 									</FormItem>
 								)}
 							/>
@@ -106,9 +138,12 @@ const Register = () => {
 										<FormControl>
 											<Input required type="email" {...field} />
 										</FormControl>
-										<FormMessage>
-											Email already existes.
-										</FormMessage>
+										{
+											invalidEmail &&
+											<FormMessage>
+												Email already exists.
+											</FormMessage>
+										}
 									</FormItem>
 								)}
 							/>
@@ -122,9 +157,12 @@ const Register = () => {
 										<FormControl>
 											<Input required type="password" {...field} />
 										</FormControl>
-										<FormMessage>
-											Password must be long at least 8 characters.
-										</FormMessage>
+										{
+											invalidPasswordLength &&
+											<FormMessage>
+												Password must be longer than 8 characters.
+											</FormMessage>
+										}
 									</FormItem>
 								)}
 							/>
@@ -140,9 +178,12 @@ const Register = () => {
 										<FormControl>
 											<Input required type="password" {...field} />
 										</FormControl>
-										<FormMessage>
-											Comfirmation password doesn't match with password.
-										</FormMessage>
+										{
+											invalidConfirmationPassword &&
+											<FormMessage>
+												Confirmation password must be the same as password.
+											</FormMessage>
+										}
 									</FormItem>
 								)}
 							/>
@@ -164,15 +205,25 @@ const Register = () => {
 												Terms & Conditions
 											</a>
 										</FormLabel>
-										<FormMessage>
-											You must agree to the terms and conditions.
-										</FormMessage>
+										{
+											invalidAgreedToTAC &&
+											<FormMessage>
+												You must agree to Terms & Conditions.
+											</FormMessage>
+										}
 									</FormItem>
 								)}
 							/>
 
 							<Button className="w-full" type="submit">
-								Register
+							{loading ? (
+								<>
+									<Loader2 className="animate-spin mr-2" />
+									Registering
+								</>
+							) : (
+								<>Register</>
+							)}
 							</Button>
 						</form>
 					</Form>
