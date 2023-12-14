@@ -118,7 +118,7 @@ const MyProblemMiniCard = ({
                                 <TooltipContent>Source Code</TooltipContent>
                             </Tooltip>
                             <Tooltip>
-                                <TooltipTrigger><Checkmark variant="circle" status/></TooltipTrigger>
+                                <TooltipTrigger><Checkmark variant="circle" status={false}/></TooltipTrigger>
                                 <TooltipContent>Testcase</TooltipContent>
                             </Tooltip>
                             <Tooltip>

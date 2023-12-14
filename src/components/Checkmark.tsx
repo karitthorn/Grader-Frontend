@@ -1,10 +1,12 @@
 import { Check, Circle, X } from 'lucide-react';
 import React from 'react'
 
-const SolidCircle = ({...args}) => {
+const SolidCircle = ({className=""}:{
+	className?: string
+}) => {
 	return (
-		<div {...args}>
-			<div className='p-2 rounded-full bg-green-500'>
+		<div className={className}>
+			<div className='p-2 rounded-full'>
 			</div>
 		</div>
 	)
@@ -26,9 +28,9 @@ const Checkmark = ({ status,variant="check" }: {
 
 		case "circle":
 			return status ? (
-				<SolidCircle/>
+				<div className='p-2 rounded-full bg-green-400'></div>
 			) : (
-				<SolidCircle/>
+				<div className='p-2 rounded-full bg-red-400'></div>
 			)
 	}
 }
