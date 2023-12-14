@@ -7,6 +7,8 @@ export type CollectionModel = {
     description: string | null;
     is_active: boolean;
     is_private: boolean;
+    created_date: string;
+    updated_date: string;
 }
 
 export type CollectionProblemModel = CollectionModel & {
@@ -31,5 +33,5 @@ export type CollectionProblemPopulateProblemSecureModel = {
 }
 
 export type GetCollectionByAccountResponse = {
-    collections: CollectionModel[];
+    collections: CollectionProblemModel[];
 }

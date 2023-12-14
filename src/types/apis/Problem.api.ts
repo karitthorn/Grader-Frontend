@@ -54,7 +54,8 @@ export type ProblemServiceAPI = {
     getAllByAccount: (accountId:number) => Promise<AxiosResponse<GetAllProblemsByAccountResponse>>;
     get: (problemId:number) => Promise<AxiosResponse<ProblemPoplulateCreatorModel>>;
     update: (problemId:number, request: UpdateProblemRequest | CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
-    deleteMultiple: (problemIds:number[]) => Promise<AxiosResponse<null>>;
+    // deleteMultiple: (problemIds:number[]) => Promise<AxiosResponse<null>>;
+    delete: (problemId:number) => Promise<AxiosResponse<null>>;
 
     validateProgram: (request: ValidateProgramRequest) => Promise<AxiosResponse<ValidateProgramResponse>>;
 }

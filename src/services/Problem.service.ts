@@ -25,9 +25,13 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.put<ProblemModel>(`${BASE_URL}/api/problems/${problemId}`, request);
     },
 
-    deleteMultiple: async (problemIds) => {
-        return axios.put<null>(`${BASE_URL}/api/problems/`, {problem: problemIds});
+    delete: async (problemId) => {
+        return axios.delete<null>(`${BASE_URL}/api/problems/${problemId}`);
     },
+
+    // deleteMultiple: async (problemIds) => {
+    //     return axios.delete<null>(`${BASE_URL}/api/problems/`, {problem: problemIds});
+    // },
 
     validateProgram: async (request) => {
         return axios.post<ValidateProgramResponse>(`${BASE_URL}/api/problems/validate`, request);

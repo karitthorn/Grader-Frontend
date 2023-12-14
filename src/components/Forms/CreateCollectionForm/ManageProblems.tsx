@@ -14,6 +14,7 @@ import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/
 import MyProblemCard from "../../MyProblemCard";
 import CardContainer from "../../CardContainer";
 import SortableCardContainer from "../../SortableCardContainer";
+import MyProblemMiniCard from "../../MyProblemMiniCard";
 
 const ManageProblems = ({
 	createRequest,
@@ -26,6 +27,8 @@ const ManageProblems = ({
 }) => {
 	createRequest;
 	setCreateRequest;
+
+	const accountId = Number(localStorage.getItem("account_id"));
 
 	// const [state, setState] = useState([
 	// 	{ id: 1, name: "shrek" },
@@ -43,7 +46,7 @@ const ManageProblems = ({
 	>([]);
 
 	useEffect(() => {
-		ProblemService.getAllByAccount(1).then((response) => {
+		ProblemService.getAllByAccount(accountId).then((response) => {
 			console.log(response.data.problems);
 			setAllProblems(response.data.problems);
 			setAllProblemsSortable(
@@ -71,7 +74,7 @@ const ManageProblems = ({
 
 			<div className="flex">
 				<div className="w-1/2">
-					<div className="mt-6 h-[80vh] pr-5 overflow-y-scroll">
+					<div className="mt-6 pr-5">
 						<div className="grid gap-y-3">
 							<SortableCardContainer
 								animation={150}
@@ -80,7 +83,7 @@ const ManageProblems = ({
 								setList={setAllProblemsSortable2}
 							>
 								{allProblemsSortable2.map((item) => (
-									<MyProblemCard
+									<MyProblemMiniCard
 										key={item.id}
 										problem={
 											allProblems.find(
@@ -102,7 +105,7 @@ const ManageProblems = ({
 					<Separator orientation="vertical" />
 				</div>
 
-				<div className="">
+				<div className="w-1/2">
 					<Input />
 
 					<SortableCardContainer
@@ -117,7 +120,7 @@ const ManageProblems = ({
 						setList={setAllProblemsSortable}
 					>
 						{allProblemsSortable.map((item) => (
-								<MyProblemCard
+								<MyProblemMiniCard
 									key={item.id}
 									problem={
 										allProblems.find(

@@ -6,14 +6,21 @@ import MyCollectionCard from "../../../components/MyCollectionCard";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
+import { CollectionService } from "../../../services/Collection.service";
+import { CollectionModel, CollectionProblemModel } from "../../../types/models/Collection.model";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
-	const [collections, setCollections] = useState([]);
+	const accountId = Number(localStorage.getItem("account_id"));
+
+	const [collections, setCollections] = useState<CollectionProblemModel[]>([]);
 	const {section,setSection} = useContext(NavSidebarContext)
 
 	useEffect(() => {
 		setSection("COLLECTIONS")
+		CollectionService.getAllByAccount(accountId).then((response => {
+			setCollections(response.data.collections)
+		}))
 	}, []);
 
 	return (
@@ -38,21 +45,9 @@ const MyCollections = () => {
 				</div>
 
 				<CardContainer>
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
-					<MyCollectionCard />
+					{collections.map(collection => (
+						<MyCollectionCard collection={collection}/>
+					))}
 				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>

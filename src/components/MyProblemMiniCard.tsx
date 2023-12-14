@@ -26,6 +26,7 @@ import {
 } from "./shadcn/ContextMenu";
 import DeleteProblemConfirmationDialog from "./DeleteProblemConfirmationDialog";
 import Checkmark from "./Checkmark";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./shadcn/tooltip";
 
 const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	for (const testcase of testcases) {
@@ -36,11 +37,13 @@ const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	return true;
 };
 
-const MyProblemContextMenu = ({ children,problem }: { 
-	children: React.ReactNode 
-	problem: ProblemPopulateTestcases
+const MyProblemContextMenu = ({
+	children,
+	problem,
+}: {
+	children: React.ReactNode;
+	problem: ProblemPopulateTestcases;
 }) => {
-
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
 	return (
@@ -66,7 +69,11 @@ const MyProblemContextMenu = ({ children,problem }: {
 	);
 };
 
-const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
+const MyProblemMiniCard = ({
+	problem,
+}: {
+	problem: ProblemPopulateTestcases;
+}) => {
 	const navigate = useNavigate();
 
 	const [highlightTitle, setHighlightTitle] = useState(false);
@@ -81,10 +88,8 @@ const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 		setToolVisible(false);
 	};
 
-
 	return (
 		<MyProblemContextMenu problem={problem}>
-			
 			<Card
 				onClick={() => navigate(`/my/problems/${problem.problem_id}`)}
 				onMouseOver={handleMouseOver}
@@ -94,64 +99,33 @@ const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 				}`}
 			>
 				<CardContent>
-					<div className="flex items-center mb-2">
-						<FileSpreadsheet className="text-blue-400 mr-2"/>
-						{!highlightTitle && (
-							<h1 className="	font-bold">{problem.title}</h1>
-						)}
-						{highlightTitle && (
-							<h1 className="font-bold text-green-600">
-								{problem.title}
-							</h1>
-						)}
-					</div>
-
-					<div className="flex text-sm font-medium items-stretch">
-						<div className="w-1/6 self-end grid gap-y-2">
-							<div>
-								<p className="">Lasted Updated</p>
-								<p className="text-gray-400">
-									{readableDateFormat(problem.updated_date)}
-								</p>
-							</div>
-
-							<div>
-								<p className="">Created Date</p>
-								<p className="text-gray-400">
-									{readableDateFormat(problem.created_date)}
-								</p>
-							</div>
+					<div className="flex items-stretch justify-between">
+						<div className="flex items-center w-1/2">
+							<FileSpreadsheet className="text-blue-400 mr-2" />
+							{!highlightTitle && (
+								<h1 className="	font-bold">{problem.title}</h1>
+							)}
+							{highlightTitle && (
+								<h1 className="font-bold text-green-600">
+									{problem.title}
+								</h1>
+							)}
 						</div>
 
-						<div className="w-1/6 self-end grid gap-y-2">
-							<div>
-								<p className="">Time Limited</p>
-								<p className="text-gray-400">
-									{problem.time_limit}s
-								</p>
-							</div>
-
-							<div>
-								<p className="">Visibility</p>
-								<p className="text-gray-400">
-									{problem.is_private ? "Private" : "Public"}
-								</p>
-							</div>
-						</div>
-
-						<div className="grid gap-y-1">
-							<div className="flex items-center">
-								<Checkmark status={problem.solution !== ""} />
-								Source Code
-							</div>
-							<div className="flex items-center">
-								<Checkmark status={problem.testcases.length !== 0} />
-								Testcases ({problem.testcases.length})
-							</div>
-							<div className="flex items-center">
-								<Checkmark status={checkRuntimeStatus(problem.testcases)} />
-								No Runtime Error
-							</div>
+						<div className="flex gap-1 text-sm font-medium self-center">
+                            <Tooltip>
+                                <TooltipTrigger><Checkmark variant="circle" status/></TooltipTrigger>
+                                <TooltipContent>Source Code</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger><Checkmark variant="circle" status/></TooltipTrigger>
+                                <TooltipContent>Testcase</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger><Checkmark variant="circle" status/></TooltipTrigger>
+                                <TooltipContent>No Runtime Error</TooltipContent>
+                            </Tooltip>
+						
 						</div>
 					</div>
 				</CardContent>
@@ -160,4 +134,4 @@ const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 	);
 };
 
-export default MyProblemCard;
+export default MyProblemMiniCard;

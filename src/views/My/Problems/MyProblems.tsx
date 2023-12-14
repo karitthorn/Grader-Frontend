@@ -9,6 +9,7 @@ import { ProblemService } from "../../../services/Problem.service";
 import { ProblemModel, ProblemPopulateTestcases } from "../../../types/models/Problem.model";
 import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
+import DeleteProblemConfirmationDialog from "../../../components/DeleteProblemConfirmationDialog";
 
 const MyProblems = () => {
 	const accountId = Number(localStorage.getItem("account_id"));

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CollectionServiceAPI } from "../types/apis/Collection.api";
-import { CollectionModel } from "../types/models/Collection.model";
+import { CollectionModel, GetCollectionByAccountResponse } from "../types/models/Collection.model";
 import { BASE_URL } from "../constants/BackendBaseURL";
 
 export const CollectionService: CollectionServiceAPI = {
@@ -13,7 +13,7 @@ export const CollectionService: CollectionServiceAPI = {
     },
 
     getAllByAccount: (accountId) => {
-        return axios.get(`${BASE_URL}/api/accounts/${accountId}/collections`);
+        return axios.get<GetCollectionByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/collections`);
     },
 
     update: (collectionId,request) => {
