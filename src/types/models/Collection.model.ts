@@ -11,6 +11,10 @@ export type CollectionModel = {
     updated_date: string;
 }
 
+export type CollectionPopulateProblemSecureModel = CollectionModel & {
+    problems: ProblemSecureModel[];
+}
+
 export type CollectionProblemModel = CollectionModel & {
     problems: CollectionProblemPopulateProblemSecureModel[];
 }

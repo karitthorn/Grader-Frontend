@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardTitle } from "./shadcn/Card";
 import { Button } from "./shadcn/Button";
 import {
@@ -26,7 +26,7 @@ import {
 } from "./shadcn/ContextMenu";
 import DeleteProblemConfirmationDialog from "./DeleteProblemConfirmationDialog";
 import Checkmark from "./Checkmark";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./shadcn/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./shadcn/Tooltip";
 
 const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	for (const testcase of testcases) {
@@ -42,7 +42,7 @@ const MyProblemContextMenu = ({
 	problem,
 }: {
 	children: React.ReactNode;
-	problem: ProblemPopulateTestcases;
+	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
 }) => {
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
@@ -71,8 +71,14 @@ const MyProblemContextMenu = ({
 
 const MyProblemMiniCard = ({
 	problem,
+	disabled=false,
+	disabledHighlight=false,
+	onClick=()=>{}
 }: {
-	problem: ProblemPopulateTestcases;
+	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
+	disabled?: boolean;
+	disabledHighlight?: boolean;
+	onClick?: () => void;
 }) => {
 	const navigate = useNavigate();
 
@@ -88,24 +94,39 @@ const MyProblemMiniCard = ({
 		setToolVisible(false);
 	};
 
+	const customCardCSS = ():string => {
+		let className = "pt-6 px-5 cursor-pointer ";
+
+		if (disabled) {
+			className += "opacity-50 ";
+		}
+		else{
+			if (highlightTitle && !disabledHighlight) {
+				className += "border-green-500 bg-green-100 ";
+			}
+		} 
+		return className;
+	}
+
 	return (
-		<MyProblemContextMenu problem={problem}>
+		problem && (
+			<MyProblemContextMenu problem={problem}>
 			<Card
-				onClick={() => navigate(`/my/problems/${problem.problem_id}`)}
+				onClick={() => onClick()}
 				onMouseOver={handleMouseOver}
 				onMouseOut={handleMouseOut}
-				className={`pt-6 px-5 cursor-pointer ${
-					highlightTitle ? "border-green-500 bg-green-100" : ""
-				}`}
+				className={customCardCSS()}
+
+				// className={`pt-6 px-5 ${disabled ? "opacity-50" : }`}`}
 			>
 				<CardContent>
 					<div className="flex items-stretch justify-between">
 						<div className="flex items-center w-1/2">
 							<FileSpreadsheet className="text-blue-400 mr-2" />
-							{!highlightTitle && (
+							{(!highlightTitle || disabled || disabledHighlight) && (
 								<h1 className="	font-bold">{problem.title}</h1>
 							)}
-							{highlightTitle && (
+							{(highlightTitle && !disabled && !disabledHighlight) && (
 								<h1 className="font-bold text-green-600">
 									{problem.title}
 								</h1>
@@ -131,6 +152,7 @@ const MyProblemMiniCard = ({
 				</CardContent>
 			</Card>
 		</MyProblemContextMenu>
+		)
 	);
 };
 

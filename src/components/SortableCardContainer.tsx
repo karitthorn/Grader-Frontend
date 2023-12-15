@@ -1,5 +1,6 @@
 import React from "react";
 import { ReactSortable } from "react-sortablejs";
+import { ScrollArea } from "./shadcn/ScrollArea";
 
 const SortableCardContainer = ({
 	children,
@@ -8,9 +9,11 @@ const SortableCardContainer = ({
 	children: React.ReactNode;
 }) => {
 	return (
-		<div className="mt-6 h-[80vh] md:h-[65vh] pr-5 overflow-y-scroll ">
-			<ReactSortable className="grid gap-y-3" {...args}>{children}</ReactSortable>
-		</div>
+		<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+
+			<ReactSortable className="grid gap-y-3 border p-2 rounded-md min-h-[20vh]" {...args}>{children}</ReactSortable>
+		</ScrollArea>
+		// </div>
 	);
 };
 

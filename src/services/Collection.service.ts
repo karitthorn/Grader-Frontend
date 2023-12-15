@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CollectionServiceAPI } from "../types/apis/Collection.api";
-import { CollectionModel, GetCollectionByAccountResponse } from "../types/models/Collection.model";
+import { CollectionModel, CollectionPopulateProblemSecureModel, CollectionProblemModel, GetCollectionByAccountResponse } from "../types/models/Collection.model";
 import { BASE_URL } from "../constants/BackendBaseURL";
 
 export const CollectionService: CollectionServiceAPI = {
@@ -9,7 +9,7 @@ export const CollectionService: CollectionServiceAPI = {
     },
 
     get: (collectionId) => {
-        return axios.get<CollectionModel>(`${BASE_URL}/api/collections/${collectionId}`);
+        return axios.get<CollectionProblemModel>(`${BASE_URL}/api/collections/${collectionId}`);
     },
 
     getAllByAccount: (accountId) => {
@@ -20,13 +20,16 @@ export const CollectionService: CollectionServiceAPI = {
         return axios.put<CollectionModel>(`${BASE_URL}/api/collections/${collectionId}`,request);
     },
 
-
     addProblem: (collectionId,problemIds) => {
         return axios.put<CollectionModel>(`${BASE_URL}/api/collections/${collectionId}/problems/add`,{problemIds});
     },
 
     removeProblem: (collectionId,problemIds) => {
         return axios.put(`${BASE_URL}/api/collections/${collectionId}/problems/remove`,{data:{problemIds}});
-    }
+    },
+
+    updateProblem: (collectionId,problemIds) => {
+        return axios.put<CollectionModel>(`${BASE_URL}/api/collections/${collectionId}/problems/update`,{problem_ids: problemIds});
+    },
     
 }

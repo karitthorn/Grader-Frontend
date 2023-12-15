@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "./shadcn/Dialog";
 import { Button } from "./shadcn/Button";
 import { ProblemService } from "../services/Problem.service";
-import { ProblemModel, ProblemPopulateTestcases } from "../types/models/Problem.model";
+import { ProblemModel, ProblemPopulateTestcases, ProblemSecureModel } from "../types/models/Problem.model";
 
 const DeleteProblemConfirmationDialog = ({
   open,
@@ -10,7 +10,7 @@ const DeleteProblemConfirmationDialog = ({
   problem,
   afterDelete=()=>{}
 }:{
-  problem: ProblemModel | ProblemPopulateTestcases,
+  problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel,
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
   afterDelete?: () => void

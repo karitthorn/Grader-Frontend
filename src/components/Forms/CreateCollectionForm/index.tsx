@@ -5,7 +5,7 @@ import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
 import { ProblemService } from "../../../services/Problem.service";
 import { toast } from "../../shadcn/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ChevronLeftIcon } from "lucide-react";
+import { ArrowLeft, ChevronLeftIcon, Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import { CreateProblemRequest } from "../../../types/apis/Problem.api";
 import { Button } from "../../shadcn/Button";
@@ -27,27 +27,50 @@ const TabList = [
 	},
 ]
 
+export type OnCollectionSavedCallback = {
+	setLoading?: React.Dispatch<React.SetStateAction<boolean>>
+	collectionId?: number
+	setCollectionId?: React.Dispatch<React.SetStateAction<number>>
+	createRequest?: CreateCollectionRequestForm
+}
+
 const CreateCollectionForm = ({
-	createRequestInitialValue
+	createRequestInitialValue,
+	onCollectionSave,
 }: {
 	createRequestInitialValue: CreateCollectionRequestForm
+	onCollectionSave: (callback: OnCollectionSavedCallback) => void
 }) => {
 
     const navigate = useNavigate();
     const [currentForm, setCurrentForm] = useState("general");
+	const [loading, setLoading] = useState(false);
+
+	const [collectionId, setCollectionId] = useState(-1);
 
     const [createRequest, setCreateRequest] = useState<CreateCollectionRequestForm>(createRequestInitialValue)
+
+	const handleSave = () => {
+		onCollectionSave({
+			setLoading,
+			createRequest,
+			collectionId,
+			setCollectionId,
+		})
+	}
 
   return (
     <div className="w-[96%] mx-auto mt-10">
 			<div className="flex justify-between">
-				<h1 className="text-3xl font-bold tracking-tight flex">
-					<ChevronLeftIcon
+			<h1 className="text-3xl font-bold tracking-tight flex">
+					<ArrowLeft
 						size={40}
-						className="text-gray-300 cursor-pointer"
-						onClick={() => navigate(-1)}
+						className="text-gray-400 transition-all pr-0 hover:pr-1 cursor-pointer mr-2"
+						onClick={() => navigate("/my/collections")}
 					/>
-					Collection Title
+					{createRequest.title === ""
+						? "Create Problem"
+						: createRequest.title}
 				</h1>
 				<div>
 					<div className="flex">
@@ -67,11 +90,18 @@ const CreateCollectionForm = ({
 							</TabsList>
 						</Tabs>
 						<Button
-							// disabled={loading}
-							// onClick={handleSave}
+							disabled={loading}
+							onClick={handleSave}
 							className="px-10 ml-5"
 						>
-                            Save
+                            {loading ? (
+								<>
+									<Loader2 className="animate-spin mr-2" />
+									Saving
+								</>
+							) : (
+								<>Save</>
+							)}
 							{/* {loading ? "Saving..." : "Save"} */}
 						</Button>
 					</div>

@@ -37,7 +37,6 @@ const CreateProblem = () => {
 				transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
 			).then((response) => {
 				setProblemId(response.data.problem_id);
-				console.log("Create Completed", response.data);
 				setLoading(false);
 				toast({
 					title: "Create Completed",
@@ -48,7 +47,6 @@ const CreateProblem = () => {
 				problemId,
 				transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
 			).then((response) => {
-				console.log("Update Completed", response.data);
 				setLoading(false);
 				toast({
 					title: "Update Completed",

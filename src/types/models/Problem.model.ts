@@ -52,3 +52,7 @@ export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecure
 export type ProblemPopulateTestcases = ProblemModel & {
     testcases: TestcaseModel[]
 }
+
+export type ProblemHashedTable = {
+    [id:number]: ProblemModel | ProblemPopulateTestcases
+}

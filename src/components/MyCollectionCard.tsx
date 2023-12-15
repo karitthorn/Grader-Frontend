@@ -30,7 +30,7 @@ const MyProblemCard = ({
 
 	return (
 		<Card
-			onClick={() => navigate(`/my/collections/${1}`)}
+			onClick={() => navigate(`/my/collections/${collection.collection_id}`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			className="pt-6 px-5 cursor-pointer"
