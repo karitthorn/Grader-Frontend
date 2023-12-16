@@ -5,13 +5,14 @@ import { Label } from '../../shadcn/Label';
 import { Input } from '../../shadcn/Input';
 import DetailPlateEditor from '../../DetailPlateEditor';
 import { CreateCollectionRequestForm } from '../../../types/forms/CreateCollectionRequestForm';
+import { CreateCourseRequestForm } from '../../../types/forms/CreateCourseRequestForm';
 
 const GeneralDetail = ({
 	createRequest,
 	setCreateRequest,
 }: {
-	createRequest: CreateCollectionRequestForm;
-	setCreateRequest: React.Dispatch<React.SetStateAction<CreateCollectionRequestForm>>;
+	createRequest: CreateCourseRequestForm;
+	setCreateRequest: React.Dispatch<React.SetStateAction<CreateCourseRequestForm>>;
 }) => {
 	const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
 

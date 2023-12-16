@@ -14,7 +14,7 @@ const MyCollections = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
 
 	const [collections, setCollections] = useState<CollectionProblemModel[]>([]);
-	const {section,setSection} = useContext(NavSidebarContext)
+	const {setSection} = useContext(NavSidebarContext)
 
 	useEffect(() => {
 		setSection("COLLECTIONS")

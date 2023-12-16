@@ -76,7 +76,7 @@ const NavSidebar = () => {
 							</SectionButton>
 							<SectionButton
 								selected={section === "COURSES"}
-								onClick={() => setSection("COURSES")}
+								onClick={() => navigate("/my/courses")}
 							>
 								<LibraryBig
 									size={30}

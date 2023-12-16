@@ -8,7 +8,7 @@ import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import Checkmark from "./Checkmark";
 import { CollectionProblemModel, CollectionProblemPopulateProblemSecureModel, GetCollectionByAccountResponse } from "../types/models/Collection.model";
 
-const MyProblemCard = ({
+const MyCollectionCard = ({
 	collection
 }:{
 	collection: CollectionProblemModel
@@ -33,12 +33,16 @@ const MyProblemCard = ({
 			onClick={() => navigate(`/my/collections/${collection.collection_id}`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
-			className="pt-6 px-5 cursor-pointer"
+			className={`pt-6 px-5 cursor-pointer ${
+				highlightTitle ? "border-green-500 bg-green-100" : ""
+			}`}
 		>
 			<CardContent>
 				<div className="flex items-center font-bold mb-2">
 					<Folder className="text-yellow-400 mr-2" />
-					{collection.name}
+					{highlightTitle ? (
+						<h1 className="text-green-600">{collection.name}</h1>
+					): collection.name}
 				</div>
 				<div className="flex text-sm font-medium items-stretch">
 					<div className="w-1/6 self-end grid gap-y-2">
@@ -87,4 +91,4 @@ const MyProblemCard = ({
 	);
 };
 
-export default MyProblemCard;
+export default MyCollectionCard;
