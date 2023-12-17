@@ -15,28 +15,15 @@ import CreateCourseForm, {
 import { transformCreateCourseRequestForm2CreateTopicRequestFormData } from "../../../types/adapters/CreateCourseRequestForm.adapter";
 import { TopicService } from "../../../services/Topic.service";
 import { useParams } from "react-router-dom";
-
-const formInitialValue: CreateCourseRequestForm = {
-	title: "",
-	description: [
-		{
-			id: "1",
-			type: ELEMENT_PARAGRAPH,
-			children: [{ text: "" }],
-		},
-	],
-	image: null,
-	isPrivate: false,
-	collectionsInterface: [],
-};
+import { ItemInterface } from "react-sortablejs";
 
 const EditCourse = () => {
-
-    const {courseId} = useParams();
-    const editCourseId = Number(courseId);
+	const { courseId } = useParams();
+	const editCourseId = Number(courseId);
 	const accountId = Number(localStorage.getItem("account_id"));
 
-    const [createRequest, setCreateRequest] = useState<CreateCourseRequestForm>()
+	const [createRequest, setCreateRequest] =
+		useState<CreateCourseRequestForm>();
 
 	const handleSave = ({
 		setLoading,
@@ -48,40 +35,65 @@ const EditCourse = () => {
 			return;
 		}
 
-		const formData = transformCreateCourseRequestForm2CreateTopicRequestFormData(createRequest)
-		const collectionIds = createRequest.collectionsInterface.map((collection) => collection.id as number)
-		TopicService.create(accountId, formData).then((response) => {
-			return TopicService.updateCollections(response.data.topic_id,collectionIds)
-		}).then((response) => {
-			console.log("OK!")
-		})
+		const formData =
+			transformCreateCourseRequestForm2CreateTopicRequestFormData(
+				createRequest
+			);
+		const collectionIds = createRequest.collectionsInterface.map(
+			(collection) => collection.id as number
+		);
+		TopicService.update(editCourseId, formData)
+			.then(() => {
+				return TopicService.updateCollections(
+					editCourseId,
+					collectionIds
+				);
+			})
+			.then(() => {
+				console.log("OK!");
+			});
 	};
 
-    useEffect(() => {
-        
-    })
+	useEffect(() => {
+		TopicService.get(editCourseId).then((response) => {
+			const { data } = response;
+			setCreateRequest({
+				title: data.name,
+				description: JSON.parse(String(data.description)),
+				isPrivate: data.is_private,
+				collectionsInterface: data.collections.map(
+					(topicCollection) =>
+						({
+							id: topicCollection.collection.collection_id,
+							name: topicCollection.collection.name,
+						} as ItemInterface)
+				),
+			});
+		});
+	}, [editCourseId]);
 
 	return (
 		<NavbarSidebarLayout>
-			<CreateCourseForm
-				// onCollectionSave={({ createRequest,collectionId,setCollectionId,setLoading }) =>
-				// 	handleSave({ createRequest,collectionId,setCollectionId,setLoading })
-				// }
-				onCourseSave={({
-					createRequest,
-					courseId,
-					setCourseId,
-					setLoading,
-				}) =>
-					handleSave({
+			{createRequest && (
+				<CreateCourseForm
+					onCourseSave={({
 						createRequest,
 						courseId,
 						setCourseId,
 						setLoading,
-					})
-				}
-				createRequestInitialValue={formInitialValue}
-			/>
+					}) =>
+						handleSave({
+							createRequest,
+							courseId,
+							setCourseId,
+							setLoading,
+						})
+					}
+					createRequestInitialValue={
+						createRequest as CreateCourseRequestForm
+					}
+				/>
+			)}
 		</NavbarSidebarLayout>
 	);
 };

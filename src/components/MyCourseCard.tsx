@@ -4,16 +4,20 @@ import { Folder, LibraryBig } from "lucide-react";
 import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../types/models/Topic.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import { BASE_URL } from "../constants/BackendBaseURL";
+import { useNavigate } from "react-router-dom";
 
 const MyCourseCard = ({
 	course,
 }: {
 	course: TopicPopulateTopicCollectionPopulateCollectionModel;
 }) => {
+
+	const navigate = useNavigate();
 	const [mouseOver, setMouseOver] = useState(false);
 
 	return (
 		<Card
+			onClick={() => navigate(`/my/courses/${course.topic_id}`)}
 			onMouseOver={() => setMouseOver(true)}
 			onMouseOut={() => setMouseOver(false)}
 			className={`pt-6 px-5 cursor-pointer ${

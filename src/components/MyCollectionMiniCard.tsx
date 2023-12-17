@@ -113,7 +113,7 @@ const MyCollectionMiniCard = ({
 	}
 
 	return (
-		true && (
+		collection && (
 			// <MyCollectionContextMenu problem={problem}>
 			<Card
 				onClick={() => onClick()}
