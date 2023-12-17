@@ -27,30 +27,39 @@ const TabList = [
 	},
 ];
 
+export type OnCourseSavedCallback = {
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+	courseId: number;
+	setCourseId: React.Dispatch<React.SetStateAction<number>>;
+	createRequest: CreateCourseRequestForm;
+}
+
 const CreateCourseForm = ({
 	createRequestInitialValue,
+	onCourseSave,
 }: // onCollectionSave,
 {
 	createRequestInitialValue: CreateCourseRequestForm;
+	onCourseSave: (callback: OnCourseSavedCallback) => void;
 	// onCollectionSave: (callback: OnCollectionSavedCallback) => void;
 }) => {
 	const navigate = useNavigate();
 	const [currentForm, setCurrentForm] = useState("general");
 	const [loading, setLoading] = useState(false);
 
-	const [collectionId, setCollectionId] = useState(-1);
+	const [courseId, setCourseId] = useState(-1);
 
 	const [createRequest, setCreateRequest] = useState<CreateCourseRequestForm>(
 		createRequestInitialValue
 	);
 
 	const handleSave = () => {
-		// onCollectionSave({
-		// 	setLoading,
-		// 	createRequest,
-		// 	collectionId,
-		// 	setCollectionId,
-		// });
+		onCourseSave({
+			setLoading,
+			createRequest,
+			courseId,
+			setCourseId,
+		});
 	};
 
 	return (
@@ -63,7 +72,7 @@ const CreateCourseForm = ({
 						onClick={() => navigate("/my/collections")}
 					/>
 					{createRequest.title === ""
-						? "Create Problem"
+						? "Create Course"
 						: createRequest.title}
 				</h1>
 				<div>

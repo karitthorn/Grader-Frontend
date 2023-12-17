@@ -39,3 +39,7 @@ export type CollectionProblemPopulateProblemSecureModel = {
 export type GetCollectionByAccountResponse = {
     collections: CollectionProblemModel[];
 }
+
+export type CollectionHashedTable = {
+    [id:number]: CollectionModel | CollectionPopulateProblemSecureModel
+}

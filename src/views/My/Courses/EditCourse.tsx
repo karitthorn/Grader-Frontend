@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import CreateCollectionForm, {
 	OnCollectionSavedCallback,
@@ -14,6 +14,7 @@ import CreateCourseForm, {
 } from "../../../components/Forms/CreateCourseForm";
 import { transformCreateCourseRequestForm2CreateTopicRequestFormData } from "../../../types/adapters/CreateCourseRequestForm.adapter";
 import { TopicService } from "../../../services/Topic.service";
+import { useParams } from "react-router-dom";
 
 const formInitialValue: CreateCourseRequestForm = {
 	title: "",
@@ -29,8 +30,13 @@ const formInitialValue: CreateCourseRequestForm = {
 	collectionsInterface: [],
 };
 
-const CreateCourse = () => {
+const EditCourse = () => {
+
+    const {courseId} = useParams();
+    const editCourseId = Number(courseId);
 	const accountId = Number(localStorage.getItem("account_id"));
+
+    const [createRequest, setCreateRequest] = useState<CreateCourseRequestForm>()
 
 	const handleSave = ({
 		setLoading,
@@ -50,6 +56,10 @@ const CreateCourse = () => {
 			console.log("OK!")
 		})
 	};
+
+    useEffect(() => {
+        
+    })
 
 	return (
 		<NavbarSidebarLayout>
@@ -76,4 +86,4 @@ const CreateCourse = () => {
 	);
 };
 
-export default CreateCourse;
+export default EditCourse;

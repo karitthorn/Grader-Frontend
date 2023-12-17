@@ -27,6 +27,7 @@ const formInitialValue = {
 const CreateProblem = () => {
 
 	const accountId = Number(localStorage.getItem("account_id"));
+	const navigate = useNavigate();
 
 
 	const handleSave:OnProblemSaveCallback = (setLoading, problemId, setProblemId,createRequest) => {
@@ -41,6 +42,7 @@ const CreateProblem = () => {
 				toast({
 					title: "Create Completed",
 				});
+				navigate(`/my/problems/${response.data.problem_id}`);
 			});
 		} else {
 			ProblemService.update(

@@ -8,6 +8,7 @@ import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { transformCreateCollectionRequestForm2CreateCollectionRequestForm } from "../../../types/adapters/CreateCollectionRequestForm.adapter";
 import { CollectionService } from "../../../services/Collection.service";
 import { toast } from "../../../components/shadcn/UseToast";
+import { useNavigate } from "react-router-dom";
 
 const formInitialValue: CreateCollectionRequestForm = {
 	title: "",
@@ -24,6 +25,7 @@ const formInitialValue: CreateCollectionRequestForm = {
 const CreateCollection = () => {
 
 	const accountId = Number(localStorage.getItem("account_id"));
+	const navigate = useNavigate();
 
 	const handleSave = ({ createRequest,collectionId,setCollectionId,setLoading }: OnCollectionSavedCallback) => {
 
@@ -51,6 +53,7 @@ const CreateCollection = () => {
 				toast({
 					title: "Create Completed"
 				})
+				navigate(`/my/collections/${response.data.collection_id}`)
 				setLoading(false)
 			})
 		} else {

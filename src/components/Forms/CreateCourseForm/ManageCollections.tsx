@@ -20,6 +20,10 @@ import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Item } from "@radix-ui/react-context-menu";
 import { transformProblemModel2ProblemHashedTable } from "../../../types/adapters/Problem.adapter";
 import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
+import MyCollectionMiniCard from "../../MyCollectionMiniCard";
+import { CollectionService } from "../../../services/Collection.service";
+import { transformCollectionModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
+import { CollectionHashedTable, CollectionPopulateProblemSecureModel } from "../../../types/models/Collection.model";
 
 const ManageCollections = ({
 	createRequest,
@@ -33,68 +37,78 @@ const ManageCollections = ({
 	
 	const accountId = Number(localStorage.getItem("account_id"));
 
-	const [allProblemsSortable, setAllProblemsSortable] = useState<
+	const [allCollectionsSortable, setAllCollectionsSortable] = useState<
 		ItemInterface[]
 	>([]);
-	const [selectedProblemsSortable, setSelectedProblemsSortable] = useState<
+	const [selectedCollectionsSortable, setSelectedCollectionsSortable] = useState<
 		ItemInterface[]
 	>([]);
-	const [allProblems, setAllProblems] = useState<
-		ProblemHashedTable
+	const [allCollections, setAllCollections] = useState<
+		CollectionHashedTable
 	>({});
 
 	const [initial, setInitial] = useState(true);
-	const [selectedProblemSortableIds, setSelectedProblemSortableIds] = useState<number[]>([]);
+	const [selectedCollectionsSortableIds, setSelectedCollectionsSortableIds] = useState<number[]>([]);
 
 	useEffect(() => {
-		setSelectedProblemSortableIds(selectedProblemsSortable.map((item) => item.id as number));
-	},[selectedProblemsSortable])
+		setSelectedCollectionsSortableIds(selectedCollectionsSortable.map((item) => item.id as number));
+	},[selectedCollectionsSortable])
 
-	const handleRemoveSelectedProblem = (id: number) => {
-		setSelectedProblemsSortable(
-			[...selectedProblemsSortable.filter((item) => item.id !== id)]
+	const handleRemoveSelectedCollection = (id: number) => {
+		setSelectedCollectionsSortable(
+			[...selectedCollectionsSortable.filter((item) => item.id !== id)]
 		);
 	}
 
-	const handleQuickToggleSelectedProblem = (item: ItemInterface) => {
-		// if (selectedProblemsSortable.find((item1) => item1.id === item.id)) {
+	const handleQuickToggleSelectedCollection = (item: ItemInterface) => {
+		// if (selectedCollectionsSortable.find((item1) => item1.id === item.id)) {
 		// 	console.log("Remove");
-		// 	handleRemoveSelectedProblem(item.id as number);
+		// 	handleRemoveSelectedCollection(item.id as number);
 		// } else {
 		// 	console.log("Add");
-		// 	setSelectedProblemsSortable([...selectedProblemsSortable, item]);
+		// 	setSelectedCollectionsSortable([...selectedCollectionsSortable, item]);
 		// }
 
-		if (selectedProblemSortableIds.includes(item.id as number)) {
-			handleRemoveSelectedProblem(item.id as number);
+		if (selectedCollectionsSortableIds.includes(item.id as number)) {
+			handleRemoveSelectedCollection(item.id as number);
 		}
 		else {
-			setSelectedProblemsSortable([...selectedProblemsSortable, item]);
+			setSelectedCollectionsSortable([...selectedCollectionsSortable, item]);
 		}
 	}
 
 	useEffect(() => {
 		setCreateRequest({
 			...createRequest,
-			collectionsInterface: [...selectedProblemsSortable],
+			collectionsInterface: [...selectedCollectionsSortable],
 		});
-	}, [selectedProblemsSortable]);
+	}, [selectedCollectionsSortable]);
 
 	useEffect(() => {
-		ProblemService.getAllByAccount(accountId).then((response) => {
-			setAllProblems(transformProblemModel2ProblemHashedTable(response.data.problems));
-			setAllProblemsSortable(
-				response.data.problems.map((problem) => ({
-					id: problem?.problem_id,
-					name: problem?.title
+		// ProblemService.getAllByAccount(accountId).then((response) => {
+		// 	setAllCollections(transformProblemModel2ProblemHashedTable(response.data.problems));
+		// 	setAllCollectionsSortable(
+		// 		response.data.problems.map((problem) => ({
+		// 			id: problem?.problem_id,
+		// 			name: problem?.title
+		// 		}))
+		// 	);
+		// });
+
+		CollectionService.getAllByAccount(accountId).then((response) => {
+			setAllCollections(transformCollectionModel2CollectionHashedTable(response.data.collections));
+			setAllCollectionsSortable(
+				response.data.collections.map((collection) => ({
+					id: collection.collection_id,
+					name: collection.name
 				}))
 			);
-		});
+		})
 	}, [accountId]);
 
 	useEffect(() => {
 		if (initial) {
-			setSelectedProblemsSortable(createRequest.collectionsInterface)
+			setSelectedCollectionsSortable(createRequest.collectionsInterface)
 			setInitial(false);
 		}
 
@@ -104,9 +118,9 @@ const ManageCollections = ({
 	return (
 		<div>
 			<div className="flex justify-between">
-				<h1 className="text-2xl font-bold">Manage Problems</h1>
+				<h1 className="text-2xl font-bold">Manage Collections</h1>
 
-				<Button>Add Problems</Button>
+				<Button>Add Collections</Button>
 			</div>
 
 			<div className="flex">
@@ -117,18 +131,16 @@ const ManageCollections = ({
 								<ReactSortable
 									animation={150}
 									group="shared"
-									list={selectedProblemsSortable}
-									setList={setSelectedProblemsSortable}
+									list={selectedCollectionsSortable}
+									setList={setSelectedCollectionsSortable}
 									className="grid gap-y-3 border p-2 rounded-md min-h-[20vh]"
 								>
-									{selectedProblemsSortable?.map((item) => (
-										<MyProblemMiniCard
+									{selectedCollectionsSortable?.map((item) => (
+										<MyCollectionMiniCard
 											disabledHighlight
-											onClick={() => handleRemoveSelectedProblem(item.id as number)}
+											onClick={() => handleRemoveSelectedCollection(item.id as number)}
 											key={item.id}
-											problem={
-												allProblems[item.id as number]
-											}
+											collection={allCollections[item.id as number] as CollectionPopulateProblemSecureModel}
 										/>
 									))}
 								</ReactSortable>
@@ -152,20 +164,18 @@ const ManageCollections = ({
 							}}
 							animation={150}
 							sort={false}
-							list={allProblemsSortable}
-							setList={setAllProblemsSortable}
+							list={allCollectionsSortable}
+							setList={setAllCollectionsSortable}
 							filter=".selected"
 							className="grid gap-y-3 border p-2 rounded-md min-h-[20vh]"
 						>
-							{allProblemsSortable?.map((item) => (
-								<div className={selectedProblemsSortable.includes(item) ? "selected" : ""}>
-									<MyProblemMiniCard
-										onClick={() => handleQuickToggleSelectedProblem(item)}
-										disabled={selectedProblemSortableIds.includes(item.id as number)}
+							{allCollectionsSortable?.map((item) => (
+								<div className={selectedCollectionsSortable.includes(item) ? "selected" : ""}>
+									<MyCollectionMiniCard
+										onClick={() => handleQuickToggleSelectedCollection(item)}
+										disabled={selectedCollectionsSortableIds.includes(item.id as number)}
 										key={item.id}
-										problem={
-											allProblems[item.id as number]
-										}
+										collection={allCollections[item.id as number] as CollectionPopulateProblemSecureModel}
 									/>
 								</div>
 							))}
