@@ -23,5 +23,6 @@ export type SubmitProblemResponse = {
 
 export type SubmissionServiceAPI = {
     submit: (accountId:number,problemId:number,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
+    topicSubmit: (accountId:number,topicId:number,problemId:number,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
     getByAccountProblem: (accountId:number,problemId:number) => Promise<AxiosResponse<GetSubmissionByAccountProblemResponse>>;
 }

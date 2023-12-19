@@ -9,6 +9,11 @@ export const SubmissionService: SubmissionServiceAPI = {
         return response;
     },
 
+    topicSubmit: async (accountId,topicId, problemId, request) => {
+        const response = await axios.post<SubmissionPopulateSubmissionTestcasesSecureModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}/problems/${problemId}/submissions`,request);
+        return response;
+    },
+
     getByAccountProblem: async (accountId, problemId) => {
         const response = await axios.get<GetSubmissionByAccountProblemResponse>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}/submissions`);
         return response;

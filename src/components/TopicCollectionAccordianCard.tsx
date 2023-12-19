@@ -11,6 +11,7 @@ import PublicProblemCard from "./PublicProblemCard";
 import { CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Collection.model";
 import CardContainer from "./CardContainer";
 import { ScrollArea } from "./shadcn/ScrollArea";
+import PublicProblemMiniCard from "./PublicProblemMiniCard";
 
 const TopicCollectionAccordianCard = ({
 	collection,
@@ -34,10 +35,10 @@ const TopicCollectionAccordianCard = ({
 					</AccordionTrigger>
 					<AccordionContent>
 						<ScrollArea className="mt-6 pr-5">
-							<div className="grid gap-y-3">
+							<div className="grid gap-y-2">
 
 							{collection.problems.map((problem) => (
-								<PublicProblemCard problem={problem.problem} />
+								<PublicProblemMiniCard problem={problem.problem} />
 								))}
 								</div>
 						</ScrollArea>

@@ -58,6 +58,6 @@ export type ProblemHashedTable = {
     [id:number]: ProblemModel | ProblemPopulateTestcases
 }
 
-export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
-    best_submission: SubmissionPopulateSubmissionTestcasesSecureModel | null
-}
+// export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
+//     best_submission: SubmissionPopulateSubmissionTestcasesSecureModel | null
+// }
