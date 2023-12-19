@@ -15,12 +15,15 @@ import EditCollection from "./views/My/Collections/EditCollection";
 import MyCourses from "./views/My/Courses/MyCourses";
 import CreateCourse from "./views/My/Courses/CreateCourse";
 import EditCourse from "./views/My/Courses/EditCourse";
+import ExploreCourses from "./views/ExploreCourses";
+import ViewCourse from "./views/ViewCourse";
 
 const Router = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/explore" element={<ExploreProblems />} />
+			<Route path="/courses" element={<ExploreCourses />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
 			<Route path="/management" element={<CourseManagement />} />
@@ -35,6 +38,7 @@ const Router = () => {
 			<Route path="/my/courses/:courseId" element={<EditCourse />} />
 			
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
+			<Route path="/courses/:courseId" element={<ViewCourse />} />
 		</Routes>
 	);
 };

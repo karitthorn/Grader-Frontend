@@ -34,15 +34,16 @@ const TestcaseGradingResult = ({ no,status,disableHover=false }: {
 	);
 };
 
-const TestcasesGradingIndicator = ({submissionTestcases,disableHover=false}: {
+const TestcasesGradingIndicator = ({submissionTestcases,disableHover=false,className=""}: {
 	submissionTestcases?: SubmissionTestcaseSecureModel[];
 	disableHover?: boolean;
+	className?: string;
 }) => {
 	useEffect(()=>{
 		console.log(submissionTestcases)
 	},[submissionTestcases])
 	return (
-		<div className="flex gap-0.5 items-center">
+		<div className={"flex gap-0.5 items-center" + className}>
 			{
 				submissionTestcases?.map((testcase,index) => (
 					<TestcaseGradingResult disableHover={disableHover} key={index} no={index+1} status={testcase.runtime_status as TestcaseGradingResultStatus} />

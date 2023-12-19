@@ -51,6 +51,12 @@ const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
 						>
 							Explore
 						</NavigationMenuLink>
+						<NavigationMenuLink
+							className={customNavigationMenuTriggerStyle()}
+							href="/courses"
+						>
+							Courses
+						</NavigationMenuLink>
 					</NavigationMenuItem>
 					{/* <NavigationMenuItem>
 						<NavigationMenuTrigger>

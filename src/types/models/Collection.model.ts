@@ -1,4 +1,4 @@
-import { ProblemModel, ProblemSecureModel } from "./Problem.model";
+import { ProblemModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, ProblemSecureModel } from "./Problem.model";
 
 export type CollectionModel = {
     collection_id: number;
@@ -42,4 +42,15 @@ export type GetCollectionByAccountResponse = {
 
 export type CollectionHashedTable = {
     [id:number]: CollectionModel | CollectionPopulateProblemSecureModel
+}
+
+export type CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
+    id: number;
+    problem: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
+    order: number;
+    collection: number;
+}
+
+export type CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = CollectionModel & {
+    problems: CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
 }

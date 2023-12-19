@@ -8,6 +8,7 @@ import MyCourseCard from "../../../components/MyCourseCard";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import { TopicService } from "../../../services/Topic.service";
 import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";
+import { LibraryBig } from "lucide-react";
 
 const MyCourses = () => {
 
@@ -40,6 +41,7 @@ const MyCourses = () => {
 						<Button
 							onClick={() => navigate("/my/courses/create")}
 						>
+							<LibraryBig size={20} className="mr-2" />
 							Create Course
 						</Button>
 					</div>

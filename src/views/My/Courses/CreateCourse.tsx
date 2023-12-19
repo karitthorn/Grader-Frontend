@@ -14,6 +14,7 @@ import CreateCourseForm, {
 } from "../../../components/Forms/CreateCourseForm";
 import { transformCreateCourseRequestForm2CreateTopicRequestFormData } from "../../../types/adapters/CreateCourseRequestForm.adapter";
 import { TopicService } from "../../../services/Topic.service";
+import { useNavigate } from "react-router-dom";
 
 const formInitialValue: CreateCourseRequestForm = {
 	title: "",
@@ -30,6 +31,8 @@ const formInitialValue: CreateCourseRequestForm = {
 };
 
 const CreateCourse = () => {
+
+	const navigate = useNavigate()
 	const accountId = Number(localStorage.getItem("account_id"));
 
 	const handleSave = ({
@@ -44,10 +47,17 @@ const CreateCourse = () => {
 
 		const formData = transformCreateCourseRequestForm2CreateTopicRequestFormData(createRequest)
 		const collectionIds = createRequest.collectionsInterface.map((collection) => collection.id as number)
+
+		setLoading(true)
 		TopicService.create(accountId, formData).then((response) => {
 			return TopicService.updateCollections(response.data.topic_id,collectionIds)
 		}).then((response) => {
 			console.log("OK!")
+			setLoading(false)
+			toast({
+				title: "Create Completed"
+			})
+			navigate(`/my/courses/${response.data.topic_id}`)
 		})
 	};
 

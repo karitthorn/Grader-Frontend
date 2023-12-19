@@ -15,6 +15,7 @@ import GeneralDetail from "./GeneralDetail";
 import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 import ManageProblem from "./ManageProblems";
 import ManageProblems from "./ManageProblems";
+import FormSaveButton from "../FormSaveButton";
 
 const TabList = [
 	{
@@ -89,21 +90,10 @@ const CreateCollectionForm = ({
 								))}
 							</TabsList>
 						</Tabs>
-						<Button
+						<FormSaveButton
 							disabled={loading}
 							onClick={handleSave}
-							className="px-10 ml-5"
-						>
-                            {loading ? (
-								<>
-									<Loader2 className="animate-spin mr-2" />
-									Saving
-								</>
-							) : (
-								<>Save</>
-							)}
-							{/* {loading ? "Saving..." : "Save"} */}
-						</Button>
+						/>
 					</div>
 				</div>
 			</div>

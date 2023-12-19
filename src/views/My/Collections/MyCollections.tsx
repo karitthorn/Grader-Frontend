@@ -8,6 +8,7 @@ import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import { CollectionService } from "../../../services/Collection.service";
 import { CollectionModel, CollectionProblemModel } from "../../../types/models/Collection.model";
+import { FolderPlus } from "lucide-react";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
@@ -39,6 +40,7 @@ const MyCollections = () => {
 						<Button
 							onClick={() => navigate("/my/collections/create")}
 						>
+							<FolderPlus size={20} className="mr-2" />
 							Create Collection
 						</Button>
 					</div>

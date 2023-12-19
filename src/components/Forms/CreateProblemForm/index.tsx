@@ -15,6 +15,7 @@ import Scoring from "./Scoring";
 import Requirement from "./Requirement";
 import Privacy from "./Privacy";
 import { TestcaseModel } from "../../../types/models/Problem.model";
+import FormSaveButton from "../FormSaveButton";
 
 const TabList = [
 	{
@@ -87,6 +88,10 @@ const CreateProblemForm = ({
 	};
 
 	useEffect(() => {
+		console.log(problemId)
+	},[problemId])
+
+	useEffect(() => {
 		if (validatedTestcases.length !== 0) {
 			setCreateRequest({
 				...createRequest,
@@ -125,20 +130,10 @@ const CreateProblemForm = ({
 								))}
 							</TabsList>
 						</Tabs>
-						<Button
+						<FormSaveButton
 							disabled={loading}
 							onClick={handleSave}
-							className="px-10 ml-5"
-						>
-							{loading ? (
-								<>
-									<Loader2 className="animate-spin mr-2" />
-									Saving
-								</>
-							) : (
-								<>Save</>
-							)}
-						</Button>
+						/>
 					</div>
 				</div>
 			</div>

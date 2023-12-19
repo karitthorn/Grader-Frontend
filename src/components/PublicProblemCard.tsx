@@ -55,25 +55,27 @@ const PublicProblemCard = ({
 								</Label>
 							</div>
 						</div>
-						<div
-							className={`w-4/12 xxl:w-5/12 self-end ${
-								problem.best_submission ? "" : "invisible"
-							}`}
-						>
+						<div className={`w-4/12 xxl:w-5/12 self-end`}>
 							<Label>Best Submission</Label>
-							<TestcasesGradingIndicator
-								disableHover
-								submissionTestcases={
-									problem.best_submission?.runtime_output
-								}
-							/>
+							{problem.best_submission ? (
+								<TestcasesGradingIndicator
+									disableHover
+									submissionTestcases={
+										problem.best_submission?.runtime_output
+									}
+								/>
+							) : (
+								<div className="text-gray-400">
+									-
+								</div>
+							)}
 						</div>
 						<div className="w-3/12 xxl:w-2/12 self-center">
 							<Button
 								onClick={() =>
 									navigate(`/problems/${problem.problem_id}`)
 								}
-								color="secondary"
+								// className="bg-white border-green-500 border-2 text-green-500 hover:bg-green-500 hover:text-white"
 							>
 								<Puzzle className="mr-2" />
 								Solve This Problem

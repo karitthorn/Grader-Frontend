@@ -42,6 +42,8 @@ const EditCourse = () => {
 		const collectionIds = createRequest.collectionsInterface.map(
 			(collection) => collection.id as number
 		);
+
+		setLoading(true);
 		TopicService.update(editCourseId, formData)
 			.then(() => {
 				return TopicService.updateCollections(
@@ -51,11 +53,15 @@ const EditCourse = () => {
 			})
 			.then(() => {
 				console.log("OK!");
+				setLoading(false);
+				toast({
+					title: "Update Completed",
+				})
 			});
 	};
 
 	useEffect(() => {
-		TopicService.get(editCourseId).then((response) => {
+		TopicService.get(accountId,editCourseId).then((response) => {
 			const { data } = response;
 			setCreateRequest({
 				title: data.name,

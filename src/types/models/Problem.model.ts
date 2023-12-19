@@ -45,6 +45,7 @@ export type ProblemPopulateAccountSecureModel = {
     creator: AccountSecureModel
 }
 
+
 export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = ProblemPoplulateCreatorModel & {
     best_submission: SubmissionPopulateSubmissionTestcasesSecureModel | null
 }
@@ -55,4 +56,8 @@ export type ProblemPopulateTestcases = ProblemModel & {
 
 export type ProblemHashedTable = {
     [id:number]: ProblemModel | ProblemPopulateTestcases
+}
+
+export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
+    best_submission: SubmissionPopulateSubmissionTestcasesSecureModel | null
 }

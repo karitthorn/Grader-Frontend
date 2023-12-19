@@ -1,4 +1,4 @@
-import { CollectionModel } from "./Collection.model"
+import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "./Collection.model"
 
 export type TopicModel = {
     topic_id: number
@@ -8,6 +8,16 @@ export type TopicModel = {
     image_url: string | null
     is_active: boolean
     is_private: boolean
+    created_date: string
+    updated_date: string
+}
+
+export type TopicSecureModel = {
+    topic_id: number
+    creator: number
+    name: string
+    description: string | null
+    image_url: string | null
     created_date: string
     updated_date: string
 }
@@ -26,4 +36,15 @@ export type TopicCollectionPopulateCollectionModel = {
 
 export type TopicPopulateTopicCollectionPopulateCollectionModel = TopicModel & {
     collections: TopicCollectionPopulateCollectionModel[]
+}
+
+export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
+    id: number;
+    collection: CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
+    order: number;
+    topic: number;
+}
+
+export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = TopicSecureModel & {
+    collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
 }

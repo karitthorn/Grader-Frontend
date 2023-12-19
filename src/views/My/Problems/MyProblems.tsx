@@ -10,6 +10,7 @@ import { ProblemModel, ProblemPopulateTestcases } from "../../../types/models/Pr
 import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import DeleteProblemConfirmationDialog from "../../../components/DeleteProblemConfirmationDialog";
+import { FilePlus } from "lucide-react";
 
 const MyProblems = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
@@ -41,6 +42,7 @@ const MyProblems = () => {
 					</div>
 					<div>
 						<Button onClick={() => navigate("/my/problems/create")}>
+							<FilePlus size={20} className="mr-2" />
 							Create Problem
 						</Button>
 					</div>

@@ -15,6 +15,7 @@ import { TestcaseModel } from "../../../types/models/Problem.model";
 import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 import GeneralDetail from "./GeneralDetail";
 import ManageCollections from "./ManageCollections";
+import FormSaveButton from "../FormSaveButton";
 
 const TabList = [
 	{
@@ -92,21 +93,10 @@ const CreateCourseForm = ({
 								))}
 							</TabsList>
 						</Tabs>
-						<Button
+						<FormSaveButton
 							disabled={loading}
 							onClick={handleSave}
-							className="px-10 ml-5"
-						>
-							{loading ? (
-								<>
-									<Loader2 className="animate-spin mr-2" />
-									Saving
-								</>
-							) : (
-								<>Save</>
-							)}
-							{/* {loading ? "Saving..." : "Save"} */}
-						</Button>
+						/>
 					</div>
 				</div>
 			</div>

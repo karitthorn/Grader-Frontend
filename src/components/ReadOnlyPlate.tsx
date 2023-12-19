@@ -24,6 +24,7 @@ import {
 	useMyPlateActions,
 	useMyPlateSelectors,
 } from "../lib/plate/plate-types";
+import { ScrollArea } from "./shadcn/ScrollArea";
 
 export default function ReadOnlyPlate({
 	className,
@@ -76,17 +77,14 @@ export default function ReadOnlyPlate({
 								"[&_.slate-start-area-left]:!w-[64px] [&_.slate-start-area-right]:!w-[64px] [&_.slate-start-area-top]:!h-4"
 							)}
 						>
-							<Editor
-								className={
-									"px-[96px] py-0 overflow-y-scroll " +
-									className
-								}
-								autoFocus
-								focusRing={false}
-								variant="ghost"
-								size="md"
-								readOnly
-							/>
+								<Editor
+									className={"px-[96px] py-0 " + className}
+									autoFocus
+									focusRing={false}
+									variant="ghost"
+									size="md"
+									readOnly
+								/>
 
 							{/* <FloatingToolbar>
               <FloatingToolbarButtons />
