@@ -17,5 +17,10 @@ export const SubmissionService: SubmissionServiceAPI = {
     getByAccountProblem: async (accountId, problemId) => {
         const response = await axios.get<GetSubmissionByAccountProblemResponse>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}/submissions`);
         return response;
+    },
+
+    getByAccountProblemInTopic: async (accountId, problemId, topicId) => {
+        const response = await axios.get<GetSubmissionByAccountProblemResponse>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}/problems/${problemId}/submissions`);
+        return response;
     }
 }

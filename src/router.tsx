@@ -17,6 +17,7 @@ import CreateCourse from "./views/My/Courses/CreateCourse";
 import EditCourse from "./views/My/Courses/EditCourse";
 import ExploreCourses from "./views/ExploreCourses";
 import ViewCourse from "./views/ViewCourse";
+import ViewCourseProblem from "./views/ViewCourseProblem";
 
 const Router = () => {
 	return (
@@ -39,6 +40,7 @@ const Router = () => {
 			
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
 			<Route path="/courses/:courseId" element={<ViewCourse />} />
+			<Route path="/courses/:courseId/problems/:problemId" element={<ViewCourseProblem />} />
 		</Routes>
 	);
 };

@@ -25,6 +25,7 @@ import { SubmitProblemResponse2GetSubmissionByAccountProblemResponse } from "../
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { ArrowLeft, ChevronLeftIcon, ChevronLeftSquareIcon, Loader2 } from "lucide-react";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
+import ProblemViewLayout, { OnSubmitProblemViewLayoutCallback } from "../components/ProblemViewLayout";
 
 const handleDeprecatedDescription = (description: string): string => {
 	if (description[0] === "[") {
@@ -92,12 +93,13 @@ const ViewProblem = () => {
 		});
 	}, []);
 
-	const handleSubmit = () => {
+	const handleSubmit = ({ setGrading, setLastedSubmission,selectedLanguage,submitCodeValue }:OnSubmitProblemViewLayoutCallback) => {
 		setGrading(true);
 		SubmissionService.submit(accountId, Number(problemId), {
 			language: selectedLanguage,
 			submission_code: String(submitCodeValue),
 		}).then((response) => {
+			console.log(response.data);
 			setLastedSubmission(response.data);
 			setGrading(false);
 		});
@@ -105,118 +107,11 @@ const ViewProblem = () => {
 
 	return (
 		<NavbarMenuLayout xPad={false}>
-			<div className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">
-				<div className="w-1/2 grid content-between">
-					<div className="ml-20">
-						<div className="text-3xl text-green-700 font-bold mb-2 flex">
-							<ArrowLeft
-								size={40}
-								className="cursor-pointer mr-2"
-								onClick={() => navigate(-1)}
-							/>
-							{problem?.title}
-						</div>
-						<div className="flex text-base">
-							<div className="flex mr-10">
-								<b className="mr-2">Author</b>
-								<p className="">{problem?.creator.username}</p>
-							</div>
-
-							<div className="flex">
-								<b className="mr-2">Updated Date</b>
-								<p className="">
-									{readableDateFormat(String(problem?.updated_date))}
-								</p>
-							</div>
-						</div>
-					</div>
-					<div>
-						{problem && (
-							<ReadOnlyPlate
-								value={JSON.parse(
-									handleDeprecatedDescription(
-										String(problem.description)
-									)
-								)}
-								className="h-[70vh] xl:h-[80vh]"
-							/>
-						)}
-					</div>
-				</div>
-				<div className="mx-3">
-					<Separator orientation="vertical" />
-				</div>
-				<div className="w-1/2 mr-5">
-					<div className="flex justify-between mb-1 items-center">
-						<div className="flex gap-2">
-							<Combobox
-								label="Select Language"
-								options={ProgrammingLanguageOptions}
-								onSelect={(value) => setSelectedLanguage(value)}
-								initialValue={selectedLanguage}
-								value={selectedLanguage}
-								setValue={setSelectedLanguage}
-							/>
-						</div>
-						<div>
-							{lastedSubmission && !grading && (
-								<TestcasesGradingIndicator
-									submissionTestcases={
-										lastedSubmission.runtime_output
-									}
-								/>
-							)}
-							{grading && (
-								<div className="flex items-center">
-									<Loader2 className="animate-spin mr-2 text-green-400" />
-									Grading ...
-								</div>
-							)}
-						</div>
-					</div>
-					<div className="">
-						<MonacoEditorWrapper>
-							<MonacoEditor
-								onChange={(e) => setSubmitCodeValue(e)}
-								value={submitCodeValue}
-								theme="vs-dark"
-								defaultLanguage="python"
-								language={selectedLanguage}
-							/>
-						</MonacoEditorWrapper>
-					</div>
-
-					<div className="flex justify-between mt-1">
-						<PreviousSubmissionsCombobox
-							bestSubmission={
-								previousSubmissions?.best_submission as SubmissionPopulateSubmissionTestcasesSecureModel
-							}
-							submissions={
-								previousSubmissions?.submissions as SubmissionPopulateSubmissionTestcasesSecureModel[]
-							}
-							onSelect={(submissionId) =>
-								handleSelectPreviousSubmission(
-									Number(submissionId)
-								)
-							}
-						/>
-						<Button
-							disabled={grading || !submitCodeValue}
-							onClick={handleSubmit}
-							className="px-10"
-						>
-							{grading ? (
-								<>
-									<Loader2 className="animate-spin mr-2" />
-									Submitting
-								</>
-							) : (
-								<>Submit</>
-							)}
-						</Button>
-					</div>
-				</div>
-			</div>
+			<ProblemViewLayout
+				onSubmit={(e) => handleSubmit(e)}
+				problem={problem as ProblemPoplulateCreatorModel}
+				previousSubmissions={previousSubmissions as GetSubmissionByAccountProblemResponse}
+			/>
 		</NavbarMenuLayout>
 	);
 };
