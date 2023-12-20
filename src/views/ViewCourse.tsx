@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { useParams } from "react-router-dom";
 import { TopicService } from "../services/Topic.service";
-import { TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
+import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
 import ReadOnlyPlate from "../components/ReadOnlyPlate";
-import { DummyEditorValue } from "../constants/DummyEditorValue";
+import {
+	DummyEditorValue,
+	EmptyEditorValue,
+} from "../constants/DummyEditorValue";
 import {
 	Accordion,
 	AccordionContent,
@@ -16,6 +19,8 @@ import { Card } from "../components/shadcn/Card";
 import TopicCollectionAccordianCard from "../components/TopicCollectionAccordianCard";
 import CardContainer from "../components/CardContainer";
 import { ScrollArea } from "../components/shadcn/ScrollArea";
+import TopicCollectionsAccordian from "../components/TopicCollectionsAccordian";
+import { CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Collection.model";
 
 const ViewCourse = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
@@ -40,18 +45,17 @@ const ViewCourse = () => {
 					<LibraryBig size={36} className="text-yellow-400 mr-2" />
 					{course?.name}
 				</h1>
-				<ReadOnlyPlate value={DummyEditorValue} />
-
+				{course && (
+					<ReadOnlyPlate
+						value={JSON.parse(String(course.description))}
+					/>
+				)}
 				{/* <CardContainer> */}
-				<ScrollArea className="mt-6 pr-5 ">
-					<div className="grid gap-y-3">
-						{course?.collections.map((topicCollection) => (
-							<TopicCollectionAccordianCard
-								collection={topicCollection.collection}
-							/>
-						))}
-					</div>
-				</ScrollArea>
+				{/* <ScrollArea className="mt-6 pr-5 "> */}
+					<TopicCollectionsAccordian
+						collections={course?.collections as TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]}
+					/>
+				{/* </ScrollArea> */}
 
 				{/* </CardContainer> */}
 			</div>

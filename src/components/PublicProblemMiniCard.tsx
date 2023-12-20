@@ -4,17 +4,22 @@ import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureMod
 import { FileSpreadsheet, Puzzle } from "lucide-react";
 import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
 import { Button } from "./shadcn/Button";
+import TestcasesGradingMiniIndicator from "./TestcasesGradingMiniIndicator";
+import { useNavigate } from "react-router-dom";
 
 const PublicProblemMiniCard = ({
 	problem,
 }: {
 	problem: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
 }) => {
+
+	const navigate = useNavigate();
+
 	return (
 		<Card className="px-5 cursor-pointer py-2">
 			<div className="flex items-center">
-				<h1 className="font-bold flex items-center w-3/12">
-					<FileSpreadsheet className="text-blue-400 mr-2" />
+				<h1 className="font-bold flex items-center w-3/12 font-mono">
+					<FileSpreadsheet size={18} className="text-blue-400 mr-2" />
 					{problem?.title}
 				</h1>
 
@@ -25,10 +30,12 @@ const PublicProblemMiniCard = ({
 					</p>
 				</div> */}
 
-				<div className="flex w-5/12">
-					<p className="font-medium mr-2">Best Submission</p>
+				<div className="flex w-5/12 items-center">
+					{/* <p className="font-medium mr-2">Best Submission</p> */}
 					{problem.best_submission ? (
 						<TestcasesGradingIndicator
+							sizeX={1}
+							sizeY={3}
 							submissionTestcases={
 								problem.best_submission.runtime_output
 							}
@@ -40,9 +47,9 @@ const PublicProblemMiniCard = ({
 
 				<div>
 					<Button
-						// onClick={() =>
-						// 	navigate(`/problems/${problem.problem_id}`)
-						// }
+						onClick={() =>
+							navigate(`./problems/${problem.problem_id}`)
+						}
 						// className="bg-white border-green-500 border-2 text-green-500 hover:bg-green-500 hover:text-white"
 					>
 						<Puzzle className="mr-2" />

@@ -1,3 +1,5 @@
+import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+
 export const DummyEditorValue = [
     {
       type: 'h1',
@@ -178,3 +180,11 @@ export const DummyEditorValue = [
       id: '6',
     },
   ];
+
+export const EmptyEditorValue = [
+  {
+    id: "1",
+    type: ELEMENT_PARAGRAPH,
+    children: [{ text: "" }],
+  },
+]
