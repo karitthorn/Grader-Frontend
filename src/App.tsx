@@ -7,11 +7,17 @@ import { AuthService } from "./services/Auth.service";
 import { LoginContext } from "./contexts/LoginContext";
 import { Toaster } from "./components/shadcn/Toaster";
 import { NavSidebarContext } from "./contexts/NavSidebarContext";
+import { CourseNavSidebarContext, getCourseNavSidebarContextStateValue } from "./contexts/CourseNavSidebarContexnt";
+import { TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "./types/models/Topic.model";
 
 function App() {
 	const [isLogin, setIsLogin] = useState(false);
 	const [section, setSection] = useState("");
 	const [isOpenNavSidebar, setIsOpenNavSidebar] = useState(false);
+
+	const [course, setCourse] = useState<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>();
+	const [isOpenCourseNavSidebar, setIsOpenCourseNavSidebar] = useState(false);
+	const [courseSection, setCourseSection] = useState("");
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
@@ -32,9 +38,20 @@ function App() {
 		<div>
 			<div className="App">
 				<LoginContext.Provider value={{ isLogin, setIsLogin }}>
-					<NavSidebarContext.Provider value={{section, setSection,isOpen: isOpenNavSidebar,setIsOpen: setIsOpenNavSidebar}}>
-						<Router />
-						<Toaster />
+					<NavSidebarContext.Provider
+						value={{
+							section,
+							setSection,
+							isOpen: isOpenNavSidebar,
+							setIsOpen: setIsOpenNavSidebar,
+						}}
+					>
+						<CourseNavSidebarContext.Provider
+							value = {getCourseNavSidebarContextStateValue()}
+						>
+							<Router />
+							<Toaster />
+						</CourseNavSidebarContext.Provider>
 					</NavSidebarContext.Provider>
 				</LoginContext.Provider>
 			</div>

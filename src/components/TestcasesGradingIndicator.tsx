@@ -24,9 +24,9 @@ const TestcaseGradingResult = ({ no,status,disableHover=false,sizeX=2,sizeY=4 }:
 			result += `bg-green-400`
 		} else if (status === "TIMEOUT") {
 			result += `bg-yellow-400`
-		} else if (status === "ERROR") {
-			result += `bg-red-400`
 		} else if (status === "FAILED") {
+			result += `bg-red-400`
+		} else if (status === "ERROR") {
 			result += `bg-zinc-300`
 		}
 
@@ -39,10 +39,10 @@ const TestcaseGradingResult = ({ no,status,disableHover=false,sizeX=2,sizeY=4 }:
 			result += `text-green-400`
 		} else if (status === "TIMEOUT") {
 			result += `text-yellow-400`
-		} else if (status === "ERROR") {
-			result += `text-red-400`
 		} else if (status === "FAILED") {
-			result += `text-zinc-300`
+			result += `text-red-400`
+		} else if (status === "ERROR") {
+			result += `text-zinc-500`
 		}
 
 		return result

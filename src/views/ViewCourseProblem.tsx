@@ -6,6 +6,7 @@ import { ProblemService } from "../services/Problem.service";
 import { SubmissionService } from "../services/Submission.service";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import ProblemViewLayout, { OnSubmitProblemViewLayoutCallback } from "../components/ProblemViewLayout";
+import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
 
 const ViewCourseProblem = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
@@ -40,13 +41,13 @@ const ViewCourseProblem = () => {
 		});
   }
 
-	return <NavbarMenuLayout xPad={false}>
+	return <CourseNavbarSidebarLayout>
     <ProblemViewLayout
       onSubmit={(e) => handleSubmit(e)}
       problem={problem as ProblemPoplulateCreatorModel}
       previousSubmissions={previousSubmissions as GetSubmissionByAccountProblemResponse}
     />
-  </NavbarMenuLayout>
+  </CourseNavbarSidebarLayout>
 };
 
 export default ViewCourseProblem;

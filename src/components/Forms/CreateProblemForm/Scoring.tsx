@@ -11,7 +11,7 @@ import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLangua
 import { Editor as MonacoEditor } from "@monaco-editor/react";
 import { Input } from "../../shadcn/Input";
 import { Button } from "../../shadcn/Button";
-import TestcaseValidationAccordian from "../../TestcaseValidationAccordian";
+import TestcaseValidationAccordion from "../../TestcaseValidationAccordion";
 import { Separator } from "../../shadcn/Seperator";
 import { Label } from "../../shadcn/Label";
 import { Loader2 } from "lucide-react";
@@ -137,7 +137,7 @@ const Scoring = ({
 				<div className="pr-5 overflow-y-scroll h-[70vh]">
 					{((displayResult && validationResult) ||
 						createRequest.validated_testcases) && (
-						<TestcaseValidationAccordian
+						<TestcaseValidationAccordion
 							runtimeResults={
 								validationResult?.runtime_results
 									? validationResult.runtime_results

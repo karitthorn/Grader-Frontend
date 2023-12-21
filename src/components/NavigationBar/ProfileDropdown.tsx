@@ -79,12 +79,12 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 						<span>My Problems</span>
 						{/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
 					</DropdownMenuItem>
-					<DropdownMenuItem>
+					<DropdownMenuItem onClick={() => navigate("/my/collections")}>
 						<Folder className="mr-2 h-4 w-4" />
 						<span>My Collections</span>
 						{/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
 					</DropdownMenuItem>
-					<DropdownMenuItem>
+					<DropdownMenuItem onClick={() => navigate("/my/courses")}>
 						<LibraryBig className="mr-2 h-4 w-4" />
 						<span>My Courses</span>
 						{/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}

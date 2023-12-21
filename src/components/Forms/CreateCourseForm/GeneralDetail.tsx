@@ -6,6 +6,7 @@ import { Input } from '../../shadcn/Input';
 import DetailPlateEditor from '../../DetailPlateEditor';
 import { CreateCollectionRequestForm } from '../../../types/forms/CreateCollectionRequestForm';
 import { CreateCourseRequestForm } from '../../../types/forms/CreateCourseRequestForm';
+import { handleDeprecatedDescription } from '../../../utilities/HandleDeprecatedDescription';
 
 const GeneralDetail = ({
 	createRequest,
@@ -26,6 +27,8 @@ const GeneralDetail = ({
 			// }, 1000);
 		}
 	};
+
+	
 
 	return (
 		<div>
