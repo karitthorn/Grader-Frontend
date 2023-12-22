@@ -78,7 +78,7 @@ export default function ReadOnlyPlate({
 							)}
 						>
 								<Editor
-									className={"px-[96px] py-0 " + className}
+									className={/* "px-[96px] py-0 " + */ "" + className}
 									autoFocus
 									focusRing={false}
 									variant="ghost"

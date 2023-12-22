@@ -27,18 +27,28 @@ const CourseNavSidebar = () => {
 
 	return (
 		<>
-			<div className="w-1/6 h-screen pt-10 sticky top-0">
+			<div className="h-screen pt-10 sticky top-0">
 				<div>
 					<div
-					onClick={() => navigate(`/courses/${courseId}`)}
-					className="flex items-center px-2 py-4 cursor-pointer">
-						<LibraryBig size={20} className="text-purple-400 mx-1" />
-						<p className="font-medium text-base w-11/12 line-clamp-1 text-left">{course?.name}</p>
+						onClick={() => navigate(`/courses/${courseId}`)}
+						className="flex items-center px-2 py-4 cursor-pointer"
+					>
+						<LibraryBig
+							size={20}
+							className="text-purple-400 mx-1"
+						/>
+						<p className="font-medium text-base w-11/12 line-clamp-1 text-left">
+							{course?.name}
+						</p>
 					</div>
 					<Separator />
-          <ScrollArea className="h-[80vh]">
-            <NavbarCollectionsProblemsAccordion collections={course?.collections as TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]}/>
-          </ScrollArea>
+					<ScrollArea className="h-[80vh]">
+						<NavbarCollectionsProblemsAccordion
+							collections={
+								course?.collections as TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
+							}
+						/>
+					</ScrollArea>
 				</div>
 			</div>
 		</>

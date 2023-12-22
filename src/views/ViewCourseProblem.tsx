@@ -5,7 +5,9 @@ import { GetSubmissionByAccountProblemResponse } from "../types/models/Submissio
 import { ProblemService } from "../services/Problem.service";
 import { SubmissionService } from "../services/Submission.service";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
-import ProblemViewLayout, { OnSubmitProblemViewLayoutCallback } from "../components/ProblemViewLayout";
+import ProblemViewLayout, {
+	OnSubmitProblemViewLayoutCallback,
+} from "../components/ProblemViewLayout";
 import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
 
 const ViewCourseProblem = () => {
@@ -28,26 +30,42 @@ const ViewCourseProblem = () => {
 		).then((response) => {
 			setPreviousSubmissions(response.data);
 		});
-	},[accountId,problemId,courseId]);
+	}, [accountId, problemId, courseId]);
 
-  const handleSubmit = ({setGrading, setLastedSubmission,selectedLanguage,submitCodeValue}: OnSubmitProblemViewLayoutCallback) => {
-    setGrading(true);
-		SubmissionService.topicSubmit(accountId,Number(courseId), Number(problemId), {
-			language: selectedLanguage,
-			submission_code: String(submitCodeValue),
-		}).then((response) => {
+	const handleSubmit = ({
+		setGrading,
+		setLastedSubmission,
+		selectedLanguage,
+		submitCodeValue,
+	}: OnSubmitProblemViewLayoutCallback) => {
+		setGrading(true);
+		SubmissionService.topicSubmit(
+			accountId,
+			Number(courseId),
+			Number(problemId),
+			{
+				language: selectedLanguage,
+				submission_code: String(submitCodeValue),
+			}
+		).then((response) => {
 			setLastedSubmission(response.data);
 			setGrading(false);
 		});
-  }
+	};
 
-	return <CourseNavbarSidebarLayout>
-    <ProblemViewLayout
-      onSubmit={(e) => handleSubmit(e)}
-      problem={problem as ProblemPoplulateCreatorModel}
-      previousSubmissions={previousSubmissions as GetSubmissionByAccountProblemResponse}
-    />
-  </CourseNavbarSidebarLayout>
+	return (
+		<CourseNavbarSidebarLayout>
+			<div className="ml-5">
+				<ProblemViewLayout
+					onSubmit={(e) => handleSubmit(e)}
+					problem={problem as ProblemPoplulateCreatorModel}
+					previousSubmissions={
+						previousSubmissions as GetSubmissionByAccountProblemResponse
+					}
+				/>
+			</div>
+		</CourseNavbarSidebarLayout>
+	);
 };
 
 export default ViewCourseProblem;

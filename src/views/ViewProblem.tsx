@@ -23,9 +23,16 @@ import { SubmitProblemResponse } from "../types/apis/Submission.api";
 import PreviousSubmissionsCombobox from "../components/PreviousSubmissionsCombobox";
 import { SubmitProblemResponse2GetSubmissionByAccountProblemResponse } from "../types/adapters/Submission.adapter";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { ArrowLeft, ChevronLeftIcon, ChevronLeftSquareIcon, Loader2 } from "lucide-react";
+import {
+	ArrowLeft,
+	ChevronLeftIcon,
+	ChevronLeftSquareIcon,
+	Loader2,
+} from "lucide-react";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
-import ProblemViewLayout, { OnSubmitProblemViewLayoutCallback } from "../components/ProblemViewLayout";
+import ProblemViewLayout, {
+	OnSubmitProblemViewLayoutCallback,
+} from "../components/ProblemViewLayout";
 
 const handleDeprecatedDescription = (description: string): string => {
 	if (description[0] === "[") {
@@ -42,7 +49,6 @@ const handleDeprecatedDescription = (description: string): string => {
 };
 
 const ViewProblem = () => {
-
 	const navigate = useNavigate();
 	const { problemId } = useParams();
 	const accountId = Number(localStorage.getItem("account_id"));
@@ -93,7 +99,12 @@ const ViewProblem = () => {
 		});
 	}, []);
 
-	const handleSubmit = ({ setGrading, setLastedSubmission,selectedLanguage,submitCodeValue }:OnSubmitProblemViewLayoutCallback) => {
+	const handleSubmit = ({
+		setGrading,
+		setLastedSubmission,
+		selectedLanguage,
+		submitCodeValue,
+	}: OnSubmitProblemViewLayoutCallback) => {
 		setGrading(true);
 		SubmissionService.submit(accountId, Number(problemId), {
 			language: selectedLanguage,
@@ -107,11 +118,15 @@ const ViewProblem = () => {
 
 	return (
 		<NavbarMenuLayout xPad={false}>
-			<ProblemViewLayout
-				onSubmit={(e) => handleSubmit(e)}
-				problem={problem as ProblemPoplulateCreatorModel}
-				previousSubmissions={previousSubmissions as GetSubmissionByAccountProblemResponse}
-			/>
+			<div className="ml-10">
+				<ProblemViewLayout
+					onSubmit={(e) => handleSubmit(e)}
+					problem={problem as ProblemPoplulateCreatorModel}
+					previousSubmissions={
+						previousSubmissions as GetSubmissionByAccountProblemResponse
+					}
+				/>
+			</div>
 		</NavbarMenuLayout>
 	);
 };

@@ -73,7 +73,7 @@ const ProblemViewLayout = ({
 	return (
 		<div className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">
 			<div className="w-1/2 grid content-between">
-				<div className="ml-20">
+				<div className="ml-3">
 					<div className="text-3xl text-green-700 font-bold mb-2 flex">
 						<ArrowLeft
 							size={40}
