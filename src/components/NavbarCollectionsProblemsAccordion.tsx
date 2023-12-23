@@ -10,6 +10,7 @@ import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProbl
 import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
 import { useNavigate, useParams } from "react-router-dom";
 import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./shadcn/Tooltip";
 
 const NavbarCollectionProblemCard = ({
 	problem
@@ -88,31 +89,38 @@ const NavbarCollectionsProblemsAccordion = ({
 		}
 	}
 
-	useEffect(() => {
-		const recentOpenStorage = localStorage.getItem("recent_open_collection")
-		console.log(recentOpenStorage)
+	// useEffect(() => {
+	// 	const recentOpenStorage = localStorage.getItem("recent_open_collection")
+	// 	console.log(recentOpenStorage)
 
-		if (recentOpenStorage) {
-			setRecentOpenCollection(JSON.parse(String(recentOpenStorage)))
-		}
-	},[])
+	// 	if (recentOpenStorage) {
+	// 		setRecentOpenCollection(JSON.parse(String(recentOpenStorage)))
+	// 	}
+	// },[])
 
-	useEffect(()=>{
-		localStorage.setItem("recent_open_collection",JSON.stringify(recentOpenCollection))
-	},[recentOpenCollection])
+	// useEffect(()=>{
+	// 	localStorage.setItem("recent_open_collection",JSON.stringify(recentOpenCollection))
+	// },[recentOpenCollection])
 
 	return (
 		<Accordion type="multiple" value={recentOpenCollection}>
 			{collections?.map((topicCollection,index) => (
 				<AccordionItem value={String(index)} className="">
 					<AccordionTrigger onClick={() => handleAccordionTrigger(index)} className="py-0 p-3">
-						<div className="flex items-center text-base">
+						<Tooltip>
+							<TooltipTrigger>
+							<div className="flex items-center text-base">
 							<Folder
 								size={18}
 								className="text-yellow-400 mr-2"
 							/>
 							<p className="w-5/6 line-clamp-1 text-left">{topicCollection.collection.name}</p>
 						</div>
+							</TooltipTrigger>
+							<TooltipContent>
+								{topicCollection.collection.name}
+							</TooltipContent>
+						</Tooltip>
 					</AccordionTrigger>
 					<AccordionContent>
 						<div className="ml-5 w-[80%] grid gap-y-1">

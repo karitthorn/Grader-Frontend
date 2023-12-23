@@ -112,6 +112,12 @@ const ViewProblem = () => {
 		}).then((response) => {
 			console.log(response.data);
 			setLastedSubmission(response.data);
+			SubmissionService.getByAccountProblem(
+				accountId,
+				Number(problemId)
+			).then((response) => {
+				setPreviousSubmissions(response.data);
+			});
 			setGrading(false);
 		});
 	};

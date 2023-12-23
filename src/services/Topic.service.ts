@@ -31,7 +31,7 @@ export const TopicService: TopicSerivceAPI = {
         return response;
     },
 
-    publicGetByAccount: async (accountId,topicId) => {
+    getPublicByAccount: async (accountId,topicId) => {
         const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>(`${BASE_URL}/api/topics/${topicId}?account_id=${accountId}`);
         return response;
     }

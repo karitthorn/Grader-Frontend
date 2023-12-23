@@ -39,7 +39,7 @@ const ViewCourse = () => {
 	const {course,setCourse} = useContext(CourseNavSidebarContext);
 
 	// useEffect(() => {
-	// 	TopicService.publicGetByAccount(accountId, Number(courseId)).then(
+	// 	TopicService.getPublicByAccount(accountId, Number(courseId)).then(
 	// 		(response) => {
 	// 			console.log(response.data);
 	// 			setCourse(response.data);
@@ -65,7 +65,7 @@ const ViewCourse = () => {
 						collections={course?.collections as TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]}
 					/> */}
 
-				<div className="grid gap-y-2">
+				<div className="grid gap-y-2 ">
 					{course?.collections.map((tc) => (
 						<TopicCollectionAccordionCard
 							collection={tc.collection}

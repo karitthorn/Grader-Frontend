@@ -11,5 +11,5 @@ export type TopicSerivceAPI = {
     update: (courseId:number,request: FormData) => Promise<AxiosResponse<TopicModel>>;
     getAllByAccount: (accountId:number) => Promise<AxiosResponse<GetAllTopicsByAccountResponse>>;
     updateCollections: (topicId:number,collectionIds:number[]) => Promise<AxiosResponse<TopicModel>>;
-    publicGetByAccount: (accountId:number,courseId:number) => Promise<AxiosResponse<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>>;
+    getPublicByAccount: (accountId:number,courseId:number) => Promise<AxiosResponse<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>>;
 }

@@ -10,7 +10,7 @@ const ExploreCourses = () => {
 	const {courseId} = useParams()
 
 	useEffect(( )=> {
-		TopicService.publicGetByAccount(accountId,Number(courseId)).then(response => {
+		TopicService.getPublicByAccount(accountId,Number(courseId)).then(response => {
 			console.log(response.data)
 		
 		})

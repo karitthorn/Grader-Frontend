@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
 import { GetSubmissionByAccountProblemResponse } from "../types/models/Submission.model";
@@ -9,10 +9,13 @@ import ProblemViewLayout, {
 	OnSubmitProblemViewLayoutCallback,
 } from "../components/ProblemViewLayout";
 import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
+import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
+import { TopicService } from "../services/Topic.service";
 
 const ViewCourseProblem = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
 	const { courseId, problemId } = useParams();
+
 
 	const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
 	const [previousSubmissions, setPreviousSubmissions] =
@@ -49,6 +52,13 @@ const ViewCourseProblem = () => {
 			}
 		).then((response) => {
 			setLastedSubmission(response.data);
+			SubmissionService.getByAccountProblemInTopic(
+				accountId,
+				Number(problemId),
+				Number(courseId)
+			).then((response) => {
+				setPreviousSubmissions(response.data);
+			});
 			setGrading(false);
 		});
 	};

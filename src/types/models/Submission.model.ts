@@ -28,14 +28,15 @@ export type SubmissionModel = {
 
 export type SubmissionPopulateProblemModel = {
     submission_id: number;
+    account: number;
     problem: ProblemModel;
+    language:  string;
     submission_code: string;
     is_passed: boolean;
     date: string;
     score: number;
     max_score: number;
     passed_ratio: number;
-    account: number;
     runtime_output: SubmissionTestcaseSecureModel[];
 }
 
@@ -51,8 +52,18 @@ export type SubmissionPoplulateProblemSecureModel = {
 	account: number;
 }
 
-export type SubmissionPopulateSubmissionTestcaseSecureSerializer = {
-    // Will implement later
+export type SubmissionPopulateSubmissionTestcaseSecureModel = {
+    submission_id: number
+    problem: number
+    language: string
+    submission_code: string
+    is_passed: boolean
+    date: string
+    score: number
+    max_score: number
+    passed_ratio: number
+    account: number
+    runtime_output: SubmissionTestcaseSecureModel[]
 }
 
 export type GetSubmissionByAccountProblemSubmissionModel = {

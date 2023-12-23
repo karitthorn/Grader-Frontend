@@ -1,5 +1,5 @@
 import { ArrowLeft, Loader2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import { ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
@@ -69,6 +69,16 @@ const ProblemViewLayout = ({
 			setSelectedLanguage(submission.language);
 		}
 	};
+
+
+	useEffect(() => {
+
+		console.log('pb',JSON.parse(
+			handleDeprecatedDescription(
+				String(problem?.description)
+			)
+		))
+	},[problem])
 
 	return (
 		<div className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">

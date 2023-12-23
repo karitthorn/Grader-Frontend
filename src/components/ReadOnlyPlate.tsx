@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CommentsProvider } from "@udecode/plate-comments";
 import { Plate } from "@udecode/plate-common";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
@@ -19,19 +19,20 @@ import { FixedToolbarButtons } from "./plate-ui/fixed-toolbar-buttons";
 import { FloatingToolbar } from "./plate-ui/floating-toolbar";
 import { FloatingToolbarButtons } from "./plate-ui/floating-toolbar-buttons";
 import { MentionCombobox } from "./plate-ui/mention-combobox";
-import { DummyEditorValue } from "../constants/DummyEditorValue";
+import { DummyEditorValue, EmptyEditorValue } from "../constants/DummyEditorValue";
 import {
 	useMyPlateActions,
 	useMyPlateSelectors,
 } from "../lib/plate/plate-types";
 import { ScrollArea } from "./shadcn/ScrollArea";
+import { PlateEditorValueType } from "../types/PlateEditorValueType";
 
 export default function ReadOnlyPlate({
 	className,
-	value = null,
+	value = EmptyEditorValue,
 }: {
 	className?: string;
-	value?: any;
+	value?: PlateEditorValueType;
 }) {
 	const containerRef = useRef(null);
 
@@ -53,22 +54,38 @@ export default function ReadOnlyPlate({
 		];
 	};
 
-	useEffect(() => {
-		if (value) {
-			// const editorRef = useMyPlateSelectors("view-problem-plate")
-			// editorRef.value = () => value
-		}
-	}, [value]);
+	const [cooldown, setCooldown] = useState(false);
+	const [previousValue, setPreviousValue] = useState<PlateEditorValueType>(EmptyEditorValue);
+
+	const sameWithPrevious = () => {
+		if (previousValue.length !== value.length) return false;
+		return JSON.stringify(value) === JSON.stringify(previousValue);
+	}
+
+	// useEffect(() => {
+
+		
+	// 	if (!cooldown && !sameWithPrevious()) {
+
+	// 		setCooldown(true);
+	// 		setTimeout(() => {
+	// 			setCooldown(false);
+	// 		}, 1);
+	// 	}
+
+	// 	setPreviousValue(value);
+	// }, [value]);
 
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<CommentsProvider users={commentsUsers} myUserId={myUserId}>
-				{value && (
+				{(value) && (
 					<Plate
 						readOnly
 						id="view-problem-plate"
 						plugins={plugins}
 						initialValue={value}
+						// value={value}
 					>
 						<div
 							ref={containerRef}
