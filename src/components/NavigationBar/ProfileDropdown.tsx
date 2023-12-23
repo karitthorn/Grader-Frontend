@@ -69,11 +69,11 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 				<DropdownMenuLabel>{username}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
-					<DropdownMenuItem>
+					{/* <DropdownMenuItem dis>
 						<User className="mr-2 h-4 w-4" />
-						<span>Profile</span>
+						<span>Profile</span> */}
 						{/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
-					</DropdownMenuItem>
+					{/* </DropdownMenuItem> */}
 					<DropdownMenuItem onClick={() => navigate("/my/problems")}>
 						<FileSpreadsheet className="mr-2 h-4 w-4" />
 						<span>My Problems</span>
@@ -90,7 +90,7 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 						{/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
+				{/* <DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem>
 						<Users className="mr-2 h-4 w-4" />
@@ -137,12 +137,12 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 				<DropdownMenuItem disabled>
 					<Cloud className="mr-2 h-4 w-4" />
 					<span>API</span>
-				</DropdownMenuItem>
+				</DropdownMenuItem> */}
 				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={handleLogout}>
 					<LogOut className="mr-2 h-4 w-4" />
 					<span>Log out</span>
-					<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+					{/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

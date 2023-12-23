@@ -18,6 +18,7 @@ import EditCourse from "./views/My/Courses/EditCourse";
 import ExploreCourses from "./views/ExploreCourses";
 import ViewCourse from "./views/ViewCourse";
 import ViewCourseProblem from "./views/ViewCourseProblem";
+import Dashboard from "./views/Dashboard";
 
 const Router = () => {
 	return (
@@ -27,6 +28,7 @@ const Router = () => {
 			<Route path="/courses" element={<ExploreCourses />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
+			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/management" element={<CourseManagement />} />
 			<Route path="/my/problems" element={<MyProblems />} />
 			<Route path="/my/collections" element={<MyCollections />} />
