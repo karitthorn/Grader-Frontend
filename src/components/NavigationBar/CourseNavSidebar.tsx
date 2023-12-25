@@ -60,7 +60,7 @@ const CourseNavSidebar = () => {
 						<div className="flex">
 							<div
 								onClick={() => navigate(`/courses/${courseId}`)}
-								className="flex items-center px-2 py-4 cursor-pointer"
+								className="flex items-center px-2 py-4 cursor-pointer w-11/12"
 							>
 								<LibraryBig
 									size={20}

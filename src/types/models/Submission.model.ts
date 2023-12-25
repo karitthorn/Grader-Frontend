@@ -1,4 +1,4 @@
-import { ProblemModel } from "./Problem.model";
+import { ProblemModel, ProblemSecureModel } from "./Problem.model";
 
 export type SubmissionTestcaseModel = {
     submission_testcase_id: number;
@@ -17,6 +17,8 @@ export type SubmissionTestcaseSecureModel = {
 export type SubmissionModel = {
 	submission_id: number;
 	problem: number;
+    topic: number | null;
+    language: string;
 	submission_code: string;
 	is_passed: boolean;
 	date: string;
@@ -96,4 +98,9 @@ export type SubmissionPopulateSubmissionTestcasesSecureModel = {
     max_score: number
     passed_ratio: number
     runtime_output: SubmissionTestcaseSecureModel[]
+}
+
+export type SubmissionPopulateSubmissionTestcaseAndProblemSecureModel = SubmissionModel & {
+    problem: ProblemSecureModel;
+    runtime_output: SubmissionTestcaseSecureModel[];
 }

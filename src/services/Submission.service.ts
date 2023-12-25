@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SubmissionServiceAPI, SubmitProblemResponse } from "../types/apis/Submission.api";
+import { GetAllSubmissionsResponse, SubmissionServiceAPI, SubmitProblemResponse } from "../types/apis/Submission.api";
 import { GetSubmissionByAccountProblemResponse, SubmissionModel, SubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Submission.model";
 import { BASE_URL } from "../constants/BackendBaseURL";
 
@@ -21,6 +21,11 @@ export const SubmissionService: SubmissionServiceAPI = {
 
     getByAccountProblemInTopic: async (accountId, problemId, topicId) => {
         const response = await axios.get<GetSubmissionByAccountProblemResponse>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}/problems/${problemId}/submissions`);
+        return response;
+    },
+
+    getAll: async (query) => {
+        const response = await axios.get<GetAllSubmissionsResponse>(`${BASE_URL}/api/submissions`,{params:query});
         return response;
     }
 }
