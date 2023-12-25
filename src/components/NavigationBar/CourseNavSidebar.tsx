@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CourseNavSidebarContext } from "../../contexts/CourseNavSidebarContexnt";
 import { TopicService } from "../../services/Topic.service";
 import { Separator } from "../shadcn/Seperator";
-import { ChevronLeft, ChevronRight, Folder, LibraryBig } from "lucide-react";
+import { ChevronLeft, ChevronRight, LibraryBig } from "lucide-react";
 import NavbarCollectionsProblemsAccordion from "../NavbarCollectionsProblemsAccordion";
 import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../types/models/Topic.model";
 import { ScrollArea } from "../shadcn/ScrollArea";
@@ -14,7 +14,7 @@ const CourseNavSidebar = () => {
 	const { courseId } = useParams();
 
 	const courseNavSidebarContext = useContext(CourseNavSidebarContext);
-	const { isOpen, setIsOpen, section, setSection, course, setCourse,recentOpenCollection,setRecentOpenCollection } = courseNavSidebarContext;
+	const { isOpen, setIsOpen, setSection, course, setCourse,setRecentOpenCollection } = courseNavSidebarContext;
 
 
 
