@@ -19,6 +19,7 @@ import ExploreCourses from "./views/ExploreCourses";
 import ViewCourse from "./views/ViewCourse";
 import ViewCourseProblem from "./views/ViewCourseProblem";
 import Dashboard from "./views/Dashboard";
+import MyGroups from "./views/My/Groups/MyGroups";
 
 const Router = () => {
 	return (
@@ -30,15 +31,20 @@ const Router = () => {
 			<Route path="/register" element={<Register />} />
 			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/management" element={<CourseManagement />} />
+
 			<Route path="/my/problems" element={<MyProblems />} />
+			<Route path="/my/problems/create" element={<CreateProblem />} />
+			<Route path="/my/problems/:problemId" element={<EditProblem />} />
+
 			<Route path="/my/collections" element={<MyCollections />} />
 			<Route path="/my/collections/:collectionId" element={<EditCollection />} />
 			<Route path="/my/collections/create" element={<CreateCollection />} />
-			<Route path="/my/problems/create" element={<CreateProblem />} />
-			<Route path="/my/problems/:problemId" element={<EditProblem />} />
+
 			<Route path="/my/courses" element={<MyCourses />} />
 			<Route path="/my/courses/create" element={<CreateCourse />} />
 			<Route path="/my/courses/:courseId" element={<EditCourse />} />
+
+			<Route path="/my/groups" element={<MyGroups />} />
 			
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
 			<Route path="/courses/:courseId" element={<ViewCourse />} />

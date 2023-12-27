@@ -31,7 +31,7 @@ const NavSidebar = () => {
 
 	const { isOpen, setIsOpen } = useContext(NavSidebarContext);
 
-	const { section, setSection } = useContext(NavSidebarContext);
+	const { section } = useContext(NavSidebarContext);
 
 	const customIconBehaviour = (selected: boolean) => {
 		if (selected) return "mr-2 text-white";
@@ -88,7 +88,7 @@ const NavSidebar = () => {
 							</SectionButton>
 							<SectionButton
 								selected={section === "GROUPS"}
-								onClick={() => setSection("GROUPS")}
+								onClick={() => navigate("/my/groups")}
 							>
 								<Users
 									size={30}
@@ -149,7 +149,7 @@ const NavSidebar = () => {
 							</SectionButton>
 							<SectionButton
 								selected={section === "GROUPS"}
-								onClick={() => setSection("GROUPS")}
+								onClick={() => navigate("/my/groups")}
 							>
 								<Users
 									size={30}
