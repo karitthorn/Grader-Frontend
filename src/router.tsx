@@ -20,6 +20,8 @@ import ViewCourse from "./views/ViewCourse";
 import ViewCourseProblem from "./views/ViewCourseProblem";
 import Dashboard from "./views/Dashboard";
 import MyGroups from "./views/My/Groups/MyGroups";
+import CreateGroup from "./views/My/Groups/CreateGroup";
+import EditGroup from "./views/My/Groups/EditGroup";
 
 const Router = () => {
 	return (
@@ -45,6 +47,8 @@ const Router = () => {
 			<Route path="/my/courses/:courseId" element={<EditCourse />} />
 
 			<Route path="/my/groups" element={<MyGroups />} />
+			<Route path="/my/groups/create" element={<CreateGroup />} />
+			<Route path="/my/groups/:groupId" element={<EditGroup />} />
 			
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
 			<Route path="/courses/:courseId" element={<ViewCourse />} />

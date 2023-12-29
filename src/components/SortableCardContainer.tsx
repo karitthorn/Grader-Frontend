@@ -11,7 +11,7 @@ const SortableCardContainer = ({
 	return (
 		<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
 
-			<ReactSortable className="grid gap-y-3 border p-2 rounded-md min-h-[20vh]" {...args}>{children}</ReactSortable>
+			<ReactSortable className="grid gap-y-3 p-2 rounded-md min-h-[20vh]" {...args}>{children}</ReactSortable>
 		</ScrollArea>
 		// </div>
 	);

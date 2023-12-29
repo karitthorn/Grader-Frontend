@@ -17,6 +17,7 @@ import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollecti
 // import ManageCollections from "./ManageCollections";
 import FormSaveButton from "../FormSaveButton";
 import GeneralDetail from "./GeneralDetail";
+import ManageMembers from "./ManageMembers";
 
 const TabList = [
 	{
@@ -24,15 +25,15 @@ const TabList = [
 		label: "General Detail",
 	},
 	{
-		value: "collections",
-		label: "Manage Collections",
+		value: "members",
+		label: "Manage Members",
 	},
 ];
 
-export type OnCourseSavedCallback = {
+export type OnGroupSavedCallback = {
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-	courseId: number;
-	setCourseId: React.Dispatch<React.SetStateAction<number>>;
+	groupId: number;
+	setGroupId: React.Dispatch<React.SetStateAction<number>>;
 	createRequest: CreateGroupRequestForm;
 }
 
@@ -42,14 +43,14 @@ const CreateGroupForm = ({
 }: // onCollectionSave,
 {
 	createRequestInitialValue: CreateGroupRequestForm;
-	onCourseSave: (callback: OnCourseSavedCallback) => void;
+	onCourseSave: (callback: OnGroupSavedCallback) => void;
 	// onCollectionSave: (callback: OnCollectionSavedCallback) => void;
 }) => {
 	const navigate = useNavigate();
 	const [currentForm, setCurrentForm] = useState("general");
 	const [loading, setLoading] = useState(false);
 
-	const [courseId, setCourseId] = useState(-1);
+	const [groupId, setGroupId] = useState(-1);
 
 	const [createRequest, setCreateRequest] = useState<CreateGroupRequestForm>(
 		createRequestInitialValue
@@ -59,8 +60,8 @@ const CreateGroupForm = ({
 		onCourseSave({
 			setLoading,
 			createRequest,
-			courseId,
-			setCourseId,
+			groupId,
+			setGroupId,
 		});
 	};
 
@@ -109,12 +110,12 @@ const CreateGroupForm = ({
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{/* {currentForm === "collections" && (
-					<ManageCollections
+				{currentForm === "members" && (
+					<ManageMembers
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
-				)} */}
+				)}
 			</div>
 		</div>
 	);

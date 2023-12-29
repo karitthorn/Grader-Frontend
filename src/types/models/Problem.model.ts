@@ -58,6 +58,8 @@ export type ProblemHashedTable = {
     [id:number]: ProblemModel | ProblemPopulateTestcases
 }
 
-// export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
-//     best_submission: SubmissionPopulateSubmissionTestcasesSecureModel | null
-// }
+export type ProblemHealth = {
+    has_source_code: boolean
+    testcase_count: number
+    no_runtime_error: boolean
+}

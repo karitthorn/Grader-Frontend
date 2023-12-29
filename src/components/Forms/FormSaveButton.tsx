@@ -11,7 +11,7 @@ const FormSaveButton = ({
     onClick: () => void
 }) => {
 
-	const {problemId,courseId,collectionId} = useParams()
+	const {problemId,courseId,collectionId,groupId} = useParams()
 
 
 	return (
@@ -19,13 +19,13 @@ const FormSaveButton = ({
 			{disabled ? (
 				<>
 					<Loader2 className="animate-spin mr-2" />
-					{(problemId || courseId || collectionId) ? "Saving" : "Creating"}
+					{(problemId || courseId || collectionId || groupId) ? "Saving" : "Creating"}
 				</>
 			) : (
 				<>
 					
-					{(problemId || courseId || collectionId) ? <ArrowDownToLine size={20} className="mr-2"/> : <Plus size={20} className="mr-2"/>}
-					{(problemId || courseId || collectionId) ? "Save" : "Create"}
+					{(problemId || courseId || collectionId || groupId) ? <ArrowDownToLine size={20} className="mr-2"/> : <Plus size={20} className="mr-2"/>}
+					{(problemId || courseId || collectionId || groupId) ? "Save" : "Create"}
 				</>
 			)}
 			{/* {loading ? "Saving..." : "Save"} */}

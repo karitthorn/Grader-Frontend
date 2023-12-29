@@ -17,7 +17,6 @@ const GeneralDetail = ({
 	createRequest: CreateGroupRequestForm;
 	setCreateRequest: React.Dispatch<React.SetStateAction<CreateGroupRequestForm>>;
 }) => {
-	const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);	
 
 	return (
 		<div>
@@ -43,6 +42,17 @@ const GeneralDetail = ({
 					})
 				}
 			/>
+
+			<Label>Color</Label>
+			<Input
+				value={String(createRequest.color)}
+				onChange={(e) =>
+					setCreateRequest({
+						...createRequest,
+						color: e.target.value,
+					})
+				}
+			type="color"/>
 		</div>
 	);
 };

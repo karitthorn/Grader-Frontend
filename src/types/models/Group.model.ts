@@ -24,3 +24,7 @@ export type GroupMemberPopulateAccountSecureModel = GroupMemberModel & {
 export type GroupPopulateGroupMemberPopulateAccountSecureModel = GroupModel & {
     members: GroupMemberPopulateAccountSecureModel[]
 }
+
+export type GroupHashedTable = {
+    [id:number]: GroupModel | GroupPopulateGroupMemberPopulateAccountSecureModel
+}

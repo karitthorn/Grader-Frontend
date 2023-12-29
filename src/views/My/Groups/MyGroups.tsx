@@ -9,6 +9,9 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import { TopicService } from "../../../services/Topic.service";
 import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";
 import { LibraryBig } from "lucide-react";
+import MyGroupCard from "../../../components/MyGroupCard";
+import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
+import { GroupService } from "../../../services/Group.service";
 
 const MyGroups = () => {
 
@@ -16,12 +19,14 @@ const MyGroups = () => {
 	const accountId = Number(localStorage.getItem("account_id"));
     const {setSection} = useContext(NavSidebarContext)
 
-	const [topics, setTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+	const [groups, setGroups] = useState<GroupPopulateGroupMemberPopulateAccountSecureModel[]>([])
 
     useEffect(( )=> {
         setSection("GROUPS")
-		TopicService.getAllByAccount(accountId).then((response) => {
-			setTopics(response.data.topics)
+		GroupService.getAllByAccount(accountId,{
+			populate_members: true,
+		}).then((response) => {
+			setGroups(response.data.groups as GroupPopulateGroupMemberPopulateAccountSecureModel[]);
 		})
     },[])
 
@@ -49,8 +54,8 @@ const MyGroups = () => {
 
 				<CardContainer>
 					{
-						topics.map(topic => (
-							<MyCourseCard course={topic}/>
+						groups.map((group) => (
+							<MyGroupCard group={group}/>
 						))
 					}
 				</CardContainer>

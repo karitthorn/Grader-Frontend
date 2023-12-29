@@ -13,3 +13,7 @@ export type AccountSecureModel = {
     account_id: number
     username: string
 }
+
+export type AccountHashedTable = {
+    [id:number]: AccountModel | AccountSecureModel
+}
