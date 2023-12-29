@@ -160,7 +160,7 @@ const ManageMembers = ({
 							list={allAccountsSortable}
 							setList={setAllAccountsSortable}
 							filter=".selected"
-							className="grid gap-y-3 p-2 rounded-md min-h-[20vh]"
+							className="grid gap-y-3 p-2 rounded-md"
 						>
 							{allAccountsSortable?.map((item) => (
 								<div

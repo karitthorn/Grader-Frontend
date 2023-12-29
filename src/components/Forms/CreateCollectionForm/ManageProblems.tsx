@@ -118,7 +118,7 @@ const ManageProblems = ({
 									group="shared"
 									list={selectedProblemsSortable}
 									setList={setSelectedProblemsSortable}
-									className="grid gap-y-3 p-2 rounded-md min-h-[20vh]"
+									className="grid gap-y-3 p-2 rounded-md"
 								>
 									{selectedProblemsSortable?.map((item) => (
 										<MyProblemMiniCard
@@ -154,7 +154,7 @@ const ManageProblems = ({
 							list={allProblemsSortable}
 							setList={setAllProblemsSortable}
 							filter=".selected"
-							className="grid gap-y-3 p-2 rounded-md min-h-[20vh]"
+							className="grid gap-y-3 p-2 rounded-md"
 						>
 							{allProblemsSortable?.map((item) => (
 								<div className={selectedProblemsSortable.includes(item) ? "selected" : ""}>

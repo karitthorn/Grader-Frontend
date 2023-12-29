@@ -133,7 +133,7 @@ const ManageCollections = ({
 									group="shared"
 									list={selectedCollectionsSortable}
 									setList={setSelectedCollectionsSortable}
-									className="grid gap-y-3 p-2 rounded-md min-h-[20vh]"
+									className="grid gap-y-3 p-2 rounded-md"
 								>
 									{selectedCollectionsSortable?.map((item) => (
 										<MyCollectionMiniCard
@@ -167,7 +167,7 @@ const ManageCollections = ({
 							list={allCollectionsSortable}
 							setList={setAllCollectionsSortable}
 							filter=".selected"
-							className="grid gap-y-3 p-2 rounded-md min-h-[20vh]"
+							className="grid gap-y-3 p-2 rounded-md"
 						>
 							{allCollectionsSortable?.map((item) => (
 								<div className={selectedCollectionsSortable.includes(item) ? "selected" : ""}>

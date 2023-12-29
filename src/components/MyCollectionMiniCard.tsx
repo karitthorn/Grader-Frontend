@@ -99,7 +99,7 @@ const MyCollectionMiniCard = ({
 	};
 
 	const customCardCSS = ():string => {
-		let className = "pt-6 px-5 cursor-pointer ";
+		let className = "py-3 px-5 cursor-pointer ";
 
 		if (disabled) {
 			className += "opacity-50 ";
@@ -123,7 +123,7 @@ const MyCollectionMiniCard = ({
 
 				// className={`pt-6 px-5 ${disabled ? "opacity-50" : }`}`}
 			>
-				<CardContent>
+				{/* <CardContent> */}
 					<div className="flex items-stretch justify-between">
 						<div className="flex items-center w-1/2">
 							<Folder className="text-yellow-400 mr-2" />
@@ -145,7 +145,7 @@ const MyCollectionMiniCard = ({
 						
 						</div>
 					</div>
-				</CardContent>
+				{/* </CardContent> */}
 			</Card>
 		// </MyCollectionContextMenu>
 		)

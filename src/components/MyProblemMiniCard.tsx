@@ -95,7 +95,7 @@ const MyProblemMiniCard = ({
 	};
 
 	const customCardCSS = ():string => {
-		let className = "pt-6 px-5 cursor-pointer ";
+		let className = "py-3 px-5 cursor-pointer ";
 
 		if (disabled) {
 			className += "opacity-50 ";
