@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
-import MyCollectionCard from "../../../components/MyCollectionCard";
+import MyCollectionCard from "../../../components/Cards/CollectionCards/MyCollectionCard";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "./shadcn/Card";
+import { Card, CardContent } from "../shadcn/Card";
 import { useNavigate } from "react-router-dom";
 import { User, Users } from "lucide-react";
-import { readableDateFormat } from "../utilities/ReadableDateFormat";
-import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../types/models/Group.model";
+import { readableDateFormat } from "../../utilities/ReadableDateFormat";
+import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../types/models/Group.model";
 
 const MyGroupCard = ({
     group

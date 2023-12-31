@@ -3,7 +3,7 @@ import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Input } from "../../../components/shadcn/Input";
 import { Button } from "../../../components/shadcn/Button";
 import { Card, CardContent, CardTitle } from "../../../components/shadcn/Card";
-import MyProblemCard from "../../../components/MyProblemCard";
+import MyProblemCard from "../../../components/Cards/ProblemCards/MyProblemCard";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemModel, ProblemPopulateTestcases } from "../../../types/models/Problem.model";

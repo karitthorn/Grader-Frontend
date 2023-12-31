@@ -4,7 +4,7 @@ import { Input } from "../../../components/shadcn/Input";
 import { Button } from "../../../components/shadcn/Button";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyCourseCard from "../../../components/MyCourseCard";
+import MyCourseCard from "../../../components/Cards/CourseCards/MyCourseCard";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import { TopicService } from "../../../services/Topic.service";
 import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";

@@ -3,10 +3,10 @@ import NavbarSidebarLayout from "../layout/NavbarSidebarLayout";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { SubmissionService } from "../services/Submission.service";
 import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../types/models/Submission.model";
-import SubmissionCard from "../components/SubmissionCard";
+import SubmissionCard from "../components/Cards/SubmissionCard";
 import { TopicModel } from "../types/models/Topic.model";
 import { TopicService } from "../services/Topic.service";
-import PublicCourseCard from "../components/PublicCourseCard";
+import PublicCourseCard from "../components/Cards/CourseCards/PublicCourseCard";
 
 const Dashboard = () => {
 	const accountId = String(localStorage.getItem("account_id"));

@@ -1,10 +1,10 @@
 import React from "react";
-import { Card } from "./shadcn/Card";
-import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
+import { Card } from "../../shadcn/Card";
+import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../../types/models/Problem.model";
 import { FileSpreadsheet, Puzzle } from "lucide-react";
-import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
-import { Button } from "./shadcn/Button";
-import TestcasesGradingMiniIndicator from "./TestcasesGradingMiniIndicator";
+import TestcasesGradingIndicator from "../../TestcasesGradingIndicator";
+import { Button } from "../../shadcn/Button";
+import TestcasesGradingMiniIndicator from "../../TestcasesGradingMiniIndicator";
 import { useNavigate } from "react-router-dom";
 
 const PublicProblemMiniCard = ({

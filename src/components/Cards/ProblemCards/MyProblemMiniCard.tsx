@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardTitle } from "./shadcn/Card";
-import { Button } from "./shadcn/Button";
+import { Card, CardContent, CardTitle } from "../../shadcn/Card";
+import { Button } from "../../shadcn/Button";
 import {
 	Check,
 	CheckCircle2,
 	FileSpreadsheet,
-	Folder,
 	Pencil,
 	PencilIcon,
 	Trash,
@@ -17,18 +16,17 @@ import {
 	ProblemPopulateTestcases,
 	ProblemSecureModel,
 	TestcaseModel,
-} from "../types/models/Problem.model";
-import { readableDateFormat } from "../utilities/ReadableDateFormat";
+} from "../../../types/models/Problem.model";
+import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import {
 	ContextMenu,
 	ContextMenuTrigger,
 	ContextMenuContent,
 	ContextMenuItem,
-} from "./shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "./DeleteProblemConfirmationDialog";
-import Checkmark from "./Checkmark";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./shadcn/Tooltip";
-import { CollectionModel, CollectionPopulateProblemSecureModel } from "../types/models/Collection.model";
+} from "../../shadcn/ContextMenu";
+import DeleteProblemConfirmationDialog from "../../DeleteProblemConfirmationDialog";
+import Checkmark from "../../Checkmark";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
 
 const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	for (const testcase of testcases) {
@@ -39,7 +37,7 @@ const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	return true;
 };
 
-const MyCollectionContextMenu = ({
+const MyProblemContextMenu = ({
 	children,
 	problem,
 }: {
@@ -71,15 +69,13 @@ const MyCollectionContextMenu = ({
 	);
 };
 
-const MyCollectionMiniCard = ({
-	// problem,
-    collection,
+const MyProblemMiniCard = ({
+	problem,
 	disabled=false,
 	disabledHighlight=false,
 	onClick=()=>{}
 }: {
-	// problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
-    collection:CollectionPopulateProblemSecureModel
+	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
 	disabled?: boolean;
 	disabledHighlight?: boolean;
 	onClick?: () => void;
@@ -113,8 +109,8 @@ const MyCollectionMiniCard = ({
 	}
 
 	return (
-		collection && (
-			// <MyCollectionContextMenu problem={problem}>
+		problem && (
+			<MyProblemContextMenu problem={problem}>
 			<Card
 				onClick={() => onClick()}
 				onMouseOver={handleMouseOver}
@@ -126,30 +122,38 @@ const MyCollectionMiniCard = ({
 				{/* <CardContent> */}
 					<div className="flex items-stretch justify-between">
 						<div className="flex items-center w-1/2">
-							<Folder className="text-yellow-400 mr-2" />
+							<FileSpreadsheet className="text-blue-400 mr-2" />
 							{(!highlightTitle || disabled || disabledHighlight) && (
-								<h1 className="	font-bold">{collection.name}</h1>
+								<h1 className="	font-bold">{problem.title}</h1>
 							)}
 							{(highlightTitle && !disabled && !disabledHighlight) && (
 								<h1 className="font-bold text-green-600">
-									{collection.name}
+									{problem.title}
 								</h1>
 							)}
 						</div>
 
 						<div className="flex gap-1 text-sm font-medium self-center">
-                            <div className="flex">
-                                <FileSpreadsheet className="text-blue-400 mr-2" />
-                                <p>Problems ({collection.problems.length})</p>
-                            </div>
+                            <Tooltip>
+                                <TooltipTrigger><Checkmark variant="circle" status/></TooltipTrigger>
+                                <TooltipContent>Source Code</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger><Checkmark variant="circle" status={false}/></TooltipTrigger>
+                                <TooltipContent>Testcase</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger><Checkmark variant="circle" status/></TooltipTrigger>
+                                <TooltipContent>No Runtime Error</TooltipContent>
+                            </Tooltip>
 						
 						</div>
 					</div>
 				{/* </CardContent> */}
 			</Card>
-		// </MyCollectionContextMenu>
+		</MyProblemContextMenu>
 		)
 	);
 };
 
-export default MyCollectionMiniCard;
+export default MyProblemMiniCard;

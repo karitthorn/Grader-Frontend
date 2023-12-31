@@ -19,7 +19,7 @@ import {
 } from "../components/shadcn/Accordion";
 import { LibraryBig } from "lucide-react";
 import { Card } from "../components/shadcn/Card";
-import TopicCollectionAccordionCard from "../components/TopicCollectionAccordionCard";
+import TopicCollectionAccordionCard from "../components/Cards/CollectionCards/TopicCollectionAccordionCard";
 import CardContainer from "../components/CardContainer";
 import { ScrollArea } from "../components/shadcn/ScrollArea";
 import TopicCollectionsAccordion from "../components/TopicCollectionsAccordion";

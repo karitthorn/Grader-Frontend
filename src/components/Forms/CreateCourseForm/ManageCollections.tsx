@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 import { ReactSortable } from "react-sortablejs";
 import { Button } from "../../shadcn/Button";
-import AddProblemDialog from "../../AddProblemDialog";
 import { Separator } from "../../shadcn/Seperator";
 import { Input } from "../../shadcn/Input";
 import { ProblemService } from "../../../services/Problem.service";
@@ -12,15 +11,15 @@ import {
 	ProblemSecureModel,
 } from "../../../types/models/Problem.model";
 import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
-import MyProblemCard from "../../MyProblemCard";
+import MyProblemCard from "../../Cards/ProblemCards/MyProblemCard";
 import CardContainer from "../../CardContainer";
 import SortableCardContainer from "../../SortableCardContainer";
-import MyProblemMiniCard from "../../MyProblemMiniCard";
+import MyProblemMiniCard from "../../Cards/ProblemCards/MyProblemMiniCard";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Item } from "@radix-ui/react-context-menu";
 import { transformProblemModel2ProblemHashedTable } from "../../../types/adapters/Problem.adapter";
 import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
-import MyCollectionMiniCard from "../../MyCollectionMiniCard";
+import MyCollectionMiniCard from "../../Cards/CollectionCards/MyCollectionMiniCard";
 import { CollectionService } from "../../../services/Collection.service";
 import { transformCollectionModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
 import { CollectionHashedTable, CollectionPopulateProblemSecureModel } from "../../../types/models/Collection.model";

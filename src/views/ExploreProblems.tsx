@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
-import PublicProblemCard from "../components/PublicProblemCard";
+import PublicProblemCard from "../components/Cards/ProblemCards/PublicProblemCard";
 import CardContainer from "../components/CardContainer";
 import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
 import { ProblemService } from "../services/Problem.service";
