@@ -28,7 +28,7 @@ import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
 import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
 
 const ViewCourse = () => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const { courseId } = useParams();
 
 	// const [course, setCourse] =
@@ -39,7 +39,7 @@ const ViewCourse = () => {
 	const {course,setCourse} = useContext(CourseNavSidebarContext);
 
 	// useEffect(() => {
-	// 	TopicService.getPublicByAccount(accountId, Number(courseId)).then(
+	// 	TopicService.getPublicByAccount(accountId, String(courseId)).then(
 	// 		(response) => {
 	// 			console.log(response.data);
 	// 			setCourse(response.data);

@@ -44,7 +44,7 @@ const ManageMembers = ({
 		React.SetStateAction<CreateGroupRequestForm>
 	>;
 }) => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [allAccountsSortable, setAllAccountsSortable] = useState<
 		ItemInterface[]
@@ -56,23 +56,23 @@ const ManageMembers = ({
 
 	const [initial, setInitial] = useState(true);
 	const [selectedAccountsSortableIds, setSelectedAccountsSortableIds] =
-		useState<number[]>([]);
+		useState<string[]>([]);
 
 	useEffect(() => {
 		setSelectedAccountsSortableIds(
-			selectedAccountsSortable?.map((item) => item.id as number)
+			selectedAccountsSortable?.map((item) => item.id as string)
 		);
 	}, [selectedAccountsSortable]);
 
-	const handleRemoveSelectedCollection = (id: number) => {
+	const handleRemoveSelectedCollection = (id: string) => {
 		setSelectedAccountsSortable([
 			...selectedAccountsSortable.filter((item) => item.id !== id),
 		]);
 	};
 
 	const handleQuickToggleSelectedCollection = (item: ItemInterface) => {
-		if (selectedAccountsSortableIds.includes(item.id as number)) {
-			handleRemoveSelectedCollection(item.id as number);
+		if (selectedAccountsSortableIds.includes(item.id as string)) {
+			handleRemoveSelectedCollection(item.id as string);
 		} else {
 			setSelectedAccountsSortable([...selectedAccountsSortable, item]);
 		}
@@ -131,9 +131,9 @@ const ManageMembers = ({
 									{selectedAccountsSortable?.map((item) => (
 										<AccountMiniCard
 											disabledHighlight
-											onClick={() => handleRemoveSelectedCollection(item.id as number)}
+											onClick={() => handleRemoveSelectedCollection(item.id as string)}
 											key={item.id}
-											account={allAccounts[item.id as number] as AccountSecureModel}
+											account={allAccounts[item.id as string] as AccountSecureModel}
 										/>
 									))}
 								</ReactSortable>
@@ -171,10 +171,10 @@ const ManageMembers = ({
 									}
 								>
 									<AccountMiniCard
-											disabled={selectedAccountsSortableIds.includes(item.id as number)}
+											disabled={selectedAccountsSortableIds.includes(item.id as string)}
 											onClick={() => handleQuickToggleSelectedCollection(item)}
 											key={item.id}
-											account={allAccounts[item.id as number] as AccountSecureModel}
+											account={allAccounts[item.id as string] as AccountSecureModel}
 										/>
 								</div>
 							))}

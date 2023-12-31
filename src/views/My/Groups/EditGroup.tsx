@@ -10,13 +10,13 @@ import { transformCreateGroupRequestForm2CreateGroupRequest } from "../../../typ
 const EditGroup = () => {
 	const { groupId } = useParams();
 	const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [createRequest, setCreateRequest] =
 		useState<CreateGroupRequestForm>();
 
 	useEffect(() => {
-		GroupService.get(Number(groupId), {
+		GroupService.get(String(groupId), {
 			populate_members: true,
 		}).then((response) => {
 			const data =
@@ -35,10 +35,10 @@ const EditGroup = () => {
 
 	const handleSave = ({setLoading,createRequest}:OnGroupSavedCallback) => {
 		const request = transformCreateGroupRequestForm2CreateGroupRequest(createRequest)
-		const memberIds = createRequest.membersInterface.map((item) => item.id as number)
+		const memberIds = createRequest.membersInterface.map((item) => item.id as string)
 		
 		setLoading(true)
-		GroupService.update(Number(groupId),request).then((response) => {
+		GroupService.update(String(groupId),request).then((response) => {
 			return GroupService.updateMembers(response.data.group_id,memberIds)
 		}).then((response) => {
 			setLoading(false)

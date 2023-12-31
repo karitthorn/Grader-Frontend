@@ -51,7 +51,7 @@ const handleDeprecatedDescription = (description: string): string => {
 const ViewProblem = () => {
 	const navigate = useNavigate();
 	const { problemId } = useParams();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
 	const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
@@ -64,7 +64,7 @@ const ViewProblem = () => {
 	const [lastedSubmission, setLastedSubmission] =
 		useState<SubmissionPopulateSubmissionTestcasesSecureModel>();
 
-	const handleSelectPreviousSubmission = (submissionId: number) => {
+	const handleSelectPreviousSubmission = (submissionId: string) => {
 		let submission = null;
 		if (
 			submissionId === previousSubmissions?.best_submission?.submission_id
@@ -87,13 +87,13 @@ const ViewProblem = () => {
 	};
 
 	useEffect(() => {
-		ProblemService.get(Number(problemId)).then((response) => {
+		ProblemService.get(String(problemId)).then((response) => {
 			setProblem(response.data);
 		});
 
 		SubmissionService.getByAccountProblem(
 			accountId,
-			Number(problemId)
+			String(problemId)
 		).then((response) => {
 			setPreviousSubmissions(response.data);
 		});
@@ -106,7 +106,7 @@ const ViewProblem = () => {
 		submitCodeValue,
 	}: OnSubmitProblemViewLayoutCallback) => {
 		setGrading(true);
-		SubmissionService.submit(accountId, Number(problemId), {
+		SubmissionService.submit(accountId, String(problemId), {
 			language: selectedLanguage,
 			submission_code: String(submitCodeValue),
 		}).then((response) => {
@@ -114,7 +114,7 @@ const ViewProblem = () => {
 			setLastedSubmission(response.data);
 			SubmissionService.getByAccountProblem(
 				accountId,
-				Number(problemId)
+				String(problemId)
 			).then((response) => {
 				setPreviousSubmissions(response.data);
 			});

@@ -33,20 +33,19 @@ const formInitialValue: CreateCourseRequestForm = {
 const CreateCourse = () => {
 
 	const navigate = useNavigate()
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const handleSave = ({
 		setLoading,
 		createRequest,
-		courseId,
-		setCourseId,
+
 	}: OnCourseSavedCallback) => {
-		if (!setCourseId || !setLoading || !createRequest || !courseId) {
+		if ( !setLoading || !createRequest) {
 			return;
 		}
 
 		const formData = transformCreateCourseRequestForm2CreateTopicRequestFormData(createRequest)
-		const collectionIds = createRequest.collectionsInterface.map((collection) => collection.id as number)
+		const collectionIds = createRequest.collectionsInterface.map((collection) => collection.id as string)
 
 		setLoading(true)
 		TopicService.create(accountId, formData).then((response) => {
@@ -69,14 +68,12 @@ const CreateCourse = () => {
 				// }
 				onCourseSave={({
 					createRequest,
-					courseId,
-					setCourseId,
+	
 					setLoading,
 				}) =>
 					handleSave({
 						createRequest,
-						courseId,
-						setCourseId,
+				
 						setLoading,
 					})
 				}

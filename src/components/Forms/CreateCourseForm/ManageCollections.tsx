@@ -35,7 +35,7 @@ const ManageCollections = ({
 	>;
 }) => {
 	
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [allCollectionsSortable, setAllCollectionsSortable] = useState<
 		ItemInterface[]
@@ -48,13 +48,13 @@ const ManageCollections = ({
 	>({});
 
 	const [initial, setInitial] = useState(true);
-	const [selectedCollectionsSortableIds, setSelectedCollectionsSortableIds] = useState<number[]>([]);
+	const [selectedCollectionsSortableIds, setSelectedCollectionsSortableIds] = useState<string[]>([]);
 
 	useEffect(() => {
-		setSelectedCollectionsSortableIds(selectedCollectionsSortable.map((item) => item.id as number));
+		setSelectedCollectionsSortableIds(selectedCollectionsSortable.map((item) => item.id as string));
 	},[selectedCollectionsSortable])
 
-	const handleRemoveSelectedCollection = (id: number) => {
+	const handleRemoveSelectedCollection = (id: string) => {
 		setSelectedCollectionsSortable(
 			[...selectedCollectionsSortable.filter((item) => item.id !== id)]
 		);
@@ -63,14 +63,14 @@ const ManageCollections = ({
 	const handleQuickToggleSelectedCollection = (item: ItemInterface) => {
 		// if (selectedCollectionsSortable.find((item1) => item1.id === item.id)) {
 		// 	console.log("Remove");
-		// 	handleRemoveSelectedCollection(item.id as number);
+		// 	handleRemoveSelectedCollection(item.id as string);
 		// } else {
 		// 	console.log("Add");
 		// 	setSelectedCollectionsSortable([...selectedCollectionsSortable, item]);
 		// }
 
-		if (selectedCollectionsSortableIds.includes(item.id as number)) {
-			handleRemoveSelectedCollection(item.id as number);
+		if (selectedCollectionsSortableIds.includes(item.id as string)) {
+			handleRemoveSelectedCollection(item.id as string);
 		}
 		else {
 			setSelectedCollectionsSortable([...selectedCollectionsSortable, item]);
@@ -138,9 +138,9 @@ const ManageCollections = ({
 									{selectedCollectionsSortable?.map((item) => (
 										<MyCollectionMiniCard
 											disabledHighlight
-											onClick={() => handleRemoveSelectedCollection(item.id as number)}
+											onClick={() => handleRemoveSelectedCollection(item.id as string)}
 											key={item.id}
-											collection={allCollections[item.id as number] as CollectionPopulateProblemSecureModel}
+											collection={allCollections[item.id as string] as CollectionPopulateProblemSecureModel}
 										/>
 									))}
 								</ReactSortable>
@@ -173,9 +173,9 @@ const ManageCollections = ({
 								<div className={selectedCollectionsSortable.includes(item) ? "selected" : ""}>
 									<MyCollectionMiniCard
 										onClick={() => handleQuickToggleSelectedCollection(item)}
-										disabled={selectedCollectionsSortableIds.includes(item.id as number)}
+										disabled={selectedCollectionsSortableIds.includes(item.id as string)}
 										key={item.id}
-										collection={allCollections[item.id as number] as CollectionPopulateProblemSecureModel}
+										collection={allCollections[item.id as string] as CollectionPopulateProblemSecureModel}
 									/>
 								</div>
 							))}

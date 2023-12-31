@@ -13,7 +13,7 @@ import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.mode
 
 const EditProblem = () => {
 	const { problemId } = useParams();
-	const editProblemId = Number(problemId);
+	const editProblemId = String(problemId);
 
 	const [problem,setProblem] = useState<ProblemPoplulateCreatorModel>();
 
@@ -22,13 +22,11 @@ const EditProblem = () => {
 
 	const handleSave: OnProblemSaveCallback = (
 		setLoading,
-		problemId,
-		setProblemId,
 		createRequest
 	) => {
 		setLoading(true);
 		ProblemService.update(
-			Number(editProblemId),
+			String(editProblemId),
 			transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
 		).then((response) => {
 			console.log("Update Completed", response.data);
@@ -78,14 +76,12 @@ const EditProblem = () => {
 				validatedTestcases={problem?.testcases}
 				onProblemSave={(
 					setLoading,
-					problemId,
-					setProblemId,
+				
 					createRequest
 				) =>
 					handleSave(
 						setLoading,
-						problemId,
-						setProblemId,
+						
 						createRequest
 					)
 				}

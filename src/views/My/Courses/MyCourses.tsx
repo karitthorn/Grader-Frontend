@@ -13,7 +13,7 @@ import { LibraryBig } from "lucide-react";
 const MyCourses = () => {
 
     const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
     const {setSection} = useContext(NavSidebarContext)
 
 	const [topics, setTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])

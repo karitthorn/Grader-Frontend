@@ -31,7 +31,7 @@ const NavbarCollectionProblemCard = ({
 			result += "hover:bg-blue-100 "
 		}
 
-		if (problem.problem_id === Number(problemId)) {
+		if (problem.problem_id === String(problemId)) {
 			if (problem.best_submission?.is_passed) {
 				result += "bg-green-100 "
 			}

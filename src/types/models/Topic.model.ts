@@ -1,7 +1,7 @@
 import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "./Collection.model"
 
 export type TopicModel = {
-    topic_id: number
+    topic_id: string
     creator: number
     name: string
     description: string | null
@@ -13,7 +13,7 @@ export type TopicModel = {
 }
 
 export type TopicSecureModel = {
-    topic_id: number
+    topic_id: string
     creator: number
     name: string
     description: string | null
@@ -28,7 +28,7 @@ export type TopicCollectionModel = {
 }
 
 export type TopicCollectionPopulateCollectionModel = {
-    id: number;
+    id: string;
     collection: CollectionModel;
     order: number;
     topic: number;
@@ -39,7 +39,7 @@ export type TopicPopulateTopicCollectionPopulateCollectionModel = TopicModel & {
 }
 
 export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
-    id: number;
+    id: string;
     collection: CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
     order: number;
     topic: number;

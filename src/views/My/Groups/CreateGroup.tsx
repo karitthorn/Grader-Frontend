@@ -17,7 +17,7 @@ const formInitialValue: CreateGroupRequestForm = {
 
 const CreateGroup = () => {
 	const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const handleSave = ({
 		createRequest,
@@ -26,7 +26,7 @@ const CreateGroup = () => {
 		const request =
 			transformCreateGroupRequestForm2CreateGroupRequest(createRequest);
 		const memberIds = createRequest.membersInterface.map(
-			(item) => item.id as number
+			(item) => item.id as string
 		);
 
 		setLoading(true);

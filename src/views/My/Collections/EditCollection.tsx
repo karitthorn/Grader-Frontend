@@ -14,7 +14,7 @@ import { handleDeprecatedDescription } from '../../../utilities/HandleDeprecated
 const EditCollection = () => {
 
     const {collectionId} = useParams();
-    const editCollectionId = Number(collectionId);
+    const editCollectionId = String(collectionId);
 
     const [createRequest, setCreateRequest] = React.useState<CreateCollectionRequestForm>()
 
@@ -25,7 +25,7 @@ const EditCollection = () => {
         }
 
         const problemIds = (createRequest as CreateCollectionRequestForm).problemsInterface.map(
-            (problem) => problem.id as number
+            (problem) => problem.id as string
         );
         const request = transformCreateCollectionRequestForm2CreateCollectionRequestForm(createRequest as CreateCollectionRequestForm)
 

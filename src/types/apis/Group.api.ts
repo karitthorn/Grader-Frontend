@@ -16,10 +16,10 @@ export type GroupGetQuery = {
 }
 
 export type GroupSerivceAPI = {
-    get: (groupId:number,query?:GroupGetQuery) => Promise<AxiosResponse<GroupModel | GroupPopulateGroupMemberPopulateAccountSecureModel>>;
-    getAllByAccount: (accountId:number,query?:GroupGetQuery) => Promise<AxiosResponse<GroupGetAllByAccountResponse>>;
-    create: (accountId:number,request:GroupCreateRequest) => Promise<AxiosResponse<GroupModel>>;
-    update: (groupId:number,request:GroupCreateRequest) => Promise<AxiosResponse<GroupModel>>;
-    delete: (groupId:number) => Promise<AxiosResponse<null>>;
-    updateMembers: (groupId:number,accountIds:number[]) => Promise<AxiosResponse<GroupPopulateGroupMemberPopulateAccountSecureModel>>;
+    get: (groupId:string,query?:GroupGetQuery) => Promise<AxiosResponse<GroupModel | GroupPopulateGroupMemberPopulateAccountSecureModel>>;
+    getAllByAccount: (accountId:string,query?:GroupGetQuery) => Promise<AxiosResponse<GroupGetAllByAccountResponse>>;
+    create: (accountId:string,request:GroupCreateRequest) => Promise<AxiosResponse<GroupModel>>;
+    update: (groupId:string,request:GroupCreateRequest) => Promise<AxiosResponse<GroupModel>>;
+    delete: (groupId:string) => Promise<AxiosResponse<null>>;
+    updateMembers: (groupId:string,accountIds:string[]) => Promise<AxiosResponse<GroupPopulateGroupMemberPopulateAccountSecureModel>>;
 }

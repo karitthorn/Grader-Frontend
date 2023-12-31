@@ -26,43 +26,30 @@ const formInitialValue = {
 
 const CreateProblem = () => {
 
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
 
-	const handleSave:OnProblemSaveCallback = (setLoading, problemId, setProblemId,createRequest) => {
+	const handleSave:OnProblemSaveCallback = (setLoading, createRequest) => {
 		setLoading(true);
-		if (problemId === -1) {
-			ProblemService.create(
-				accountId,
-				transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
-			).then((response) => {
-				setProblemId(response.data.problem_id);
-				setLoading(false);
-				toast({
-					title: "Create Completed",
-				});
-				navigate(`/my/problems/${response.data.problem_id}`);
+		ProblemService.create(
+			accountId,
+			transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+		).then((response) => {
+			setLoading(false);
+			toast({
+				title: "Create Completed",
 			});
-		} else {
-			ProblemService.update(
-				problemId,
-				transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
-			).then((response) => {
-				setLoading(false);
-				toast({
-					title: "Update Completed",
-				});
-			});
-		}
+			navigate(`/my/problems/${response.data.problem_id}`);
+		});
 	};
 
 	return (
 		<NavbarSidebarLayout>
 			<CreateProblemForm
 				createRequestInitialValue={formInitialValue}
-				onProblemSave={(setLoading, problemId, setProblemId,createRequest) =>
-					handleSave(setLoading, problemId, setProblemId,createRequest)
+				onProblemSave={(setLoading, createRequest) =>
+					handleSave(setLoading, createRequest)
 				}
 			/>
 		</NavbarSidebarLayout>

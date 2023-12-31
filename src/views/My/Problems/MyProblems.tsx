@@ -13,7 +13,7 @@ import DeleteProblemConfirmationDialog from "../../../components/DeleteProblemCo
 import { FilePlus } from "lucide-react";
 
 const MyProblems = () => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
 	const [problems, setProblems] = useState<ProblemPopulateTestcases[]>([]);

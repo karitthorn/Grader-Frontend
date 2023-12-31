@@ -13,7 +13,7 @@ import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
 import { TopicService } from "../services/Topic.service";
 
 const ViewCourseProblem = () => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const { courseId, problemId } = useParams();
 
 
@@ -22,14 +22,14 @@ const ViewCourseProblem = () => {
 		useState<GetSubmissionByAccountProblemResponse>();
 
 	useEffect(() => {
-		ProblemService.get(Number(problemId)).then((response) => {
+		ProblemService.get(String(problemId)).then((response) => {
 			setProblem(response.data);
 		});
 
 		SubmissionService.getByAccountProblemInTopic(
 			accountId,
-			Number(problemId),
-			Number(courseId)
+			String(problemId),
+			String(courseId)
 		).then((response) => {
 			setPreviousSubmissions(response.data);
 		});
@@ -44,8 +44,8 @@ const ViewCourseProblem = () => {
 		setGrading(true);
 		SubmissionService.topicSubmit(
 			accountId,
-			Number(courseId),
-			Number(problemId),
+			String(courseId),
+			String(problemId),
 			{
 				language: selectedLanguage,
 				submission_code: String(submitCodeValue),
@@ -54,8 +54,8 @@ const ViewCourseProblem = () => {
 			setLastedSubmission(response.data);
 			SubmissionService.getByAccountProblemInTopic(
 				accountId,
-				Number(problemId),
-				Number(courseId)
+				String(problemId),
+				String(courseId)
 			).then((response) => {
 				setPreviousSubmissions(response.data);
 			});

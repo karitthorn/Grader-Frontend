@@ -6,7 +6,7 @@ import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../ty
 import SubmissionCard from "../components/SubmissionCard";
 
 const Dashboard = () => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
   const username = localStorage.getItem("username");
 
 	const [previousAttemptedProblems, setPreviousAttemptedProblems] = useState<

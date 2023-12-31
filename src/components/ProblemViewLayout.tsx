@@ -48,7 +48,7 @@ const ProblemViewLayout = ({
         onSubmit({setGrading, setLastedSubmission,selectedLanguage,submitCodeValue})
     }
 
-    const handleSelectPreviousSubmission = (submissionId: number) => {
+    const handleSelectPreviousSubmission = (submissionId: string) => {
 		let submission = null;
 		if (
 			submissionId === previousSubmissions?.best_submission?.submission_id
@@ -173,7 +173,7 @@ const ProblemViewLayout = ({
 							previousSubmissions?.submissions as SubmissionPopulateSubmissionTestcasesSecureModel[]
 						}
 						onSelect={(submissionId) =>
-							handleSelectPreviousSubmission(Number(submissionId))
+							handleSelectPreviousSubmission(String(submissionId))
 						}
 					/>
 					<Button

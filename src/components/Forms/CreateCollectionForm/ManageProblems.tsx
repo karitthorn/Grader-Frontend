@@ -30,7 +30,7 @@ const ManageProblems = ({
 	>;
 }) => {
 	
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [allProblemsSortable, setAllProblemsSortable] = useState<
 		ItemInterface[]
@@ -43,13 +43,13 @@ const ManageProblems = ({
 	>({});
 
 	const [initial, setInitial] = useState(true);
-	const [selectedProblemSortableIds, setSelectedProblemSortableIds] = useState<number[]>([]);
+	const [selectedProblemSortableIds, setSelectedProblemSortableIds] = useState<string[]>([]);
 
 	useEffect(() => {
-		setSelectedProblemSortableIds(selectedProblemsSortable.map((item) => item.id as number));
+		setSelectedProblemSortableIds(selectedProblemsSortable.map((item) => item.id as string));
 	},[selectedProblemsSortable])
 
-	const handleRemoveSelectedProblem = (id: number) => {
+	const handleRemoveSelectedProblem = (id: string) => {
 		setSelectedProblemsSortable(
 			[...selectedProblemsSortable.filter((item) => item.id !== id)]
 		);
@@ -58,14 +58,14 @@ const ManageProblems = ({
 	const handleQuickToggleSelectedProblem = (item: ItemInterface) => {
 		// if (selectedProblemsSortable.find((item1) => item1.id === item.id)) {
 		// 	console.log("Remove");
-		// 	handleRemoveSelectedProblem(item.id as number);
+		// 	handleRemoveSelectedProblem(item.id as string);
 		// } else {
 		// 	console.log("Add");
 		// 	setSelectedProblemsSortable([...selectedProblemsSortable, item]);
 		// }
 
-		if (selectedProblemSortableIds.includes(item.id as number)) {
-			handleRemoveSelectedProblem(item.id as number);
+		if (selectedProblemSortableIds.includes(item.id as string)) {
+			handleRemoveSelectedProblem(item.id as string);
 		}
 		else {
 			setSelectedProblemsSortable([...selectedProblemsSortable, item]);
@@ -123,10 +123,10 @@ const ManageProblems = ({
 									{selectedProblemsSortable?.map((item) => (
 										<MyProblemMiniCard
 											disabledHighlight
-											onClick={() => handleRemoveSelectedProblem(item.id as number)}
+											onClick={() => handleRemoveSelectedProblem(item.id as string)}
 											key={item.id}
 											problem={
-												allProblems[item.id as number]
+												allProblems[item.id as string]
 											}
 										/>
 									))}
@@ -160,10 +160,10 @@ const ManageProblems = ({
 								<div className={selectedProblemsSortable.includes(item) ? "selected" : ""}>
 									<MyProblemMiniCard
 										onClick={() => handleQuickToggleSelectedProblem(item)}
-										disabled={selectedProblemSortableIds.includes(item.id as number)}
+										disabled={selectedProblemSortableIds.includes(item.id as string)}
 										key={item.id}
 										problem={
-											allProblems[item.id as number]
+											allProblems[item.id as string]
 										}
 									/>
 								</div>

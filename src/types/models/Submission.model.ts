@@ -1,7 +1,7 @@
 import { ProblemModel, ProblemSecureModel } from "./Problem.model";
 
 export type SubmissionTestcaseModel = {
-    submission_testcase_id: number;
+    submission_testcase_id: string;
     submission: number;
     testcase: number;
     output: string;
@@ -15,7 +15,7 @@ export type SubmissionTestcaseSecureModel = {
 };
 
 export type SubmissionModel = {
-	submission_id: number;
+	submission_id: string;
 	problem: number;
     topic: number | null;
     language: string;
@@ -29,7 +29,7 @@ export type SubmissionModel = {
 };
 
 export type SubmissionPopulateProblemModel = {
-    submission_id: number;
+    submission_id: string;
     account: number;
     problem: ProblemModel;
     language:  string;
@@ -43,7 +43,7 @@ export type SubmissionPopulateProblemModel = {
 }
 
 export type SubmissionPoplulateProblemSecureModel = {
-    submission_id: number;
+    submission_id: string;
 	problem: ProblemModel;
 	submission_code: string;
 	is_passed: boolean;
@@ -55,7 +55,7 @@ export type SubmissionPoplulateProblemSecureModel = {
 }
 
 export type SubmissionPopulateSubmissionTestcaseSecureModel = {
-    submission_id: number
+    submission_id: string
     problem: number
     language: string
     submission_code: string
@@ -69,7 +69,7 @@ export type SubmissionPopulateSubmissionTestcaseSecureModel = {
 }
 
 export type GetSubmissionByAccountProblemSubmissionModel = {
-    submission_id: number
+    submission_id: string
     problem: number
     language: string
     submission_code: string
@@ -88,7 +88,7 @@ export type GetSubmissionByAccountProblemResponse = {
 }
 
 export type SubmissionPopulateSubmissionTestcasesSecureModel = {
-    submission_id: number
+    submission_id: string
     problem: number
     language: string
     submission_code: string

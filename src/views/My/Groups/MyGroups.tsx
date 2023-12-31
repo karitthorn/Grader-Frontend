@@ -16,7 +16,7 @@ import { GroupService } from "../../../services/Group.service";
 const MyGroups = () => {
 
     const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
     const {setSection} = useContext(NavSidebarContext)
 
 	const [groups, setGroups] = useState<GroupPopulateGroupMemberPopulateAccountSecureModel[]>([])

@@ -1,7 +1,7 @@
 import { AccountSecureModel } from "./Account.model";
 
 export type GroupModel = {
-    group_id: number;
+    group_id: string;
     creator: number;
     name: string;
     description: string | null;
@@ -11,7 +11,7 @@ export type GroupModel = {
 }
 
 export type GroupMemberModel = {
-    group_member_id: number;
+    group_member_id: string;
     group: number;
     account: number;
     created_date: string;
@@ -26,5 +26,5 @@ export type GroupPopulateGroupMemberPopulateAccountSecureModel = GroupModel & {
 }
 
 export type GroupHashedTable = {
-    [id:number]: GroupModel | GroupPopulateGroupMemberPopulateAccountSecureModel
+    [id:string]: GroupModel | GroupPopulateGroupMemberPopulateAccountSecureModel
 }

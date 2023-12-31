@@ -30,8 +30,8 @@ const TabList = [
 
 export type OnCourseSavedCallback = {
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-	courseId: number;
-	setCourseId: React.Dispatch<React.SetStateAction<number>>;
+	// courseId: string;
+	// setCourseId: React.Dispatch<React.SetStateAction<string>>;
 	createRequest: CreateCourseRequestForm;
 }
 
@@ -58,8 +58,8 @@ const CreateCourseForm = ({
 		onCourseSave({
 			setLoading,
 			createRequest,
-			courseId,
-			setCourseId,
+			// courseId,
+			// setCourseId,
 		});
 	};
 

@@ -19,8 +19,8 @@ import { ItemInterface } from "react-sortablejs";
 
 const EditCourse = () => {
 	const { courseId } = useParams();
-	const editCourseId = Number(courseId);
-	const accountId = Number(localStorage.getItem("account_id"));
+	const editCourseId = String(courseId);
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [createRequest, setCreateRequest] =
 		useState<CreateCourseRequestForm>();
@@ -28,10 +28,9 @@ const EditCourse = () => {
 	const handleSave = ({
 		setLoading,
 		createRequest,
-		courseId,
-		setCourseId,
+		
 	}: OnCourseSavedCallback) => {
-		if (!setCourseId || !setLoading || !createRequest || !courseId) {
+		if ( !setLoading || !createRequest || !courseId) {
 			return;
 		}
 
@@ -40,7 +39,7 @@ const EditCourse = () => {
 				createRequest
 			);
 		const collectionIds = createRequest.collectionsInterface.map(
-			(collection) => collection.id as number
+			(collection) => collection.id as string
 		);
 
 		setLoading(true);
@@ -84,14 +83,12 @@ const EditCourse = () => {
 				<CreateCourseForm
 					onCourseSave={({
 						createRequest,
-						courseId,
-						setCourseId,
+						
 						setLoading,
 					}) =>
 						handleSave({
 							createRequest,
-							courseId,
-							setCourseId,
+							
 							setLoading,
 						})
 					}

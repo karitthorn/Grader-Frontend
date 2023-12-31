@@ -1,7 +1,7 @@
 import { ProblemModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, ProblemSecureModel } from "./Problem.model";
 
 export type CollectionModel = {
-    collection_id: number;
+    collection_id: string;
     creator: number;
     name: string;
     description: string | null;
@@ -30,7 +30,7 @@ export type CollectionUpdateRequest = {
 }
 
 export type CollectionProblemPopulateProblemSecureModel = {
-    id: number;
+    id: string;
     problem: ProblemSecureModel;
     order: number;
     collection: number;
@@ -41,11 +41,11 @@ export type GetCollectionByAccountResponse = {
 }
 
 export type CollectionHashedTable = {
-    [id:number]: CollectionModel | CollectionPopulateProblemSecureModel
+    [id:string]: CollectionModel | CollectionPopulateProblemSecureModel
 }
 
 export type CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
-    id: number;
+    id: string;
     problem: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
     order: number;
     collection: number;

@@ -3,7 +3,7 @@ import { GroupSerivceAPI } from "../types/apis/Group.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
 
 export const GroupService: GroupSerivceAPI = {
-    get: async (groupId:number,query?:any) => {
+    get: async (groupId:string,query?:any) => {
         const response = await axios.get(`${BASE_URL}/api/groups/${groupId}`,{
             params: query
         })
@@ -11,7 +11,7 @@ export const GroupService: GroupSerivceAPI = {
         return response;
     },
 
-    getAllByAccount: async (accountId:number,query?:any) => {
+    getAllByAccount: async (accountId:string,query?:any) => {
         const response = await axios.get(`${BASE_URL}/api/accounts/${accountId}/groups`,{
             params: query
         })

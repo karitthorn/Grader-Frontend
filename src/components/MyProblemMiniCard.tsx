@@ -119,7 +119,7 @@ const MyProblemMiniCard = ({
 
 				// className={`pt-6 px-5 ${disabled ? "opacity-50" : }`}`}
 			>
-				<CardContent>
+				{/* <CardContent> */}
 					<div className="flex items-stretch justify-between">
 						<div className="flex items-center w-1/2">
 							<FileSpreadsheet className="text-blue-400 mr-2" />
@@ -149,7 +149,7 @@ const MyProblemMiniCard = ({
 						
 						</div>
 					</div>
-				</CardContent>
+				{/* </CardContent> */}
 			</Card>
 		</MyProblemContextMenu>
 		)

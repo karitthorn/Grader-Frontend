@@ -58,8 +58,8 @@ const transformCreateProblemRequestForm2CreateProblemRequest = (
 
 export type OnProblemSaveCallback = (
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-	problemId: number,
-	setProblemId: React.Dispatch<React.SetStateAction<number>>,
+	// problemid: string,
+	// setProblemId: React.Dispatch<React.SetStateAction<number>>,
 	createRequest: CreateProblemRequestForm
 ) => void;
 
@@ -72,7 +72,7 @@ const CreateProblemForm = ({
 	onProblemSave: OnProblemSaveCallback;
 	validatedTestcases?: TestcaseModel[];
 }) => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState(false);
@@ -84,7 +84,7 @@ const CreateProblemForm = ({
 	const [problemId, setProblemId] = useState(-1);
 
 	const handleSave = () => {
-		onProblemSave(setLoading, problemId, setProblemId, createRequest);
+		onProblemSave(setLoading, createRequest);
 	};
 
 	useEffect(() => {

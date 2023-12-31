@@ -19,7 +19,7 @@ const Requirement = ({
 				onChange={(e) =>
 					setCreateRequest({
 						...createRequest,
-						time_limit: Number(e.target.value),
+						time_limit: String(e.target.value),
 					})
 				}
 			/>

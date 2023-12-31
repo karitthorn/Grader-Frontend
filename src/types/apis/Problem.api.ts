@@ -49,13 +49,13 @@ export type GetAllProblemsResponse = {
 }
 
 export type ProblemServiceAPI = {
-    create: (accountId:number,request: CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
+    create: (accountId:string,request: CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
     getAll: () => Promise<AxiosResponse<GetAllProblemsResponse>>;
-    getAllByAccount: (accountId:number) => Promise<AxiosResponse<GetAllProblemsByAccountResponse>>;
-    get: (problemId:number) => Promise<AxiosResponse<ProblemPoplulateCreatorModel>>;
-    update: (problemId:number, request: UpdateProblemRequest | CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
-    // deleteMultiple: (problemIds:number[]) => Promise<AxiosResponse<null>>;
-    delete: (problemId:number) => Promise<AxiosResponse<null>>;
+    getAllByAccount: (accountId:string) => Promise<AxiosResponse<GetAllProblemsByAccountResponse>>;
+    get: (problemId:string) => Promise<AxiosResponse<ProblemPoplulateCreatorModel>>;
+    update: (problemId:string, request: UpdateProblemRequest | CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
+    // deleteMultiple: (problemIds:string[]) => Promise<AxiosResponse<null>>;
+    delete: (problemId:string) => Promise<AxiosResponse<null>>;
 
     validateProgram: (request: ValidateProgramRequest) => Promise<AxiosResponse<ValidateProgramResponse>>;
 }

@@ -2,7 +2,7 @@ import { AccountSecureModel } from "./Account.model"
 import { SubmissionPopulateSubmissionTestcasesSecureModel } from "./Submission.model"
 
 export type TestcaseModel = {
-    testcase_id: number
+    testcase_id: string
     input: string
     output: string | null
     problem: number
@@ -10,7 +10,7 @@ export type TestcaseModel = {
 }
 
 export type ProblemModel = {
-    problem_id: number
+    problem_id: string
     language: string
     title: string
     description: string | null
@@ -26,7 +26,7 @@ export type ProblemModel = {
 }
 
 export type ProblemSecureModel = {
-    problem_id: number
+    problem_id: string
     title: string
     description: string
     creator: AccountSecureModel
@@ -39,7 +39,7 @@ export type ProblemPoplulateCreatorModel = ProblemModel & {
 }
 
 export type ProblemPopulateAccountSecureModel = {
-    problem_id: number
+    problem_id: string
     title: string
     description: string | null
     creator: AccountSecureModel
@@ -55,7 +55,7 @@ export type ProblemPopulateTestcases = ProblemModel & {
 }
 
 export type ProblemHashedTable = {
-    [id:number]: ProblemModel | ProblemPopulateTestcases
+    [id:string]: ProblemModel | ProblemPopulateTestcases
 }
 
 export type ProblemHealth = {

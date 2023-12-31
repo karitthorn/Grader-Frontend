@@ -21,7 +21,7 @@ function App() {
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
-		const account_id = Number(localStorage.getItem("account_id"));
+		const account_id = String(localStorage.getItem("account_id"));
 
 		if (!token || !account_id) {
 			return;

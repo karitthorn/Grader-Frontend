@@ -30,7 +30,7 @@ const TabList = [
 
 export type OnCollectionSavedCallback = {
 	setLoading?: React.Dispatch<React.SetStateAction<boolean>>
-	collectionId?: number
+	collectionid?: string
 	setCollectionId?: React.Dispatch<React.SetStateAction<number>>
 	createRequest?: CreateCollectionRequestForm
 }

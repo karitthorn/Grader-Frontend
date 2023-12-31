@@ -12,7 +12,7 @@ import { FolderPlus } from "lucide-react";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [collections, setCollections] = useState<CollectionProblemModel[]>([]);
 	const {setSection} = useContext(NavSidebarContext)

@@ -24,12 +24,12 @@ const formInitialValue: CreateCollectionRequestForm = {
 
 const CreateCollection = () => {
 
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
-	const handleSave = ({ createRequest,collectionId,setCollectionId,setLoading }: OnCollectionSavedCallback) => {
+	const handleSave = ({ createRequest,setLoading }: OnCollectionSavedCallback) => {
 
-		if (!setCollectionId || !setLoading || !createRequest || !collectionId) {
+		if ( !setLoading || !createRequest) {
 			return
 		}
 
@@ -38,42 +38,28 @@ const CreateCollection = () => {
 				createRequest as CreateCollectionRequestForm
 			);
 		const problemIds = (createRequest as CreateCollectionRequestForm).problemsInterface.map(
-			(problem) => problem.id as number
+			(problem) => problem.id as string
 		);
 
 		setLoading(true)
 
-		if (collectionId === -1) {
-
-			
-			CollectionService.create(accountId,createCollectionRequest).then(response => {
-				return CollectionService.updateProblem(response.data.collection_id,problemIds)
-			}).then(response => {
-				setCollectionId(response.data.collection_id)
-				toast({
-					title: "Create Completed"
-				})
-				navigate(`/my/collections/${response.data.collection_id}`)
-				setLoading(false)
+		CollectionService.create(accountId,createCollectionRequest).then(response => {
+			return CollectionService.updateProblem(response.data.collection_id,problemIds)
+		}).then(response => {
+			// setCollectionId(response.data.collection_id)
+			toast({
+				title: "Create Completed"
 			})
-		} else {
-			CollectionService.update(collectionId,createCollectionRequest).then(response => {
-				return CollectionService.updateProblem(response.data.collection_id,problemIds)
-			}).then(response => {
-				setLoading(false)
-				toast({
-					title: "Update Completed"
-				})
-				console.log("Save")
-			})
-		}
+			navigate(`/my/collections/${response.data.collection_id}`)
+			setLoading(false)
+		})
 	};
 
 	return (
 		<NavbarSidebarLayout>
 			<CreateCollectionForm
-				onCollectionSave={({ createRequest,collectionId,setCollectionId,setLoading }) =>
-					handleSave({ createRequest,collectionId,setCollectionId,setLoading })
+				onCollectionSave={({ createRequest,setLoading }) =>
+					handleSave({ createRequest,setLoading })
 				}
 				createRequestInitialValue={formInitialValue}
 			/>

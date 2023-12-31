@@ -42,7 +42,7 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
     const navigate = useNavigate()
 
     const username = localStorage.getItem('username')
-    const account_id = Number(localStorage.getItem('account_id'))
+    const account_id = String(localStorage.getItem('account_id'))
     const token = localStorage.getItem('token')
 
     const handleLogout = async () => {

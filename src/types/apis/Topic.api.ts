@@ -6,10 +6,10 @@ export type GetAllTopicsByAccountResponse = {
 }
 
 export type TopicSerivceAPI = {
-    create: (accountId: number,request: FormData) => Promise<AxiosResponse<TopicModel>>;
-    get: (accountId: number,courseId:number) => Promise<AxiosResponse<TopicPopulateTopicCollectionPopulateCollectionModel>>;
-    update: (courseId:number,request: FormData) => Promise<AxiosResponse<TopicModel>>;
-    getAllByAccount: (accountId:number) => Promise<AxiosResponse<GetAllTopicsByAccountResponse>>;
-    updateCollections: (topicId:number,collectionIds:number[]) => Promise<AxiosResponse<TopicModel>>;
-    getPublicByAccount: (accountId:number,courseId:number) => Promise<AxiosResponse<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>>;
+    create: (accountid: string,request: FormData) => Promise<AxiosResponse<TopicModel>>;
+    get: (accountid: string,courseId:string) => Promise<AxiosResponse<TopicPopulateTopicCollectionPopulateCollectionModel>>;
+    update: (courseId:string,request: FormData) => Promise<AxiosResponse<TopicModel>>;
+    getAllByAccount: (accountId:string) => Promise<AxiosResponse<GetAllTopicsByAccountResponse>>;
+    updateCollections: (topicId:string,collectionIds:string[]) => Promise<AxiosResponse<TopicModel>>;
+    getPublicByAccount: (accountId:string,courseId:string) => Promise<AxiosResponse<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>>;
 }

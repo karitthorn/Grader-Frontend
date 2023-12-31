@@ -32,8 +32,8 @@ const TabList = [
 
 export type OnGroupSavedCallback = {
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-	groupId: number;
-	setGroupId: React.Dispatch<React.SetStateAction<number>>;
+	// groupId: string;
+	// setGroupId: React.Dispatch<React.SetStateAction<string>>;
 	createRequest: CreateGroupRequestForm;
 }
 
@@ -60,8 +60,8 @@ const CreateGroupForm = ({
 		onCourseSave({
 			setLoading,
 			createRequest,
-			groupId,
-			setGroupId,
+			// groupId,
+			// setGroupId,
 		});
 	};
 
