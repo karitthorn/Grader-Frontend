@@ -20,7 +20,7 @@ const MyCourses = () => {
 
     useEffect(( )=> {
         setSection("COURSES")
-		TopicService.getAllByAccount(accountId).then((response) => {
+		TopicService.getAllAsCreator(accountId).then((response) => {
 			setTopics(response.data.topics)
 		})
     },[])

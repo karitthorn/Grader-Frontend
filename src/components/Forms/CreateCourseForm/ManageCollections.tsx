@@ -85,7 +85,7 @@ const ManageCollections = ({
 	}, [selectedCollectionsSortable]);
 
 	useEffect(() => {
-		// ProblemService.getAllByAccount(accountId).then((response) => {
+		// ProblemService.getAllAsCreator(accountId).then((response) => {
 		// 	setAllCollections(transformProblemModel2ProblemHashedTable(response.data.problems));
 		// 	setAllCollectionsSortable(
 		// 		response.data.problems.map((problem) => ({
@@ -95,7 +95,7 @@ const ManageCollections = ({
 		// 	);
 		// });
 
-		CollectionService.getAllByAccount(accountId).then((response) => {
+		CollectionService.getAllAsCreator(accountId).then((response) => {
 			setAllCollections(transformCollectionModel2CollectionHashedTable(response.data.collections));
 			setAllCollectionsSortable(
 				response.data.collections.map((collection) => ({

@@ -13,7 +13,7 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.get<GetAllProblemsResponse>(`${BASE_URL}/api/problems`);
     },
 
-    getAllByAccount: async (accountId) => {
+    getAllAsCreator: async (accountId) => {
         return axios.get<GetAllProblemsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/problems`);
     },
 

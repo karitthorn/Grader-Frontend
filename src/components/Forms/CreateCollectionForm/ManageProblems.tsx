@@ -80,7 +80,7 @@ const ManageProblems = ({
 	}, [selectedProblemsSortable]);
 
 	useEffect(() => {
-		ProblemService.getAllByAccount(accountId).then((response) => {
+		ProblemService.getAllAsCreator(accountId).then((response) => {
 			setAllProblems(transformProblemModel2ProblemHashedTable(response.data.problems));
 			setAllProblemsSortable(
 				response.data.problems.map((problem) => ({

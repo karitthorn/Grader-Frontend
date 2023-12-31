@@ -14,12 +14,17 @@ export const TopicService: TopicSerivceAPI = {
         return response;
     },
 
+    getAllAccessibleByAccount: async (accountId) => {
+        const response = await axios.get<GetAllTopicsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/access/topics`);
+        return response;
+    },
+
     update: async (topicId, request) => {
         const response = await axios.put<TopicModel>(`${BASE_URL}/api/topics/${topicId}`, request);
         return response;
     },
 
-    getAllByAccount: async (accountId) => {
+    getAllAsCreator: async (accountId) => {
         const response = await axios.get<GetAllTopicsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/topics`);
         return response;
     },

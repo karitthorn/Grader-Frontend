@@ -7,7 +7,7 @@ export type GroupCreateRequest = {
     color?: string | null;
 }
 
-export type GroupGetAllByAccountResponse = {
+export type GroupgetAllAsCreatorResponse = {
     groups: GroupModel[] | GroupPopulateGroupMemberPopulateAccountSecureModel[];
 }
 
@@ -17,7 +17,7 @@ export type GroupGetQuery = {
 
 export type GroupSerivceAPI = {
     get: (groupId:string,query?:GroupGetQuery) => Promise<AxiosResponse<GroupModel | GroupPopulateGroupMemberPopulateAccountSecureModel>>;
-    getAllByAccount: (accountId:string,query?:GroupGetQuery) => Promise<AxiosResponse<GroupGetAllByAccountResponse>>;
+    getAllAsCreator: (accountId:string,query?:GroupGetQuery) => Promise<AxiosResponse<GroupgetAllAsCreatorResponse>>;
     create: (accountId:string,request:GroupCreateRequest) => Promise<AxiosResponse<GroupModel>>;
     update: (groupId:string,request:GroupCreateRequest) => Promise<AxiosResponse<GroupModel>>;
     delete: (groupId:string) => Promise<AxiosResponse<null>>;

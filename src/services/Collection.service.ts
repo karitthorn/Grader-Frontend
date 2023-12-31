@@ -12,7 +12,7 @@ export const CollectionService: CollectionServiceAPI = {
         return axios.get<CollectionProblemModel>(`${BASE_URL}/api/collections/${collectionId}`);
     },
 
-    getAllByAccount: (accountId) => {
+    getAllAsCreator: (accountId) => {
         return axios.get<GetCollectionByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/collections`);
     },
 

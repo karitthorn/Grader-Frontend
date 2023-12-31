@@ -73,9 +73,9 @@ const TestcasesGradingIndicator = ({submissionTestcases,disableHover=false,class
 	sizeX?: number;
 	sizeY?: number;
 }) => {
-	useEffect(()=>{
-		console.log(submissionTestcases)
-	},[submissionTestcases])
+	// useEffect(()=>{
+	// 	console.log(submissionTestcases)
+	// },[submissionTestcases])
 	return (
 		<div className={"flex gap-0.5 items-center" + className}>
 			{

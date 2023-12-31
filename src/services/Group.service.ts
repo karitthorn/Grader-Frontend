@@ -11,7 +11,7 @@ export const GroupService: GroupSerivceAPI = {
         return response;
     },
 
-    getAllByAccount: async (accountId:string,query?:any) => {
+    getAllAsCreator: async (accountId:string,query?:any) => {
         const response = await axios.get(`${BASE_URL}/api/accounts/${accountId}/groups`,{
             params: query
         })

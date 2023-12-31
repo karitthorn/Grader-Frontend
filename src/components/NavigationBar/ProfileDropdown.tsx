@@ -89,6 +89,11 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 						<span>My Courses</span>
 						{/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
 					</DropdownMenuItem>
+					<DropdownMenuItem onClick={() => navigate("/my/groups")}>
+						<Users className="mr-2 h-4 w-4" />
+						<span>My Groups</span>
+						{/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
+					</DropdownMenuItem>
 				</DropdownMenuGroup>
 				{/* <DropdownMenuSeparator />
 				<DropdownMenuGroup>

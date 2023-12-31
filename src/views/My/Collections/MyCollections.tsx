@@ -19,7 +19,7 @@ const MyCollections = () => {
 
 	useEffect(() => {
 		setSection("COLLECTIONS")
-		CollectionService.getAllByAccount(accountId).then((response => {
+		CollectionService.getAllAsCreator(accountId).then((response => {
 			setCollections(response.data.collections)
 		}))
 	}, []);

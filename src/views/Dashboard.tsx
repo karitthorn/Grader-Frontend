@@ -4,14 +4,21 @@ import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { SubmissionService } from "../services/Submission.service";
 import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../types/models/Submission.model";
 import SubmissionCard from "../components/SubmissionCard";
+import { TopicModel } from "../types/models/Topic.model";
+import { TopicService } from "../services/Topic.service";
+import PublicCourseCard from "../components/PublicCourseCard";
 
 const Dashboard = () => {
 	const accountId = String(localStorage.getItem("account_id"));
-  const username = localStorage.getItem("username");
+	const username = localStorage.getItem("username");
 
 	const [previousAttemptedProblems, setPreviousAttemptedProblems] = useState<
 		SubmissionPopulateSubmissionTestcaseAndProblemSecureModel[]
 	>([]);
+
+	const [accessibleCourses, setAccessibleCourses] = useState<TopicModel[]>(
+		[]
+	);
 
 	useEffect(() => {
 		SubmissionService.getAll({
@@ -21,8 +28,14 @@ const Dashboard = () => {
 			end: 4,
 		}).then((response) => {
 			setPreviousAttemptedProblems(response.data.submissions);
+			// console.log(response.data.submissions);
 		});
-	}, []);
+
+		TopicService.getAllAccessibleByAccount(accountId).then((response) => {
+			console.log("result", response.data.topics);
+			setAccessibleCourses(response.data.topics);
+		});
+	}, [accountId]);
 
 	return (
 		<NavbarMenuLayout xPad={false}>
@@ -36,16 +49,20 @@ const Dashboard = () => {
 
 				<div className="grid grid-cols-4 gap-4">
 					{previousAttemptedProblems.map((submission, index) => (
-						<div className="">
-							<SubmissionCard
-								key={index}
-								submission={submission}
-							/>
-						</div>
+						<SubmissionCard key={index} submission={submission} />
 					))}
 				</div>
 
-        <p className="text-3xl font-bold">Courses</p>
+				<p className="text-3xl font-bold">Courses</p>
+				<div className="grid grid-cols-4 gap-4">
+					
+					{
+						accessibleCourses.map((course) => (
+							<PublicCourseCard course={course}/>
+						))
+					}
+					
+				</div>
 			</div>
 		</NavbarMenuLayout>
 	);

@@ -23,7 +23,7 @@ const MyGroups = () => {
 
     useEffect(( )=> {
         setSection("GROUPS")
-		GroupService.getAllByAccount(accountId,{
+		GroupService.getAllAsCreator(accountId,{
 			populate_members: true,
 		}).then((response) => {
 			setGroups(response.data.groups as GroupPopulateGroupMemberPopulateAccountSecureModel[]);

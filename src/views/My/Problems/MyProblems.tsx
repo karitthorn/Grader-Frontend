@@ -20,7 +20,7 @@ const MyProblems = () => {
 	const {section,setSection} = useContext(NavSidebarContext)
 
 	useEffect(() => {
-		ProblemService.getAllByAccount(accountId).then((response) => {
+		ProblemService.getAllAsCreator(accountId).then((response) => {
 			setProblems(response.data.problems);
 			console.log(response.data.problems);
 		});

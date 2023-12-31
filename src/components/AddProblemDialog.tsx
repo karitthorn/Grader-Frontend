@@ -14,7 +14,7 @@ const AddProblemDialog = ({ children }: { children: React.ReactNode }) => {
 	>([]);
 
 	useEffect(() => {
-		ProblemService.getAllByAccount(4).then((response) => {
+		ProblemService.getAllAsCreator(4).then((response) => {
 			setProblems(response.data.problems);
 		});
 	});
