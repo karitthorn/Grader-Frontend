@@ -18,6 +18,7 @@ import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollecti
 import FormSaveButton from "../FormSaveButton";
 import GeneralDetail from "./GeneralDetail";
 import ManageMembers from "./ManageMembers";
+import ManagePermissions from "./ManagePermissions";
 
 const TabList = [
 	{
@@ -27,6 +28,10 @@ const TabList = [
 	{
 		value: "members",
 		label: "Manage Members",
+	},
+	{
+		value: "permissions",
+		label: "Permissions",
 	},
 ];
 
@@ -116,6 +121,14 @@ const CreateGroupForm = ({
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
+				{currentForm === "permissions" && (
+					<ManagePermissions
+						createRequest={createRequest}
+						setCreateRequest={setCreateRequest}
+					/>
+				)}
+
+
 			</div>
 		</div>
 	);
