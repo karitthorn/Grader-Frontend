@@ -3,9 +3,11 @@ import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestF
 import { Separator } from "../../shadcn/Seperator";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Switch } from "../../shadcn/Switch";
-import PermissionSwitch from "../../PermissionSwitch/PermissionSwitch";
-import PermissionSwitchTitle from "../../PermissionSwitch/PermissionSwitchTitle";
-import PermissionSwitchDescription from "../../PermissionSwitch/PermissionSwitchDescription";
+import PermissionSwitch from "../../Permissions/PermissionSwitch";
+import PermissionSwitchScrollArea from "../../Permissions/PermissionSwitchScrollArea";
+import CoursePermissionSwitchGroup from "../PermissionSwitchGroups/CoursePermissionSwitchGroup";
+import CollectionPermissionSwitchGroup from "../PermissionSwitchGroups/CollectionPermissionSwitchGroup";
+import ProblemPermissionSwitchGroup from "../PermissionSwitchGroups/ProblemPermissionSwitchGroup";
 
 const ManagePermissions = ({
 	createRequest,
@@ -21,22 +23,51 @@ const ManagePermissions = ({
 			<p className="font-bold text-2xl">Manage Permissions</p>
 
 			<div className="mt-5">
-				<ScrollArea className="h-[80vh]">
-					{/* <p className='font-medium text-'>Course Permissions</p> */}
-					<PermissionSwitch>
-                        <PermissionSwitchTitle>Course Permissions</PermissionSwitchTitle>
-                        <PermissionSwitchDescription>
-                            Can edit course name and description.
-                        </PermissionSwitchDescription>
-                    </PermissionSwitch>
-
-                    <PermissionSwitch>
-                        <PermissionSwitchTitle>Manage Course Members</PermissionSwitchTitle>
-                        <PermissionSwitchDescription>
-                            Can manage course members.
-                        </PermissionSwitchDescription>
-                    </PermissionSwitch>
-				</ScrollArea>
+				<PermissionSwitchScrollArea
+					className="h-[70vh] xxl:h-[75vh]"
+					childrenClassName="w-[95%]"
+				>
+					<p className="font-bold text-base text-green-600 mt-3">
+						Course Permission
+					</p>
+					<CoursePermissionSwitchGroup
+						manageCoursesChecked={createRequest.manageCourses}
+						viewCourseLogsChecked={createRequest.viewCourseLogs}
+						viewCoursesChecked={createRequest.viewCourses}
+						onClickManageCourses={() =>
+							setCreateRequest({
+								...createRequest,
+								manageCourses: !createRequest.manageCourses,
+							})
+						}
+						onClickViewCourseLogs={() =>
+							setCreateRequest({
+								...createRequest,
+								viewCourseLogs: !createRequest.viewCourseLogs,
+							})
+						}
+						onClickViewCourses={() =>
+							setCreateRequest({
+								...createRequest,
+								viewCourses: !createRequest.viewCourses,
+							})
+						}
+					/>
+					<p className="font-bold text-base text-green-600 mt-3">
+						Collection Permission
+					</p>
+					<CollectionPermissionSwitchGroup
+						createRequest={createRequest}
+						setCreateRequest={setCreateRequest}
+					/>
+					<p className="font-bold text-base text-green-600 mt-3">
+						Problem Permission
+					</p>
+					<ProblemPermissionSwitchGroup
+						createRequest={createRequest}
+						setCreateRequest={setCreateRequest}
+					/>
+				</PermissionSwitchScrollArea>
 			</div>
 		</div>
 	);

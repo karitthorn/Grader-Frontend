@@ -12,22 +12,18 @@ import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseReques
 import CreateCourseForm, {
 	OnCourseSavedCallback,
 } from "../../../components/Forms/CreateCourseForm";
-import { transformCreateCourseRequestForm2CreateTopicRequestFormData } from "../../../types/adapters/CreateCourseRequestForm.adapter";
+import { transformCreateCourseRequestForm2CreateTopicRequest } from "../../../types/adapters/CreateCourseRequestForm.adapter";
 import { TopicService } from "../../../services/Topic.service";
 import { useNavigate } from "react-router-dom";
+import { EmptyEditorValue } from "../../../constants/DummyEditorValue";
 
 const formInitialValue: CreateCourseRequestForm = {
 	title: "",
-	description: [
-		{
-			id: "1",
-			type: ELEMENT_PARAGRAPH,
-			children: [{ text: "" }],
-		},
-	],
+	description: EmptyEditorValue,
 	image: null,
 	isPrivate: false,
 	collectionsInterface: [],
+	groupPermissions: []
 };
 
 const CreateCourse = () => {
@@ -44,14 +40,12 @@ const CreateCourse = () => {
 			return;
 		}
 
-		const formData = transformCreateCourseRequestForm2CreateTopicRequestFormData(createRequest)
-		const collectionIds = createRequest.collectionsInterface.map((collection) => collection.id as string)
+		const {formData,collectionIds} = transformCreateCourseRequestForm2CreateTopicRequest(createRequest)
 
 		setLoading(true)
 		TopicService.create(accountId, formData).then((response) => {
 			return TopicService.updateCollections(response.data.topic_id,collectionIds)
 		}).then((response) => {
-			console.log("OK!")
 			setLoading(false)
 			toast({
 				title: "Create Completed"

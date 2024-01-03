@@ -13,6 +13,13 @@ const formInitialValue: CreateGroupRequestForm = {
 	description: "",
 	color: "#f87171",
 	membersInterface: [],
+	manageCourses: false,
+	viewCourseLogs: false,
+	viewCourses: false,
+	manageCollections: false,
+	viewCollections: false,
+	manageProblems: false,
+	viewProblems: false
 };
 
 const CreateGroup = () => {
@@ -30,6 +37,7 @@ const CreateGroup = () => {
 		);
 
 		setLoading(true);
+		console.log(createRequest,request)
 		GroupService.create(accountId, request)
 			.then((response) => {
 				return GroupService.updateMembers(

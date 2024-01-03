@@ -1,11 +1,28 @@
+import { CourseGroupPermissionCreateRequest } from "../apis/Topic.api";
 import { CreateCourseRequestForm } from "../forms/CreateCourseRequestForm";
 
-export function transformCreateCourseRequestForm2CreateTopicRequestFormData(createRequest: CreateCourseRequestForm): FormData {
-    const formData = new FormData();
-    formData.append("name", createRequest.title);
-    formData.append("description", JSON.stringify(createRequest.description));
-    // formData.append("image_url", createRequest.image);
-    formData.append("is_private", createRequest.isPrivate ? "true" : "false");
+export function transformCreateCourseRequestForm2CreateTopicRequest(
+	createRequest: CreateCourseRequestForm
+): {
+	formData: FormData;
+	collectionIds: string[];
+	groups: CourseGroupPermissionCreateRequest[];
+} {
+	const formData = new FormData();
+	formData.append("name", createRequest.title);
+	formData.append("description", JSON.stringify(createRequest.description));
+	// formData.append("image_url", createRequest.image);
+	formData.append("is_private", createRequest.isPrivate ? "true" : "false");
 
-    return formData;
+	const collectionIds: string[] = createRequest.collectionsInterface.map(
+		(collection) => collection.id as string
+	);
+	const groups = createRequest.groupPermissions.map((groupPermission) => ({
+		group_id: groupPermission.group_id,
+		permission_manage_topics: groupPermission.manageCourses,
+		permission_view_topics: groupPermission.viewCourses,
+		permission_view_topics_log: groupPermission.viewCourseLogs,
+	}));
+
+	return { formData, collectionIds, groups };
 }

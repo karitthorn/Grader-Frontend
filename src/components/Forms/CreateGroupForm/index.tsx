@@ -62,6 +62,7 @@ const CreateGroupForm = ({
 	);
 
 	const handleSave = () => {
+		console.log(createRequest)
 		onCourseSave({
 			setLoading,
 			createRequest,

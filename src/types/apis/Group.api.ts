@@ -5,6 +5,13 @@ export type GroupCreateRequest = {
     name: string;
     description?: string | null;
     color?: string | null;
+    permission_manage_topics?: boolean
+    permission_view_topics?: boolean
+    permission_view_topics_log?: boolean
+    permission_manage_collections?: boolean
+    permission_view_collections?: boolean
+    permission_manage_problems?: boolean
+    permission_view_problems?: boolean
 }
 
 export type GroupgetAllAsCreatorResponse = {

@@ -1,4 +1,5 @@
 import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "./Collection.model"
+import { TopicGroupPermissionPopulateGroupModel } from "./Group.model"
 
 export type TopicModel = {
     topic_id: string
@@ -47,4 +48,9 @@ export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulatePr
 
 export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = TopicSecureModel & {
     collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
+}
+
+export type TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
+    collections: TopicCollectionPopulateCollectionModel[]
+    group_permissions: TopicGroupPermissionPopulateGroupModel[]
 }

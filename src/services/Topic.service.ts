@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GetAllTopicsByAccountResponse, TopicSerivceAPI } from "../types/apis/Topic.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
-import { TopicModel, TopicPopulateTopicCollectionPopulateCollectionModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
+import { TopicModel, TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
 
 export const TopicService: TopicSerivceAPI = {
     create: async (accountId, request) => {
@@ -10,7 +10,7 @@ export const TopicService: TopicSerivceAPI = {
     },
 
     get: async (accountId,topicId) => {
-        const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`);
+        const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`);
         return response;
     },
 
@@ -38,6 +38,13 @@ export const TopicService: TopicSerivceAPI = {
 
     getPublicByAccount: async (accountId,topicId) => {
         const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>(`${BASE_URL}/api/topics/${topicId}?account_id=${accountId}`);
+        return response;
+    },
+
+    updateGroupPermissions: async (topicId, groups) => {
+        const response = await axios.put<TopicModel>(`${BASE_URL}/api/topics/${topicId}/groups`, {
+            groups: groups
+        });
         return response;
     }
 }

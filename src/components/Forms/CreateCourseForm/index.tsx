@@ -16,6 +16,7 @@ import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollecti
 import GeneralDetail from "./GeneralDetail";
 import ManageCollections from "./ManageCollections";
 import FormSaveButton from "../FormSaveButton";
+import ManageGroups from "./ManageGroups";
 
 const TabList = [
 	{
@@ -26,6 +27,10 @@ const TabList = [
 		value: "collections",
 		label: "Manage Collections",
 	},
+	{
+		value: "groups",
+		label: "Manage Groups & Permissions",
+	},
 ];
 
 export type OnCourseSavedCallback = {
@@ -33,7 +38,7 @@ export type OnCourseSavedCallback = {
 	// courseId: string;
 	// setCourseId: React.Dispatch<React.SetStateAction<string>>;
 	createRequest: CreateCourseRequestForm;
-}
+};
 
 const CreateCourseForm = ({
 	createRequestInitialValue,
@@ -110,6 +115,13 @@ const CreateCourseForm = ({
 				)}
 				{currentForm === "collections" && (
 					<ManageCollections
+						createRequest={createRequest}
+						setCreateRequest={setCreateRequest}
+					/>
+				)}
+
+				{currentForm === "groups" && (
+					<ManageGroups
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
