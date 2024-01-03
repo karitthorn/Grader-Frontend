@@ -126,9 +126,9 @@ const MyCollectionMiniCard2 = ({
 				// className={`pt-6 px-5 ${disabled ? "opacity-50" : }`}`}
 			>
 				<div className="flex items-center justify-between font-medium text-base ">
-					<div className="flex items-center">
+					<div className="flex items-center w-11/12">
 						<Folder size={20} className="text-yellow-400 mr-2" />
-						<p className="">{collection.name}</p>
+						<p className="line-clamp-1">{collection.name}</p>
 					</div>
 					<div className="bg-blue-600 w-4 h-4 text-center text-white rounded-full text-xs">
 						{collection.problems.length}

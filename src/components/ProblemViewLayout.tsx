@@ -14,6 +14,7 @@ import styled from "styled-components";
 import { Button } from "./shadcn/Button";
 import PreviousSubmissionsCombobox from "./PreviousSubmissionsCombobox";
 import { Editor as MonacoEditor } from "@monaco-editor/react";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./shadcn/Resizable";
 
 export type OnSubmitProblemViewLayoutCallback = {
     setGrading: React.Dispatch<React.SetStateAction<boolean>>
@@ -81,8 +82,8 @@ const ProblemViewLayout = ({
 	},[problem])
 
 	return (
-		<div className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">
-			<div className="w-1/2 grid content-between">
+		<ResizablePanelGroup direction="horizontal" className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">
+			<ResizablePanel defaultSize={50} className="w-1/2 grid content-between">
 				<div className="ml-3">
 					<div className="text-3xl text-green-700 font-bold mb-2 flex">
 						<ArrowLeft
@@ -120,11 +121,12 @@ const ProblemViewLayout = ({
 						/>
 					)}
 				</div>
-			</div>
-			<div className="mx-3">
+			</ResizablePanel>
+			{/* <div className="mx-3">
 				<Separator orientation="vertical" />
-			</div>
-			<div className="w-1/2 mr-5">
+			</div> */}
+			<ResizableHandle className="mx-3"/>
+			<ResizablePanel defaultSize={50} className="w-1/2 mr-5">
 				<div className="flex justify-between mb-1 items-center">
 					<div className="flex gap-2">
 						<Combobox
@@ -191,8 +193,8 @@ const ProblemViewLayout = ({
 						)}
 					</Button>
 				</div>
-			</div>
-		</div>
+			</ResizablePanel>
+		</ResizablePanelGroup>
 	);
 };
 
