@@ -33,6 +33,7 @@ import { GroupService } from "../../../services/Group.service";
 import { AccountService } from "../../../services/Account.service";
 import { transformAccountModels2AccountHashedTable } from "../../../types/adapters/Account.adapter";
 import AccountMiniCard from "../../Cards/AccountCards/AccountMiniCard";
+import AccountMiniCard2 from "../../Cards/AccountCards/AccountMiniCard2";
 
 const ManageMembers = ({
 	createRequest,
@@ -118,17 +119,17 @@ const ManageMembers = ({
 				<div className="w-1/2">
 					<div className="mt-6 pr-5">
 						<div className="grid gap-y-3">
-							<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+							<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 								<ReactSortable
 									animation={150}
 									group="shared"
 									list={selectedAccountsSortable}
 									setList={setSelectedAccountsSortable}
-									className="grid gap-y-3 p-2 rounded-md"
+									className="grid gap-y-2 p-2 rounded-md"
 									sort={false}
 								>
 									{selectedAccountsSortable?.map((item) => (
-										<AccountMiniCard
+										<AccountMiniCard2
 											disabledHighlight
 											onClick={() => handleRemoveSelectedCollection(item.id as string)}
 											key={item.id}
@@ -147,7 +148,7 @@ const ManageMembers = ({
 
 				<div className="w-1/2">
 					<Input className="mt-2" />
-					<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+					<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 						<ReactSortable
 							group={{
 								name: "shared",
@@ -159,7 +160,7 @@ const ManageMembers = ({
 							list={allAccountsSortable}
 							setList={setAllAccountsSortable}
 							filter=".selected"
-							className="grid gap-y-3 p-2 rounded-md"
+							className="grid grid-cols-3 gap-2 p-2 rounded-md"
 						>
 							{allAccountsSortable?.map((item) => (
 								<div
@@ -169,7 +170,7 @@ const ManageMembers = ({
 											: ""
 									}
 								>
-									<AccountMiniCard
+									<AccountMiniCard2
 											disabled={selectedAccountsSortableIds.includes(item.id as string)}
 											onClick={() => handleQuickToggleSelectedCollection(item)}
 											key={item.id}

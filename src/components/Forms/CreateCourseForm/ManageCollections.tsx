@@ -23,6 +23,7 @@ import MyCollectionMiniCard from "../../Cards/CollectionCards/MyCollectionMiniCa
 import { CollectionService } from "../../../services/Collection.service";
 import { transformCollectionModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
 import { CollectionHashedTable, CollectionPopulateProblemSecureModel } from "../../../types/models/Collection.model";
+import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
 
 const ManageCollections = ({
 	createRequest,
@@ -126,16 +127,16 @@ const ManageCollections = ({
 				<div className="w-1/2">
 					<div className="mt-6 pr-5">
 						<div className="grid gap-y-3">
-							<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+							<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 								<ReactSortable
 									animation={150}
 									group="shared"
 									list={selectedCollectionsSortable}
 									setList={setSelectedCollectionsSortable}
-									className="grid gap-y-3 p-2 rounded-md"
+									className="grid gap-y-2 p-2 rounded-md"
 								>
 									{selectedCollectionsSortable?.map((item) => (
-										<MyCollectionMiniCard
+										<MyCollectionMiniCard2
 											disabledHighlight
 											onClick={() => handleRemoveSelectedCollection(item.id as string)}
 											key={item.id}
@@ -154,7 +155,7 @@ const ManageCollections = ({
 
 				<div className="w-1/2">
 					<Input className="mt-2" />
-					<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+					<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 						<ReactSortable
 							group={{
 								name: "shared",
@@ -166,11 +167,11 @@ const ManageCollections = ({
 							list={allCollectionsSortable}
 							setList={setAllCollectionsSortable}
 							filter=".selected"
-							className="grid gap-y-3 p-2 rounded-md"
+							className="grid grid-cols-3 gap-2 p-2 rounded-md"
 						>
 							{allCollectionsSortable?.map((item) => (
 								<div className={selectedCollectionsSortable.includes(item) ? "selected" : ""}>
-									<MyCollectionMiniCard
+									<MyCollectionMiniCard2
 										onClick={() => handleQuickToggleSelectedCollection(item)}
 										disabled={selectedCollectionsSortableIds.includes(item.id as string)}
 										key={item.id}

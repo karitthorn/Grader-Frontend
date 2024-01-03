@@ -7,7 +7,7 @@ import {
 	CourseGroupPermissionRequestForm,
 	CreateCourseRequestForm,
 } from "../../types/forms/CreateCourseRequestForm";
-import { PlusCircle, Users } from "lucide-react";
+import { PlusCircle, Users, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../shadcn/Tooltip";
 import { Dialog, DialogContent } from "../shadcn/Dialog";
 import { Input } from "../shadcn/Input";
@@ -15,6 +15,13 @@ import GroupCheckbox from "../GroupCheckbox";
 import { Button } from "../shadcn/Button";
 import { GroupService } from "../../services/Group.service";
 import { GroupModel } from "../../types/models/Group.model";
+import { Command } from "../shadcn/Command";
+import {
+	ContextMenu,
+	ContextMenuContent,
+	ContextMenuItem,
+	ContextMenuTrigger,
+} from "../shadcn/ContextMenu";
 
 const GroupListItem = ({
 	hexColor = "#000000",
@@ -53,6 +60,26 @@ const GroupListItem = ({
 	);
 };
 
+const GroupListItemContextMenu = ({
+	children,
+	onClickRemove = () => {},
+}: {
+	children: React.ReactNode;
+	onClickRemove?: () => void;
+}) => {
+	return (
+		<ContextMenu>
+			<ContextMenuTrigger>{children}</ContextMenuTrigger>
+			<ContextMenuContent>
+				<ContextMenuItem onClick={() => onClickRemove()}>
+					<X size={16} className="mr-2" />
+					Remove
+				</ContextMenuItem>
+			</ContextMenuContent>
+		</ContextMenu>
+	);
+};
+
 const GroupAndPermissionManager = ({
 	createRequest,
 	setCreateRequest,
@@ -62,11 +89,11 @@ const GroupAndPermissionManager = ({
 		React.SetStateAction<CreateCourseRequestForm>
 	>;
 }) => {
-
-	const accountId = String(localStorage.getItem("account_id"))
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [allGroups, setAllGroups] = useState<GroupModel[]>([]);
-	const [openAddGroupsDialog, setOpenAddGroupsDialog] = useState<boolean>(false);
+	const [openAddGroupsDialog, setOpenAddGroupsDialog] =
+		useState<boolean>(false);
 	const [selectedGroupIds, setSelectedGroupIds] = useState<string[]>([]);
 
 	const [groupPermission, setGroupPermission] =
@@ -79,22 +106,38 @@ const GroupAndPermissionManager = ({
 		} else {
 			setSelectedGroupIds([...selectedGroupIds, groupId]);
 		}
+	};
+
+	const handleRemoveGroupPermission = (index: number) => {
+		setCreateRequest({
+			...createRequest,
+			groupPermissions: [
+				...createRequest.groupPermissions.slice(0, index),
+				...createRequest.groupPermissions.slice(index + 1),
+			],
+		});
 	}
 
 	const getNotInPermissionGroup = () => {
-		const inPermissiongroupIds = createRequest.groupPermissions.map((groupPermission) => groupPermission.group.group_id)
-		return allGroups.filter((group) => !inPermissiongroupIds.includes(group.group_id))
-	}
+		const inPermissiongroupIds = createRequest.groupPermissions.map(
+			(groupPermission) => groupPermission.group.group_id
+		);
+		return allGroups.filter(
+			(group) => !inPermissiongroupIds.includes(group.group_id)
+		);
+	};
 
 	const handleAddGroups = () => {
-		const addGroups = allGroups.filter((group) => selectedGroupIds.includes(group.group_id))
+		const addGroups = allGroups.filter((group) =>
+			selectedGroupIds.includes(group.group_id)
+		);
 		const newGroupPermissions = addGroups.map((group) => ({
 			group_id: group.group_id,
 			group,
 			manageCourses: group.permission_manage_topics,
 			viewCourseLogs: group.permission_view_topics_log,
 			viewCourses: group.permission_view_topics,
-		}))
+		}));
 
 		setCreateRequest({
 			...createRequest,
@@ -102,11 +145,11 @@ const GroupAndPermissionManager = ({
 				...createRequest.groupPermissions,
 				...newGroupPermissions,
 			],
-		})
+		});
 
-		setSelectedGroupIds([])
-		setOpenAddGroupsDialog(false)
-	}
+		setSelectedGroupIds([]);
+		setOpenAddGroupsDialog(false);
+	};
 
 	useEffect(() => {
 		setGroupPermission(createRequest?.groupPermissions[selectedIndex]);
@@ -128,12 +171,12 @@ const GroupAndPermissionManager = ({
 	useEffect(() => {
 		GroupService.getAllAsCreator(accountId).then((response) => {
 			setAllGroups(response.data.groups);
-		})
-	},[])
+		});
+	}, []);
 
 	return (
 		<div className="flex">
-			<div className="w-1/6">
+			<div className="w-1/6 h-[75vh]">
 				<div className="flex text-green-600 items-center justify-between">
 					<p className="flex font-bold text-base">
 						<Users size={20} className="mr-2" />
@@ -141,9 +184,12 @@ const GroupAndPermissionManager = ({
 					</p>
 					<Tooltip>
 						<TooltipTrigger>
-							<PlusCircle onClick={() => setOpenAddGroupsDialog(true)} size={20} />
+							<PlusCircle
+								onClick={() => setOpenAddGroupsDialog(true)}
+								size={20}
+							/>
 						</TooltipTrigger>
-						<TooltipContent >Add Group</TooltipContent>
+						<TooltipContent>Add Group</TooltipContent>
 					</Tooltip>
 				</div>
 				<ScrollArea className="mt-2">
@@ -151,12 +197,20 @@ const GroupAndPermissionManager = ({
 						{createRequest.groupPermissions.map(
 							(groupPermission, index) => (
 								<div onClick={() => setselectedIndex(index)}>
-									<GroupListItem
-										key={index}
-										name={groupPermission.group.name}
-										hexColor={groupPermission.group.color}
-										hightlighted={selectedIndex === index}
-									/>
+									<GroupListItemContextMenu
+										onClickRemove={() => handleRemoveGroupPermission(index)}
+									>
+										<GroupListItem
+											key={index}
+											name={groupPermission.group.name}
+											hexColor={
+												groupPermission.group.color
+											}
+											hightlighted={
+												selectedIndex === index
+											}
+										/>
+									</GroupListItemContextMenu>
 								</div>
 							)
 						)}
@@ -166,7 +220,7 @@ const GroupAndPermissionManager = ({
 			<div>
 				<Separator orientation="vertical" className="mx-3" />
 			</div>
-			<div className="w-5/6">
+			<div className="w-5/6 h-[75vh]">
 				<PermissionSwitchScrollArea>
 					{groupPermission && selectedIndex >= 0 && (
 						<CoursePermissionSwitchGroup
@@ -200,25 +254,31 @@ const GroupAndPermissionManager = ({
 				</PermissionSwitchScrollArea>
 			</div>
 
-			<Dialog open={openAddGroupsDialog} onOpenChange={setOpenAddGroupsDialog}>
+			<Dialog
+				open={openAddGroupsDialog}
+				onOpenChange={setOpenAddGroupsDialog}
+			>
 				<DialogContent className="max-w-[80%]">
 					<p className="font-bold">Add Groups</p>
 					<ScrollArea>
 						<div className="grid grid-cols-4 gap-2">
-							{
-								getNotInPermissionGroup().map((group) => (
-									<GroupCheckbox
-										onClick={() => handleSelectGroupCheckbox(group.group_id)}
-										checked={selectedGroupIds.includes(group.group_id)}
-										group={group}
-									/>
-								))
-							}
+							{getNotInPermissionGroup().map((group) => (
+								<GroupCheckbox
+									onClick={() =>
+										handleSelectGroupCheckbox(
+											group.group_id
+										)
+									}
+									checked={selectedGroupIds.includes(
+										group.group_id
+									)}
+									group={group}
+								/>
+							))}
 						</div>
 					</ScrollArea>
 					<div className="flex justify-end">
-
-					<Button onClick={handleAddGroups}>Add Groups</Button>
+						<Button onClick={handleAddGroups}>Add Groups</Button>
 					</div>
 				</DialogContent>
 			</Dialog>

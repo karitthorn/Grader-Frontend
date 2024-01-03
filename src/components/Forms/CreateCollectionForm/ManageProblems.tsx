@@ -18,6 +18,7 @@ import MyProblemMiniCard from "../../Cards/ProblemCards/MyProblemMiniCard";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Item } from "@radix-ui/react-context-menu";
 import { transformProblemModel2ProblemHashedTable } from "../../../types/adapters/Problem.adapter";
+import MyProblemMiniCard2 from "../../Cards/ProblemCards/MyProblemMiniCard2";
 
 const ManageProblems = ({
 	createRequest,
@@ -111,16 +112,16 @@ const ManageProblems = ({
 				<div className="w-1/2">
 					<div className="mt-6 pr-5">
 						<div className="grid gap-y-3">
-							<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+							<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 								<ReactSortable
 									animation={150}
 									group="shared"
 									list={selectedProblemsSortable}
 									setList={setSelectedProblemsSortable}
-									className="grid gap-y-3 p-2 rounded-md"
+									className="grid gap-y-2 p-2 rounded-md"
 								>
 									{selectedProblemsSortable?.map((item) => (
-										<MyProblemMiniCard
+										<MyProblemMiniCard2
 											disabledHighlight
 											onClick={() => handleRemoveSelectedProblem(item.id as string)}
 											key={item.id}
@@ -141,7 +142,7 @@ const ManageProblems = ({
 
 				<div className="w-1/2">
 					<Input className="mt-2" />
-					<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+					<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 						<ReactSortable
 							group={{
 								name: "shared",
@@ -153,11 +154,11 @@ const ManageProblems = ({
 							list={allProblemsSortable}
 							setList={setAllProblemsSortable}
 							filter=".selected"
-							className="grid gap-y-3 p-2 rounded-md"
+							className="grid grid-cols-3 gap-2 p-2 rounded-md"
 						>
 							{allProblemsSortable?.map((item) => (
 								<div className={selectedProblemsSortable.includes(item) ? "selected" : ""}>
-									<MyProblemMiniCard
+									<MyProblemMiniCard2
 										onClick={() => handleQuickToggleSelectedProblem(item)}
 										disabled={selectedProblemSortableIds.includes(item.id as string)}
 										key={item.id}
