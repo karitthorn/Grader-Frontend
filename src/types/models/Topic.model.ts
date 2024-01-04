@@ -3,7 +3,7 @@ import { TopicGroupPermissionPopulateGroupModel } from "./Group.model"
 
 export type TopicModel = {
     topic_id: string
-    creator: number
+    creator: string
     name: string
     description: string | null
     image_url: string | null
@@ -15,7 +15,7 @@ export type TopicModel = {
 
 export type TopicSecureModel = {
     topic_id: string
-    creator: number
+    creator: string
     name: string
     description: string | null
     image_url: string | null

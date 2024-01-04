@@ -19,7 +19,7 @@ export type ProblemModel = {
     is_active: boolean
     is_private: boolean
     submission_regex: string
-    creator: number
+    creator: string
     testcases: TestcaseModel[]
     created_date: string;
     updated_date: string;

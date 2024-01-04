@@ -2,7 +2,7 @@ import { ProblemModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTest
 
 export type CollectionModel = {
     collection_id: string;
-    creator: number;
+    creator: string;
     name: string;
     description: string | null;
     is_active: boolean;
