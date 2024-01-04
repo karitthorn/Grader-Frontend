@@ -31,6 +31,12 @@ function App() {
 			if (response.data.result) {
 				setIsLogin(true);
 			}
+			else {
+				localStorage.removeItem("token");
+				localStorage.removeItem("account_id");
+				localStorage.removeItem("username");
+
+			}
 		});
 	}, []);
 

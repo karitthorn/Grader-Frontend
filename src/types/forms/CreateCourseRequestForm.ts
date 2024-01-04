@@ -2,6 +2,7 @@ import { ItemInterface } from "react-sortablejs";
 import { PlateEditorValueType } from "../PlateEditorValueType";
 import { CoursePermissionRequestForm } from "./CreateGroupRequestForm";
 import { GroupModel, TopicGroupPermissionPopulateGroupModel } from "../models/Group.model";
+import { TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel } from "../models/Topic.model";
 
 export type CourseGroupPermissionRequestForm = {
     group_id: string;
@@ -15,4 +16,5 @@ export type CreateCourseRequestForm = {
     isPrivate?: boolean;
     collectionsInterface: ItemInterface[];
     groupPermissions: CourseGroupPermissionRequestForm[];
+    course: TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel | null;
 }

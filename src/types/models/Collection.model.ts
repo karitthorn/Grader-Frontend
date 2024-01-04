@@ -41,7 +41,7 @@ export type GetCollectionByAccountResponse = {
 }
 
 export type CollectionHashedTable = {
-    [id:string]: CollectionModel | CollectionPopulateProblemSecureModel
+    [collection_id:string]: CollectionModel | CollectionPopulateProblemSecureModel
 }
 
 export type CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {

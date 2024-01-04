@@ -17,6 +17,7 @@ export function transformTopicPopulateTopicCollectionPopulateCollectionAndTopicG
             manageCourses: gp.permission_manage_topics,
             viewCourses: gp.permission_view_topics,
             viewCourseLogs: gp.permission_view_topics_log,
-        }))
+        })),
+        course: topic
     }
 }

@@ -30,8 +30,6 @@ const TabList = [
 
 export type OnCollectionSavedCallback = {
 	setLoading?: React.Dispatch<React.SetStateAction<boolean>>
-	collectionid?: string
-	setCollectionId?: React.Dispatch<React.SetStateAction<number>>
 	createRequest?: CreateCollectionRequestForm
 }
 
@@ -46,17 +44,12 @@ const CreateCollectionForm = ({
     const navigate = useNavigate();
     const [currentForm, setCurrentForm] = useState("general");
 	const [loading, setLoading] = useState(false);
-
-	const [collectionId, setCollectionId] = useState(-1);
-
     const [createRequest, setCreateRequest] = useState<CreateCollectionRequestForm>(createRequestInitialValue)
 
 	const handleSave = () => {
 		onCollectionSave({
 			setLoading,
 			createRequest,
-			collectionId,
-			setCollectionId,
 		})
 	}
 

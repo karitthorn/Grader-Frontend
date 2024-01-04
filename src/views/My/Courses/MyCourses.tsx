@@ -9,6 +9,7 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import { TopicService } from "../../../services/Topic.service";
 import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";
 import { LibraryBig } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 
 const MyCourses = () => {
 
@@ -17,11 +18,15 @@ const MyCourses = () => {
     const {setSection} = useContext(NavSidebarContext)
 
 	const [topics, setTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+	const [manageableTopics, setManageableTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+
+	const [tabValue, setTabValue] = useState("personal")
 
     useEffect(( )=> {
         setSection("COURSES")
 		TopicService.getAllAsCreator(accountId).then((response) => {
 			setTopics(response.data.topics)
+			setManageableTopics(response.data.manageable_topics)
 		})
     },[])
 
@@ -34,8 +39,20 @@ const MyCourses = () => {
 							My Courses
 						</h1>
 					</div>
-					<div className="xl:w-9/12 w-7/12">
+					<div className="xl:w-7/12 w-5/12">
 						<Input placeholder="Search ..." />
+					</div>
+					<div>
+						<Tabs value={tabValue} onValueChange={(e) => setTabValue(e)}>
+							<TabsList>
+								<TabsTrigger value="personal">
+									Personal
+								</TabsTrigger>
+								<TabsTrigger value="manageable">
+									Manageable
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
 					</div>
 					<div>
 						<Button
@@ -49,7 +66,12 @@ const MyCourses = () => {
 
 				<CardContainer>
 					{
-						topics.map(topic => (
+						tabValue === "personal" && topics.map(topic => (
+							<MyCourseCard course={topic}/>
+						))
+					}
+					{
+						tabValue === "manageable" && manageableTopics.map(topic => (
 							<MyCourseCard course={topic}/>
 						))
 					}

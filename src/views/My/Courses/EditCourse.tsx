@@ -37,8 +37,10 @@ const EditCourse = () => {
 		const { formData, collectionIds, groups } =
 			transformCreateCourseRequestForm2CreateTopicRequest(createRequest);
 
+		console.log(formData.get("name"))
+
 		setLoading(true);
-		TopicService.update(editCourseId, formData)
+		TopicService.update(editCourseId,accountId, formData)
 			.then(() => {
 				return TopicService.updateCollections(
 					editCourseId,

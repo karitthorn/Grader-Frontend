@@ -3,6 +3,7 @@ import { TopicModel, TopicPopulateTopicCollectionPopulateCollectionAndTopicGroup
 
 export type GetAllTopicsByAccountResponse = {
     topics: TopicPopulateTopicCollectionPopulateCollectionModel[];
+    manageable_topics: TopicPopulateTopicCollectionPopulateCollectionModel[];
 }
 
 export type GetAllTopicsByAccessibleAccountResponse = {
@@ -22,7 +23,7 @@ export type TopicSerivceAPI = {
     getAllAsCreator: (accountId:string) => Promise<AxiosResponse<GetAllTopicsByAccountResponse>>;
     getAllAccessibleByAccount: (accountId:string) => Promise<AxiosResponse<GetAllTopicsByAccessibleAccountResponse>>;
     getPublicByAccount: (accountId:string,courseId:string) => Promise<AxiosResponse<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>>;
-    update: (courseId:string,request: FormData) => Promise<AxiosResponse<TopicModel>>;
+    update: (courseId:string,accountId:string,request: FormData) => Promise<AxiosResponse<TopicModel>>;
     updateCollections: (topicId:string,collectionIds:string[]) => Promise<AxiosResponse<TopicModel>>;
     updateGroupPermissions: (topicId:string,groups:CourseGroupPermissionCreateRequest[]) => Promise<AxiosResponse<TopicModel>>;
 }
