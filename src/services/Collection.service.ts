@@ -1,6 +1,6 @@
 import axios from "axios";
-import { CollectionServiceAPI } from "../types/apis/Collection.api";
-import { CollectionModel, CollectionPopulateProblemSecureModel, CollectionProblemModel, GetCollectionByAccountResponse } from "../types/models/Collection.model";
+import { CollectionServiceAPI, GetCollectionByAccountResponse } from "../types/apis/Collection.api";
+import { CollectionModel, CollectionPopulateProblemSecureModel, CollectionProblemModel } from "../types/models/Collection.model";
 import { BASE_URL } from "../constants/BackendBaseURL";
 
 export const CollectionService: CollectionServiceAPI = {

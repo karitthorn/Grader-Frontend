@@ -30,6 +30,7 @@ import Checkmark from "../../Checkmark";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
 import {
 	CollectionModel,
+	CollectionPopulateCollectionProblemPopulateProblemModel,
 	CollectionPopulateProblemSecureModel,
 } from "../../../types/models/Collection.model";
 
@@ -82,7 +83,7 @@ const MyCollectionMiniCard2 = ({
 	onClick = () => {},
 }: {
 	// problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
-	collection: CollectionPopulateProblemSecureModel;
+	collection: CollectionPopulateProblemSecureModel | CollectionPopulateCollectionProblemPopulateProblemModel;
 	disabled?: boolean;
 	disabledHighlight?: boolean;
 	onClick?: () => void;

@@ -21,10 +21,11 @@ import { transformProblemModel2ProblemHashedTable } from "../../../types/adapter
 import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
 import MyCollectionMiniCard from "../../Cards/CollectionCards/MyCollectionMiniCard";
 import { CollectionService } from "../../../services/Collection.service";
-import { transformCollectionModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
+import { transformCollectionPopulateProblemSecureModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
 import {
 	CollectionHashedTable,
 	CollectionModel,
+	CollectionPopulateCollectionProblemPopulateProblemModel,
 	CollectionPopulateProblemSecureModel,
 } from "../../../types/models/Collection.model";
 import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
@@ -95,10 +96,11 @@ const ManageCollections = ({
 	useEffect(() => {
 		CollectionService.getAllAsCreator(accountId).then((response) => {
 			setAllCollections(
-				transformCollectionModel2CollectionHashedTable(
+				transformCollectionPopulateProblemSecureModel2CollectionHashedTable(
 					response.data.collections
 				)
 			);
+			
 			setAllCollectionsSortable(
 				response.data.collections.map((collection) => ({
 					id: collection.collection_id,
@@ -110,26 +112,29 @@ const ManageCollections = ({
 
 	useEffect(() => {
 		if (createRequest.course) {
-			// setAllCollections({
+			setAllCollections({
+				...allCollections,
+				...transformCollectionPopulateProblemSecureModel2CollectionHashedTable(
+					createRequest.course.collections.map(
+						(cc) => cc.collection
+					)
+				),
+			});
+
+			// console.log({
 			// 	...allCollections,
-			// 	...transformCollectionModel2CollectionHashedTable(
+			// 	...transformCollectionPopulateProblemSecureModel2CollectionHashedTable(
 			// 		createRequest.course.collections.map(
 			// 			(cc) => cc.collection
 			// 		) as CollectionModel[]
 			// 	),
-			// });
-
-			// console.log({
-				// ...allCollections,
-				// ...transformCollectionModel2CollectionHashedTable(
-				// 	createRequest.course.collections.map(
-				// 		(cc) => cc.collection
-				// 	) as CollectionModel[]
-				// ),
 			// })
 
+			console.log('ccc',
+				createRequest.course.collections.map((cc) => cc.collection)
+			);
 		}
-		console.log(createRequest.course)
+		console.log(createRequest.course);
 	}, [createRequest, allCollections]);
 
 	useEffect(() => {
@@ -174,7 +179,7 @@ const ManageCollections = ({
 												collection={
 													allCollections[
 														item.id as string
-													] as CollectionPopulateProblemSecureModel
+													] as CollectionPopulateCollectionProblemPopulateProblemModel
 												}
 											/>
 										)
@@ -228,7 +233,7 @@ const ManageCollections = ({
 										collection={
 											allCollections[
 												item.id as string
-											] as CollectionPopulateProblemSecureModel
+											] as CollectionPopulateCollectionProblemPopulateProblemModel
 										}
 									/>
 								</div>

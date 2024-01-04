@@ -1,6 +1,6 @@
-import { CollectionHashedTable, CollectionModel, CollectionPopulateProblemSecureModel } from "../models/Collection.model";
+import { CollectionHashedTable, CollectionModel, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateProblemSecureModel, CollectionProblemModel } from "../models/Collection.model";
 
-export function transformCollectionModel2CollectionHashedTable(collections: CollectionModel[] | CollectionPopulateProblemSecureModel[] ): CollectionHashedTable {
+export function transformCollectionPopulateProblemSecureModel2CollectionHashedTable(collections: CollectionPopulateCollectionProblemPopulateProblemModel[] ): CollectionHashedTable {
     let result:CollectionHashedTable = {};
     for (const collection of collections) {
         result[collection.collection_id] = collection;

@@ -1,5 +1,9 @@
 import { AxiosResponse } from "axios"
-import { CollectionCreateRequest, CollectionModel, CollectionPopulateProblemSecureModel, CollectionProblemModel, CollectionUpdateRequest, GetCollectionByAccountResponse } from "../models/Collection.model"
+import { CollectionCreateRequest, CollectionModel, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateProblemSecureModel, CollectionProblemModel, CollectionUpdateRequest } from "../models/Collection.model"
+
+export type GetCollectionByAccountResponse = {
+    collections: CollectionPopulateCollectionProblemPopulateProblemModel[];
+}
 
 export type CollectionServiceAPI = {
     create: (accountId:string,request:CollectionCreateRequest) => Promise<AxiosResponse<CollectionModel>>;

@@ -21,7 +21,7 @@ import { transformProblemModel2ProblemHashedTable } from "../../../types/adapter
 import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
 import MyCollectionMiniCard from "../../Cards/CollectionCards/MyCollectionMiniCard";
 import { CollectionService } from "../../../services/Collection.service";
-import { transformCollectionModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
+import { transformCollectionPopulateProblemSecureModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
 import {
 	CollectionHashedTable,
 	CollectionPopulateProblemSecureModel,

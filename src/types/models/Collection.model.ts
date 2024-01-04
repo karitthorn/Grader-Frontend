@@ -29,6 +29,13 @@ export type CollectionUpdateRequest = {
     description?: string;
 }
 
+export type CollectionProblemPopulateProblemModel = {
+    id: string;
+    problem: ProblemModel;
+    order: number;
+    collection: number;
+}
+
 export type CollectionProblemPopulateProblemSecureModel = {
     id: string;
     problem: ProblemSecureModel;
@@ -36,12 +43,10 @@ export type CollectionProblemPopulateProblemSecureModel = {
     collection: number;
 }
 
-export type GetCollectionByAccountResponse = {
-    collections: CollectionProblemModel[];
-}
+
 
 export type CollectionHashedTable = {
-    [collection_id:string]: CollectionModel | CollectionPopulateProblemSecureModel
+    [collection_id:string]: CollectionPopulateCollectionProblemPopulateProblemModel
 }
 
 export type CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
@@ -53,4 +58,9 @@ export type CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulate
 
 export type CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = CollectionModel & {
     problems: CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
+}
+
+
+export type CollectionPopulateCollectionProblemPopulateProblemModel = CollectionModel & {
+    problems: CollectionProblemPopulateProblemModel[];
 }
