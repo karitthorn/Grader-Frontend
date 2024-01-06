@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import NavbarSidebarLayout from '../../../layout/NavbarSidebarLayout'
-import CreateCollectionForm, { OnCollectionSavedCallback } from '../../../components/Forms/CreateCollectionForm'
-import { CreateCollectionRequestForm } from '../../../types/forms/CreateCollectionRequestForm'
 import { useParams } from 'react-router-dom'
-import { CollectionService } from '../../../services/Collection.service'
-import { ItemInterface } from 'react-sortablejs'
-import { transformCreateProblemRequestForm2CreateProblemRequest } from '../../../types/adapters/CreateProblemRequestForm.adapter'
-import { transformCreateCollectionRequestForm2CreateCollectionRequestForm } from '../../../types/adapters/CreateCollectionRequestForm.adapter'
-import { set } from 'react-hook-form'
+import CreateCollectionForm, { OnCollectionSavedCallback } from '../../../components/Forms/CreateCollectionForm'
 import { toast } from '../../../components/shadcn/UseToast'
-import { handleDeprecatedDescription } from '../../../utilities/HandleDeprecatedDescription'
+import NavbarSidebarLayout from '../../../layout/NavbarSidebarLayout'
+import { CollectionService } from '../../../services/Collection.service'
+import { transformCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel2CreateCollectionRequest } from '../../../types/adapters/Collection.adapter'
+import { transformCreateCollectionRequestForm2CreateCollectionRequestForm } from '../../../types/adapters/CreateCollectionRequestForm.adapter'
+import { CreateCollectionRequestForm } from '../../../types/forms/CreateCollectionRequestForm'
 
 const EditCollection = () => {
+
+    const accountId = String(localStorage.getItem("account_id"));
 
     const {collectionId} = useParams();
     const editCollectionId = String(collectionId);
@@ -24,15 +23,15 @@ const EditCollection = () => {
             return;
         }
 
-        const problemIds = (createRequest as CreateCollectionRequestForm).problemsInterface.map(
-            (problem) => problem.id as string
-        );
-        const request = transformCreateCollectionRequestForm2CreateCollectionRequestForm(createRequest as CreateCollectionRequestForm)
+       
+        const {request,problemIds,groups} = transformCreateCollectionRequestForm2CreateCollectionRequestForm(createRequest as CreateCollectionRequestForm)
 
         setLoading(true)
 
         CollectionService.update(editCollectionId,request).then(response => {
             return CollectionService.updateProblem(response.data.collection_id,problemIds)
+        }).then(response => {
+            return CollectionService.updateGroupPermissions(response.data.collection_id,accountId,groups)
         }).then(response => {
             setLoading(false)
             console.log("Save")
@@ -43,17 +42,10 @@ const EditCollection = () => {
     }
 
     useEffect(()=> {
-        CollectionService.get(editCollectionId).then(response => {
-            setCreateRequest({
-                title: response.data.name,
-                description: JSON.parse(handleDeprecatedDescription(String(response.data.description))),
-                problemsInterface: response.data.problems.map(collectionProblem => (
-                    {
-                        id: collectionProblem.problem.problem_id,
-                        name: collectionProblem.problem.title
-                    } as ItemInterface
-                ))
-            })
+        CollectionService.get(editCollectionId,accountId).then(response => {
+            setCreateRequest(
+                transformCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel2CreateCollectionRequest(response.data)
+            )
         })
     },[editCollectionId])
 

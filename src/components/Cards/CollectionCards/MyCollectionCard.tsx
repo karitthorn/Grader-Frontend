@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import { Card, CardContent, CardTitle } from "../../shadcn/Card";
-import { Button } from "../../shadcn/Button";
-import { Check, CheckCircle2, FileSpreadsheet, Folder, X } from "lucide-react";
+import { FileSpreadsheet, Folder } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProblemModel } from "../../../types/models/Problem.model";
+import { CollectionPopulateCollectionProblemPopulateProblemModel, CollectionProblemModel } from "../../../types/models/Collection.model";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import Checkmark from "../../Checkmark";
-import { CollectionProblemModel, CollectionProblemPopulateProblemSecureModel, GetCollectionByAccountResponse } from "../../../types/models/Collection.model";
+import { Card, CardContent } from "../../shadcn/Card";
 
 const MyCollectionCard = ({
 	collection
 }:{
-	collection: CollectionProblemModel
+	collection: CollectionPopulateCollectionProblemPopulateProblemModel
 }) => {
 	const navigate = useNavigate();
 

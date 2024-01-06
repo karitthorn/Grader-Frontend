@@ -1,3 +1,4 @@
+import { GroupModel } from "./Group.model";
 import { ProblemModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, ProblemSecureModel } from "./Problem.model";
 
 export type CollectionModel = {
@@ -63,4 +64,22 @@ export type CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAnd
 
 export type CollectionPopulateCollectionProblemPopulateProblemModel = CollectionModel & {
     problems: CollectionProblemPopulateProblemModel[];
+}
+
+export type CollectionGroupPermissionModel = {
+    collection_group_permission_id: string
+    group: string
+    permission_manage_collections: boolean
+    permission_view_collections: boolean
+    collection: string
+}
+
+
+export type CollectionGroupPermissionPopulateGroupModel = CollectionGroupPermissionModel & {
+    group: GroupModel
+}
+
+export type CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel = CollectionModel & {
+    problems: CollectionProblemPopulateProblemModel[];
+    group_permissions: CollectionGroupPermissionPopulateGroupModel[];
 }

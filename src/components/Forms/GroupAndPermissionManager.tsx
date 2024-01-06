@@ -7,7 +7,7 @@ import {
 	CourseGroupPermissionRequestForm,
 	CreateCourseRequestForm,
 } from "../../types/forms/CreateCourseRequestForm";
-import { PlusCircle, Users, X } from "lucide-react";
+import { Eye, PlusCircle, Users, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../shadcn/Tooltip";
 import { Dialog, DialogContent } from "../shadcn/Dialog";
 import { Input } from "../shadcn/Input";
@@ -22,6 +22,17 @@ import {
 	ContextMenuItem,
 	ContextMenuTrigger,
 } from "../shadcn/ContextMenu";
+import { CreateCollectionRequestForm } from "../../types/forms/CreateCollectionRequestForm";
+import { set } from 'react-hook-form';
+import { useNavigate } from "react-router-dom";
+
+export type GroupAndPermissionManagerOnAddGroupsCallback = {
+	addingGroups: GroupModel[];
+}
+
+export type GroupAndPermissionManagerOnRemoveGroupCallback = {
+	index: number;
+}
 
 const GroupListItem = ({
 	hexColor = "#000000",
@@ -63,14 +74,20 @@ const GroupListItem = ({
 const GroupListItemContextMenu = ({
 	children,
 	onClickRemove = () => {},
+	onClickViewGroup = () => {},
 }: {
 	children: React.ReactNode;
 	onClickRemove?: () => void;
+	onClickViewGroup?: () => void;
 }) => {
 	return (
 		<ContextMenu>
 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
 			<ContextMenuContent>
+				<ContextMenuItem onClick={() => onClickViewGroup()}>
+					<Eye size={16} className="mr-2" />
+					View Group
+				</ContextMenuItem>
 				<ContextMenuItem onClick={() => onClickRemove()}>
 					<X size={16} className="mr-2" />
 					Remove
@@ -83,22 +100,34 @@ const GroupListItemContextMenu = ({
 const GroupAndPermissionManager = ({
 	createRequest,
 	setCreateRequest,
+	onAddGroups=()=>{},
+	onRemoveGroup=()=>{},
+	selectedIndex=-1,
+	setSelectedIndex=()=>{},
+	children,
 }: {
-	createRequest: CreateCourseRequestForm;
+	createRequest: CreateCourseRequestForm | CreateCollectionRequestForm;
 	setCreateRequest: React.Dispatch<
-		React.SetStateAction<CreateCourseRequestForm>
+		React.SetStateAction<CreateCourseRequestForm>> | React.Dispatch<
+		React.SetStateAction<CreateCollectionRequestForm>
 	>;
+	onAddGroups?: (e: GroupAndPermissionManagerOnAddGroupsCallback) => void;
+	onRemoveGroup?: (e: GroupAndPermissionManagerOnRemoveGroupCallback) => void;
+	selectedIndex?: number;
+	setSelectedIndex?: React.Dispatch<React.SetStateAction<number>>;
+	children: React.ReactNode;
 }) => {
 	const accountId = String(localStorage.getItem("account_id"));
+	const navigate = useNavigate();
 
 	const [allGroups, setAllGroups] = useState<GroupModel[]>([]);
 	const [openAddGroupsDialog, setOpenAddGroupsDialog] =
 		useState<boolean>(false);
 	const [selectedGroupIds, setSelectedGroupIds] = useState<string[]>([]);
 
-	const [groupPermission, setGroupPermission] =
-		useState<CourseGroupPermissionRequestForm>();
-	const [selectedIndex, setselectedIndex] = useState<number>(-1);
+	// const [groupPermission, setGroupPermission] =
+	// 	useState<CourseGroupPermissionRequestForm>();
+	// const [selectedIndex, setselectedIndex] = useState<number>(-1);
 
 	const handleSelectGroupCheckbox = (groupId: string) => {
 		if (selectedGroupIds.includes(groupId)) {
@@ -109,13 +138,14 @@ const GroupAndPermissionManager = ({
 	};
 
 	const handleRemoveGroupPermission = (index: number) => {
-		setCreateRequest({
-			...createRequest,
-			groupPermissions: [
-				...createRequest.groupPermissions.slice(0, index),
-				...createRequest.groupPermissions.slice(index + 1),
-			],
-		});
+		// setCreateRequest({
+		// 	...createRequest,
+		// 	groupPermissions: [
+		// 		...createRequest.groupPermissions.slice(0, index),
+		// 		...createRequest.groupPermissions.slice(index + 1),
+		// 	],
+		// });
+		onRemoveGroup({index})
 	}
 
 	const getNotInPermissionGroup = () => {
@@ -128,45 +158,47 @@ const GroupAndPermissionManager = ({
 	};
 
 	const handleAddGroups = () => {
-		const addGroups = allGroups.filter((group) =>
+		const addingGroups = allGroups.filter((group) =>
 			selectedGroupIds.includes(group.group_id)
 		);
-		const newGroupPermissions = addGroups.map((group) => ({
-			group_id: group.group_id,
-			group,
-			manageCourses: group.permission_manage_topics,
-			viewCourseLogs: group.permission_view_topics_log,
-			viewCourses: group.permission_view_topics,
-		}));
+		// const newGroupPermissions = addingGroups.map((group) => ({
+		// 	group_id: group.group_id,
+		// 	group,
+		// 	manageCourses: group.permission_manage_topics,
+		// 	viewCourseLogs: group.permission_view_topics_log,
+		// 	viewCourses: group.permission_view_topics,
+		// }));
 
-		setCreateRequest({
-			...createRequest,
-			groupPermissions: [
-				...createRequest.groupPermissions,
-				...newGroupPermissions,
-			],
-		});
+		// setCreateRequest({
+		// 	...createRequest,
+		// 	groupPermissions: [
+		// 		...createRequest.groupPermissions,
+		// 		...newGroupPermissions,
+		// 	],
+		// });
+
+		onAddGroups({addingGroups})
 
 		setSelectedGroupIds([]);
 		setOpenAddGroupsDialog(false);
 	};
 
-	useEffect(() => {
-		setGroupPermission(createRequest?.groupPermissions[selectedIndex]);
-	}, [selectedIndex]);
+	// useEffect(() => {
+	// 	setGroupPermission(createRequest.groupPermissions[selectedIndex]);
+	// }, [selectedIndex]);
 
-	useEffect(() => {
-		if (groupPermission) {
-			setCreateRequest({
-				...createRequest,
-				groupPermissions: [
-					...createRequest.groupPermissions.slice(0, selectedIndex),
-					groupPermission,
-					...createRequest.groupPermissions.slice(selectedIndex + 1),
-				],
-			});
-		}
-	}, [groupPermission]);
+	// useEffect(() => {
+	// 	if (groupPermission) {
+	// 		setCreateRequest({
+	// 			...createRequest,
+	// 			groupPermissions: [
+	// 				...createRequest.groupPermissions.slice(0, selectedIndex),
+	// 				groupPermission,
+	// 				...createRequest.groupPermissions.slice(selectedIndex + 1),
+	// 			],
+	// 		});
+	// 	}
+	// }, [groupPermission]);
 
 	useEffect(() => {
 		GroupService.getAllAsCreator(accountId).then((response) => {
@@ -196,8 +228,9 @@ const GroupAndPermissionManager = ({
 					<div className="grid gap-y-1">
 						{createRequest.groupPermissions.map(
 							(groupPermission, index) => (
-								<div onClick={() => setselectedIndex(index)}>
+								<div onClick={() => setSelectedIndex(index)}>
 									<GroupListItemContextMenu
+										onClickViewGroup={() => navigate(`/my/groups/${groupPermission.group.group_id}`)}
 										onClickRemove={() => handleRemoveGroupPermission(index)}
 									>
 										<GroupListItem
@@ -222,35 +255,7 @@ const GroupAndPermissionManager = ({
 			</div>
 			<div className="w-5/6 h-[75vh]">
 				<PermissionSwitchScrollArea>
-					{groupPermission && selectedIndex >= 0 && (
-						<CoursePermissionSwitchGroup
-							manageCoursesChecked={groupPermission.manageCourses}
-							viewCourseLogsChecked={
-								groupPermission.viewCourseLogs
-							}
-							viewCoursesChecked={groupPermission.viewCourses}
-							onClickManageCourses={() =>
-								setGroupPermission({
-									...groupPermission,
-									manageCourses:
-										!groupPermission.manageCourses,
-								})
-							}
-							onClickViewCourseLogs={() =>
-								setGroupPermission({
-									...groupPermission,
-									viewCourseLogs:
-										!groupPermission.viewCourseLogs,
-								})
-							}
-							onClickViewCourses={() =>
-								setGroupPermission({
-									...groupPermission,
-									viewCourses: !groupPermission.viewCourses,
-								})
-							}
-						/>
-					)}
+					{children}
 				</PermissionSwitchScrollArea>
 			</div>
 

@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import { CollectionService } from "../../../services/Collection.service";
-import { CollectionModel, CollectionProblemModel } from "../../../types/models/Collection.model";
+import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionProblemModel } from "../../../types/models/Collection.model";
 import { FolderPlus } from "lucide-react";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
 	const accountId = String(localStorage.getItem("account_id"));
 
-	const [collections, setCollections] = useState<CollectionProblemModel[]>([]);
+	const [collections, setCollections] = useState<CollectionPopulateCollectionProblemPopulateProblemModel[]>([]);
 	const {setSection} = useContext(NavSidebarContext)
 
 	useEffect(() => {

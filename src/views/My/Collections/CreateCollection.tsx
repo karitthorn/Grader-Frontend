@@ -20,6 +20,7 @@ const formInitialValue: CreateCollectionRequestForm = {
 		},
 	],
 	problemsInterface: [],
+	groupPermissions: [],
 };
 
 const CreateCollection = () => {
@@ -33,20 +34,17 @@ const CreateCollection = () => {
 			return
 		}
 
-		const createCollectionRequest =
+		const {request,problemIds} =
 			transformCreateCollectionRequestForm2CreateCollectionRequestForm(
 				createRequest as CreateCollectionRequestForm
 			);
-		const problemIds = (createRequest as CreateCollectionRequestForm).problemsInterface.map(
-			(problem) => problem.id as string
-		);
+		
 
 		setLoading(true)
 
-		CollectionService.create(accountId,createCollectionRequest).then(response => {
+		CollectionService.create(accountId,request).then(response => {
 			return CollectionService.updateProblem(response.data.collection_id,problemIds)
 		}).then(response => {
-			// setCollectionId(response.data.collection_id)
 			toast({
 				title: "Create Completed"
 			})

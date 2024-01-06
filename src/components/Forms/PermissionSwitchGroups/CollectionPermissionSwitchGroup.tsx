@@ -4,13 +4,15 @@ import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestF
 import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
 
 const CollectionPermissionSwitchGroup = ({
-	createRequest,
-	setCreateRequest,
+	manageCollectionsChecked = false,
+	viewCollectionsChecked = false,
+	onClickManageCollections = () => {},
+	onClickViewCollections = () => {},
 }: {
-	createRequest: CreateGroupRequestForm;
-	setCreateRequest: React.Dispatch<
-		React.SetStateAction<CreateGroupRequestForm>
-	>;
+	manageCollectionsChecked?: boolean;
+	viewCollectionsChecked?: boolean;
+	onClickManageCollections?: () => void | undefined;
+	onClickViewCollections?: () => void | undefined;
 }) => {
 	return (
 		<>
@@ -18,25 +20,15 @@ const CollectionPermissionSwitchGroup = ({
 				title="Manage Collections"
 				description="Can edit collections name and description. Can add
 						or remove problems from collection as well."
-				checked={createRequest.manageCollections}
-				onClick={() =>
-					setCreateRequest({
-						...createRequest,
-						manageCollections: !createRequest.manageCollections,
-					})
-				}
+				checked={manageCollectionsChecked}
+				onClick={() => onClickManageCollections()}
 			/>
 			<PermissionSwitch
 				title="View Collections"
 				description="Can view collection and thier problems. Note that
 						those problems must be accessible as well."
-				checked={createRequest.viewCollections}
-				onClick={() =>
-					setCreateRequest({
-						...createRequest,
-						viewCollections: !createRequest.viewCollections,
-					})
-				}
+				checked={viewCollectionsChecked}
+				onClick={() => onClickViewCollections()}
 			/>
 		</>
 	);

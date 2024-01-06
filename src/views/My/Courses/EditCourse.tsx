@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from "react";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import CreateCollectionForm, {
-	OnCollectionSavedCallback,
-} from "../../../components/Forms/CreateCollectionForm";
-import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { transformCreateCollectionRequestForm2CreateCollectionRequestForm } from "../../../types/adapters/CreateCollectionRequestForm.adapter";
-import { CollectionService } from "../../../services/Collection.service";
-import { toast } from "../../../components/shadcn/UseToast";
-import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CreateCourseForm, {
 	OnCourseSavedCallback,
 } from "../../../components/Forms/CreateCourseForm";
-import { transformCreateCourseRequestForm2CreateTopicRequest } from "../../../types/adapters/CreateCourseRequestForm.adapter";
+import { toast } from "../../../components/shadcn/UseToast";
+import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { TopicService } from "../../../services/Topic.service";
-import { useParams } from "react-router-dom";
-import { ItemInterface } from "react-sortablejs";
+import { transformCreateCourseRequestForm2CreateTopicRequest } from "../../../types/adapters/CreateCourseRequestForm.adapter";
 import { transformTopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel2CreateCourseRequest } from "../../../types/adapters/Topic.adapter";
+import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
 
 const EditCourse = () => {
 	const { courseId } = useParams();
@@ -48,7 +40,7 @@ const EditCourse = () => {
 				);
 			})
 			.then(() => {
-				return TopicService.updateGroupPermissions(editCourseId, groups);
+				return TopicService.updateGroupPermissions(editCourseId,accountId,groups);
 			})
 			.then(() => {
 				setLoading(false);

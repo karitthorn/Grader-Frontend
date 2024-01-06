@@ -41,8 +41,8 @@ export const TopicService: TopicSerivceAPI = {
         return response;
     },
 
-    updateGroupPermissions: async (topicId, groups) => {
-        const response = await axios.put<TopicModel>(`${BASE_URL}/api/topics/${topicId}/groups`, {
+    updateGroupPermissions: async (topicId,accountId, groups) => {
+        const response = await axios.put<TopicModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}/groups`, {
             groups: groups
         });
         return response;

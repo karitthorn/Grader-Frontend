@@ -25,5 +25,5 @@ export type TopicSerivceAPI = {
     getPublicByAccount: (accountId:string,courseId:string) => Promise<AxiosResponse<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>>;
     update: (courseId:string,accountId:string,request: FormData) => Promise<AxiosResponse<TopicModel>>;
     updateCollections: (topicId:string,collectionIds:string[]) => Promise<AxiosResponse<TopicModel>>;
-    updateGroupPermissions: (topicId:string,groups:CourseGroupPermissionCreateRequest[]) => Promise<AxiosResponse<TopicModel>>;
+    updateGroupPermissions: (topicId:string,accountId:string,groups:CourseGroupPermissionCreateRequest[]) => Promise<AxiosResponse<TopicModel>>;
 }

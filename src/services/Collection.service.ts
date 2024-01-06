@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CollectionServiceAPI, GetCollectionByAccountResponse } from "../types/apis/Collection.api";
-import { CollectionModel, CollectionPopulateProblemSecureModel, CollectionProblemModel } from "../types/models/Collection.model";
+import { CollectionModel, CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel, CollectionPopulateProblemSecureModel, CollectionProblemModel } from "../types/models/Collection.model";
 import { BASE_URL } from "../constants/BackendBaseURL";
 
 export const CollectionService: CollectionServiceAPI = {
@@ -8,8 +8,8 @@ export const CollectionService: CollectionServiceAPI = {
         return axios.post<CollectionModel>(`${BASE_URL}/api/accounts/${accountId}/collections`,request);
     },
 
-    get: (collectionId) => {
-        return axios.get<CollectionProblemModel>(`${BASE_URL}/api/collections/${collectionId}`);
+    get: (collectionId,accountId) => {
+        return axios.get<CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/collections/${collectionId}`);
     },
 
     getAllAsCreator: (accountId) => {
@@ -31,5 +31,9 @@ export const CollectionService: CollectionServiceAPI = {
     updateProblem: (collectionId,problemIds) => {
         return axios.put<CollectionModel>(`${BASE_URL}/api/collections/${collectionId}/problems/update`,{problem_ids: problemIds});
     },
+
+    updateGroupPermissions: (collectionId,accountId,groups) => {
+        return axios.put<CollectionModel>(`${BASE_URL}/api/accounts/${accountId}/collections/${collectionId}/groups`,{groups});
+    }
     
 }

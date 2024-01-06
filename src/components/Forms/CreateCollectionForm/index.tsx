@@ -16,6 +16,7 @@ import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollecti
 import ManageProblem from "./ManageProblems";
 import ManageProblems from "./ManageProblems";
 import FormSaveButton from "../FormSaveButton";
+import ManageGroups from "./ManageGroups";
 
 const TabList = [
 	{
@@ -26,37 +27,41 @@ const TabList = [
 		value: "problems",
 		label: "Manage Problems",
 	},
-]
+	{
+		value: "groups",
+		label: "Manage Groups & Permissions",
+	},
+];
 
 export type OnCollectionSavedCallback = {
-	setLoading?: React.Dispatch<React.SetStateAction<boolean>>
-	createRequest?: CreateCollectionRequestForm
-}
+	setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+	createRequest?: CreateCollectionRequestForm;
+};
 
 const CreateCollectionForm = ({
 	createRequestInitialValue,
 	onCollectionSave,
 }: {
-	createRequestInitialValue: CreateCollectionRequestForm
-	onCollectionSave: (callback: OnCollectionSavedCallback) => void
+	createRequestInitialValue: CreateCollectionRequestForm;
+	onCollectionSave: (callback: OnCollectionSavedCallback) => void;
 }) => {
-
-    const navigate = useNavigate();
-    const [currentForm, setCurrentForm] = useState("general");
+	const navigate = useNavigate();
+	const [currentForm, setCurrentForm] = useState("general");
 	const [loading, setLoading] = useState(false);
-    const [createRequest, setCreateRequest] = useState<CreateCollectionRequestForm>(createRequestInitialValue)
+	const [createRequest, setCreateRequest] =
+		useState<CreateCollectionRequestForm>(createRequestInitialValue);
 
 	const handleSave = () => {
 		onCollectionSave({
 			setLoading,
 			createRequest,
-		})
-	}
+		});
+	};
 
-  return (
-    <div className="w-[96%] mx-auto mt-10">
+	return (
+		<div className="w-[96%] mx-auto mt-10">
 			<div className="flex justify-between">
-			<h1 className="text-3xl font-bold tracking-tight flex">
+				<h1 className="text-3xl font-bold tracking-tight flex">
 					<ArrowLeft
 						size={40}
 						className="text-gray-400 transition-all pr-0 hover:pr-1 cursor-pointer mr-2"
@@ -104,9 +109,16 @@ const CreateCollectionForm = ({
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
+
+				{currentForm === "groups" && (
+					<ManageGroups
+						createRequest={createRequest}
+						setCreateRequest={setCreateRequest}
+					/>
+				)}
 			</div>
 		</div>
-  )
-}
+	);
+};
 
-export default CreateCollectionForm
+export default CreateCollectionForm;

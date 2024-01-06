@@ -16,5 +16,5 @@ export type CreateCourseRequestForm = {
     isPrivate?: boolean;
     collectionsInterface: ItemInterface[];
     groupPermissions: CourseGroupPermissionRequestForm[];
-    course: TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel | null;
+    course: TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel | TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel | null;
 }
