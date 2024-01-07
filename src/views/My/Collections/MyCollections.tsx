@@ -7,21 +7,32 @@ import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import { CollectionService } from "../../../services/Collection.service";
-import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionProblemModel } from "../../../types/models/Collection.model";
+import {
+	CollectionModel,
+	CollectionPopulateCollectionProblemPopulateProblemModel,
+	CollectionProblemModel,
+} from "../../../types/models/Collection.model";
 import { FolderPlus } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
 	const accountId = String(localStorage.getItem("account_id"));
 
-	const [collections, setCollections] = useState<CollectionPopulateCollectionProblemPopulateProblemModel[]>([]);
-	const {setSection} = useContext(NavSidebarContext)
+	const [collections, setCollections] = useState<
+		CollectionPopulateCollectionProblemPopulateProblemModel[]
+	>([]);
+	const [manageableCollections, setManageableCollections] = useState<CollectionPopulateCollectionProblemPopulateProblemModel[]>([]);
+	const { setSection } = useContext(NavSidebarContext);
+
+	const [tabValue, setTabValue] = useState("personal");
 
 	useEffect(() => {
-		setSection("COLLECTIONS")
-		CollectionService.getAllAsCreator(accountId).then((response => {
-			setCollections(response.data.collections)
-		}))
+		setSection("COLLECTIONS");
+		CollectionService.getAllAsCreator(accountId).then((response) => {
+			setCollections(response.data.collections);
+			setManageableCollections(response.data.manageable_collections);
+		});
 	}, []);
 
 	return (
@@ -37,6 +48,21 @@ const MyCollections = () => {
 						<Input placeholder="Search ..." />
 					</div>
 					<div>
+						<Tabs
+							value={tabValue}
+							onValueChange={(e) => setTabValue(e)}
+						>
+							<TabsList>
+								<TabsTrigger value="personal">
+									Personal
+								</TabsTrigger>
+								<TabsTrigger value="manageable">
+									Manageable
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
+					</div>
+					<div>
 						<Button
 							onClick={() => navigate("/my/collections/create")}
 						>
@@ -47,9 +73,14 @@ const MyCollections = () => {
 				</div>
 
 				<CardContainer>
-					{collections.map(collection => (
-						<MyCollectionCard collection={collection}/>
-					))}
+					{tabValue === "personal" &&
+						collections.map((collection) => (
+							<MyCollectionCard collection={collection} />
+						))}
+					{tabValue === "manageable" &&
+						manageableCollections.map((collection) => (
+							<MyCollectionCard collection={collection} />
+						))}
 				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>

@@ -3,6 +3,8 @@ import { CollectionCreateRequest, CollectionModel, CollectionPopulateCollectionP
 
 export type GetCollectionByAccountResponse = {
     collections: CollectionPopulateCollectionProblemPopulateProblemModel[];
+    manageable_collections: CollectionPopulateCollectionProblemPopulateProblemModel[];
+
 }
 
 export type CollectionGroupPermissionCreateRequest = {
@@ -14,8 +16,8 @@ export type CollectionGroupPermissionCreateRequest = {
 export type CollectionServiceAPI = {
     create: (accountId:string,request:CollectionCreateRequest) => Promise<AxiosResponse<CollectionModel>>;
     get: (collectionId:string,accountId:string) => Promise<AxiosResponse<CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel>>;
-    getAllAsCreator: (accountId:string) => Promise<AxiosResponse<GetCollectionByAccountResponse>>;
     update: (collectionId:string,request:CollectionUpdateRequest) => Promise<AxiosResponse<CollectionModel>>;
+    getAllAsCreator: (accountId:string) => Promise<AxiosResponse<GetCollectionByAccountResponse>>;
     addProblem: (collectionId:string,problemIds:string[]) => Promise<AxiosResponse<CollectionModel>>;
     removeProblem: (collectionId:string,problemIds:string[]) => Promise<AxiosResponse<null>>;
     updateProblem: (collectionId:string,problemIds:string[]) => Promise<AxiosResponse<CollectionModel>>;

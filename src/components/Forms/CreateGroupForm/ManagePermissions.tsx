@@ -57,8 +57,16 @@ const ManagePermissions = ({
 						Collection Permission
 					</p>
 					<CollectionPermissionSwitchGroup
-						createRequest={createRequest}
-						setCreateRequest={setCreateRequest}
+						manageCollectionsChecked={createRequest.manageCollections}
+						viewCollectionsChecked={createRequest.viewCollections}
+						onClickManageCollections={() => setCreateRequest({
+							...createRequest,
+							manageCollections: !createRequest.manageCollections
+						})}
+						onClickViewCollections={() => setCreateRequest({
+							...createRequest,
+							viewCollections: !createRequest.viewCollections
+						})}
 					/>
 					<p className="font-bold text-base text-green-600 mt-3">
 						Problem Permission

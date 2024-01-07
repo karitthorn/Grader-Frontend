@@ -13,7 +13,7 @@ export const GroupService: GroupSerivceAPI = {
 
     getAllAsCreator: async (accountId:string,query?:any) => {
         const response = await axios.get(`${BASE_URL}/api/accounts/${accountId}/groups`,{
-            params: query
+            params: query,
         })
 
         return response;

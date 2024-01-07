@@ -30,6 +30,8 @@ import {
 } from "../../../types/models/Collection.model";
 import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
 import { CourseNavSidebarContext } from "../../../contexts/CourseNavSidebarContexnt";
+import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
+import { Switch } from "../../shadcn/Switch";
 
 const ManageCollections = ({
 	createRequest,
@@ -52,6 +54,7 @@ const ManageCollections = ({
 	);
 
 	const [initial, setInitial] = useState(true);
+	const [tabValue, setTabValue] = useState("add");
 	const [selectedCollectionsSortableIds, setSelectedCollectionsSortableIds] =
 		useState<string[]>([]);
 
@@ -100,7 +103,7 @@ const ManageCollections = ({
 					response.data.collections
 				)
 			);
-			
+
 			setAllCollectionsSortable(
 				response.data.collections.map((collection) => ({
 					id: collection.collection_id,
@@ -116,7 +119,8 @@ const ManageCollections = ({
 				...allCollections,
 				...transformCollectionPopulateProblemSecureModel2CollectionHashedTable(
 					createRequest.course.collections.map(
-						(cc) => cc.collection
+						(cc) =>
+							cc.collection as CollectionPopulateCollectionProblemPopulateProblemModel
 					)
 				),
 			});
@@ -130,12 +134,12 @@ const ManageCollections = ({
 			// 	),
 			// })
 
-			console.log('ccc',
-				createRequest.course.collections.map((cc) => cc.collection)
-			);
+			// console.log('ccc',
+			// 	createRequest.course.collections.map((cc) => cc.collection)
+			// );
 		}
-		console.log(createRequest.course);
-	}, [createRequest, allCollections]);
+		// console.log(createRequest.course);
+	}, [createRequest.course, allCollections]);
 
 	useEffect(() => {
 		if (initial) {
@@ -148,100 +152,145 @@ const ManageCollections = ({
 
 	return (
 		<div>
-			<div className="flex justify-between">
-				<h1 className="text-2xl font-bold">Manage Collections</h1>
-
-				<Button>Add Collections</Button>
+			<div className="flex justify-end">
+				<Tabs value={tabValue} onValueChange={(e) => setTabValue(e)}>
+					<TabsList>
+						<TabsTrigger value="add">Add / Remove</TabsTrigger>
+						<TabsTrigger value="permission">
+							Permissions
+						</TabsTrigger>
+					</TabsList>
+				</Tabs>
 			</div>
 
-			<div className="flex">
-				<div className="w-1/2">
+			{tabValue === "add" && (
+				<div className="flex">
+					<div className="w-1/2">
+						<div className="mt-6 pr-5">
+							<div className="grid gap-y-3">
+								<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
+									<ReactSortable
+										animation={150}
+										group="shared"
+										list={selectedCollectionsSortable}
+										setList={setSelectedCollectionsSortable}
+										className="grid gap-y-2 p-2 rounded-md"
+									>
+										{selectedCollectionsSortable?.map(
+											(item) => (
+												<MyCollectionMiniCard2
+													disabledHighlight
+													onClick={() =>
+														handleRemoveSelectedCollection(
+															item.id as string
+														)
+													}
+													key={item.id}
+													collection={
+														allCollections[
+															item.id as string
+														] as CollectionPopulateCollectionProblemPopulateProblemModel
+													}
+												/>
+											)
+										)}
+									</ReactSortable>
+								</ScrollArea>
+							</div>
+						</div>
+					</div>
+
+					<div className="mx-3">
+						<Separator orientation="vertical" />
+					</div>
+
+					<div className="w-1/2">
+						<Input className="mt-2" />
+						<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
+							<ReactSortable
+								group={{
+									name: "shared",
+									pull: "clone",
+									put: false,
+								}}
+								animation={150}
+								sort={false}
+								list={allCollectionsSortable}
+								setList={setAllCollectionsSortable}
+								filter=".selected"
+								className="grid grid-cols-3 gap-2 p-2 rounded-md"
+							>
+								{allCollectionsSortable?.map((item) => (
+									<div
+										className={
+											selectedCollectionsSortable.includes(
+												item
+											)
+												? "selected"
+												: ""
+										}
+									>
+										<MyCollectionMiniCard2
+											onClick={() =>
+												handleQuickToggleSelectedCollection(
+													item
+												)
+											}
+											disabled={selectedCollectionsSortableIds.includes(
+												item.id as string
+											)}
+											key={item.id}
+											collection={
+												allCollections[
+													item.id as string
+												] as CollectionPopulateCollectionProblemPopulateProblemModel
+											}
+										/>
+									</div>
+								))}
+							</ReactSortable>
+						</ScrollArea>
+					</div>
+				</div>
+			)}
+			{tabValue === "permission" && (
+				<div className="">
 					<div className="mt-6 pr-5">
 						<div className="grid gap-y-3">
 							<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
-								<ReactSortable
-									animation={150}
-									group="shared"
-									list={selectedCollectionsSortable}
-									setList={setSelectedCollectionsSortable}
-									className="grid gap-y-2 p-2 rounded-md"
-								>
+								<div className="grid gap-y-2 p-2 rounded-md">
 									{selectedCollectionsSortable?.map(
 										(item) => (
-											<MyCollectionMiniCard2
-												disabledHighlight
-												onClick={() =>
-													handleRemoveSelectedCollection(
-														item.id as string
-													)
-												}
-												key={item.id}
-												collection={
-													allCollections[
-														item.id as string
-													] as CollectionPopulateCollectionProblemPopulateProblemModel
-												}
-											/>
+											<div className="flex items-center justify-between">
+												<div className="w-1/2">
+													<MyCollectionMiniCard2
+														disabledHighlight
+														key={item.id}
+														collection={
+															allCollections[
+																item.id as string
+															] as CollectionPopulateCollectionProblemPopulateProblemModel
+														}
+													/>
+												</div>
+
+												<div className="flex items-center font-medium text-sm">
+												View Collection
+													<Switch className="ml-2"/>
+												</div>
+												<div className="flex items-center font-medium text-sm">
+												Manage Collection
+													<Switch className="ml-2"/>
+												</div>
+											</div>
 										)
 									)}
-								</ReactSortable>
+								</div>
 							</ScrollArea>
 						</div>
 					</div>
 				</div>
-
-				<div className="mx-3">
-					<Separator orientation="vertical" />
-				</div>
-
-				<div className="w-1/2">
-					<Input className="mt-2" />
-					<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
-						<ReactSortable
-							group={{
-								name: "shared",
-								pull: "clone",
-								put: false,
-							}}
-							animation={150}
-							sort={false}
-							list={allCollectionsSortable}
-							setList={setAllCollectionsSortable}
-							filter=".selected"
-							className="grid grid-cols-3 gap-2 p-2 rounded-md"
-						>
-							{allCollectionsSortable?.map((item) => (
-								<div
-									className={
-										selectedCollectionsSortable.includes(
-											item
-										)
-											? "selected"
-											: ""
-									}
-								>
-									<MyCollectionMiniCard2
-										onClick={() =>
-											handleQuickToggleSelectedCollection(
-												item
-											)
-										}
-										disabled={selectedCollectionsSortableIds.includes(
-											item.id as string
-										)}
-										key={item.id}
-										collection={
-											allCollections[
-												item.id as string
-											] as CollectionPopulateCollectionProblemPopulateProblemModel
-										}
-									/>
-								</div>
-							))}
-						</ReactSortable>
-					</ScrollArea>
-				</div>
-			</div>
+			)}
 		</div>
 	);
 };
