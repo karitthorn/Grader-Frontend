@@ -4,7 +4,7 @@ import { PlateEditorValueType } from "../PlateEditorValueType";
 import { GroupModel } from "../models/Group.model";
 import { CollectionPermissionRequestForm } from "./CreateGroupRequestForm";
 
-export type CollectionnGroupPermissionRequestForm = {
+export type CollectionGroupPermissionRequestForm = {
     group_id: string;
     group: GroupModel;
 } & CollectionPermissionRequestForm
@@ -13,5 +13,5 @@ export type CreateCollectionRequestForm = {
     title: string;
     description: PlateEditorValueType;
     problemsInterface: ItemInterface[];
-    groupPermissions: CollectionnGroupPermissionRequestForm[];
+    groupPermissions: CollectionGroupPermissionRequestForm[];
 }

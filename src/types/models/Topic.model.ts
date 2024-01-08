@@ -1,4 +1,4 @@
-import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "./Collection.model"
+import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel } from "./Collection.model"
 import { TopicGroupPermissionPopulateGroupModel } from "./Group.model"
 
 export type TopicModel = {
@@ -61,5 +61,17 @@ export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulatePr
 
 export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
     collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemModel[]
+    group_permissions: TopicGroupPermissionPopulateGroupModel[]
+}
+
+export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel = {
+    id: string;
+    collection: CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel;
+    order: number;
+    topic: number;
+}
+
+export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
+    collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel[]
     group_permissions: TopicGroupPermissionPopulateGroupModel[]
 }

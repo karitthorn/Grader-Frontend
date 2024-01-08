@@ -1,3 +1,4 @@
+import { CollectionGroupPermissionCreateRequest } from "../apis/Collection.api";
 import { CourseGroupPermissionCreateRequest } from "../apis/Topic.api";
 import { CreateCourseRequestForm } from "../forms/CreateCourseRequestForm";
 
@@ -7,6 +8,10 @@ export function transformCreateCourseRequestForm2CreateTopicRequest(
 	formData: FormData;
 	collectionIds: string[];
 	groups: CourseGroupPermissionCreateRequest[];
+	collectionGroupsPermissions: {
+		collection_id: string;
+		groupPermissions: CollectionGroupPermissionCreateRequest[];
+	}[]
 } {
 	const formData = new FormData();
 	formData.append("name", createRequest.title);
@@ -24,5 +29,16 @@ export function transformCreateCourseRequestForm2CreateTopicRequest(
 		permission_view_topics_log: groupPermission.viewCourseLogs,
 	}));
 
-	return { formData, collectionIds, groups };
+	const collectionGroupsPermissions = createRequest.course?.collections.map((cc) => ({
+		collection_id: cc.collection.collection_id,
+		groupPermissions: cc.collection.group_permissions.map((gp) => ({
+			group_id: gp.group.group_id,
+			permission_manage_collections: gp.permission_manage_collections,
+			permission_view_collections: gp.permission_view_collections,
+		}))
+	})) ?? []
+
+	console.log("collectionGroupsPermissions", collectionGroupsPermissions)
+
+	return { formData, collectionIds, groups, collectionGroupsPermissions };
 }

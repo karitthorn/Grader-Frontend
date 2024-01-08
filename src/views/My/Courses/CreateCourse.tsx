@@ -23,35 +23,65 @@ const formInitialValue: CreateCourseRequestForm = {
 	image: null,
 	isPrivate: false,
 	collectionsInterface: [],
-	groupPermissions: []
+	groupPermissions: [],
+	course: null,
+	// collectionGroupPermissions: [],
 };
 
 const CreateCourse = () => {
-
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const accountId = String(localStorage.getItem("account_id"));
 
 	const handleSave = ({
 		setLoading,
 		createRequest,
-
 	}: OnCourseSavedCallback) => {
-		if ( !setLoading || !createRequest) {
+		if (!setLoading || !createRequest) {
 			return;
 		}
 
-		const {formData,collectionIds} = transformCreateCourseRequestForm2CreateTopicRequest(createRequest)
+		const { formData, collectionIds, groups, collectionGroupsPermissions } =
+			transformCreateCourseRequestForm2CreateTopicRequest(createRequest);
 
-		setLoading(true)
-		TopicService.create(accountId, formData).then((response) => {
-			return TopicService.updateCollections(response.data.topic_id,collectionIds)
-		}).then((response) => {
-			setLoading(false)
-			toast({
-				title: "Create Completed"
+		setLoading(true);
+		TopicService.create(accountId, formData)
+			.then((response) => {
+				return TopicService.updateCollections(
+					response.data.topic_id,
+					collectionIds
+				);
 			})
-			navigate(`/my/courses/${response.data.topic_id}`)
-		})
+			.then((response) => {
+				return TopicService.updateGroupPermissions(
+					response.data.topic_id,
+					accountId,
+					groups
+				);
+			})
+			.then((response) => {
+				let promise = [];
+				for (const collection of collectionGroupsPermissions) {
+					promise.push(
+						CollectionService.updateGroupPermissions(
+							collection.collection_id,
+							accountId,
+							collection.groupPermissions
+						)
+					);
+				}
+
+				return {
+					promise: Promise.all(promise),
+					topic_id: response.data.topic_id,
+				};
+			})
+			.then(({ topic_id }) => {
+				setLoading(false);
+				toast({
+					title: "Create Completed",
+				});
+				navigate(`/my/courses/${topic_id}`);
+			});
 	};
 
 	return (
@@ -62,12 +92,12 @@ const CreateCourse = () => {
 				// }
 				onCourseSave={({
 					createRequest,
-	
+
 					setLoading,
 				}) =>
 					handleSave({
 						createRequest,
-				
+
 						setLoading,
 					})
 				}

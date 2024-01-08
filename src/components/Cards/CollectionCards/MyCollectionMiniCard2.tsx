@@ -32,6 +32,7 @@ import {
 	CollectionModel,
 	CollectionPopulateCollectionProblemPopulateProblemModel,
 	CollectionPopulateProblemSecureModel,
+	CollectionProblemPopulateProblemModel,
 } from "../../../types/models/Collection.model";
 
 const checkRuntimeStatus = (testcases: TestcaseModel[]) => {

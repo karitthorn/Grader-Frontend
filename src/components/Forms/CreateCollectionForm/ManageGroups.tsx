@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-	CollectionnGroupPermissionRequestForm,
+	CollectionGroupPermissionRequestForm,
 	CreateCollectionRequestForm,
 } from "../../../types/forms/CreateCollectionRequestForm";
 import GroupAndPermissionManager, { GroupAndPermissionManagerOnAddGroupsCallback, GroupAndPermissionManagerOnRemoveGroupCallback } from "../GroupAndPermissionManager";
@@ -16,7 +16,7 @@ const ManageGroups = ({
 	>;
 }) => {
 	const [groupPermission, setGroupPermission] =
-		useState<CollectionnGroupPermissionRequestForm>();
+		useState<CollectionGroupPermissionRequestForm>();
 
 	const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 

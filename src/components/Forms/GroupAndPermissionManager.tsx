@@ -253,11 +253,9 @@ const GroupAndPermissionManager = ({
 			<div>
 				<Separator orientation="vertical" className="mx-3" />
 			</div>
-			<div className="w-5/6 h-[75vh]">
-				<PermissionSwitchScrollArea>
+			<ScrollArea className="w-5/6 h-[75vh]">
 					{children}
-				</PermissionSwitchScrollArea>
-			</div>
+			</ScrollArea>
 
 			<Dialog
 				open={openAddGroupsDialog}

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GetAllTopicsByAccountResponse, TopicSerivceAPI } from "../types/apis/Topic.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
-import { TopicModel, TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
+import { TopicModel, TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel } from "../types/models/Topic.model";
 
 export const TopicService: TopicSerivceAPI = {
     create: async (accountId, request) => {
@@ -10,7 +10,7 @@ export const TopicService: TopicSerivceAPI = {
     },
 
     get: async (accountId,topicId) => {
-        const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`);
+        const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`);
         return response;
     },
 
