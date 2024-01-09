@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { GroupService } from "../../../services/Group.service";
 import {
 	CourseGroupPermissionRequestForm,
 	CreateCourseRequestForm,
 } from "../../../types/forms/CreateCourseRequestForm";
+import {
+	CollectionPopulateCollectionProblemPopulateProblemModel
+} from "../../../types/models/Collection.model";
+import { GroupModel } from "../../../types/models/Group.model";
+import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
+import PermissionSwitchScrollArea from "../../Permissions/PermissionSwitchScrollArea";
+import { Switch } from "../../shadcn/Switch";
+import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import GroupAndPermissionManager, {
 	GroupAndPermissionManagerOnAddGroupsCallback,
 	GroupAndPermissionManagerOnRemoveGroupCallback,
 } from "../GroupAndPermissionManager";
 import CoursePermissionSwitchGroup from "../PermissionSwitchGroups/CoursePermissionSwitchGroup";
-import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
-import PermissionSwitchScrollArea from "../../Permissions/PermissionSwitchScrollArea";
-import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
-import {
-	CollectionGroupPermissionPopulateGroupModel,
-	CollectionPopulateCollectionProblemPopulateProblemModel,
-	CollectionProblemPopulateProblemModel,
-} from "../../../types/models/Collection.model";
-import { Switch } from "../../shadcn/Switch";
-import { GroupModel } from "../../../types/models/Group.model";
-import { GroupService } from "../../../services/Group.service";
-import ManageCollections from "./ManageCollections";
-import { CollectionPermissionRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import { CollectionGroupPermissionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 
 const ManageGroups = ({
 	createRequest,
@@ -193,7 +188,7 @@ const ManageGroups = ({
 												View Collection
 												<Switch
 													checked={
-														courseCollection.groupPermissions.find(
+														courseCollection.groupPermissions?.find(
 															(gp) =>
 																gp.group
 																	.group_id ===
@@ -202,7 +197,7 @@ const ManageGroups = ({
 													}
 													onClick={() => {
 														const findGroup =
-															courseCollection.groupPermissions.find(
+															courseCollection.groupPermissions?.find(
 																(gp) =>
 																	gp.group
 																		.group_id ===
@@ -293,7 +288,7 @@ const ManageGroups = ({
 												Manage Collection
 												<Switch
 													checked={
-														courseCollection.groupPermissions.find(
+														courseCollection.groupPermissions?.find(
 															(gp) =>
 																gp.group
 																	.group_id ===
@@ -306,7 +301,7 @@ const ManageGroups = ({
 														);
 
 														const findGroup =
-															courseCollection.groupPermissions.find(
+															courseCollection.groupPermissions?.find(
 																(gp) =>
 																	gp.group
 																		.group_id ===

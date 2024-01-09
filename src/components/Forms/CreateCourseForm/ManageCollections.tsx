@@ -11,8 +11,6 @@ import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniC
 import { Input } from "../../shadcn/Input";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Separator } from "../../shadcn/Seperator";
-import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
-import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
 
 const ManageCollections = ({
 	createRequest,
@@ -91,6 +89,7 @@ const ManageCollections = ({
 					id: collection.collection_id,
 					name: collection.name,
 					collection: collection,
+					groupPermissions: [],
 				}))
 			);
 		});
@@ -129,7 +128,13 @@ const ManageCollections = ({
 			setSelectedCollectionsSortable(createRequest.course?.collections.map((cc) => ({
 				id: cc.collection.collection_id,
 				name: cc.collection.name,
-				collection: cc.collection
+				collection: cc.collection,
+				groupPermissions: cc.collection.group_permissions.map((gc) => ({
+					group_id: gc.group.group_id,
+					group: gc.group,
+					manageCollections: gc.permission_manage_collections,
+					viewCollections: gc.permission_view_collections,
+				})),
 			})) ?? ([] as CollectionItemInterface[]));
 			setInitial(false);
 		}

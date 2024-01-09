@@ -5,6 +5,7 @@ import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseReques
 import { set } from 'react-hook-form';
 
 const CoursePermissionSwitchGroup = ({
+	disabled = false,
 	manageCoursesChecked=false,
 	viewCourseLogsChecked=false,
 	viewCoursesChecked=false,
@@ -12,6 +13,7 @@ const CoursePermissionSwitchGroup = ({
 	onClickViewCourseLogs=()=>{},
 	onClickViewCourses=()=>{},
 }: {
+	disabled?: boolean;
 	manageCoursesChecked?: boolean;
 	viewCourseLogsChecked?: boolean;
 	viewCoursesChecked?: boolean;
@@ -26,6 +28,7 @@ const CoursePermissionSwitchGroup = ({
 				description="Can edit course name and description. Can add or remove collections from course as well."
 				checked={manageCoursesChecked}
 				onClick={() => onClickManageCourses()}
+				disabled={disabled}
 			/>
 			<PermissionSwitch
 				title="View Courses Update Log"
@@ -33,6 +36,7 @@ const CoursePermissionSwitchGroup = ({
 						(submissions, members, etc.)."
 				checked={viewCourseLogsChecked}
 				onClick={() => onClickViewCourseLogs()}
+				disabled={disabled}
 			/>
 			<PermissionSwitch
 				title="View Courses"
@@ -41,6 +45,7 @@ const CoursePermissionSwitchGroup = ({
 						collections and problems must be accessible as well."
 				checked={viewCoursesChecked}
 				onClick={() => onClickViewCourses()}
+				disabled={disabled}
 			/>
 		</>
 	);

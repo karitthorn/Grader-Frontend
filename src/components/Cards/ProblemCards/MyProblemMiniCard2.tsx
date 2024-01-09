@@ -119,12 +119,12 @@ const MyProblemMiniCard2 = ({
 					// className={`pt-6 px-5 ${disabled ? "opacity-50" : }`}`}
 				>
 					<div className="flex items-center justify-between font-medium text-base ">
-						<div className="flex items-center">
+						<div className="flex items-center w-full">
 							<FileSpreadsheet
 								size={20}
 								className="text-blue-400 mr-2"
 							/>
-							<p className="font-mono">{problem.title}</p>
+							<p className="font-mono line-clamp-1 w-4/5">{problem.title}</p>
 						</div>
 						{/* <div className="bg-blue-600 w-4 h-4 text-center text-white rounded-full text-xs">
 							{collection.problems.length}
