@@ -98,6 +98,7 @@ const GroupListItemContextMenu = ({
 };
 
 const GroupAndPermissionManager = ({
+	allGroups=[],
 	createRequest,
 	setCreateRequest,
 	onAddGroups=()=>{},
@@ -106,6 +107,7 @@ const GroupAndPermissionManager = ({
 	setSelectedIndex=()=>{},
 	children,
 }: {
+	allGroups: GroupModel[];
 	createRequest: CreateCourseRequestForm | CreateCollectionRequestForm;
 	setCreateRequest: React.Dispatch<
 		React.SetStateAction<CreateCourseRequestForm>> | React.Dispatch<
@@ -117,10 +119,8 @@ const GroupAndPermissionManager = ({
 	setSelectedIndex?: React.Dispatch<React.SetStateAction<number>>;
 	children: React.ReactNode;
 }) => {
-	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
-	const [allGroups, setAllGroups] = useState<GroupModel[]>([]);
 	const [openAddGroupsDialog, setOpenAddGroupsDialog] =
 		useState<boolean>(false);
 	const [selectedGroupIds, setSelectedGroupIds] = useState<string[]>([]);
@@ -200,11 +200,11 @@ const GroupAndPermissionManager = ({
 	// 	}
 	// }, [groupPermission]);
 
-	useEffect(() => {
-		GroupService.getAllAsCreator(accountId).then((response) => {
-			setAllGroups(response.data.groups);
-		});
-	}, []);
+	// useEffect(() => {
+	// 	GroupService.getAllAsCreator(accountId).then((response) => {
+	// 		setAllGroups(response.data.groups);
+	// 	});
+	// }, []);
 
 	return (
 		<div className="flex">

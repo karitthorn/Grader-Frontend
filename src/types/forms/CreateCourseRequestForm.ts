@@ -19,6 +19,7 @@ export type CourseCollectionsGroupPermissionRequestForm = {
 
 export type CollectionItemInterface = ItemInterface & {
     collection: CollectionPopulateCollectionProblemPopulateProblemModel;
+    groupPermissions: CollectionGroupPermissionRequestForm[];
 }
 
 export type CreateCourseRequestForm = {
@@ -26,7 +27,7 @@ export type CreateCourseRequestForm = {
     description: PlateEditorValueType;
     image?: File | string | null;
     isPrivate?: boolean;
-    collectionsInterface: ItemInterface[];
+    collectionsInterface: CollectionItemInterface[] //ItemInterface[];
     groupPermissions: CourseGroupPermissionRequestForm[];
     course: null | TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel //| TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel | TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel | null;
     // collectionGroupPermissions: CourseCollectionsGroupPermissionRequestForm[];

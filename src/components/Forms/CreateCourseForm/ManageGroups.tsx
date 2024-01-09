@@ -12,10 +12,16 @@ import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import PermissionSwitchScrollArea from "../../Permissions/PermissionSwitchScrollArea";
 import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
 import {
+	CollectionGroupPermissionPopulateGroupModel,
 	CollectionPopulateCollectionProblemPopulateProblemModel,
 	CollectionProblemPopulateProblemModel,
 } from "../../../types/models/Collection.model";
 import { Switch } from "../../shadcn/Switch";
+import { GroupModel } from "../../../types/models/Group.model";
+import { GroupService } from "../../../services/Group.service";
+import ManageCollections from "./ManageCollections";
+import { CollectionPermissionRequestForm } from "../../../types/forms/CreateGroupRequestForm";
+import { CollectionGroupPermissionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 
 const ManageGroups = ({
 	createRequest,
@@ -26,6 +32,8 @@ const ManageGroups = ({
 		React.SetStateAction<CreateCourseRequestForm>
 	>;
 }) => {
+	const accountId = String(localStorage.getItem("account_id"));
+
 	const [groupPermission, setGroupPermission] =
 		useState<CourseGroupPermissionRequestForm>();
 
@@ -55,19 +63,24 @@ const ManageGroups = ({
 	const handleRemoveGroup = ({
 		index,
 	}: GroupAndPermissionManagerOnRemoveGroupCallback) => {
+		// console.log("Remove group",createRequest.groupPermissions.length-1,index,selectedIndex)
+		if (index === selectedIndex) {
+			setselectedIndex(-1);
+			// console.log("Change",selectedIndex)
+		}
 		setCreateRequest({
 			...createRequest,
-			groupPermissions: [
-				...createRequest.groupPermissions.slice(0, index),
-				...createRequest.groupPermissions.slice(index + 1),
-			],
+			groupPermissions: createRequest.groupPermissions.filter((v,i) => i !== index),
 		});
 	};
 
 	useEffect(() => {
-		setGroupPermission(createRequest.groupPermissions[selectedIndex]);
-		if (selectedIndex >= 0) {
-			setCurrentGroupId(createRequest.groupPermissions[selectedIndex].group_id)
+		console.log(createRequest.groupPermissions,selectedIndex)
+		if (selectedIndex >= 0 && selectedIndex < createRequest.groupPermissions.length	) {
+			setGroupPermission(createRequest.groupPermissions[selectedIndex]);
+			setCurrentGroupId(
+				createRequest.groupPermissions[selectedIndex].group_id
+			);
 		}
 	}, [selectedIndex]);
 
@@ -85,6 +98,17 @@ const ManageGroups = ({
 	}, [groupPermission]);
 
 	const [tabValue, setTabValue] = useState("course");
+	const [allGroups, setAllGroups] = useState<GroupModel[]>([]);
+
+	useEffect(() => {
+		GroupService.getAllAsCreator(accountId).then((response) => {
+			setAllGroups(response.data.groups);
+		});
+	}, [accountId]);
+
+	useEffect(() => {
+		console.log(createRequest);
+	}, [createRequest]);
 
 	return (
 		<>
@@ -101,6 +125,7 @@ const ManageGroups = ({
 				</Tabs>
 			</div>
 			<GroupAndPermissionManager
+				allGroups={allGroups}
 				createRequest={createRequest}
 				setCreateRequest={setCreateRequest}
 				onAddGroups={(e) => handleAddGroups(e)}
@@ -152,7 +177,7 @@ const ManageGroups = ({
 						groupPermission &&
 						selectedIndex >= 0 && (
 							<div className="grid gap-y-2 p-2 rounded-md">
-								{createRequest.course?.collections?.map(
+								{createRequest.collectionsInterface?.map(
 									(courseCollection) => (
 										<div className="flex items-center justify-between pr-5">
 											<div className="w-1/2">
@@ -166,88 +191,197 @@ const ManageGroups = ({
 
 											<div className="text-base font-medium flex items-center">
 												View Collection
-												<Switch 
-													checked={courseCollection.collection.group_permissions.find((gp) => gp.group.group_id === currentGroupId)?.permission_view_collections}
+												<Switch
+													checked={
+														courseCollection.groupPermissions.find(
+															(gp) =>
+																gp.group
+																	.group_id ===
+																currentGroupId
+														)?.viewCollections
+													}
 													onClick={() => {
-														const newGroupPermissions = courseCollection.collection.group_permissions.map((gp) => {
-															if(gp.group.group_id === currentGroupId) {
-																return {
-																	...gp,
-																	permission_view_collections: !gp.permission_view_collections
-																}
-															} else {
-																return gp;
-															}
-														})
+														const findGroup =
+															courseCollection.groupPermissions.find(
+																(gp) =>
+																	gp.group
+																		.group_id ===
+																	currentGroupId
+															);
 
-														if (!createRequest.course) {
+														const newGroupPermissions =
+															courseCollection.groupPermissions.map(
+																(gp) => {
+																	if (
+																		gp.group
+																			.group_id ===
+																		currentGroupId
+																	) {
+																		return {
+																			...gp,
+																			viewCollections:
+																				!gp.viewCollections,
+																		};
+																	} else {
+																		return gp;
+																	}
+																}
+															);
+
+														if (
+															!findGroup ||
+															newGroupPermissions.length ===
+																0
+														) {
+															newGroupPermissions.push(
+																{
+																	group_id:
+																		currentGroupId,
+																	group: allGroups.find(
+																		(g) =>
+																			g.group_id ===
+																			currentGroupId
+																	)!,
+																	viewCollections:
+																		true,
+																	manageCollections:
+																		false,
+																}
+															);
+														}
+
+														if (
+															!createRequest.course
+														) {
 															return;
 														}
 
+														console.log(
+															"newGroupPermissions",
+															newGroupPermissions
+														);
+
 														setCreateRequest({
 															...createRequest,
-															course: {
-																...createRequest.course,
-																collections: createRequest.course.collections.map((cc) => {
-																	if(cc.collection.collection_id === courseCollection.collection.collection_id) {
-																		return {
-																			...cc,
-																			collection: {
-																				...cc.collection,
-																				group_permissions: newGroupPermissions
-																			}
+															collectionsInterface:
+																createRequest.collectionsInterface.map(
+																	(cc) => {
+																		if (
+																			cc
+																				.collection
+																				.collection_id ===
+																			courseCollection
+																				.collection
+																				.collection_id
+																		) {
+																			return {
+																				...cc,
+																				groupPermissions:
+																					newGroupPermissions,
+																			};
+																		} else {
+																			return cc;
 																		}
-																	} else {
-																		return cc;
 																	}
-																})
-															}
-														})
+																),
+														});
 													}}
-
-												className="ml-2" />
+													className="ml-2"
+												/>
 											</div>
 											<div className="text-base font-medium flex items-center">
 												Manage Collection
-												<Switch 
-													checked={courseCollection.collection.group_permissions.find((gp) => gp.group.group_id === currentGroupId)?.permission_manage_collections}
+												<Switch
+													checked={
+														courseCollection.groupPermissions.find(
+															(gp) =>
+																gp.group
+																	.group_id ===
+																currentGroupId
+														)?.manageCollections
+													}
 													onClick={() => {
-														const newGroupPermissions = courseCollection.collection.group_permissions.map((gp) => {
-															if(gp.group.group_id === currentGroupId) {
-																return {
-																	...gp,
-																	permission_manage_collections: true //!gp.permission_manage_collections
-																}
-															} else {
-																return gp;
-															}
-														})
+														console.log(
+															courseCollection.collection
+														);
 
-														if (!createRequest.course) {
+														const findGroup =
+															courseCollection.groupPermissions.find(
+																(gp) =>
+																	gp.group
+																		.group_id ===
+																	currentGroupId
+															);
+														const newGroupPermissions =
+															courseCollection.groupPermissions.map(
+																(gp) => {
+																	if (
+																		gp.group
+																			.group_id ===
+																		currentGroupId
+																	) {
+																		return {
+																			...gp,
+																			manageCollections:
+																				!gp.manageCollections,
+																		};
+																	} else if (
+																		!findGroup
+																	) {
+																		return {
+																			group_id:
+																				currentGroupId,
+																			group: allGroups.find(
+																				(
+																					g
+																				) =>
+																					g.group_id ===
+																					currentGroupId
+																			)!,
+																			viewCollections:
+																				false,
+																			manageCollections:
+																				true,
+																		};
+																	} else {
+																		return gp;
+																	}
+																}
+															);
+
+														if (
+															!createRequest.course
+														) {
 															return;
 														}
 
 														setCreateRequest({
 															...createRequest,
-															course: {
-																...createRequest.course,
-																collections: createRequest.course.collections.map((cc) => {
-																	if(cc.collection.collection_id === courseCollection.collection.collection_id) {
-																		return {
-																			...cc,
-																			collection: {
-																				...cc.collection,
-																				group_permissions: newGroupPermissions
-																			}
+															collectionsInterface:
+																createRequest.collectionsInterface.map(
+																	(cc) => {
+																		if (
+																			cc
+																				.collection
+																				.collection_id ===
+																			courseCollection
+																				.collection
+																				.collection_id
+																		) {
+																			return {
+																				...cc,
+																				groupPermissions:
+																					newGroupPermissions,
+																			};
+																		} else {
+																			return cc;
 																		}
-																	} else {
-																		return cc;
 																	}
-																})
-															}
-														})
+																),
+														});
 													}}
-												className="ml-2" />
+													className="ml-2"
+												/>
 											</div>
 										</div>
 									)

@@ -3,8 +3,13 @@ import {
 	CollectionGroupPermissionRequestForm,
 	CreateCollectionRequestForm,
 } from "../../../types/forms/CreateCollectionRequestForm";
-import GroupAndPermissionManager, { GroupAndPermissionManagerOnAddGroupsCallback, GroupAndPermissionManagerOnRemoveGroupCallback } from "../GroupAndPermissionManager";
+import GroupAndPermissionManager, {
+	GroupAndPermissionManagerOnAddGroupsCallback,
+	GroupAndPermissionManagerOnRemoveGroupCallback,
+} from "../GroupAndPermissionManager";
 import CollectionPermissionSwitchGroup from "../PermissionSwitchGroups/CollectionPermissionSwitchGroup";
+import { GroupModel } from "../../../types/models/Group.model";
+import { GroupService } from "../../../services/Group.service";
 
 const ManageGroups = ({
 	createRequest,
@@ -15,6 +20,9 @@ const ManageGroups = ({
 		React.SetStateAction<CreateCollectionRequestForm>
 	>;
 }) => {
+
+	const accountId = String(localStorage.getItem("account_id"));
+
 	const [groupPermission, setGroupPermission] =
 		useState<CollectionGroupPermissionRequestForm>();
 
@@ -39,7 +47,9 @@ const ManageGroups = ({
 		});
 	};
 
-  const handleRemoveGroup = ({index}:GroupAndPermissionManagerOnRemoveGroupCallback) => {
+	const handleRemoveGroup = ({
+		index,
+	}: GroupAndPermissionManagerOnRemoveGroupCallback) => {
 		setCreateRequest({
 			...createRequest,
 			groupPermissions: [
@@ -47,13 +57,13 @@ const ManageGroups = ({
 				...createRequest.groupPermissions.slice(index + 1),
 			],
 		});
-	}
+	};
 
 	useEffect(() => {
 		setGroupPermission(createRequest.groupPermissions[selectedIndex]);
 	}, [selectedIndex]);
 
-  useEffect(() => {
+	useEffect(() => {
 		if (groupPermission) {
 			setCreateRequest({
 				...createRequest,
@@ -66,14 +76,23 @@ const ManageGroups = ({
 		}
 	}, [groupPermission]);
 
+	const [allGroups, setAllGroups] = useState<GroupModel[]>([]);
+
+	useEffect(() => {
+		GroupService.getAllAsCreator(accountId).then((response) => {
+			setAllGroups(response.data.groups);
+		})
+	},[accountId])
+
 	return (
 		<GroupAndPermissionManager
+			allGroups={allGroups}
 			createRequest={createRequest}
 			setCreateRequest={setCreateRequest}
-      onAddGroups={(e) => handleAddGroups(e)}
-      onRemoveGroup={(e) => handleRemoveGroup(e)}
-      selectedIndex={selectedIndex}
-      setSelectedIndex={setSelectedIndex}
+			onAddGroups={(e) => handleAddGroups(e)}
+			onRemoveGroup={(e) => handleRemoveGroup(e)}
+			selectedIndex={selectedIndex}
+			setSelectedIndex={setSelectedIndex}
 		>
 			{groupPermission && selectedIndex >= 0 && (
 				<CollectionPermissionSwitchGroup

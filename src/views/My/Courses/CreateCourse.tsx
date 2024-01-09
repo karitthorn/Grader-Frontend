@@ -25,7 +25,7 @@ const formInitialValue: CreateCourseRequestForm = {
 	collectionsInterface: [],
 	groupPermissions: [],
 	course: null,
-	// collectionGroupPermissions: [],
+	collectionGroupPermissions: [],
 };
 
 const CreateCourse = () => {

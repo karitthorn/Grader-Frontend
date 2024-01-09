@@ -29,12 +29,12 @@ export function transformCreateCourseRequestForm2CreateTopicRequest(
 		permission_view_topics_log: groupPermission.viewCourseLogs,
 	}));
 
-	const collectionGroupsPermissions = createRequest.course?.collections.map((cc) => ({
+	const collectionGroupsPermissions = createRequest.collectionsInterface.map((cc) => ({
 		collection_id: cc.collection.collection_id,
-		groupPermissions: cc.collection.group_permissions.map((gp) => ({
+		groupPermissions: cc.groupPermissions.map((gp) => ({
 			group_id: gp.group.group_id,
-			permission_manage_collections: gp.permission_manage_collections,
-			permission_view_collections: gp.permission_view_collections,
+			permission_manage_collections: gp.manageCollections,
+			permission_view_collections: gp.viewCollections,
 		}))
 	})) ?? []
 
