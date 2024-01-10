@@ -71,16 +71,6 @@ const NavbarCollectionsProblemsAccordion = ({
     } = useContext(CourseNavSidebarContext)
 
 	const handleAccordionTrigger = (index:number) => {
-		console.log({
-			course,
-			setCourse,
-			isOpen,
-			setIsOpen,
-			section,
-			setSection,
-			recentOpenCollection,
-			setRecentOpenCollection
-		})
 		if (recentOpenCollection.length > 0 && recentOpenCollection.includes(String(index))) {
 			setRecentOpenCollection(recentOpenCollection.filter((value) => value !== String(index)))
 		}

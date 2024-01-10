@@ -45,6 +45,14 @@ export type TopicGroupPermissionModel = {
     topic: string
 }
 
+export type ProblemGroupPermissionModel = {
+    problem_group_permission_id: string
+    group: string
+    permission_manage_problems: boolean
+    permission_view_problems: boolean
+    problem: string
+}
+
 export type TopicGroupPermissionPopulateGroupModel = TopicGroupPermissionModel & {
     group: GroupModel
 }

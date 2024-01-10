@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GetAllProblemsByAccountResponse, GetAllProblemsResponse, ProblemServiceAPI, ValidateProgramResponse } from "../types/apis/Problem.api";
+import { GetAllProblemsByAccountResponse, GetAllProblemsResponse, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel, ProblemServiceAPI, ValidateProgramResponse } from "../types/apis/Problem.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
 import {  ProblemModel, ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
 import { ErrorResponse } from "../types/apis/ErrorHandling";
@@ -17,8 +17,8 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.get<GetAllProblemsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/problems`);
     },
 
-    get: async (problemId) => {
-        return axios.get<ProblemPoplulateCreatorModel>(`${BASE_URL}/api/problems/${problemId}`);
+    get: async (accountId,problemId) => {
+        return axios.get<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`);
     },
 
     update: async (problemId,request) => {

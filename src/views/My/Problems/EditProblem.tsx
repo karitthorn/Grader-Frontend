@@ -10,8 +10,12 @@ import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../..
 import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 import { useParams } from "react-router-dom";
 import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.model";
+import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "../../../types/adapters/Problem.adapter";
 
 const EditProblem = () => {
+	
+	const accountId = String(localStorage.getItem("account_id"));
+
 	const { problemId } = useParams();
 	const editProblemId = String(problemId);
 
@@ -25,9 +29,12 @@ const EditProblem = () => {
 		createRequest
 	) => {
 		setLoading(true);
+
+		const { request } = transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+
 		ProblemService.update(
 			String(editProblemId),
-			transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+			request
 		).then((response) => {
 			console.log("Update Completed", response.data);
 			setLoading(false);
@@ -52,21 +59,9 @@ const EditProblem = () => {
 	};
 
 	useEffect(() => {
-		ProblemService.get(editProblemId).then((response) => {
+		ProblemService.get(accountId,editProblemId).then((response) => {
 			setProblem(response.data)
-			setCreateRequest({
-				title: response.data.title,
-				description: JSON.parse(
-					handleDeprecatedDescription(String(response.data.description))
-				),
-				language: response.data.language,
-				solution: response.data.solution,
-				testcases: response.data.testcases
-					.map((testcase) => testcase.input)
-					.join(":::\n"),
-				testcase_delimeter: ":::",
-				time_limit: response.data.time_limit,
-			});
+			setCreateRequest(transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(response.data));
 		});
 	}, []);
 	return (

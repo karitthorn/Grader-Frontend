@@ -1,40 +1,29 @@
-import React from "react";
 import PermissionSwitch from "../../Permissions/PermissionSwitch";
-import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
 
 const ProblemPermissionSwitchGroup = ({
-	createRequest,
-	setCreateRequest,
+	manageProblemsChecked = false,
+	viewProblemsChecked = false,
+	onClickManageProblems = () => {},
+	onClickViewProblems = () => {},
 }: {
-	createRequest: CreateGroupRequestForm;
-	setCreateRequest: React.Dispatch<
-		React.SetStateAction<CreateGroupRequestForm>
-	>;
+	manageProblemsChecked?: boolean;
+	viewProblemsChecked?: boolean;
+	onClickManageProblems?: () => void | undefined;
+	onClickViewProblems?: () => void | undefined;
 }) => {
 	return (
 		<>
 			<PermissionSwitch
 				title="Manage Problems"
 				description="Can edit problem."
-				checked={createRequest.manageProblems}
-				onClick={() =>
-					setCreateRequest({
-						...createRequest,
-						manageProblems: !createRequest.manageProblems,
-					})
-				}
+				checked={manageProblemsChecked}
+				onClick={() => onClickManageProblems()}
 			/>
 			<PermissionSwitch
 				title="View Problems"
 				description="Can view problems."
-				checked={createRequest.viewProblems}
-				onClick={() =>
-					setCreateRequest({
-						...createRequest,
-						viewProblems: !createRequest.viewProblems,
-					})
-				}
+				checked={viewProblemsChecked}
+				onClick={() => onClickViewProblems()}
 			/>
 		</>
 	);

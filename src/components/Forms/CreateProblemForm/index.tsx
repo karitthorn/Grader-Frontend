@@ -16,6 +16,7 @@ import Requirement from "./Requirement";
 import Privacy from "./Privacy";
 import { TestcaseModel } from "../../../types/models/Problem.model";
 import FormSaveButton from "../FormSaveButton";
+import ManageGroups from "./ManageGroups";
 
 const TabList = [
 	{
@@ -33,6 +34,10 @@ const TabList = [
 	{
 		value: "privacy",
 		label: "Privacy",
+	},
+	{
+		value: "groups",
+		label: "Manage Groups & Permissions",
 	},
 ];
 
@@ -159,6 +164,12 @@ const CreateProblemForm = ({
 				)}
 				{currentForm === "privacy" && (
 					<Privacy
+						createRequest={createRequest}
+						setCreateRequest={setCreateRequest}
+					/>
+				)}
+				{currentForm === "groups" && (
+					<ManageGroups
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>

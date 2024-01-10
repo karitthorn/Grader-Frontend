@@ -1,6 +1,8 @@
 import { AxiosResponse } from "axios";
 import { ErrorResponse } from "./ErrorHandling";
-import { ProblemModel, ProblemPoplulateCreatorModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, ProblemPopulateTestcases } from "../models/Problem.model";
+import { ProblemModel, ProblemPoplulateCreatorModel, ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, ProblemPopulateTestcases, TestcaseModel } from "../models/Problem.model";
+import { AccountModel } from "../models/Account.model";
+import { GroupModel, ProblemGroupPermissionModel } from "../models/Group.model";
 
 export type CreateProblemRequest = {
     title: string;
@@ -52,10 +54,26 @@ export type ProblemServiceAPI = {
     create: (accountId:string,request: CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
     getAll: () => Promise<AxiosResponse<GetAllProblemsResponse>>;
     getAllAsCreator: (accountId:string) => Promise<AxiosResponse<GetAllProblemsByAccountResponse>>;
-    get: (problemId:string) => Promise<AxiosResponse<ProblemPoplulateCreatorModel>>;
+    get: (accountId:string,problemId:string) => Promise<AxiosResponse<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>>;
     update: (problemId:string, request: UpdateProblemRequest | CreateProblemRequest) => Promise<AxiosResponse<ProblemModel>>;
     // deleteMultiple: (problemIds:string[]) => Promise<AxiosResponse<null>>;
     delete: (problemId:string) => Promise<AxiosResponse<null>>;
 
     validateProgram: (request: ValidateProgramRequest) => Promise<AxiosResponse<ValidateProgramResponse>>;
+}
+
+export type ProblemGroupPermissionCreateRequest = {
+    group_id: string;
+    permission_manage_problems?: boolean
+    permission_view_problems?: boolean
+}
+
+export type ProblemGroupPermissionPopulateGroupModel = ProblemGroupPermissionModel & {
+    group: GroupModel
+}
+
+export type ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel = ProblemModel & {
+    creator: AccountModel;
+    testcases: TestcaseModel[];
+    group_permissions: ProblemGroupPermissionPopulateGroupModel[]
 }

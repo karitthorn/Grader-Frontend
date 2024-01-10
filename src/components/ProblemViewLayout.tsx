@@ -72,14 +72,14 @@ const ProblemViewLayout = ({
 	};
 
 
-	useEffect(() => {
+	// useEffect(() => {
 
-		console.log('pb',JSON.parse(
-			handleDeprecatedDescription(
-				String(problem?.description)
-			)
-		))
-	},[problem])
+	// 	console.log('pb',JSON.parse(
+	// 		handleDeprecatedDescription(
+	// 			String(problem?.description)
+	// 		)
+	// 	))
+	// },[problem])
 
 	return (
 		<ResizablePanelGroup direction="horizontal" className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">

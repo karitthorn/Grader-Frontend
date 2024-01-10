@@ -49,7 +49,6 @@ const CreateCourseForm = ({
 	onCourseSave: (callback: OnCourseSavedCallback) => void;
 	// onCollectionSave: (callback: OnCollectionSavedCallback) => void;
 }) => {
-
 	const accountId = String(localStorage.getItem("account_id"));
 
 	const navigate = useNavigate();
@@ -92,7 +91,11 @@ const CreateCourseForm = ({
 									<TabsTrigger
 										key={index}
 										value={tab.value}
-										disabled={tab.value === "groups" && createRequest.course?.creator !== accountId}
+										disabled={
+											tab.value === "groups" &&
+											createRequest.course?.creator !==
+												accountId
+										}
 										onClick={() =>
 											setCurrentForm(tab.value)
 										}

@@ -4,9 +4,7 @@ import {
 	CourseGroupPermissionRequestForm,
 	CreateCourseRequestForm,
 } from "../../../types/forms/CreateCourseRequestForm";
-import {
-	CollectionPopulateCollectionProblemPopulateProblemModel
-} from "../../../types/models/Collection.model";
+import { CollectionPopulateCollectionProblemPopulateProblemModel } from "../../../types/models/Collection.model";
 import { GroupModel } from "../../../types/models/Group.model";
 import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
 import PermissionSwitchScrollArea from "../../Permissions/PermissionSwitchScrollArea";
@@ -58,20 +56,22 @@ const ManageGroups = ({
 	const handleRemoveGroup = ({
 		index,
 	}: GroupAndPermissionManagerOnRemoveGroupCallback) => {
-		// console.log("Remove group",createRequest.groupPermissions.length-1,index,selectedIndex)
 		if (index === selectedIndex) {
 			setselectedIndex(-1);
-			// console.log("Change",selectedIndex)
 		}
 		setCreateRequest({
 			...createRequest,
-			groupPermissions: createRequest.groupPermissions.filter((v,i) => i !== index),
+			groupPermissions: createRequest.groupPermissions.filter(
+				(v, i) => i !== index
+			),
 		});
 	};
 
 	useEffect(() => {
-		console.log(createRequest.groupPermissions,selectedIndex)
-		if (selectedIndex >= 0 && selectedIndex < createRequest.groupPermissions.length	) {
+		if (
+			selectedIndex >= 0 &&
+			selectedIndex < createRequest.groupPermissions.length
+		) {
 			setGroupPermission(createRequest.groupPermissions[selectedIndex]);
 			setCurrentGroupId(
 				createRequest.groupPermissions[selectedIndex].group_id
@@ -100,10 +100,6 @@ const ManageGroups = ({
 			setAllGroups(response.data.groups);
 		});
 	}, [accountId]);
-
-	useEffect(() => {
-		console.log(createRequest);
-	}, [createRequest]);
 
 	return (
 		<>
@@ -193,7 +189,7 @@ const ManageGroups = ({
 																gp.group
 																	.group_id ===
 																currentGroupId
-														)?.viewCollections
+														)?.viewCollections || false
 													}
 													onClick={() => {
 														const findGroup =
@@ -251,11 +247,6 @@ const ManageGroups = ({
 															return;
 														}
 
-														console.log(
-															"newGroupPermissions",
-															newGroupPermissions
-														);
-
 														setCreateRequest({
 															...createRequest,
 															collectionsInterface:
@@ -293,13 +284,9 @@ const ManageGroups = ({
 																gp.group
 																	.group_id ===
 																currentGroupId
-														)?.manageCollections
+														)?.manageCollections || false
 													}
 													onClick={() => {
-														console.log(
-															courseCollection.collection
-														);
-
 														const findGroup =
 															courseCollection.groupPermissions?.find(
 																(gp) =>
@@ -307,6 +294,7 @@ const ManageGroups = ({
 																		.group_id ===
 																	currentGroupId
 															);
+
 														const newGroupPermissions =
 															courseCollection.groupPermissions.map(
 																(gp) => {
@@ -320,29 +308,33 @@ const ManageGroups = ({
 																			manageCollections:
 																				!gp.manageCollections,
 																		};
-																	} else if (
-																		!findGroup
-																	) {
-																		return {
-																			group_id:
-																				currentGroupId,
-																			group: allGroups.find(
-																				(
-																					g
-																				) =>
-																					g.group_id ===
-																					currentGroupId
-																			)!,
-																			viewCollections:
-																				false,
-																			manageCollections:
-																				true,
-																		};
 																	} else {
 																		return gp;
 																	}
 																}
 															);
+
+														if (
+															!findGroup ||
+															newGroupPermissions.length ===
+																0
+														) {
+															newGroupPermissions.push(
+																{
+																	group_id:
+																		currentGroupId,
+																	group: allGroups.find(
+																		(g) =>
+																			g.group_id ===
+																			currentGroupId
+																	)!,
+																	viewCollections:
+																		false,
+																	manageCollections:
+																		true,
+																}
+															);
+														}
 
 														if (
 															!createRequest.course

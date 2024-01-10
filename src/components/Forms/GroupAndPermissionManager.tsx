@@ -25,6 +25,7 @@ import {
 import { CreateCollectionRequestForm } from "../../types/forms/CreateCollectionRequestForm";
 import { set } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
+import { CreateProblemRequestForm } from "../../types/forms/CreateProblemRequestForm";
 
 export type GroupAndPermissionManagerOnAddGroupsCallback = {
 	addingGroups: GroupModel[];
@@ -108,11 +109,12 @@ const GroupAndPermissionManager = ({
 	children,
 }: {
 	allGroups: GroupModel[];
-	createRequest: CreateCourseRequestForm | CreateCollectionRequestForm;
-	setCreateRequest: React.Dispatch<
-		React.SetStateAction<CreateCourseRequestForm>> | React.Dispatch<
-		React.SetStateAction<CreateCollectionRequestForm>
-	>;
+	createRequest: CreateCourseRequestForm | CreateCollectionRequestForm | CreateProblemRequestForm;
+	setCreateRequest: 
+		React.Dispatch<React.SetStateAction<CreateCourseRequestForm>> |
+		React.Dispatch<React.SetStateAction<CreateCollectionRequestForm>> |
+		React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
+
 	onAddGroups?: (e: GroupAndPermissionManagerOnAddGroupsCallback) => void;
 	onRemoveGroup?: (e: GroupAndPermissionManagerOnRemoveGroupCallback) => void;
 	selectedIndex?: number;
@@ -125,10 +127,6 @@ const GroupAndPermissionManager = ({
 		useState<boolean>(false);
 	const [selectedGroupIds, setSelectedGroupIds] = useState<string[]>([]);
 
-	// const [groupPermission, setGroupPermission] =
-	// 	useState<CourseGroupPermissionRequestForm>();
-	// const [selectedIndex, setselectedIndex] = useState<number>(-1);
-
 	const handleSelectGroupCheckbox = (groupId: string) => {
 		if (selectedGroupIds.includes(groupId)) {
 			setSelectedGroupIds(selectedGroupIds.filter((g) => g !== groupId));
@@ -138,13 +136,6 @@ const GroupAndPermissionManager = ({
 	};
 
 	const handleRemoveGroupPermission = (index: number) => {
-		// setCreateRequest({
-		// 	...createRequest,
-		// 	groupPermissions: [
-		// 		...createRequest.groupPermissions.slice(0, index),
-		// 		...createRequest.groupPermissions.slice(index + 1),
-		// 	],
-		// });
 		onRemoveGroup({index})
 	}
 
@@ -161,50 +152,10 @@ const GroupAndPermissionManager = ({
 		const addingGroups = allGroups.filter((group) =>
 			selectedGroupIds.includes(group.group_id)
 		);
-		// const newGroupPermissions = addingGroups.map((group) => ({
-		// 	group_id: group.group_id,
-		// 	group,
-		// 	manageCourses: group.permission_manage_topics,
-		// 	viewCourseLogs: group.permission_view_topics_log,
-		// 	viewCourses: group.permission_view_topics,
-		// }));
-
-		// setCreateRequest({
-		// 	...createRequest,
-		// 	groupPermissions: [
-		// 		...createRequest.groupPermissions,
-		// 		...newGroupPermissions,
-		// 	],
-		// });
-
 		onAddGroups({addingGroups})
-
 		setSelectedGroupIds([]);
 		setOpenAddGroupsDialog(false);
 	};
-
-	// useEffect(() => {
-	// 	setGroupPermission(createRequest.groupPermissions[selectedIndex]);
-	// }, [selectedIndex]);
-
-	// useEffect(() => {
-	// 	if (groupPermission) {
-	// 		setCreateRequest({
-	// 			...createRequest,
-	// 			groupPermissions: [
-	// 				...createRequest.groupPermissions.slice(0, selectedIndex),
-	// 				groupPermission,
-	// 				...createRequest.groupPermissions.slice(selectedIndex + 1),
-	// 			],
-	// 		});
-	// 	}
-	// }, [groupPermission]);
-
-	// useEffect(() => {
-	// 	GroupService.getAllAsCreator(accountId).then((response) => {
-	// 		setAllGroups(response.data.groups);
-	// 	});
-	// }, []);
 
 	return (
 		<div className="flex">

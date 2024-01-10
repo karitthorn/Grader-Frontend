@@ -8,7 +8,7 @@ import { ProblemService } from "../../../services/Problem.service";
 import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
 import { toast } from "../../../components/shadcn/UseToast";
 
-const formInitialValue = {
+const formInitialValue: CreateProblemRequestForm = {
 	title: "",
 	description: [
 		{
@@ -22,6 +22,7 @@ const formInitialValue = {
 	testcases: "",
 	testcase_delimeter: ":::",
 	time_limit: 1.5,
+	groupPermissions: [],
 };
 
 const CreateProblem = () => {
@@ -32,9 +33,12 @@ const CreateProblem = () => {
 
 	const handleSave:OnProblemSaveCallback = (setLoading, createRequest) => {
 		setLoading(true);
+
+		const {request} = transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+		
 		ProblemService.create(
 			accountId,
-			transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+			request
 		).then((response) => {
 			setLoading(false);
 			toast({
