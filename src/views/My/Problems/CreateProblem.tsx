@@ -34,12 +34,14 @@ const CreateProblem = () => {
 	const handleSave:OnProblemSaveCallback = (setLoading, createRequest) => {
 		setLoading(true);
 
-		const {request} = transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+		const {request,groups} = transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
 		
 		ProblemService.create(
 			accountId,
 			request
 		).then((response) => {
+			return ProblemService.updateGroupPermissions(response.data.problem_id,accountId,groups)
+		}).then((response) => {
 			setLoading(false);
 			toast({
 				title: "Create Completed",

@@ -11,22 +11,27 @@ import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import DeleteProblemConfirmationDialog from "../../../components/DeleteProblemConfirmationDialog";
 import { FilePlus } from "lucide-react";
+import { Tabs,TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 
 const MyProblems = () => {
 	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
 	const [problems, setProblems] = useState<ProblemPopulateTestcases[]>([]);
+	const [manageableProblems, setManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
+	
 	const {section,setSection} = useContext(NavSidebarContext)
+
+	const [tabValue, setTabValue] = useState("personal")
 
 	useEffect(() => {
 		ProblemService.getAllAsCreator(accountId).then((response) => {
 			setProblems(response.data.problems);
-			console.log(response.data.problems);
+			setManageableProblems(response.data.manageable_problems)
 		});
 
 		setSection("PROBLEMS")
-	}, []);
+	}, [accountId]);
 
 	return (
 		<NavbarSidebarLayout>
@@ -41,6 +46,18 @@ const MyProblems = () => {
 						<Input placeholder="Search ..." />
 					</div>
 					<div>
+						<Tabs value={tabValue} onValueChange={(e) => setTabValue(e)}>
+							<TabsList>
+								<TabsTrigger value="personal">
+									Personal
+								</TabsTrigger>
+								<TabsTrigger value="manageable">
+									Manageable
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
+					</div>
+					<div>
 						<Button onClick={() => navigate("/my/problems/create")}>
 							<FilePlus size={20} className="mr-2" />
 							Create Problem
@@ -49,7 +66,10 @@ const MyProblems = () => {
 				</div>
 
 				<CardContainer>
-					{problems.map((problem, index) => (
+					{tabValue === "personal" && problems.map((problem, index) => (
+						<MyProblemCard problem={problem} key={index} />
+					))}
+					{tabValue === "manageable" && manageableProblems.map((problem, index) => (
 						<MyProblemCard problem={problem} key={index} />
 					))}
 				</CardContainer>

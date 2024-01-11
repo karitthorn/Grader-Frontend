@@ -30,12 +30,14 @@ const EditProblem = () => {
 	) => {
 		setLoading(true);
 
-		const { request } = transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+		const { request,groups } = transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
 
 		ProblemService.update(
 			String(editProblemId),
 			request
 		).then((response) => {
+			return ProblemService.updateGroupPermissions(response.data.problem_id,accountId,groups)
+		}).then((response) => {
 			console.log("Update Completed", response.data);
 			setLoading(false);
 			toast({

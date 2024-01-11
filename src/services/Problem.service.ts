@@ -33,6 +33,10 @@ export const ProblemService: ProblemServiceAPI = {
     //     return axios.delete<null>(`${BASE_URL}/api/problems/`, {problem: problemIds});
     // },
 
+    updateGroupPermissions: async (problemId, accountId,groups) => {
+        return axios.put<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}/groups`, {groups});
+    },
+
     validateProgram: async (request) => {
         return axios.post<ValidateProgramResponse>(`${BASE_URL}/api/problems/validate`, request);
     }
