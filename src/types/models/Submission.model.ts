@@ -70,7 +70,7 @@ export type SubmissionPopulateSubmissionTestcaseSecureModel = {
 
 export type GetSubmissionByAccountProblemSubmissionModel = {
     submission_id: string
-    problem: number
+    problem: string
     language: string
     submission_code: string
     is_passed: boolean

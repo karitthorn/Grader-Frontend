@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CollectionServiceAPI, GetCollectionByAccountResponse } from "../types/apis/Collection.api";
-import { CollectionModel, CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel, CollectionPopulateProblemSecureModel, CollectionProblemModel } from "../types/models/Collection.model";
+import { CollectionModel, CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel, CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel, CollectionPopulateProblemSecureModel, CollectionProblemModel } from "../types/models/Collection.model";
 import { BASE_URL } from "../constants/BackendBaseURL";
 
 export const CollectionService: CollectionServiceAPI = {
@@ -9,7 +9,7 @@ export const CollectionService: CollectionServiceAPI = {
     },
 
     get: (collectionId,accountId) => {
-        return axios.get<CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/collections/${collectionId}`);
+        return axios.get<CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/collections/${collectionId}`);
     },
 
     getAllAsCreator: (accountId) => {

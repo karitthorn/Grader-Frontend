@@ -1,6 +1,5 @@
-import { ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel } from "../apis/Problem.api";
 import { CreateProblemRequestForm } from "../forms/CreateProblemRequestForm";
-import { ProblemHashedTable, ProblemModel, ProblemPopulateTestcases } from "../models/Problem.model";
+import { ProblemHashedTable, ProblemModel, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel, ProblemPopulateTestcases } from "../models/Problem.model";
 
 export function transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(problem: ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel): CreateProblemRequestForm {
     return {

@@ -1,4 +1,5 @@
-import { AccountSecureModel } from "./Account.model"
+import { ProblemGroupPermissionPopulateGroupModel } from "../apis/Problem.api"
+import { AccountModel, AccountSecureModel } from "./Account.model"
 import { SubmissionPopulateSubmissionTestcasesSecureModel } from "./Submission.model"
 
 export type TestcaseModel = {
@@ -55,7 +56,7 @@ export type ProblemPopulateTestcases = ProblemModel & {
 }
 
 export type ProblemHashedTable = {
-    [id:string]: ProblemModel | ProblemPopulateTestcases
+    [id:string]: ProblemModel | ProblemPopulateTestcases | ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel
 }
 
 export type ProblemHealth = {
@@ -63,3 +64,10 @@ export type ProblemHealth = {
     testcase_count: number
     no_runtime_error: boolean
 }
+
+export type ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel =
+	ProblemModel & {
+		creator: AccountModel;
+		testcases: TestcaseModel[];
+		group_permissions: ProblemGroupPermissionPopulateGroupModel[];
+	};

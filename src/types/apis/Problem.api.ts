@@ -4,6 +4,7 @@ import {
 	ProblemModel,
 	ProblemPoplulateCreatorModel,
 	ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel,
+	ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel,
 	ProblemPopulateTestcases,
 	TestcaseModel,
 } from "../models/Problem.model";
@@ -66,13 +67,6 @@ export type ProblemGroupPermissionCreateRequest = {
 export type ProblemGroupPermissionPopulateGroupModel =
 	ProblemGroupPermissionModel & {
 		group: GroupModel;
-	};
-
-export type ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel =
-	ProblemModel & {
-		creator: AccountModel;
-		testcases: TestcaseModel[];
-		group_permissions: ProblemGroupPermissionPopulateGroupModel[];
 	};
 
 export type ProblemServiceAPI = {

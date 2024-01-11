@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import { CollectionService } from "../../../services/Collection.service";
 import { transformCollectionPopulateProblemSecureModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
-import { CollectionItemInterface, CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
+import {
+	CollectionItemInterface,
+	CreateCourseRequestForm,
+} from "../../../types/forms/CreateCourseRequestForm";
 import {
 	CollectionHashedTable,
-	CollectionPopulateCollectionProblemPopulateProblemModel
+	CollectionPopulateCollectionProblemPopulateProblemModel,
 } from "../../../types/models/Collection.model";
 import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
 import { Input } from "../../shadcn/Input";
@@ -50,7 +53,9 @@ const ManageCollections = ({
 		]);
 	};
 
-	const handleQuickToggleSelectedCollection = (item: CollectionItemInterface) => {
+	const handleQuickToggleSelectedCollection = (
+		item: CollectionItemInterface
+	) => {
 		// if (selectedCollectionsSortable.find((item1) => item1.id === item.id)) {
 		// 	console.log("Remove");
 		// 	handleRemoveSelectedCollection(item.id as string);
@@ -106,36 +111,26 @@ const ManageCollections = ({
 					)
 				),
 			});
-
-			// console.log({
-			// 	...allCollections,
-			// 	...transformCollectionPopulateProblemSecureModel2CollectionHashedTable(
-			// 		createRequest.course.collections.map(
-			// 			(cc) => cc.collection
-			// 		) as CollectionModel[]
-			// 	),
-			// })
-
-			// console.log('ccc',
-			// 	createRequest.course.collections.map((cc) => cc.collection)
-			// );
 		}
-		// console.log(createRequest.course);
 	}, [createRequest.course, allCollections]);
 
 	useEffect(() => {
 		if (initial) {
-			setSelectedCollectionsSortable(createRequest.course?.collections.map((cc) => ({
-				id: cc.collection.collection_id,
-				name: cc.collection.name,
-				collection: cc.collection,
-				groupPermissions: cc.collection.group_permissions.map((gc) => ({
-					group_id: gc.group.group_id,
-					group: gc.group,
-					manageCollections: gc.permission_manage_collections,
-					viewCollections: gc.permission_view_collections,
-				})),
-			})) ?? ([] as CollectionItemInterface[]));
+			setSelectedCollectionsSortable(
+				createRequest.course?.collections.map((cc) => ({
+					id: cc.collection.collection_id,
+					name: cc.collection.name,
+					collection: cc.collection,
+					groupPermissions: cc.collection.group_permissions.map(
+						(gc) => ({
+							group_id: gc.group.group_id,
+							group: gc.group,
+							manageCollections: gc.permission_manage_collections,
+							viewCollections: gc.permission_view_collections,
+						})
+					),
+				})) ?? ([] as CollectionItemInterface[])
+			);
 			setInitial(false);
 		}
 
@@ -144,7 +139,6 @@ const ManageCollections = ({
 
 	return (
 		<div>
-			
 			<div className="flex">
 				<div className="w-1/2">
 					<div className="mt-6 pr-5">
@@ -167,12 +161,7 @@ const ManageCollections = ({
 													)
 												}
 												key={item.id}
-												collection={
-													item.collection
-													// allCollections[
-													// 	item.id as string
-													// ] as CollectionPopulateCollectionProblemPopulateProblemModel
-												}
+												collection={item.collection}
 											/>
 										)
 									)}
@@ -222,12 +211,7 @@ const ManageCollections = ({
 											item.id as string
 										)}
 										key={item.id}
-										collection={
-											item.collection
-											// allCollections[
-											// 	item.id as string
-											// ] as CollectionPopulateCollectionProblemPopulateProblemModel
-										}
+										collection={item.collection}
 									/>
 								</div>
 							))}

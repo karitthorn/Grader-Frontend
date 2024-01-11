@@ -1,7 +1,7 @@
 import axios from "axios";
-import { GetAllProblemsByAccountResponse, GetAllProblemsResponse, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel, ProblemServiceAPI, ValidateProgramResponse } from "../types/apis/Problem.api";
+import { GetAllProblemsByAccountResponse, GetAllProblemsResponse, ProblemServiceAPI, ValidateProgramResponse } from "../types/apis/Problem.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
-import {  ProblemModel, ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
+import {  ProblemModel, ProblemPoplulateCreatorModel, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel } from "../types/models/Problem.model";
 import { ErrorResponse } from "../types/apis/ErrorHandling";
 
 export const ProblemService: ProblemServiceAPI = {
