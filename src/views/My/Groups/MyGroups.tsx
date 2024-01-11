@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { Input } from "../../../components/shadcn/Input";
-import { Button } from "../../../components/shadcn/Button";
+import { LibraryBig } from "lucide-react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyCourseCard from "../../../components/Cards/CourseCards/MyCourseCard";
-import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
-import { TopicService } from "../../../services/Topic.service";
-import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";
-import { LibraryBig } from "lucide-react";
 import MyGroupCard from "../../../components/Cards/MyGroupCard";
-import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
+import { Button } from "../../../components/shadcn/Button";
+import { Input } from "../../../components/shadcn/Input";
+import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
+import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { GroupService } from "../../../services/Group.service";
+import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
 
 const MyGroups = () => {
 

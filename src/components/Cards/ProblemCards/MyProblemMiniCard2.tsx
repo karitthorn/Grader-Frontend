@@ -45,6 +45,7 @@ const MyProblemContextMenu = ({
 	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
 }) => {
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+	const navigate = useNavigate();
 
 	return (
 		<ContextMenu>
@@ -56,7 +57,7 @@ const MyProblemContextMenu = ({
 			/>
 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
 			<ContextMenuContent>
-				<ContextMenuItem>
+				<ContextMenuItem onClick={() => navigate(`/my/problems/${problem.problem_id}`)}>
 					<PencilIcon className="mr-2" size={16} />
 					Edit
 				</ContextMenuItem>

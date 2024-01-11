@@ -46,31 +46,33 @@ const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 
 const MyCollectionContextMenu = ({
 	children,
-	problem,
+	collection,
 }: {
 	children: React.ReactNode;
-	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
+	collection: CollectionModel;
 }) => {
+
+	const navigate = useNavigate();
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
 	return (
 		<ContextMenu>
-			<DeleteProblemConfirmationDialog
+			{/* <DeleteProblemConfirmationDialog
 				problem={problem}
 				open={openDeleteDialog}
 				setOpen={setOpenDeleteDialog}
 				afterDelete={() => window.location.reload()}
-			/>
+			/> */}
 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
 			<ContextMenuContent>
-				<ContextMenuItem>
+				<ContextMenuItem onClick={() => navigate(`/my/collections/${collection.collection_id}`)}>
 					<PencilIcon className="mr-2" size={16} />
 					Edit
 				</ContextMenuItem>
-				<ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
+				{/* <ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
 					<Trash className="mr-2" size={16} />
 					Delete
-				</ContextMenuItem>
+				</ContextMenuItem> */}
 			</ContextMenuContent>
 		</ContextMenu>
 	);
@@ -118,7 +120,7 @@ const MyCollectionMiniCard2 = ({
 
 	return (
 		collection && (
-			// <MyCollectionContextMenu problem={problem}>
+			<MyCollectionContextMenu collection={collection}>
 			<Card
 				onClick={() => onClick()}
 				onMouseOver={handleMouseOver}
@@ -137,7 +139,7 @@ const MyCollectionMiniCard2 = ({
 					</div>
 				</div>
 			</Card>
-			// </MyCollectionContextMenu>
+			</MyCollectionContextMenu>
 		)
 	);
 };

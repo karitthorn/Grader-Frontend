@@ -77,7 +77,7 @@ const CreateCourseForm = ({
 					<ArrowLeft
 						size={40}
 						className="text-gray-400 transition-all pr-0 hover:pr-1 cursor-pointer mr-2"
-						onClick={() => navigate("/my/courses")}
+						onClick={() => navigate(-1)}
 					/>
 					{createRequest.title === ""
 						? "Create Course"
