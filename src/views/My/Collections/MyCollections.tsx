@@ -22,10 +22,31 @@ const MyCollections = () => {
 	const [collections, setCollections] = useState<
 		CollectionPopulateCollectionProblemPopulateProblemModel[]
 	>([]);
-	const [manageableCollections, setManageableCollections] = useState<CollectionPopulateCollectionProblemPopulateProblemModel[]>([]);
+	const [manageableCollections, setManageableCollections] = useState<
+		CollectionPopulateCollectionProblemPopulateProblemModel[]
+	>([]);
+	const [filteredCollections, setFilteredCollections] = useState<
+		CollectionPopulateCollectionProblemPopulateProblemModel[]
+	>([]);
+	const [filteredManageableCollections, setFilteredManageableCollections] = useState<
+		CollectionPopulateCollectionProblemPopulateProblemModel[]
+	>([]);
+
 	const { setSection } = useContext(NavSidebarContext);
 
 	const [tabValue, setTabValue] = useState("personal");
+	const [searchValue, setSearchValue] = useState("")
+
+	useEffect(() => {
+		if (!searchValue || searchValue === "") {
+			setFilteredCollections(collections)
+			setFilteredManageableCollections(manageableCollections)
+		}
+		else {
+			setFilteredCollections(collections.filter((collection) => collection.name.toLowerCase().includes(searchValue.toLowerCase())))
+			setFilteredManageableCollections(manageableCollections.filter((collection) => collection.name.toLowerCase().includes(searchValue.toLowerCase())))
+		}
+	},[searchValue,collections,manageableCollections])
 
 	useEffect(() => {
 		setSection("COLLECTIONS");
@@ -44,8 +65,8 @@ const MyCollections = () => {
 							My Collections
 						</h1>
 					</div>
-					<div className="w-9/12 md:w-7/12">
-						<Input placeholder="Search ..." />
+					<div className="w-7/12 md:w-5/12">
+						<Input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search ..." />
 					</div>
 					<div>
 						<Tabs
@@ -74,11 +95,11 @@ const MyCollections = () => {
 
 				<CardContainer>
 					{tabValue === "personal" &&
-						collections.map((collection) => (
+						filteredCollections.map((collection) => (
 							<MyCollectionCard collection={collection} />
 						))}
 					{tabValue === "manageable" &&
-						manageableCollections.map((collection) => (
+						filteredManageableCollections.map((collection) => (
 							<MyCollectionCard collection={collection} />
 						))}
 				</CardContainer>

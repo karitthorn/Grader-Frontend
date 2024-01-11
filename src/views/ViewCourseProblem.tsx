@@ -22,7 +22,7 @@ const ViewCourseProblem = () => {
 		useState<GetSubmissionByAccountProblemResponse>();
 
 	useEffect(() => {
-		ProblemService.get(String(problemId)).then((response) => {
+		ProblemService.get(accountId,String(problemId)).then((response) => {
 			setProblem(response.data);
 		});
 

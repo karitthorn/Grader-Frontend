@@ -19,10 +19,24 @@ const MyProblems = () => {
 
 	const [problems, setProblems] = useState<ProblemPopulateTestcases[]>([]);
 	const [manageableProblems, setManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
+	const [filteredProblems, setFilteredProblems] = useState<ProblemPopulateTestcases[]>([]);
+	const [filteredManageableProblems, setFilteredManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
 	
 	const {section,setSection} = useContext(NavSidebarContext)
 
 	const [tabValue, setTabValue] = useState("personal")
+	const [searchValue, setSearchValue] = useState("")
+
+	useEffect(() => {
+		if (!searchValue || searchValue === "") {
+			setFilteredProblems(problems)
+			setFilteredManageableProblems(manageableProblems)
+		}
+		else {
+			setFilteredProblems(problems.filter((problem) => problem.title.toLowerCase().includes(searchValue.toLowerCase())))
+			setFilteredManageableProblems(manageableProblems.filter((problem) => problem.title.toLowerCase().includes(searchValue.toLowerCase())))
+		}
+	},[searchValue,problems,manageableProblems])
 
 	useEffect(() => {
 		ProblemService.getAllAsCreator(accountId).then((response) => {
@@ -42,8 +56,8 @@ const MyProblems = () => {
 							My Problems
 						</h1>
 					</div>
-					<div className="w-9/12 md:w-7/12">
-						<Input placeholder="Search ..." />
+					<div className="w-7/12 md:w-5/12">
+						<Input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search ..." />
 					</div>
 					<div>
 						<Tabs value={tabValue} onValueChange={(e) => setTabValue(e)}>
@@ -66,10 +80,10 @@ const MyProblems = () => {
 				</div>
 
 				<CardContainer>
-					{tabValue === "personal" && problems.map((problem, index) => (
+					{tabValue === "personal" && filteredProblems.map((problem, index) => (
 						<MyProblemCard problem={problem} key={index} />
 					))}
-					{tabValue === "manageable" && manageableProblems.map((problem, index) => (
+					{tabValue === "manageable" && filteredManageableProblems.map((problem, index) => (
 						<MyProblemCard problem={problem} key={index} />
 					))}
 				</CardContainer>

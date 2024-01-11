@@ -18,7 +18,7 @@ const PublicProblemMiniCard = ({
 	return (
 		<Card className="px-5 cursor-pointer py-2">
 			<div className="flex items-center">
-				<h1 className="font-bold flex items-center w-3/12 font-mono">
+				<h1 className="font-bold flex items-center w-3/12 font-mono text-base">
 					<FileSpreadsheet size={18} className="text-blue-400 mr-2" />
 					{problem?.title}
 				</h1>

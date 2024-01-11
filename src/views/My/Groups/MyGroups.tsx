@@ -20,6 +20,17 @@ const MyGroups = () => {
     const {setSection} = useContext(NavSidebarContext)
 
 	const [groups, setGroups] = useState<GroupPopulateGroupMemberPopulateAccountSecureModel[]>([])
+	const [filteredGroups, setFilteredGroups] = useState<GroupPopulateGroupMemberPopulateAccountSecureModel[]>([])
+	const [searchValue, setSearchValue] = useState("")
+
+	useEffect(() => {
+		if (!searchValue || searchValue === "") {
+			setFilteredGroups(groups)
+		}
+		else {
+			setFilteredGroups(groups.filter((group) => group.name.toLowerCase().includes(searchValue.toLowerCase())))
+		}
+	},[searchValue,groups])
 
     useEffect(( )=> {
         setSection("GROUPS")
@@ -40,7 +51,7 @@ const MyGroups = () => {
 						</h1>
 					</div>
 					<div className="xl:w-9/12 w-7/12">
-						<Input placeholder="Search ..." />
+						<Input placeholder="Search ..." value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
 					</div>
 					<div>
 						<Button
@@ -54,7 +65,7 @@ const MyGroups = () => {
 
 				<CardContainer>
 					{
-						groups.map((group) => (
+						filteredGroups.map((group) => (
 							<MyGroupCard group={group}/>
 						))
 					}

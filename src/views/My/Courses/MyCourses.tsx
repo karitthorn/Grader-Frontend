@@ -19,8 +19,24 @@ const MyCourses = () => {
 
 	const [topics, setTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
 	const [manageableTopics, setManageableTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+	
+	const [filteredTopics, setFilteredTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+	const [filteredManageableTopics, setFilteredManageableTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
 
 	const [tabValue, setTabValue] = useState("personal")
+	const [searchValue, setSearchValue] = useState("")
+
+	useEffect(() => {
+		if (!searchValue || searchValue === "") {
+			setFilteredTopics(topics)
+			setFilteredManageableTopics(manageableTopics)
+		}
+		else {
+			setFilteredTopics(topics.filter((topic) => topic.name.toLowerCase().includes(searchValue.toLowerCase())))
+			setFilteredManageableTopics(manageableTopics.filter((topic) => topic.name.toLowerCase().includes(searchValue.toLowerCase())))
+		}
+	},[searchValue,topics,manageableTopics])
+	
 
     useEffect(( )=> {
         setSection("COURSES")
@@ -40,7 +56,7 @@ const MyCourses = () => {
 						</h1>
 					</div>
 					<div className="xl:w-7/12 w-5/12">
-						<Input placeholder="Search ..." />
+						<Input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search ..." />
 					</div>
 					<div>
 						<Tabs value={tabValue} onValueChange={(e) => setTabValue(e)}>
@@ -66,12 +82,12 @@ const MyCourses = () => {
 
 				<CardContainer>
 					{
-						tabValue === "personal" && topics.map(topic => (
+						tabValue === "personal" && filteredTopics.map(topic => (
 							<MyCourseCard course={topic}/>
 						))
 					}
 					{
-						tabValue === "manageable" && manageableTopics.map(topic => (
+						tabValue === "manageable" && filteredManageableTopics.map(topic => (
 							<MyCourseCard course={topic}/>
 						))
 					}

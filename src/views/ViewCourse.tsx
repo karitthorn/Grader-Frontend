@@ -36,7 +36,7 @@ const ViewCourse = () => {
 
 	// const [course,setCourse]
 
-	const {course,setCourse} = useContext(CourseNavSidebarContext);
+	const { course, setCourse } = useContext(CourseNavSidebarContext);
 
 	// useEffect(() => {
 	// 	TopicService.getPublicByAccount(accountId, String(courseId)).then(
@@ -65,13 +65,15 @@ const ViewCourse = () => {
 						collections={course?.collections as TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]}
 					/> */}
 
-				<div className="grid gap-y-2 ">
-					{course?.collections.map((tc) => (
-						<TopicCollectionAccordionCard
-							collection={tc.collection}
-						/>
-					))}
-				</div>
+				<ScrollArea className="h-[70vh]">
+					<div className="grid gap-y-2">
+						{course?.collections.map((tc) => (
+							<TopicCollectionAccordionCard
+								collection={tc.collection}
+							/>
+						))}
+					</div>
+				</ScrollArea>
 				{/* </ScrollArea> */}
 
 				{/* </CardContainer> */}
