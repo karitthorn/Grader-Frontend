@@ -48,7 +48,6 @@ const EditCourse = () => {
 				);
 			})
 			.then(() => {
-
 				let promise = [];
 				for (const collection of collectionGroupsPermissions) {
 					promise.push(
@@ -60,7 +59,7 @@ const EditCourse = () => {
 					);
 				}
 
-				return  Promise.all(promise)
+				return Promise.all(promise);
 			})
 			.then(() => {
 				setLoading(false);
