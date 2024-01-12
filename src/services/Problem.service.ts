@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GetAllProblemsByAccountResponse, GetAllProblemsResponse, ProblemServiceAPI, ValidateProgramResponse } from "../types/apis/Problem.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
-import {  ProblemModel, ProblemPoplulateCreatorModel, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel } from "../types/models/Problem.model";
+import {  ProblemModel, ProblemPoplulateCreatorModel, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel, ProblemPopulateCreatorSecureModel, ProblemSecureModel } from "../types/models/Problem.model";
 import { ErrorResponse } from "../types/apis/ErrorHandling";
 
 export const ProblemService: ProblemServiceAPI = {
@@ -39,5 +39,9 @@ export const ProblemService: ProblemServiceAPI = {
 
     validateProgram: async (request) => {
         return axios.post<ValidateProgramResponse>(`${BASE_URL}/api/problems/validate`, request);
-    }
+    },
+
+    getPublic: async (problemId) => {
+        return axios.get<ProblemPopulateCreatorSecureModel>(`${BASE_URL}/api/problems/${problemId}`);
+    },
 }

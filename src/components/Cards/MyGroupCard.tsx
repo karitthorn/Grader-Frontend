@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { User, Users } from "lucide-react";
 import { readableDateFormat } from "../../utilities/ReadableDateFormat";
 import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../types/models/Group.model";
+import { onMiddleClickOpenInNewTab } from "../../utilities/onMiddleClickOpenInNewTab";
 
 const MyGroupCard = ({
     group
@@ -19,6 +20,7 @@ const MyGroupCard = ({
 
 	return (
 		<Card
+			onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/groups/${group?.group_id}`)}
 			onMouseOver={() => setMouseOver(true)}
 			onMouseOut={() => setMouseOver(false)}
 			className={`pt-6 px-5 cursor-pointer ${

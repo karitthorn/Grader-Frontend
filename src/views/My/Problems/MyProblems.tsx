@@ -9,7 +9,7 @@ import { ProblemService } from "../../../services/Problem.service";
 import { ProblemModel, ProblemPopulateTestcases } from "../../../types/models/Problem.model";
 import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
-import DeleteProblemConfirmationDialog from "../../../components/DeleteProblemConfirmationDialog";
+import DeleteProblemConfirmationDialog from "../../../components/Dialogs/DeleteProblemConfirmationDialog";
 import { FilePlus } from "lucide-react";
 import { Tabs,TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 

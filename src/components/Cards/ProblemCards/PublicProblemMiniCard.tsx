@@ -6,6 +6,7 @@ import TestcasesGradingIndicator from "../../TestcasesGradingIndicator";
 import { Button } from "../../shadcn/Button";
 import TestcasesGradingMiniIndicator from "../../TestcasesGradingMiniIndicator";
 import { useNavigate } from "react-router-dom";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 
 const PublicProblemMiniCard = ({
 	problem,
@@ -47,6 +48,7 @@ const PublicProblemMiniCard = ({
 
 				<div>
 					<Button
+						onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/problems/${problem.problem_id}`)}
 						onClick={() =>
 							navigate(`./problems/${problem.problem_id}`)
 						}

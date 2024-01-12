@@ -1,31 +1,26 @@
-import React, { useState } from "react";
-import { Card, CardContent, CardTitle } from "../../shadcn/Card";
-import { Button } from "../../shadcn/Button";
 import {
-	Check,
-	CheckCircle2,
 	FileSpreadsheet,
-	Pencil,
 	PencilIcon,
-	Trash,
-	X,
+	Trash
 } from "lucide-react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-	ProblemModel,
 	ProblemPopulateTestcases,
-	ProblemSecureModel,
-	TestcaseModel,
+	TestcaseModel
 } from "../../../types/models/Problem.model";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
+import Checkmark from "../../Checkmark";
+import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
+import { Card, CardContent } from "../../shadcn/Card";
 import {
 	ContextMenu,
-	ContextMenuTrigger,
 	ContextMenuContent,
 	ContextMenuItem,
+	ContextMenuTrigger,
 } from "../../shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "../../DeleteProblemConfirmationDialog";
-import Checkmark from "../../Checkmark";
+import MyProblemContextMenu from "../../ContextMenus/MyProblemContextMenu";
 
 const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	for (const testcase of testcases) {
@@ -36,35 +31,35 @@ const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	return true;
 };
 
-const MyProblemContextMenu = ({ children,problem }: { 
-	children: React.ReactNode 
-	problem: ProblemPopulateTestcases
-}) => {
+// const MyProblemContextMenu = ({ children,problem }: { 
+// 	children: React.ReactNode 
+// 	problem: ProblemPopulateTestcases
+// }) => {
 
-	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+// 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-	return (
-		<ContextMenu>
-			<DeleteProblemConfirmationDialog
-				problem={problem}
-				open={openDeleteDialog}
-				setOpen={setOpenDeleteDialog}
-				afterDelete={() => window.location.reload()}
-			/>
-			<ContextMenuTrigger>{children}</ContextMenuTrigger>
-			<ContextMenuContent>
-				<ContextMenuItem>
-					<PencilIcon className="mr-2" size={16} />
-					Edit
-				</ContextMenuItem>
-				<ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
-					<Trash className="mr-2" size={16} />
-					Delete
-				</ContextMenuItem>
-			</ContextMenuContent>
-		</ContextMenu>
-	);
-};
+// 	return (
+// 		<ContextMenu>
+// 			<DeleteProblemConfirmationDialog
+// 				problem={problem}
+// 				open={openDeleteDialog}
+// 				setOpen={setOpenDeleteDialog}
+// 				afterDelete={() => window.location.reload()}
+// 			/>
+// 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
+// 			<ContextMenuContent>
+// 				<ContextMenuItem>
+// 					<PencilIcon className="mr-2" size={16} />
+// 					Edit
+// 				</ContextMenuItem>
+// 				<ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
+// 					<Trash className="mr-2" size={16} />
+// 					Delete
+// 				</ContextMenuItem>
+// 			</ContextMenuContent>
+// 		</ContextMenu>
+// 	);
+// };
 
 const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 	const navigate = useNavigate();
@@ -86,6 +81,7 @@ const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 		<MyProblemContextMenu problem={problem}>
 			
 			<Card
+				onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/problems/${problem.problem_id}`)}
 				onClick={() => navigate(`/my/problems/${problem.problem_id}`)}
 				onMouseOver={handleMouseOver}
 				onMouseOut={handleMouseOut}

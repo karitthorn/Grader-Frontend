@@ -15,7 +15,8 @@ export function transformProblemPopulateAccountAndTestcasesAndProblemGroupPermis
             group: permission.group,
             manageProblems: permission.permission_manage_problems,
             viewProblems: permission.permission_view_problems
-        }))
+        })),
+        allowedLanguage: problem.allowed_languages.split(",")
     }
 }
 

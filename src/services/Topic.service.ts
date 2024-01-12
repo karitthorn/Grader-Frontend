@@ -24,6 +24,11 @@ export const TopicService: TopicSerivceAPI = {
         return response;
     },
 
+    delete: async (topicId,accountId) => {
+        const response = await axios.delete<null>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`);
+        return response;
+    },
+
     getAllAsCreator: async (accountId) => {
         const response = await axios.get<GetAllTopicsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/topics`);
         return response;

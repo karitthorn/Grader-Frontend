@@ -20,6 +20,10 @@ export const CollectionService: CollectionServiceAPI = {
         return axios.put<CollectionModel>(`${BASE_URL}/api/collections/${collectionId}`,request);
     },
 
+    delete: (collectionId,accountId) => {
+        return axios.delete<null>(`${BASE_URL}/api/accounts/${accountId}/collections/${collectionId}`);
+    },
+
     addProblem: (collectionId,problemIds) => {
         return axios.put<CollectionModel>(`${BASE_URL}/api/collections/${collectionId}/problems/add`,{problemIds});
     },

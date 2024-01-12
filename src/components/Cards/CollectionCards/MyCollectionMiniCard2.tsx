@@ -25,7 +25,7 @@ import {
 	ContextMenuContent,
 	ContextMenuItem,
 } from "../../shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "../../DeleteProblemConfirmationDialog";
+import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
 import Checkmark from "../../Checkmark";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
 import {
@@ -34,6 +34,8 @@ import {
 	CollectionPopulateProblemSecureModel,
 	CollectionProblemPopulateProblemModel,
 } from "../../../types/models/Collection.model";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
+import MyCollectionContextMenu from "../../ContextMenus/MyCollectionContextMenu";
 
 const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	for (const testcase of testcases) {
@@ -44,39 +46,39 @@ const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	return true;
 };
 
-const MyCollectionContextMenu = ({
-	children,
-	collection,
-}: {
-	children: React.ReactNode;
-	collection: CollectionModel;
-}) => {
+// const MyCollectionContextMenu = ({
+// 	children,
+// 	collection,
+// }: {
+// 	children: React.ReactNode;
+// 	collection: CollectionModel;
+// }) => {
 
-	const navigate = useNavigate();
-	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+// 	const navigate = useNavigate();
+// 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-	return (
-		<ContextMenu>
-			{/* <DeleteProblemConfirmationDialog
-				problem={problem}
-				open={openDeleteDialog}
-				setOpen={setOpenDeleteDialog}
-				afterDelete={() => window.location.reload()}
-			/> */}
-			<ContextMenuTrigger>{children}</ContextMenuTrigger>
-			<ContextMenuContent>
-				<ContextMenuItem onClick={() => navigate(`/my/collections/${collection.collection_id}`)}>
-					<PencilIcon className="mr-2" size={16} />
-					Edit
-				</ContextMenuItem>
-				{/* <ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
-					<Trash className="mr-2" size={16} />
-					Delete
-				</ContextMenuItem> */}
-			</ContextMenuContent>
-		</ContextMenu>
-	);
-};
+// 	return (
+// 		<ContextMenu>
+// 			{/* <DeleteProblemConfirmationDialog
+// 				problem={problem}
+// 				open={openDeleteDialog}
+// 				setOpen={setOpenDeleteDialog}
+// 				afterDelete={() => window.location.reload()}
+// 			/> */}
+// 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
+// 			<ContextMenuContent>
+// 				<ContextMenuItem onClick={() => navigate(`/my/collections/${collection.collection_id}`)}>
+// 					<PencilIcon className="mr-2" size={16} />
+// 					Edit
+// 				</ContextMenuItem>
+// 				{/* <ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
+// 					<Trash className="mr-2" size={16} />
+// 					Delete
+// 				</ContextMenuItem> */}
+// 			</ContextMenuContent>
+// 		</ContextMenu>
+// 	);
+// };
 
 const MyCollectionMiniCard2 = ({
 	// problem,
@@ -122,6 +124,7 @@ const MyCollectionMiniCard2 = ({
 		collection && (
 			<MyCollectionContextMenu collection={collection}>
 			<Card
+				onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/collections/${collection.collection_id}`)}
 				onClick={() => onClick()}
 				onMouseOver={handleMouseOver}
 				onMouseOut={handleMouseOut}

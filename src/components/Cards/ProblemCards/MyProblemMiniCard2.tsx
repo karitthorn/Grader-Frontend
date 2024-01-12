@@ -24,9 +24,11 @@ import {
 	ContextMenuContent,
 	ContextMenuItem,
 } from "../../shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "../../DeleteProblemConfirmationDialog";
+import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
 import Checkmark from "../../Checkmark";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
+import MyProblemContextMenu from "../../ContextMenus/MyProblemContextMenu";
 
 const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	for (const testcase of testcases) {
@@ -37,38 +39,38 @@ const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	return true;
 };
 
-const MyProblemContextMenu = ({
-	children,
-	problem,
-}: {
-	children: React.ReactNode;
-	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
-}) => {
-	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-	const navigate = useNavigate();
+// const MyProblemContextMenu = ({
+// 	children,
+// 	problem,
+// }: {
+// 	children: React.ReactNode;
+// 	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
+// }) => {
+// 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+// 	const navigate = useNavigate();
 
-	return (
-		<ContextMenu>
-			<DeleteProblemConfirmationDialog
-				problem={problem}
-				open={openDeleteDialog}
-				setOpen={setOpenDeleteDialog}
-				afterDelete={() => window.location.reload()}
-			/>
-			<ContextMenuTrigger>{children}</ContextMenuTrigger>
-			<ContextMenuContent>
-				<ContextMenuItem onClick={() => navigate(`/my/problems/${problem.problem_id}`)}>
-					<PencilIcon className="mr-2" size={16} />
-					Edit
-				</ContextMenuItem>
-				<ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
-					<Trash className="mr-2" size={16} />
-					Delete
-				</ContextMenuItem>
-			</ContextMenuContent>
-		</ContextMenu>
-	);
-};
+// 	return (
+// 		<ContextMenu>
+// 			<DeleteProblemConfirmationDialog
+// 				problem={problem}
+// 				open={openDeleteDialog}
+// 				setOpen={setOpenDeleteDialog}
+// 				afterDelete={() => window.location.reload()}
+// 			/>
+// 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
+// 			<ContextMenuContent>
+// 				<ContextMenuItem onClick={() => navigate(`/my/problems/${problem.problem_id}`)}>
+// 					<PencilIcon className="mr-2" size={16} />
+// 					Edit
+// 				</ContextMenuItem>
+// 				<ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
+// 					<Trash className="mr-2" size={16} />
+// 					Delete
+// 				</ContextMenuItem>
+// 			</ContextMenuContent>
+// 		</ContextMenu>
+// 	);
+// };
 
 const MyProblemMiniCard2 = ({
 	problem,
@@ -112,6 +114,7 @@ const MyProblemMiniCard2 = ({
 		problem && (
 			<MyProblemContextMenu problem={problem}>
 				<Card
+					onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/problems/${problem.problem_id}`)}
 					onClick={() => onClick()}
 					onMouseOver={handleMouseOver}
 					onMouseOut={handleMouseOut}

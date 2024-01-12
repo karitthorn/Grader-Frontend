@@ -23,6 +23,7 @@ const formInitialValue: CreateProblemRequestForm = {
 	testcase_delimeter: ":::",
 	time_limit: 1.5,
 	groupPermissions: [],
+	allowedLanguage: [],
 };
 
 const CreateProblem = () => {

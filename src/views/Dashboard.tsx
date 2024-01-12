@@ -7,6 +7,13 @@ import SubmissionCard from "../components/Cards/SubmissionCard";
 import { TopicModel } from "../types/models/Topic.model";
 import { TopicService } from "../services/Topic.service";
 import PublicCourseCard from "../components/Cards/CourseCards/PublicCourseCard";
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from "../components/shadcn/Carousel";
 
 const Dashboard = () => {
 	const accountId = String(localStorage.getItem("account_id"));
@@ -25,7 +32,7 @@ const Dashboard = () => {
 			account_id: accountId,
 			sort_date: 1,
 			start: 0,
-			end: 4,
+			end: 10,
 		}).then((response) => {
 			setPreviousAttemptedProblems(response.data.submissions);
 			// console.log(response.data.submissions);
@@ -45,24 +52,44 @@ const Dashboard = () => {
 					<span className="text-green-600">{username}</span>
 				</p>
 
-				<p className="text-3xl font-bold">Previous Attempted</p>
+				<p className="text-3xl font-bold mt-8 mb-3">
+					Previous Attempted
+				</p>
 
-				<div className="grid grid-cols-4 gap-4">
+				<Carousel>
+					<CarouselContent>
+						{previousAttemptedProblems.map((submission, index) => (
+							<CarouselItem className="basis-1/4">
+								<SubmissionCard
+									key={index}
+									submission={submission}
+								/>
+							</CarouselItem>
+						))}
+					</CarouselContent>
+					<CarouselNext />
+					<CarouselPrevious />
+				</Carousel>
+
+				{/* <div className="grid grid-cols-4 gap-4">
 					{previousAttemptedProblems.map((submission, index) => (
 						<SubmissionCard key={index} submission={submission} />
 					))}
-				</div>
+				</div> */}
 
-				<p className="text-3xl font-bold">Courses</p>
-				<div className="grid grid-cols-4 gap-4">
-					
-					{
-						accessibleCourses.map((course) => (
-							<PublicCourseCard course={course}/>
-						))
-					}
-					
-				</div>
+				<p className="text-3xl font-bold mt-8 mb-3">Courses</p>
+				<Carousel>
+					<CarouselContent>
+						{accessibleCourses.map((course,index) => (
+						<CarouselItem className="basis-1/4">
+							<PublicCourseCard key={index} course={course} />
+						</CarouselItem>
+					))}
+					</CarouselContent>
+					<CarouselNext />
+					<CarouselPrevious />
+				</Carousel>
+				
 			</div>
 		</NavbarMenuLayout>
 	);

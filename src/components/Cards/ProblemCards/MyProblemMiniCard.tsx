@@ -24,7 +24,7 @@ import {
 	ContextMenuContent,
 	ContextMenuItem,
 } from "../../shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "../../DeleteProblemConfirmationDialog";
+import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
 import Checkmark from "../../Checkmark";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
 

@@ -8,7 +8,7 @@ import ProblemViewLayout, {
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { ProblemService } from "../services/Problem.service";
 import { SubmissionService } from "../services/Submission.service";
-import { ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
+import { ProblemPoplulateCreatorModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
 import {
 	GetSubmissionByAccountProblemResponse,
 	SubmissionPopulateSubmissionTestcasesSecureModel
@@ -34,7 +34,7 @@ const ViewProblem = () => {
 	const accountId = String(localStorage.getItem("account_id"));
 
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
-	const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
+	const [problem, setProblem] = useState<ProblemPopulateCreatorSecureModel>();
 
 	const [grading, setGrading] = useState<boolean>(false);
 	const [submitCodeValue, setSubmitCodeValue] = useState<any>("");
@@ -67,7 +67,7 @@ const ViewProblem = () => {
 	};
 
 	useEffect(() => {
-		ProblemService.get(accountId,String(problemId)).then((response) => {
+		ProblemService.getPublic(String(problemId)).then((response) => {
 			setProblem(response.data);
 		});
 
@@ -107,7 +107,7 @@ const ViewProblem = () => {
 			<div className="ml-10">
 				<ProblemViewLayout
 					onSubmit={(e) => handleSubmit(e)}
-					problem={problem as ProblemPoplulateCreatorModel}
+					problem={problem as ProblemPopulateCreatorSecureModel}
 					previousSubmissions={
 						previousSubmissions as GetSubmissionByAccountProblemResponse
 					}

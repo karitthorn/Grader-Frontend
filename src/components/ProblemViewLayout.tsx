@@ -2,7 +2,7 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
-import { ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
+import { ProblemPoplulateCreatorModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
 import ReadOnlyPlate from "./ReadOnlyPlate";
 import { handleDeprecatedDescription } from "../utilities/HandleDeprecatedDescription";
 import { Separator } from "./shadcn/Seperator";
@@ -29,7 +29,7 @@ const ProblemViewLayout = ({
     previousSubmissions
 }:{
     onSubmit: (callback: OnSubmitProblemViewLayoutCallback) => void
-    problem: ProblemPoplulateCreatorModel
+    problem: ProblemPoplulateCreatorModel | ProblemPopulateCreatorSecureModel
     previousSubmissions: GetSubmissionByAccountProblemResponse
 }) => {
 
@@ -131,7 +131,7 @@ const ProblemViewLayout = ({
 					<div className="flex gap-2">
 						<Combobox
 							label="Select Language"
-							options={ProgrammingLanguageOptions}
+							options={ProgrammingLanguageOptions.filter(lang => problem?.allowed_languages.includes(lang.value))}
 							onSelect={(value) => setSelectedLanguage(value)}
 							initialValue={selectedLanguage}
 							value={selectedLanguage}
@@ -179,7 +179,7 @@ const ProblemViewLayout = ({
 						}
 					/>
 					<Button
-						disabled={grading || !submitCodeValue}
+						disabled={grading || !submitCodeValue || ProgrammingLanguageOptions.filter(lang => problem?.allowed_languages.includes(lang.value)).length === 0}
 						onClick={handleSubmit}
 						className="px-10"
 					>

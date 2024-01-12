@@ -19,6 +19,7 @@ export const transformCreateProblemRequestForm2CreateProblemRequest = (
 			createRequest.testcase_delimeter
 		),
 		time_limit: createRequest.time_limit,
+		allowed_languages: createRequest.allowedLanguage.filter((language) => language !== "").join(","),
 	}
 
 	const groups = createRequest.groupPermissions.map((groupPermission) => ({

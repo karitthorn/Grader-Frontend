@@ -24,15 +24,23 @@ export type ProblemModel = {
     testcases: TestcaseModel[]
     created_date: string;
     updated_date: string;
+    allowed_languages: string
 }
 
 export type ProblemSecureModel = {
     problem_id: string
+    language: string
     title: string
     description: string
+    time_limit: string
+    created_date: string
+    updated_date: string
+    allowed_languages: string
+    creator: string
+}
+
+export type ProblemPopulateCreatorSecureModel = ProblemSecureModel & {
     creator: AccountSecureModel
-    created_date: string;
-    updated_date: string;
 }
 
 export type ProblemPoplulateCreatorModel = ProblemModel & {

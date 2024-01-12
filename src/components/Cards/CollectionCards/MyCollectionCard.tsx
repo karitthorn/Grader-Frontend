@@ -5,6 +5,8 @@ import { CollectionPopulateCollectionProblemPopulateProblemModel, CollectionProb
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import Checkmark from "../../Checkmark";
 import { Card, CardContent } from "../../shadcn/Card";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
+import MyCollectionContextMenu from "../../ContextMenus/MyCollectionContextMenu";
 
 const MyCollectionCard = ({
 	collection
@@ -27,7 +29,9 @@ const MyCollectionCard = ({
 	};
 
 	return (
-		<Card
+		<MyCollectionContextMenu collection={collection}>
+			<Card
+			onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/collections/${collection.collection_id}`)}
 			onClick={() => navigate(`/my/collections/${collection.collection_id}`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
@@ -86,6 +90,7 @@ const MyCollectionCard = ({
 				</div>
 			</CardContent>
 		</Card>
+		</MyCollectionContextMenu>
 	);
 };
 

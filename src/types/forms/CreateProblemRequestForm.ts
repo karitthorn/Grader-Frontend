@@ -18,4 +18,5 @@ export type CreateProblemRequestForm = {
 	time_limit: number;
 	validated_testcases?: TestcaseModel[];
 	groupPermissions: ProblemGroupPermissionRequestForm[];
+	allowedLanguage: string[];
 };

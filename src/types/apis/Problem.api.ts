@@ -5,7 +5,9 @@ import {
 	ProblemPoplulateCreatorModel,
 	ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel,
 	ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel,
+	ProblemPopulateCreatorSecureModel,
 	ProblemPopulateTestcases,
+	ProblemSecureModel,
 	TestcaseModel,
 } from "../models/Problem.model";
 import { AccountModel } from "../models/Account.model";
@@ -18,6 +20,7 @@ export type CreateProblemRequest = {
 	solution: string;
 	testcases: string[];
 	time_limit: number;
+	allowed_languages: string;
 };
 
 export type UpdateProblemRequest = {
@@ -100,4 +103,5 @@ export type ProblemServiceAPI = {
 	validateProgram: (
 		request: ValidateProgramRequest
 	) => Promise<AxiosResponse<ValidateProgramResponse>>;
+	getPublic: (problemId: string) => Promise<AxiosResponse<ProblemPopulateCreatorSecureModel>>;
 };
