@@ -84,6 +84,7 @@ export type ProblemServiceAPI = {
 	>;
 	update: (
 		problemId: string,
+		accountId: string,
 		request: UpdateProblemRequest | CreateProblemRequest
 	) => Promise<AxiosResponse<ProblemModel>>;
 	// deleteMultiple: (problemIds:string[]) => Promise<AxiosResponse<null>>;

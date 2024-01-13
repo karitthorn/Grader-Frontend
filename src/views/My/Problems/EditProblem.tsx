@@ -32,6 +32,7 @@ const EditProblem = () => {
 
 		ProblemService.update(
 			String(editProblemId),
+			accountId,
 			request
 		).then((response) => {
 			return ProblemService.updateGroupPermissions(response.data.problem_id,accountId,groups)

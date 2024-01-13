@@ -20,8 +20,8 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.get<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`);
     },
 
-    update: async (problemId,request) => {
-        return axios.put<ProblemModel>(`${BASE_URL}/api/problems/${problemId}`, request);
+    update: async (problemId,accountId,request) => {
+        return axios.put<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`, request);
     },
 
     delete: async (problemId) => {
