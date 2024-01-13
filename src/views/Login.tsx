@@ -1,118 +1,155 @@
-import { faKey } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+
+import { Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { Button } from "../components/shadcn/Button";
 import {
-	Button,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "../components/shadcn/Card";
+import { Checkbox } from "../components/shadcn/Checkbox";
+import {
 	Form,
-	FormFeedback,
-	FormGroup,
-	Input,
-	Label,
-} from "reactstrap";
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "../components/shadcn/Form";
+import { Input } from "../components/shadcn/Input";
+import CenterContainer from "../layout/CenterLayout";
+import { AuthService } from "../services/Auth.service";
 // import { getAuthorization, login } from "../services/auth.service";
 
 const Login = () => {
-	const nevigate = useNavigate();
+	const form = useForm();
 
-	const [invalid, setInvalid] = useState({
-		username: false,
-		password: false,
-	});
+	const [loading, setLoading] = useState(false);
+	const [userNotFound, setUserNotFound] = useState(false);
+	const [wrongPassword, setWrongPassword] = useState(false);
 
-	const [loading, setloading] = useState(false);
-
-	const handleSubmit = (e:any) => {
-		// e.preventDefault();
-		// const body = {
-		// 	username: e.target.username.value,
-		// 	password: e.target.password.value,
-		// };
-		// setloading(true);
-		// login(body)
-		// 	.then((response) => {
-		// 		localStorage.setItem("account_id", response.data.account_id);
-		// 		localStorage.setItem("username", response.data.username);
-		// 		localStorage.setItem("token", response.data.token);
-		// 		window.location.reload(false);
-		// 		// nevigate("/my");
-		// 		setloading(false);
-		// 	})
-		// 	.catch((err) => {
-		// 		if (err.response.status === 404) {
-		// 			setInvalid({ ...invalid, username: true, password: false });
-		// 		} else {
-		// 			setInvalid({ ...invalid, username: false, password: true });
-		// 		}
-		// 		setloading(false);
-		// 	});
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setLoading(true);
+		setWrongPassword(false);
+		setUserNotFound(false);
+		const { username, password } = form.getValues();
+		AuthService.login({
+			username,
+			password,
+		}).then((response) => {
+			if (response.status === 202) {
+				const account = response.data;
+				localStorage.setItem("account_id", String(account.account_id));
+				localStorage.setItem("username", account.username);
+				if (account.token) {
+					localStorage.setItem("token", account.token);
+				}
+				window.location.href = "/dashboard";
+			}
+			setLoading(false);
+		}).catch((error) => {
+			if (error.response.status === 404) {
+				setUserNotFound(true);
+			}
+			else if (error.response.status === 406) {
+				setWrongPassword(true);
+			}
+			setLoading(false);
+		})
 	};
 
-	useEffect(() => {
-		// getAuthorization().then((response) => {
-		// 	if (response.data.result) {
-		// 		nevigate("/problems");
-		// 	}
-		// });
-	}, [nevigate]);
-
 	return (
-		<div className="flex h-screen">
-			<div className="m-auto w-1/2">
-				<h1>Login</h1>
-				<Form onSubmit={(e) => handleSubmit(e)}>
-					<FormGroup>
-						<Label for="username">Username</Label>
-						<Input
-							// onChange={(e) => setTestcases(e.target.value)}
-							// value={testcases}
-							invalid={invalid.username}
-							id="username"
-							name="username"
-							type="text"
-							required={true}
-						/>
-						<FormFeedback>
-							<p className="text-sm">
-								This username doesn't exists!
-							</p>
-						</FormFeedback>
-					</FormGroup>
-					<FormGroup>
-						<Label for="password">Password</Label>
-						<Input
-							// onChange={(e) => setTestcases(e.target.value)}
-							// value={testcases}
-							invalid={invalid.password}
-							id="password"
-							name="password"
-							type="password"
-							required={true}
-						/>
-						<FormFeedback>
-							<p className="text-sm">
-								Incorrect password! Please try again.
-							</p>
-						</FormFeedback>
-					</FormGroup>
-					<Button
-						className="px-10"
-						type="submit"
-						color="tertiary"
-						size="lg"
-						disabled={loading}
-					>
-						<FontAwesomeIcon className="mr-2" icon={faKey} />
-						Login
-					</Button>
+		<CenterContainer className="w-[350px]">
+			<Card>
+				<CardHeader>
+					<CardTitle>Login</CardTitle>
+					<CardDescription>Login to your account</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<Form {...form}>
+						<form
+							onSubmit={(e) => handleSubmit(e)}
+							className="space-y-4"
+						>
+							<FormField
+								control={form.control}
+								name="username"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Username</FormLabel>
+										<FormControl>
+											<Input {...field} />
+										</FormControl>
+										<FormMessage>
+											{userNotFound && "User doesn't exist."}
+										</FormMessage>
+									</FormItem>
+								)}
+							/>
 
-					<p className="text-base mt-2">
-						Doesn't has an account?{" "}
-						<Link to={"/register"}>Create here</Link>
-					</p>
-				</Form>
-			</div>
-		</div>
+							<FormField
+								control={form.control}
+								name="password"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Password</FormLabel>
+										<FormControl>
+											<Input type="password" {...field} />
+										</FormControl>
+										<FormMessage>
+											{wrongPassword && "Wrong password."}
+										</FormMessage>
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="remember"
+								render={({ field }) => (
+									<FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md pt-2">
+										<FormControl>
+											<Checkbox
+												checked={field.value}
+												onCheckedChange={field.onChange}
+											/>
+										</FormControl>
+										<FormLabel className="cursor-pointer">
+											Remember Me
+										</FormLabel>
+									</FormItem>
+								)}
+							/>
+
+							<Button
+								disabled={loading}
+								className="w-full"
+								type="submit"
+							>
+								{loading ? (
+									<>
+										<Loader2 className="animate-spin mr-2" />
+										Logging
+									</>
+								) : (
+									<>Login</>
+								)}
+							</Button>
+						</form>
+					</Form>
+					<CardDescription className="mt-2">
+						Doesn't has an account? Create one{" "}
+						<a className="underline text-blue-700" href="/register">
+							here
+						</a>
+					</CardDescription>
+				</CardContent>
+			</Card>
+		</CenterContainer>
 	);
 };
 

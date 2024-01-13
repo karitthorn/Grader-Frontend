@@ -1,0 +1,1 @@
+type TestcaseGradingResultStatus = "OK" | "TIMEOUT" | "ERROR" | "FAILED"
