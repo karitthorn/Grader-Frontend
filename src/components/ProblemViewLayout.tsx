@@ -2,7 +2,7 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
-import { ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
+import { ProblemPoplulateCreatorModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
 import ReadOnlyPlate from "./ReadOnlyPlate";
 import { handleDeprecatedDescription } from "../utilities/HandleDeprecatedDescription";
 import { Separator } from "./shadcn/Seperator";
@@ -14,6 +14,7 @@ import styled from "styled-components";
 import { Button } from "./shadcn/Button";
 import PreviousSubmissionsCombobox from "./PreviousSubmissionsCombobox";
 import { Editor as MonacoEditor } from "@monaco-editor/react";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./shadcn/Resizable";
 
 export type OnSubmitProblemViewLayoutCallback = {
     setGrading: React.Dispatch<React.SetStateAction<boolean>>
@@ -28,7 +29,7 @@ const ProblemViewLayout = ({
     previousSubmissions
 }:{
     onSubmit: (callback: OnSubmitProblemViewLayoutCallback) => void
-    problem: ProblemPoplulateCreatorModel
+    problem: ProblemPoplulateCreatorModel | ProblemPopulateCreatorSecureModel
     previousSubmissions: GetSubmissionByAccountProblemResponse
 }) => {
 
@@ -48,7 +49,7 @@ const ProblemViewLayout = ({
         onSubmit({setGrading, setLastedSubmission,selectedLanguage,submitCodeValue})
     }
 
-    const handleSelectPreviousSubmission = (submissionId: number) => {
+    const handleSelectPreviousSubmission = (submissionId: string) => {
 		let submission = null;
 		if (
 			submissionId === previousSubmissions?.best_submission?.submission_id
@@ -71,18 +72,18 @@ const ProblemViewLayout = ({
 	};
 
 
-	useEffect(() => {
+	// useEffect(() => {
 
-		console.log('pb',JSON.parse(
-			handleDeprecatedDescription(
-				String(problem?.description)
-			)
-		))
-	},[problem])
+	// 	console.log('pb',JSON.parse(
+	// 		handleDeprecatedDescription(
+	// 			String(problem?.description)
+	// 		)
+	// 	))
+	// },[problem])
 
 	return (
-		<div className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">
-			<div className="w-1/2 grid content-between">
+		<ResizablePanelGroup direction="horizontal" className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">
+			<ResizablePanel defaultSize={50} className="w-1/2 grid content-between">
 				<div className="ml-3">
 					<div className="text-3xl text-green-700 font-bold mb-2 flex">
 						<ArrowLeft
@@ -120,16 +121,17 @@ const ProblemViewLayout = ({
 						/>
 					)}
 				</div>
-			</div>
-			<div className="mx-3">
+			</ResizablePanel>
+			{/* <div className="mx-3">
 				<Separator orientation="vertical" />
-			</div>
-			<div className="w-1/2 mr-5">
+			</div> */}
+			<ResizableHandle className="mx-3"/>
+			<ResizablePanel defaultSize={50} className="w-1/2 mr-5">
 				<div className="flex justify-between mb-1 items-center">
 					<div className="flex gap-2">
 						<Combobox
 							label="Select Language"
-							options={ProgrammingLanguageOptions}
+							options={ProgrammingLanguageOptions.filter(lang => problem?.allowed_languages.includes(lang.value))}
 							onSelect={(value) => setSelectedLanguage(value)}
 							initialValue={selectedLanguage}
 							value={selectedLanguage}
@@ -173,11 +175,11 @@ const ProblemViewLayout = ({
 							previousSubmissions?.submissions as SubmissionPopulateSubmissionTestcasesSecureModel[]
 						}
 						onSelect={(submissionId) =>
-							handleSelectPreviousSubmission(Number(submissionId))
+							handleSelectPreviousSubmission(String(submissionId))
 						}
 					/>
 					<Button
-						disabled={grading || !submitCodeValue}
+						disabled={grading || !submitCodeValue || ProgrammingLanguageOptions.filter(lang => problem?.allowed_languages.includes(lang.value)).length === 0}
 						onClick={handleSubmit}
 						className="px-10"
 					>
@@ -191,8 +193,8 @@ const ProblemViewLayout = ({
 						)}
 					</Button>
 				</div>
-			</div>
-		</div>
+			</ResizablePanel>
+		</ResizablePanelGroup>
 	);
 };
 

@@ -13,11 +13,18 @@ const formInitialValue: CreateGroupRequestForm = {
 	description: "",
 	color: "#f87171",
 	membersInterface: [],
+	manageCourses: false,
+	viewCourseLogs: false,
+	viewCourses: false,
+	manageCollections: false,
+	viewCollections: false,
+	manageProblems: false,
+	viewProblems: false
 };
 
 const CreateGroup = () => {
 	const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const handleSave = ({
 		createRequest,
@@ -26,10 +33,11 @@ const CreateGroup = () => {
 		const request =
 			transformCreateGroupRequestForm2CreateGroupRequest(createRequest);
 		const memberIds = createRequest.membersInterface.map(
-			(item) => item.id as number
+			(item) => item.id as string
 		);
 
 		setLoading(true);
+		console.log(createRequest,request)
 		GroupService.create(accountId, request)
 			.then((response) => {
 				return GroupService.updateMembers(
@@ -39,7 +47,7 @@ const CreateGroup = () => {
 			})
 			.then((response) => {
 				setLoading(false);
-				navigate(`/my/groups/${response.data.group_id}`);
+				navigate(`/my/groups/${response.data.group_id}/edit`);
 			});
 	};
 

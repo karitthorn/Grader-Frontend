@@ -36,19 +36,19 @@ const Router = () => {
 
 			<Route path="/my/problems" element={<MyProblems />} />
 			<Route path="/my/problems/create" element={<CreateProblem />} />
-			<Route path="/my/problems/:problemId" element={<EditProblem />} />
+			<Route path="/my/problems/:problemId/edit" element={<EditProblem />} />
 
 			<Route path="/my/collections" element={<MyCollections />} />
-			<Route path="/my/collections/:collectionId" element={<EditCollection />} />
 			<Route path="/my/collections/create" element={<CreateCollection />} />
+			<Route path="/my/collections/:collectionId/edit" element={<EditCollection />} />
 
 			<Route path="/my/courses" element={<MyCourses />} />
 			<Route path="/my/courses/create" element={<CreateCourse />} />
-			<Route path="/my/courses/:courseId" element={<EditCourse />} />
+			<Route path="/my/courses/:courseId/edit" element={<EditCourse />} />
 
 			<Route path="/my/groups" element={<MyGroups />} />
 			<Route path="/my/groups/create" element={<CreateGroup />} />
-			<Route path="/my/groups/:groupId" element={<EditGroup />} />
+			<Route path="/my/groups/:groupId/edit" element={<EditGroup />} />
 			
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
 			<Route path="/courses/:courseId" element={<ViewCourse />} />

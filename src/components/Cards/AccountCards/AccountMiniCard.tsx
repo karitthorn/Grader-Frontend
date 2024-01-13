@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardTitle } from "./shadcn/Card";
-import { Button } from "./shadcn/Button";
+import { Card, CardContent, CardTitle } from "../../shadcn/Card";
+import { Button } from "../../shadcn/Button";
 import {
 	Check,
 	CheckCircle2,
@@ -19,19 +19,19 @@ import {
 	ProblemPopulateTestcases,
 	ProblemSecureModel,
 	TestcaseModel,
-} from "../types/models/Problem.model";
-import { readableDateFormat } from "../utilities/ReadableDateFormat";
+} from "../../../types/models/Problem.model";
+import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import {
 	ContextMenu,
 	ContextMenuTrigger,
 	ContextMenuContent,
 	ContextMenuItem,
-} from "./shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "./DeleteProblemConfirmationDialog";
-import Checkmark from "./Checkmark";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./shadcn/Tooltip";
-import { CollectionModel, CollectionPopulateProblemSecureModel } from "../types/models/Collection.model";
-import { AccountModel, AccountSecureModel } from "../types/models/Account.model";
+} from "../../shadcn/ContextMenu";
+import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
+import Checkmark from "../../Checkmark";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
+import { CollectionModel, CollectionPopulateProblemSecureModel } from "../../../types/models/Collection.model";
+import { AccountModel, AccountSecureModel } from "../../../types/models/Account.model";
 
 const AccountMiniCard = ({
 	// problem,

@@ -10,10 +10,14 @@ import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../..
 import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 import { useParams } from "react-router-dom";
 import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.model";
+import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "../../../types/adapters/Problem.adapter";
 
 const EditProblem = () => {
+	
+	const accountId = String(localStorage.getItem("account_id"));
+
 	const { problemId } = useParams();
-	const editProblemId = Number(problemId);
+	const editProblemId = String(problemId);
 
 	const [problem,setProblem] = useState<ProblemPoplulateCreatorModel>();
 
@@ -22,15 +26,18 @@ const EditProblem = () => {
 
 	const handleSave: OnProblemSaveCallback = (
 		setLoading,
-		problemId,
-		setProblemId,
 		createRequest
 	) => {
 		setLoading(true);
+
+		const { request,groups } = transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+
 		ProblemService.update(
-			Number(editProblemId),
-			transformCreateProblemRequestForm2CreateProblemRequest(createRequest)
+			String(editProblemId),
+			request
 		).then((response) => {
+			return ProblemService.updateGroupPermissions(response.data.problem_id,accountId,groups)
+		}).then((response) => {
 			console.log("Update Completed", response.data);
 			setLoading(false);
 			toast({
@@ -54,21 +61,9 @@ const EditProblem = () => {
 	};
 
 	useEffect(() => {
-		ProblemService.get(editProblemId).then((response) => {
+		ProblemService.get(accountId,editProblemId).then((response) => {
 			setProblem(response.data)
-			setCreateRequest({
-				title: response.data.title,
-				description: JSON.parse(
-					handleDeprecatedDescription(String(response.data.description))
-				),
-				language: response.data.language,
-				solution: response.data.solution,
-				testcases: response.data.testcases
-					.map((testcase) => testcase.input)
-					.join(":::\n"),
-				testcase_delimeter: ":::",
-				time_limit: response.data.time_limit,
-			});
+			setCreateRequest(transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(response.data));
 		});
 	}, []);
 	return (
@@ -78,14 +73,12 @@ const EditProblem = () => {
 				validatedTestcases={problem?.testcases}
 				onProblemSave={(
 					setLoading,
-					problemId,
-					setProblemId,
+				
 					createRequest
 				) =>
 					handleSave(
 						setLoading,
-						problemId,
-						setProblemId,
+						
 						createRequest
 					)
 				}

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GetAllTopicsByAccountResponse, TopicSerivceAPI } from "../types/apis/Topic.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
-import { TopicModel, TopicPopulateTopicCollectionPopulateCollectionModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
+import { TopicModel, TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel } from "../types/models/Topic.model";
 
 export const TopicService: TopicSerivceAPI = {
     create: async (accountId, request) => {
@@ -10,16 +10,26 @@ export const TopicService: TopicSerivceAPI = {
     },
 
     get: async (accountId,topicId) => {
-        const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`);
+        const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`);
         return response;
     },
 
-    update: async (topicId, request) => {
-        const response = await axios.put<TopicModel>(`${BASE_URL}/api/topics/${topicId}`, request);
+    getAllAccessibleByAccount: async (accountId) => {
+        const response = await axios.get<GetAllTopicsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/access/topics`);
         return response;
     },
 
-    getAllByAccount: async (accountId) => {
+    update: async (topicId,accountId, request) => {
+        const response = await axios.put<TopicModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`, request);
+        return response;
+    },
+
+    delete: async (topicId,accountId) => {
+        const response = await axios.delete<null>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}`);
+        return response;
+    },
+
+    getAllAsCreator: async (accountId) => {
         const response = await axios.get<GetAllTopicsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/topics`);
         return response;
     },
@@ -33,6 +43,13 @@ export const TopicService: TopicSerivceAPI = {
 
     getPublicByAccount: async (accountId,topicId) => {
         const response = await axios.get<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>(`${BASE_URL}/api/topics/${topicId}?account_id=${accountId}`);
+        return response;
+    },
+
+    updateGroupPermissions: async (topicId,accountId, groups) => {
+        const response = await axios.put<TopicModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}/groups`, {
+            groups: groups
+        });
         return response;
     }
 }

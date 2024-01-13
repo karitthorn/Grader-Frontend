@@ -29,9 +29,9 @@ const TestcaseValidationInstance = ({
 	// const [inputValue, setInputValue] = useState("1 2 3");
 	// const [outputValue, setOutputValue] = useState("Hello World!");
 
-	useEffect(() => {
-		console.log(inputValue, outputValue, status);
-	}, [outputValue]);
+	// useEffect(() => {
+	// 	console.log(inputValue, outputValue, status);
+	// }, [outputValue]);
 
 	return (
 		<AccordionItem value={value}>

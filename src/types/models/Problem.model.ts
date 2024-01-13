@@ -1,8 +1,9 @@
-import { AccountSecureModel } from "./Account.model"
+import { ProblemGroupPermissionPopulateGroupModel } from "../apis/Problem.api"
+import { AccountModel, AccountSecureModel } from "./Account.model"
 import { SubmissionPopulateSubmissionTestcasesSecureModel } from "./Submission.model"
 
 export type TestcaseModel = {
-    testcase_id: number
+    testcase_id: string
     input: string
     output: string | null
     problem: number
@@ -10,7 +11,7 @@ export type TestcaseModel = {
 }
 
 export type ProblemModel = {
-    problem_id: number
+    problem_id: string
     language: string
     title: string
     description: string | null
@@ -19,19 +20,27 @@ export type ProblemModel = {
     is_active: boolean
     is_private: boolean
     submission_regex: string
-    creator: number
+    creator: string
     testcases: TestcaseModel[]
     created_date: string;
     updated_date: string;
+    allowed_languages: string
 }
 
 export type ProblemSecureModel = {
-    problem_id: number
+    problem_id: string
+    language: string
     title: string
     description: string
+    time_limit: string
+    created_date: string
+    updated_date: string
+    allowed_languages: string
+    creator: string
+}
+
+export type ProblemPopulateCreatorSecureModel = ProblemSecureModel & {
     creator: AccountSecureModel
-    created_date: string;
-    updated_date: string;
 }
 
 export type ProblemPoplulateCreatorModel = ProblemModel & {
@@ -39,7 +48,7 @@ export type ProblemPoplulateCreatorModel = ProblemModel & {
 }
 
 export type ProblemPopulateAccountSecureModel = {
-    problem_id: number
+    problem_id: string
     title: string
     description: string | null
     creator: AccountSecureModel
@@ -55,7 +64,7 @@ export type ProblemPopulateTestcases = ProblemModel & {
 }
 
 export type ProblemHashedTable = {
-    [id:number]: ProblemModel | ProblemPopulateTestcases
+    [id:string]: ProblemModel | ProblemPopulateTestcases | ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel
 }
 
 export type ProblemHealth = {
@@ -63,3 +72,10 @@ export type ProblemHealth = {
     testcase_count: number
     no_runtime_error: boolean
 }
+
+export type ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel =
+	ProblemModel & {
+		creator: AccountModel;
+		testcases: TestcaseModel[];
+		group_permissions: ProblemGroupPermissionPopulateGroupModel[];
+	};

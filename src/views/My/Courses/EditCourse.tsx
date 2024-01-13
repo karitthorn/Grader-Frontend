@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from "react";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import CreateCollectionForm, {
-	OnCollectionSavedCallback,
-} from "../../../components/Forms/CreateCollectionForm";
-import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { transformCreateCollectionRequestForm2CreateCollectionRequestForm } from "../../../types/adapters/CreateCollectionRequestForm.adapter";
-import { CollectionService } from "../../../services/Collection.service";
-import { toast } from "../../../components/shadcn/UseToast";
-import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CreateCourseForm, {
 	OnCourseSavedCallback,
 } from "../../../components/Forms/CreateCourseForm";
-import { transformCreateCourseRequestForm2CreateTopicRequestFormData } from "../../../types/adapters/CreateCourseRequestForm.adapter";
+import { toast } from "../../../components/shadcn/UseToast";
+import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { TopicService } from "../../../services/Topic.service";
-import { useParams } from "react-router-dom";
-import { ItemInterface } from "react-sortablejs";
+import { transformCreateCourseRequestForm2CreateTopicRequest } from "../../../types/adapters/CreateCourseRequestForm.adapter";
+import { transformTopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel2CreateCourseRequest } from "../../../types/adapters/Topic.adapter";
+import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
+import { CollectionService } from "../../../services/Collection.service";
 
 const EditCourse = () => {
 	const { courseId } = useParams();
-	const editCourseId = Number(courseId);
-	const accountId = Number(localStorage.getItem("account_id"));
+	const editCourseId = String(courseId);
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [createRequest, setCreateRequest] =
 		useState<CreateCourseRequestForm>();
@@ -28,23 +22,18 @@ const EditCourse = () => {
 	const handleSave = ({
 		setLoading,
 		createRequest,
-		courseId,
-		setCourseId,
 	}: OnCourseSavedCallback) => {
-		if (!setCourseId || !setLoading || !createRequest || !courseId) {
+		if (!setLoading || !createRequest || !courseId) {
 			return;
 		}
 
-		const formData =
-			transformCreateCourseRequestForm2CreateTopicRequestFormData(
-				createRequest
-			);
-		const collectionIds = createRequest.collectionsInterface.map(
-			(collection) => collection.id as number
-		);
+		const { formData, collectionIds, groups, collectionGroupsPermissions } =
+			transformCreateCourseRequestForm2CreateTopicRequest(createRequest);
+
+		console.log(formData.get("name"));
 
 		setLoading(true);
-		TopicService.update(editCourseId, formData)
+		TopicService.update(editCourseId, accountId, formData)
 			.then(() => {
 				return TopicService.updateCollections(
 					editCourseId,
@@ -52,29 +41,43 @@ const EditCourse = () => {
 				);
 			})
 			.then(() => {
-				console.log("OK!");
+				return TopicService.updateGroupPermissions(
+					editCourseId,
+					accountId,
+					groups
+				);
+			})
+			.then(() => {
+				let promise = [];
+				for (const collection of collectionGroupsPermissions) {
+					promise.push(
+						CollectionService.updateGroupPermissions(
+							collection.collection_id,
+							accountId,
+							collection.groupPermissions
+						)
+					);
+				}
+
+				return Promise.all(promise);
+			})
+			.then(() => {
 				setLoading(false);
 				toast({
 					title: "Update Completed",
-				})
+				});
 			});
 	};
 
 	useEffect(() => {
-		TopicService.get(accountId,editCourseId).then((response) => {
+		TopicService.get(accountId, editCourseId).then((response) => {
 			const { data } = response;
-			setCreateRequest({
-				title: data.name,
-				description: JSON.parse(String(data.description)),
-				isPrivate: data.is_private,
-				collectionsInterface: data.collections.map(
-					(topicCollection) =>
-						({
-							id: topicCollection.collection.collection_id,
-							name: topicCollection.collection.name,
-						} as ItemInterface)
-				),
-			});
+			console.log(data);
+			setCreateRequest(
+				transformTopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel2CreateCourseRequest(
+					data
+				)
+			);
 		});
 	}, [editCourseId]);
 
@@ -84,14 +87,12 @@ const EditCourse = () => {
 				<CreateCourseForm
 					onCourseSave={({
 						createRequest,
-						courseId,
-						setCourseId,
+
 						setLoading,
 					}) =>
 						handleSave({
 							createRequest,
-							courseId,
-							setCourseId,
+
 							setLoading,
 						})
 					}

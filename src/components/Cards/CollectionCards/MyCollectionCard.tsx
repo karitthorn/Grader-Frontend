@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { Card, CardContent, CardTitle } from "./shadcn/Card";
-import { Button } from "./shadcn/Button";
-import { Check, CheckCircle2, FileSpreadsheet, Folder, X } from "lucide-react";
+import { FileSpreadsheet, Folder } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProblemModel } from "../types/models/Problem.model";
-import { readableDateFormat } from "../utilities/ReadableDateFormat";
-import Checkmark from "./Checkmark";
-import { CollectionProblemModel, CollectionProblemPopulateProblemSecureModel, GetCollectionByAccountResponse } from "../types/models/Collection.model";
+import { CollectionPopulateCollectionProblemPopulateProblemModel, CollectionProblemModel } from "../../../types/models/Collection.model";
+import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
+import Checkmark from "../../Checkmark";
+import { Card, CardContent } from "../../shadcn/Card";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
+import MyCollectionContextMenu from "../../ContextMenus/MyCollectionContextMenu";
 
 const MyCollectionCard = ({
 	collection
 }:{
-	collection: CollectionProblemModel
+	collection: CollectionPopulateCollectionProblemPopulateProblemModel
 }) => {
 	const navigate = useNavigate();
 
@@ -29,8 +29,10 @@ const MyCollectionCard = ({
 	};
 
 	return (
-		<Card
-			onClick={() => navigate(`/my/collections/${collection.collection_id}`)}
+		<MyCollectionContextMenu collection={collection}>
+			<Card
+			onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/collections/${collection.collection_id}/edit`)}
+			onClick={() => navigate(`/my/collections/${collection.collection_id}/edit`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			className={`pt-6 px-5 cursor-pointer ${
@@ -88,6 +90,7 @@ const MyCollectionCard = ({
 				</div>
 			</CardContent>
 		</Card>
+		</MyCollectionContextMenu>
 	);
 };
 

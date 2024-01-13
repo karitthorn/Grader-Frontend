@@ -9,12 +9,12 @@ export type LoginRequest = {
 }
 
 export type LogoutRequest = {
-    account_id: number;
+    account_id: string;
     token: string;
 }
 
 export type AuthorizationRequest = {
-    account_id: number;
+    account_id: string;
     token: string;
 }
 

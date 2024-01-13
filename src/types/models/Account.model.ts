@@ -1,5 +1,5 @@
 export type AccountModel = {
-    account_id: number
+    account_id: string
     email: string
     username: string
     password: string
@@ -10,10 +10,10 @@ export type AccountModel = {
 }
 
 export type AccountSecureModel = {
-    account_id: number
+    account_id: string
     username: string
 }
 
 export type AccountHashedTable = {
-    [id:number]: AccountModel | AccountSecureModel
+    [id:string]: AccountModel | AccountSecureModel
 }

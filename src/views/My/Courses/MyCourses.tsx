@@ -4,24 +4,45 @@ import { Input } from "../../../components/shadcn/Input";
 import { Button } from "../../../components/shadcn/Button";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyCourseCard from "../../../components/MyCourseCard";
+import MyCourseCard from "../../../components/Cards/CourseCards/MyCourseCard";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import { TopicService } from "../../../services/Topic.service";
 import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";
 import { LibraryBig } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 
 const MyCourses = () => {
 
     const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
     const {setSection} = useContext(NavSidebarContext)
 
 	const [topics, setTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+	const [manageableTopics, setManageableTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+	
+	const [filteredTopics, setFilteredTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+	const [filteredManageableTopics, setFilteredManageableTopics] = useState<TopicPopulateTopicCollectionPopulateCollectionModel[]>([])
+
+	const [tabValue, setTabValue] = useState("personal")
+	const [searchValue, setSearchValue] = useState("")
+
+	useEffect(() => {
+		if (!searchValue || searchValue === "") {
+			setFilteredTopics(topics)
+			setFilteredManageableTopics(manageableTopics)
+		}
+		else {
+			setFilteredTopics(topics.filter((topic) => topic.name.toLowerCase().includes(searchValue.toLowerCase())))
+			setFilteredManageableTopics(manageableTopics.filter((topic) => topic.name.toLowerCase().includes(searchValue.toLowerCase())))
+		}
+	},[searchValue,topics,manageableTopics])
+	
 
     useEffect(( )=> {
         setSection("COURSES")
-		TopicService.getAllByAccount(accountId).then((response) => {
+		TopicService.getAllAsCreator(accountId).then((response) => {
 			setTopics(response.data.topics)
+			setManageableTopics(response.data.manageable_topics)
 		})
     },[])
 
@@ -34,8 +55,20 @@ const MyCourses = () => {
 							My Courses
 						</h1>
 					</div>
-					<div className="xl:w-9/12 w-7/12">
-						<Input placeholder="Search ..." />
+					<div className="xl:w-7/12 w-5/12">
+						<Input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search ..." />
+					</div>
+					<div>
+						<Tabs value={tabValue} onValueChange={(e) => setTabValue(e)}>
+							<TabsList>
+								<TabsTrigger value="personal">
+									Personal
+								</TabsTrigger>
+								<TabsTrigger value="manageable">
+									Manageable
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
 					</div>
 					<div>
 						<Button
@@ -49,7 +82,12 @@ const MyCourses = () => {
 
 				<CardContainer>
 					{
-						topics.map(topic => (
+						tabValue === "personal" && filteredTopics.map(topic => (
+							<MyCourseCard course={topic}/>
+						))
+					}
+					{
+						tabValue === "manageable" && filteredManageableTopics.map(topic => (
 							<MyCourseCard course={topic}/>
 						))
 					}

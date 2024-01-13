@@ -1,8 +1,9 @@
-import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "./Collection.model"
+import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel, CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel } from "./Collection.model"
+import { TopicGroupPermissionPopulateGroupModel } from "./Group.model"
 
 export type TopicModel = {
-    topic_id: number
-    creator: number
+    topic_id: string
+    creator: string
     name: string
     description: string | null
     image_url: string | null
@@ -13,8 +14,8 @@ export type TopicModel = {
 }
 
 export type TopicSecureModel = {
-    topic_id: number
-    creator: number
+    topic_id: string
+    creator: string
     name: string
     description: string | null
     image_url: string | null
@@ -28,7 +29,7 @@ export type TopicCollectionModel = {
 }
 
 export type TopicCollectionPopulateCollectionModel = {
-    id: number;
+    id: string;
     collection: CollectionModel;
     order: number;
     topic: number;
@@ -39,7 +40,7 @@ export type TopicPopulateTopicCollectionPopulateCollectionModel = TopicModel & {
 }
 
 export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
-    id: number;
+    id: string;
     collection: CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
     order: number;
     topic: number;
@@ -47,4 +48,30 @@ export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulatePr
 
 export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = TopicSecureModel & {
     collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
+}
+
+export type TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
+    collections: TopicCollectionPopulateCollectionModel[]
+    group_permissions: TopicGroupPermissionPopulateGroupModel[]
+}
+
+export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemModel = TopicCollectionPopulateCollectionModel & {
+    collection: CollectionPopulateCollectionProblemPopulateProblemModel
+}
+
+export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
+    collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemModel[]
+    group_permissions: TopicGroupPermissionPopulateGroupModel[]
+}
+
+export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel = {
+    id: string;
+    collection: CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel;
+    order: number;
+    topic: number;
+}
+
+export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
+    collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel[]
+    group_permissions: TopicGroupPermissionPopulateGroupModel[]
 }

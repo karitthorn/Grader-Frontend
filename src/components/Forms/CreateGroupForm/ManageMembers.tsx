@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 import { ReactSortable } from "react-sortablejs";
 import { Button } from "../../shadcn/Button";
-import AddProblemDialog from "../../AddProblemDialog";
 import { Separator } from "../../shadcn/Seperator";
 import { Input } from "../../shadcn/Input";
 import { ProblemService } from "../../../services/Problem.service";
@@ -12,28 +11,29 @@ import {
 	ProblemSecureModel,
 } from "../../../types/models/Problem.model";
 import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
-import MyProblemCard from "../../MyProblemCard";
+import MyProblemCard from "../../Cards/ProblemCards/MyProblemCard";
 import CardContainer from "../../CardContainer";
 import SortableCardContainer from "../../SortableCardContainer";
-import MyProblemMiniCard from "../../MyProblemMiniCard";
+import MyProblemMiniCard from "../../Cards/ProblemCards/MyProblemMiniCard";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Item } from "@radix-ui/react-context-menu";
 import { transformProblemModel2ProblemHashedTable } from "../../../types/adapters/Problem.adapter";
 import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import MyCollectionMiniCard from "../../MyCollectionMiniCard";
+import MyCollectionMiniCard from "../../Cards/CollectionCards/MyCollectionMiniCard";
 import { CollectionService } from "../../../services/Collection.service";
-import { transformCollectionModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
+import { transformCollectionPopulateProblemSecureModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
 import {
 	CollectionHashedTable,
 	CollectionPopulateProblemSecureModel,
 } from "../../../types/models/Collection.model";
-import AccountCheckboxCard from "../../AccountCheckboxCard";
+import AccountCheckboxCard from "../../Cards/AccountCards/AccountCheckboxCard";
 import { AccountHashedTable, AccountSecureModel } from "../../../types/models/Account.model";
 import { GroupHashedTable } from "../../../types/models/Group.model";
 import { GroupService } from "../../../services/Group.service";
 import { AccountService } from "../../../services/Account.service";
 import { transformAccountModels2AccountHashedTable } from "../../../types/adapters/Account.adapter";
-import AccountMiniCard from "../../AccountMiniCard";
+import AccountMiniCard from "../../Cards/AccountCards/AccountMiniCard";
+import AccountMiniCard2 from "../../Cards/AccountCards/AccountMiniCard2";
 
 const ManageMembers = ({
 	createRequest,
@@ -44,7 +44,7 @@ const ManageMembers = ({
 		React.SetStateAction<CreateGroupRequestForm>
 	>;
 }) => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [allAccountsSortable, setAllAccountsSortable] = useState<
 		ItemInterface[]
@@ -56,23 +56,23 @@ const ManageMembers = ({
 
 	const [initial, setInitial] = useState(true);
 	const [selectedAccountsSortableIds, setSelectedAccountsSortableIds] =
-		useState<number[]>([]);
+		useState<string[]>([]);
 
 	useEffect(() => {
 		setSelectedAccountsSortableIds(
-			selectedAccountsSortable?.map((item) => item.id as number)
+			selectedAccountsSortable?.map((item) => item.id as string)
 		);
 	}, [selectedAccountsSortable]);
 
-	const handleRemoveSelectedCollection = (id: number) => {
+	const handleRemoveSelectedCollection = (id: string) => {
 		setSelectedAccountsSortable([
 			...selectedAccountsSortable.filter((item) => item.id !== id),
 		]);
 	};
 
 	const handleQuickToggleSelectedCollection = (item: ItemInterface) => {
-		if (selectedAccountsSortableIds.includes(item.id as number)) {
-			handleRemoveSelectedCollection(item.id as number);
+		if (selectedAccountsSortableIds.includes(item.id as string)) {
+			handleRemoveSelectedCollection(item.id as string);
 		} else {
 			setSelectedAccountsSortable([...selectedAccountsSortable, item]);
 		}
@@ -119,21 +119,21 @@ const ManageMembers = ({
 				<div className="w-1/2">
 					<div className="mt-6 pr-5">
 						<div className="grid gap-y-3">
-							<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+							<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 								<ReactSortable
 									animation={150}
 									group="shared"
 									list={selectedAccountsSortable}
 									setList={setSelectedAccountsSortable}
-									className="grid gap-y-3 p-2 rounded-md"
+									className="grid gap-y-2 p-2 rounded-md"
 									sort={false}
 								>
 									{selectedAccountsSortable?.map((item) => (
-										<AccountMiniCard
+										<AccountMiniCard2
 											disabledHighlight
-											onClick={() => handleRemoveSelectedCollection(item.id as number)}
+											onClick={() => handleRemoveSelectedCollection(item.id as string)}
 											key={item.id}
-											account={allAccounts[item.id as number] as AccountSecureModel}
+											account={allAccounts[item.id as string] as AccountSecureModel}
 										/>
 									))}
 								</ReactSortable>
@@ -148,7 +148,7 @@ const ManageMembers = ({
 
 				<div className="w-1/2">
 					<Input className="mt-2" />
-					<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+					<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 						<ReactSortable
 							group={{
 								name: "shared",
@@ -160,7 +160,7 @@ const ManageMembers = ({
 							list={allAccountsSortable}
 							setList={setAllAccountsSortable}
 							filter=".selected"
-							className="grid gap-y-3 p-2 rounded-md"
+							className="grid grid-cols-3 gap-2 p-2 rounded-md"
 						>
 							{allAccountsSortable?.map((item) => (
 								<div
@@ -170,11 +170,11 @@ const ManageMembers = ({
 											: ""
 									}
 								>
-									<AccountMiniCard
-											disabled={selectedAccountsSortableIds.includes(item.id as number)}
+									<AccountMiniCard2
+											disabled={selectedAccountsSortableIds.includes(item.id as string)}
 											onClick={() => handleQuickToggleSelectedCollection(item)}
 											key={item.id}
-											account={allAccounts[item.id as number] as AccountSecureModel}
+											account={allAccounts[item.id as string] as AccountSecureModel}
 										/>
 								</div>
 							))}

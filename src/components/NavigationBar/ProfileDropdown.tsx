@@ -42,7 +42,7 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
     const navigate = useNavigate()
 
     const username = localStorage.getItem('username')
-    const account_id = Number(localStorage.getItem('account_id'))
+    const account_id = String(localStorage.getItem('account_id'))
     const token = localStorage.getItem('token')
 
     const handleLogout = async () => {
@@ -87,6 +87,11 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 					<DropdownMenuItem onClick={() => navigate("/my/courses")}>
 						<LibraryBig className="mr-2 h-4 w-4" />
 						<span>My Courses</span>
+						{/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
+					</DropdownMenuItem>
+					<DropdownMenuItem onClick={() => navigate("/my/groups")}>
+						<Users className="mr-2 h-4 w-4" />
+						<span>My Groups</span>
 						{/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
 					</DropdownMenuItem>
 				</DropdownMenuGroup>

@@ -31,7 +31,7 @@ const NavbarCollectionProblemCard = ({
 			result += "hover:bg-blue-100 "
 		}
 
-		if (problem.problem_id === Number(problemId)) {
+		if (problem.problem_id === String(problemId)) {
 			if (problem.best_submission?.is_passed) {
 				result += "bg-green-100 "
 			}
@@ -71,16 +71,6 @@ const NavbarCollectionsProblemsAccordion = ({
     } = useContext(CourseNavSidebarContext)
 
 	const handleAccordionTrigger = (index:number) => {
-		console.log({
-			course,
-			setCourse,
-			isOpen,
-			setIsOpen,
-			section,
-			setSection,
-			recentOpenCollection,
-			setRecentOpenCollection
-		})
 		if (recentOpenCollection.length > 0 && recentOpenCollection.includes(String(index))) {
 			setRecentOpenCollection(recentOpenCollection.filter((value) => value !== String(index)))
 		}

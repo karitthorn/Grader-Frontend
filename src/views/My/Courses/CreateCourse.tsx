@@ -12,53 +12,76 @@ import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseReques
 import CreateCourseForm, {
 	OnCourseSavedCallback,
 } from "../../../components/Forms/CreateCourseForm";
-import { transformCreateCourseRequestForm2CreateTopicRequestFormData } from "../../../types/adapters/CreateCourseRequestForm.adapter";
+import { transformCreateCourseRequestForm2CreateTopicRequest } from "../../../types/adapters/CreateCourseRequestForm.adapter";
 import { TopicService } from "../../../services/Topic.service";
 import { useNavigate } from "react-router-dom";
+import { EmptyEditorValue } from "../../../constants/DummyEditorValue";
 
 const formInitialValue: CreateCourseRequestForm = {
 	title: "",
-	description: [
-		{
-			id: "1",
-			type: ELEMENT_PARAGRAPH,
-			children: [{ text: "" }],
-		},
-	],
+	description: EmptyEditorValue,
 	image: null,
 	isPrivate: false,
 	collectionsInterface: [],
+	groupPermissions: [],
+	course: null,
+	// collectionGroupPermissions: [],
 };
 
 const CreateCourse = () => {
-
-	const navigate = useNavigate()
-	const accountId = Number(localStorage.getItem("account_id"));
+	const navigate = useNavigate();
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const handleSave = ({
 		setLoading,
 		createRequest,
-		courseId,
-		setCourseId,
 	}: OnCourseSavedCallback) => {
-		if (!setCourseId || !setLoading || !createRequest || !courseId) {
+		if (!setLoading || !createRequest) {
 			return;
 		}
 
-		const formData = transformCreateCourseRequestForm2CreateTopicRequestFormData(createRequest)
-		const collectionIds = createRequest.collectionsInterface.map((collection) => collection.id as number)
+		const { formData, collectionIds, groups, collectionGroupsPermissions } =
+			transformCreateCourseRequestForm2CreateTopicRequest(createRequest);
 
-		setLoading(true)
-		TopicService.create(accountId, formData).then((response) => {
-			return TopicService.updateCollections(response.data.topic_id,collectionIds)
-		}).then((response) => {
-			console.log("OK!")
-			setLoading(false)
-			toast({
-				title: "Create Completed"
+		setLoading(true);
+		TopicService.create(accountId, formData)
+			.then((response) => {
+				return TopicService.updateCollections(
+					response.data.topic_id,
+					collectionIds
+				);
 			})
-			navigate(`/my/courses/${response.data.topic_id}`)
-		})
+			.then((response) => {
+				return TopicService.updateGroupPermissions(
+					response.data.topic_id,
+					accountId,
+					groups
+				);
+			})
+			.then((response) => {
+				let promise = [];
+				for (const collection of collectionGroupsPermissions) {
+					promise.push(
+						CollectionService.updateGroupPermissions(
+							collection.collection_id,
+							accountId,
+							collection.groupPermissions
+						)
+					);
+				}
+
+				return {
+					promise: Promise.all(promise),
+					topic_id: response.data.topic_id,
+				};
+			})
+			.then(({ topic_id }) => {
+				setLoading(false);
+				toast({
+					title: "Create Completed",
+				});
+				navigate(`/my/courses/${topic_id}/edit`);
+			});
 	};
 
 	return (
@@ -69,14 +92,12 @@ const CreateCourse = () => {
 				// }
 				onCourseSave={({
 					createRequest,
-					courseId,
-					setCourseId,
+
 					setLoading,
 				}) =>
 					handleSave({
 						createRequest,
-						courseId,
-						setCourseId,
+
 						setLoading,
 					})
 				}

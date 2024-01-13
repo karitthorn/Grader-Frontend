@@ -1,38 +1,18 @@
-import React, { useEffect, useState } from "react";
-import NavbarMenuLayout from "../layout/NavbarMenuLayout";
-import { useNavigate, useParams } from "react-router-dom";
-import { Separator } from "../components/shadcn/Seperator";
-import PlateEditor from "../components/PlateEditor";
-import ReadOnlyPlate from "../components/ReadOnlyPlate";
-import { Editor as MonacoEditor } from "@monaco-editor/react";
-import { Label } from "../components/shadcn/Label";
-import { Combobox } from "../components/shadcn/Combobox";
-import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
-import { Button } from "../components/shadcn/Button";
-import TestcasesGradingIndicator from "../components/TestcasesGradingIndicator";
-import { styled } from "styled-components";
-import { ProblemService } from "../services/Problem.service";
-import { ProblemPoplulateCreatorModel } from "../types/models/Problem.model";
-import { SubmissionService } from "../services/Submission.service";
-import {
-	GetSubmissionByAccountProblemResponse,
-	SubmissionModel,
-	SubmissionPopulateSubmissionTestcasesSecureModel,
-} from "../types/models/Submission.model";
-import { SubmitProblemResponse } from "../types/apis/Submission.api";
-import PreviousSubmissionsCombobox from "../components/PreviousSubmissionsCombobox";
-import { SubmitProblemResponse2GetSubmissionByAccountProblemResponse } from "../types/adapters/Submission.adapter";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import {
-	ArrowLeft,
-	ChevronLeftIcon,
-	ChevronLeftSquareIcon,
-	Loader2,
-} from "lucide-react";
-import { readableDateFormat } from "../utilities/ReadableDateFormat";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { styled } from "styled-components";
 import ProblemViewLayout, {
 	OnSubmitProblemViewLayoutCallback,
 } from "../components/ProblemViewLayout";
+import NavbarMenuLayout from "../layout/NavbarMenuLayout";
+import { ProblemService } from "../services/Problem.service";
+import { SubmissionService } from "../services/Submission.service";
+import { ProblemPoplulateCreatorModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
+import {
+	GetSubmissionByAccountProblemResponse,
+	SubmissionPopulateSubmissionTestcasesSecureModel
+} from "../types/models/Submission.model";
 
 const handleDeprecatedDescription = (description: string): string => {
 	if (description[0] === "[") {
@@ -51,10 +31,10 @@ const handleDeprecatedDescription = (description: string): string => {
 const ViewProblem = () => {
 	const navigate = useNavigate();
 	const { problemId } = useParams();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
-	const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
+	const [problem, setProblem] = useState<ProblemPopulateCreatorSecureModel>();
 
 	const [grading, setGrading] = useState<boolean>(false);
 	const [submitCodeValue, setSubmitCodeValue] = useState<any>("");
@@ -64,7 +44,7 @@ const ViewProblem = () => {
 	const [lastedSubmission, setLastedSubmission] =
 		useState<SubmissionPopulateSubmissionTestcasesSecureModel>();
 
-	const handleSelectPreviousSubmission = (submissionId: number) => {
+	const handleSelectPreviousSubmission = (submissionId: string) => {
 		let submission = null;
 		if (
 			submissionId === previousSubmissions?.best_submission?.submission_id
@@ -87,13 +67,13 @@ const ViewProblem = () => {
 	};
 
 	useEffect(() => {
-		ProblemService.get(Number(problemId)).then((response) => {
+		ProblemService.getPublic(String(problemId)).then((response) => {
 			setProblem(response.data);
 		});
 
 		SubmissionService.getByAccountProblem(
 			accountId,
-			Number(problemId)
+			String(problemId)
 		).then((response) => {
 			setPreviousSubmissions(response.data);
 		});
@@ -106,7 +86,7 @@ const ViewProblem = () => {
 		submitCodeValue,
 	}: OnSubmitProblemViewLayoutCallback) => {
 		setGrading(true);
-		SubmissionService.submit(accountId, Number(problemId), {
+		SubmissionService.submit(accountId, String(problemId), {
 			language: selectedLanguage,
 			submission_code: String(submitCodeValue),
 		}).then((response) => {
@@ -114,7 +94,7 @@ const ViewProblem = () => {
 			setLastedSubmission(response.data);
 			SubmissionService.getByAccountProblem(
 				accountId,
-				Number(problemId)
+				String(problemId)
 			).then((response) => {
 				setPreviousSubmissions(response.data);
 			});
@@ -127,7 +107,7 @@ const ViewProblem = () => {
 			<div className="ml-10">
 				<ProblemViewLayout
 					onSubmit={(e) => handleSubmit(e)}
-					problem={problem as ProblemPoplulateCreatorModel}
+					problem={problem as ProblemPopulateCreatorSecureModel}
 					previousSubmissions={
 						previousSubmissions as GetSubmissionByAccountProblemResponse
 					}

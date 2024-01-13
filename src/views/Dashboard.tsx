@@ -3,26 +3,46 @@ import NavbarSidebarLayout from "../layout/NavbarSidebarLayout";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { SubmissionService } from "../services/Submission.service";
 import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../types/models/Submission.model";
-import SubmissionCard from "../components/SubmissionCard";
+import SubmissionCard from "../components/Cards/SubmissionCard";
+import { TopicModel } from "../types/models/Topic.model";
+import { TopicService } from "../services/Topic.service";
+import PublicCourseCard from "../components/Cards/CourseCards/PublicCourseCard";
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from "../components/shadcn/Carousel";
 
 const Dashboard = () => {
-	const accountId = Number(localStorage.getItem("account_id"));
-  const username = localStorage.getItem("username");
+	const accountId = String(localStorage.getItem("account_id"));
+	const username = localStorage.getItem("username");
 
 	const [previousAttemptedProblems, setPreviousAttemptedProblems] = useState<
 		SubmissionPopulateSubmissionTestcaseAndProblemSecureModel[]
 	>([]);
+
+	const [accessibleCourses, setAccessibleCourses] = useState<TopicModel[]>(
+		[]
+	);
 
 	useEffect(() => {
 		SubmissionService.getAll({
 			account_id: accountId,
 			sort_date: 1,
 			start: 0,
-			end: 4,
+			end: 10,
 		}).then((response) => {
 			setPreviousAttemptedProblems(response.data.submissions);
+			// console.log(response.data.submissions);
 		});
-	}, []);
+
+		TopicService.getAllAccessibleByAccount(accountId).then((response) => {
+			console.log("result", response.data.topics);
+			setAccessibleCourses(response.data.topics);
+		});
+	}, [accountId]);
 
 	return (
 		<NavbarMenuLayout xPad={false}>
@@ -32,20 +52,44 @@ const Dashboard = () => {
 					<span className="text-green-600">{username}</span>
 				</p>
 
-				<p className="text-3xl font-bold">Previous Attempted</p>
+				<p className="text-3xl font-bold mt-8 mb-3">
+					Previous Attempted
+				</p>
 
-				<div className="grid grid-cols-4 gap-4">
+				<Carousel>
+					<CarouselContent>
+						{previousAttemptedProblems.map((submission, index) => (
+							<CarouselItem className="basis-1/4">
+								<SubmissionCard
+									key={index}
+									submission={submission}
+								/>
+							</CarouselItem>
+						))}
+					</CarouselContent>
+					<CarouselNext />
+					<CarouselPrevious />
+				</Carousel>
+
+				{/* <div className="grid grid-cols-4 gap-4">
 					{previousAttemptedProblems.map((submission, index) => (
-						<div className="">
-							<SubmissionCard
-								key={index}
-								submission={submission}
-							/>
-						</div>
+						<SubmissionCard key={index} submission={submission} />
 					))}
-				</div>
+				</div> */}
 
-        <p className="text-3xl font-bold">Courses</p>
+				<p className="text-3xl font-bold mt-8 mb-3">Courses</p>
+				<Carousel>
+					<CarouselContent>
+						{accessibleCourses.map((course,index) => (
+						<CarouselItem className="basis-1/4">
+							<PublicCourseCard key={index} course={course} />
+						</CarouselItem>
+					))}
+					</CarouselContent>
+					<CarouselNext />
+					<CarouselPrevious />
+				</Carousel>
+				
 			</div>
 		</NavbarMenuLayout>
 	);

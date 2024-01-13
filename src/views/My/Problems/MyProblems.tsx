@@ -3,30 +3,49 @@ import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { Input } from "../../../components/shadcn/Input";
 import { Button } from "../../../components/shadcn/Button";
 import { Card, CardContent, CardTitle } from "../../../components/shadcn/Card";
-import MyProblemCard from "../../../components/MyProblemCard";
+import MyProblemCard from "../../../components/Cards/ProblemCards/MyProblemCard";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemModel, ProblemPopulateTestcases } from "../../../types/models/Problem.model";
 import CardContainer from "../../../components/CardContainer";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
-import DeleteProblemConfirmationDialog from "../../../components/DeleteProblemConfirmationDialog";
+import DeleteProblemConfirmationDialog from "../../../components/Dialogs/DeleteProblemConfirmationDialog";
 import { FilePlus } from "lucide-react";
+import { Tabs,TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 
 const MyProblems = () => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
 	const [problems, setProblems] = useState<ProblemPopulateTestcases[]>([]);
+	const [manageableProblems, setManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
+	const [filteredProblems, setFilteredProblems] = useState<ProblemPopulateTestcases[]>([]);
+	const [filteredManageableProblems, setFilteredManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
+	
 	const {section,setSection} = useContext(NavSidebarContext)
 
+	const [tabValue, setTabValue] = useState("personal")
+	const [searchValue, setSearchValue] = useState("")
+
 	useEffect(() => {
-		ProblemService.getAllByAccount(accountId).then((response) => {
+		if (!searchValue || searchValue === "") {
+			setFilteredProblems(problems)
+			setFilteredManageableProblems(manageableProblems)
+		}
+		else {
+			setFilteredProblems(problems.filter((problem) => problem.title.toLowerCase().includes(searchValue.toLowerCase())))
+			setFilteredManageableProblems(manageableProblems.filter((problem) => problem.title.toLowerCase().includes(searchValue.toLowerCase())))
+		}
+	},[searchValue,problems,manageableProblems])
+
+	useEffect(() => {
+		ProblemService.getAllAsCreator(accountId).then((response) => {
 			setProblems(response.data.problems);
-			console.log(response.data.problems);
+			setManageableProblems(response.data.manageable_problems)
 		});
 
 		setSection("PROBLEMS")
-	}, []);
+	}, [accountId]);
 
 	return (
 		<NavbarSidebarLayout>
@@ -37,8 +56,20 @@ const MyProblems = () => {
 							My Problems
 						</h1>
 					</div>
-					<div className="w-9/12 md:w-7/12">
-						<Input placeholder="Search ..." />
+					<div className="w-7/12 md:w-5/12">
+						<Input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search ..." />
+					</div>
+					<div>
+						<Tabs value={tabValue} onValueChange={(e) => setTabValue(e)}>
+							<TabsList>
+								<TabsTrigger value="personal">
+									Personal
+								</TabsTrigger>
+								<TabsTrigger value="manageable">
+									Manageable
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
 					</div>
 					<div>
 						<Button onClick={() => navigate("/my/problems/create")}>
@@ -49,7 +80,10 @@ const MyProblems = () => {
 				</div>
 
 				<CardContainer>
-					{problems.map((problem, index) => (
+					{tabValue === "personal" && filteredProblems.map((problem, index) => (
+						<MyProblemCard problem={problem} key={index} />
+					))}
+					{tabValue === "manageable" && filteredManageableProblems.map((problem, index) => (
 						<MyProblemCard problem={problem} key={index} />
 					))}
 				</CardContainer>

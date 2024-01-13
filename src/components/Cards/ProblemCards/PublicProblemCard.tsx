@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardTitle } from "./shadcn/Card";
-import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
-import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
-import { readableDateFormat } from "../utilities/ReadableDateFormat";
-import { Button } from "./shadcn/Button";
-import { Label } from "./shadcn/Label";
+import { Card, CardContent, CardTitle } from "../../shadcn/Card";
+import TestcasesGradingIndicator from "../../TestcasesGradingIndicator";
+import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../../types/models/Problem.model";
+import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
+import { Button } from "../../shadcn/Button";
+import { Label } from "../../shadcn/Label";
 import { useNavigate } from "react-router-dom";
 import { FileSpreadsheet, Puzzle } from "lucide-react";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 
 const PublicProblemCard = ({
 	problem,
@@ -72,6 +73,7 @@ const PublicProblemCard = ({
 						</div>
 						<div className="w-3/12 xxl:w-2/12 self-center">
 							<Button
+								onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/problems/${problem.problem_id}`)}
 								onClick={() =>
 									navigate(`/problems/${problem.problem_id}`)
 								}

@@ -9,6 +9,7 @@ import { transformCreateCollectionRequestForm2CreateCollectionRequestForm } from
 import { CollectionService } from "../../../services/Collection.service";
 import { toast } from "../../../components/shadcn/UseToast";
 import { useNavigate } from "react-router-dom";
+import { ProblemService } from "../../../services/Problem.service";
 
 const formInitialValue: CreateCollectionRequestForm = {
 	title: "",
@@ -20,60 +21,74 @@ const formInitialValue: CreateCollectionRequestForm = {
 		},
 	],
 	problemsInterface: [],
+	groupPermissions: [],
+	collection: null,
 };
 
 const CreateCollection = () => {
-
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
-	const handleSave = ({ createRequest,collectionId,setCollectionId,setLoading }: OnCollectionSavedCallback) => {
-
-		if (!setCollectionId || !setLoading || !createRequest || !collectionId) {
-			return
+	const handleSave = ({
+		createRequest,
+		setLoading,
+	}: OnCollectionSavedCallback) => {
+		if (!setLoading || !createRequest) {
+			return;
 		}
 
-		const createCollectionRequest =
+		const { request, problemIds, problemGroupPermissions,groups } =
 			transformCreateCollectionRequestForm2CreateCollectionRequestForm(
 				createRequest as CreateCollectionRequestForm
 			);
-		const problemIds = (createRequest as CreateCollectionRequestForm).problemsInterface.map(
-			(problem) => problem.id as number
-		);
 
-		setLoading(true)
+		setLoading(true);
 
-		if (collectionId === -1) {
-
-			
-			CollectionService.create(accountId,createCollectionRequest).then(response => {
-				return CollectionService.updateProblem(response.data.collection_id,problemIds)
-			}).then(response => {
-				setCollectionId(response.data.collection_id)
-				toast({
-					title: "Create Completed"
-				})
-				navigate(`/my/collections/${response.data.collection_id}`)
-				setLoading(false)
+		CollectionService.create(accountId, request)
+			.then((response) => {
+				return CollectionService.updateProblem(
+					response.data.collection_id,
+					problemIds
+				);
 			})
-		} else {
-			CollectionService.update(collectionId,createCollectionRequest).then(response => {
-				return CollectionService.updateProblem(response.data.collection_id,problemIds)
-			}).then(response => {
-				setLoading(false)
-				toast({
-					title: "Update Completed"
-				})
-				console.log("Save")
+			.then((response) => {
+				return CollectionService.updateGroupPermissions(
+					response.data.collection_id,
+					accountId,
+					groups
+				);
 			})
-		}
+			.then((response) => {
+				let promise = [];
+				for (const problem of problemGroupPermissions) {
+					promise.push(
+						ProblemService.updateGroupPermissions(
+							problem.problem_id,
+							accountId,
+							problem.groupPermissions
+						)
+					);
+				}
+
+				return {
+					promise: Promise.all(promise),
+					collection_id: response.data.collection_id,
+				};
+			})
+			.then((response) => {
+				toast({
+					title: "Create Completed",
+				});
+				navigate(`/my/collections/${response.collection_id}/edit`);
+				setLoading(false);
+			});
 	};
 
 	return (
 		<NavbarSidebarLayout>
 			<CreateCollectionForm
-				onCollectionSave={({ createRequest,collectionId,setCollectionId,setLoading }) =>
-					handleSave({ createRequest,collectionId,setCollectionId,setLoading })
+				onCollectionSave={({ createRequest, setLoading }) =>
+					handleSave({ createRequest, setLoading })
 				}
 				createRequestInitialValue={formInitialValue}
 			/>

@@ -1,6 +1,6 @@
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
 import { ProblemService } from "../../../services/Problem.service";
 import { toast } from "../../shadcn/UseToast";
@@ -16,6 +16,7 @@ import Requirement from "./Requirement";
 import Privacy from "./Privacy";
 import { TestcaseModel } from "../../../types/models/Problem.model";
 import FormSaveButton from "../FormSaveButton";
+import ManageGroups from "./ManageGroups";
 
 const TabList = [
 	{
@@ -34,32 +35,21 @@ const TabList = [
 		value: "privacy",
 		label: "Privacy",
 	},
+	{
+		value: "groups",
+		label: "Manage Groups & Permissions",
+	},
 ];
 
 const testcaseFormat = (testcases: string, delimeter: string) => {
 	return testcases.replace(/\r\n/g, "\n").split(delimeter + "\n");
 };
 
-const transformCreateProblemRequestForm2CreateProblemRequest = (
-	createRequest: CreateProblemRequestForm
-): CreateProblemRequest => {
-	return {
-		title: createRequest.title,
-		language: createRequest.language,
-		description: JSON.stringify(createRequest.description),
-		solution: createRequest.solution,
-		testcases: testcaseFormat(
-			createRequest.testcases,
-			createRequest.testcase_delimeter
-		),
-		time_limit: createRequest.time_limit,
-	};
-};
 
 export type OnProblemSaveCallback = (
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-	problemId: number,
-	setProblemId: React.Dispatch<React.SetStateAction<number>>,
+	// problemid: string,
+	// setProblemId: React.Dispatch<React.SetStateAction<number>>,
 	createRequest: CreateProblemRequestForm
 ) => void;
 
@@ -72,20 +62,26 @@ const CreateProblemForm = ({
 	onProblemSave: OnProblemSaveCallback;
 	validatedTestcases?: TestcaseModel[];
 }) => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState(false);
 
-	const [currentForm, setCurrentForm] = React.useState("general");
+	const [currentForm, setCurrentForm] = useSearchParams();
 	const [createRequest, setCreateRequest] =
 		useState<CreateProblemRequestForm>(createRequestInitialValue);
 
 	const [problemId, setProblemId] = useState(-1);
 
 	const handleSave = () => {
-		onProblemSave(setLoading, problemId, setProblemId, createRequest);
+		onProblemSave(setLoading, createRequest);
 	};
+
+	useEffect(() => {
+		if (!currentForm.get("section")) {
+			setCurrentForm({ section: "general" });
+		}
+	}, [currentForm])
 
 	useEffect(() => {
 		console.log(problemId)
@@ -107,7 +103,7 @@ const CreateProblemForm = ({
 					<ArrowLeft
 						size={40}
 						className="text-gray-400 transition-all pr-0 hover:pr-1 cursor-pointer mr-2"
-						onClick={() => navigate("/my/problems")}
+						onClick={() => navigate(-1)}
 					/>
 					{createRequest.title === ""
 						? "Create Problem"
@@ -115,14 +111,14 @@ const CreateProblemForm = ({
 				</h1>
 				<div>
 					<div className="flex">
-						<Tabs defaultValue="general">
+						<Tabs value={currentForm.get("section") || "general"}>
 							<TabsList>
 								{TabList.map((tab, index) => (
 									<TabsTrigger
 										key={index}
 										value={tab.value}
 										onClick={() =>
-											setCurrentForm(tab.value)
+											setCurrentForm({section: tab.value})
 										}
 									>
 										{tab.label}
@@ -139,26 +135,32 @@ const CreateProblemForm = ({
 			</div>
 
 			<div className="mt-3">
-				{currentForm === "general" && (
+				{currentForm.get("section") === "general" && (
 					<GeneralDetail
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{currentForm === "scoring" && (
+				{currentForm.get("section") === "scoring" && (
 					<Scoring
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{currentForm === "requirement" && (
+				{currentForm.get("section") === "requirement" && (
 					<Requirement
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{currentForm === "privacy" && (
+				{currentForm.get("section") === "privacy" && (
 					<Privacy
+						createRequest={createRequest}
+						setCreateRequest={setCreateRequest}
+					/>
+				)}
+				{currentForm.get("section") === "groups" && (
+					<ManageGroups
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>

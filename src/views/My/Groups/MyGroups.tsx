@@ -1,29 +1,37 @@
-import React, { useContext, useEffect, useState } from "react";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { Input } from "../../../components/shadcn/Input";
-import { Button } from "../../../components/shadcn/Button";
+import { LibraryBig } from "lucide-react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyCourseCard from "../../../components/MyCourseCard";
+import MyGroupCard from "../../../components/Cards/MyGroupCard";
+import { Button } from "../../../components/shadcn/Button";
+import { Input } from "../../../components/shadcn/Input";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
-import { TopicService } from "../../../services/Topic.service";
-import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";
-import { LibraryBig } from "lucide-react";
-import MyGroupCard from "../../../components/MyGroupCard";
-import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
+import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { GroupService } from "../../../services/Group.service";
+import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
 
 const MyGroups = () => {
 
     const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
     const {setSection} = useContext(NavSidebarContext)
 
 	const [groups, setGroups] = useState<GroupPopulateGroupMemberPopulateAccountSecureModel[]>([])
+	const [filteredGroups, setFilteredGroups] = useState<GroupPopulateGroupMemberPopulateAccountSecureModel[]>([])
+	const [searchValue, setSearchValue] = useState("")
+
+	useEffect(() => {
+		if (!searchValue || searchValue === "") {
+			setFilteredGroups(groups)
+		}
+		else {
+			setFilteredGroups(groups.filter((group) => group.name.toLowerCase().includes(searchValue.toLowerCase())))
+		}
+	},[searchValue,groups])
 
     useEffect(( )=> {
         setSection("GROUPS")
-		GroupService.getAllByAccount(accountId,{
+		GroupService.getAllAsCreator(accountId,{
 			populate_members: true,
 		}).then((response) => {
 			setGroups(response.data.groups as GroupPopulateGroupMemberPopulateAccountSecureModel[]);
@@ -40,7 +48,7 @@ const MyGroups = () => {
 						</h1>
 					</div>
 					<div className="xl:w-9/12 w-7/12">
-						<Input placeholder="Search ..." />
+						<Input placeholder="Search ..." value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
 					</div>
 					<div>
 						<Button
@@ -54,7 +62,7 @@ const MyGroups = () => {
 
 				<CardContainer>
 					{
-						groups.map((group) => (
+						filteredGroups.map((group) => (
 							<MyGroupCard group={group}/>
 						))
 					}

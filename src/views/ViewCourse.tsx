@@ -19,7 +19,7 @@ import {
 } from "../components/shadcn/Accordion";
 import { LibraryBig } from "lucide-react";
 import { Card } from "../components/shadcn/Card";
-import TopicCollectionAccordionCard from "../components/TopicCollectionAccordionCard";
+import TopicCollectionAccordionCard from "../components/Cards/CollectionCards/TopicCollectionAccordionCard";
 import CardContainer from "../components/CardContainer";
 import { ScrollArea } from "../components/shadcn/ScrollArea";
 import TopicCollectionsAccordion from "../components/TopicCollectionsAccordion";
@@ -28,7 +28,7 @@ import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
 import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
 
 const ViewCourse = () => {
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const { courseId } = useParams();
 
 	// const [course, setCourse] =
@@ -36,10 +36,10 @@ const ViewCourse = () => {
 
 	// const [course,setCourse]
 
-	const {course,setCourse} = useContext(CourseNavSidebarContext);
+	const { course, setCourse } = useContext(CourseNavSidebarContext);
 
 	// useEffect(() => {
-	// 	TopicService.getPublicByAccount(accountId, Number(courseId)).then(
+	// 	TopicService.getPublicByAccount(accountId, String(courseId)).then(
 	// 		(response) => {
 	// 			console.log(response.data);
 	// 			setCourse(response.data);
@@ -65,13 +65,15 @@ const ViewCourse = () => {
 						collections={course?.collections as TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]}
 					/> */}
 
-				<div className="grid gap-y-2 ">
-					{course?.collections.map((tc) => (
-						<TopicCollectionAccordionCard
-							collection={tc.collection}
-						/>
-					))}
-				</div>
+				<ScrollArea className="h-[70vh]">
+					<div className="grid gap-y-2">
+						{course?.collections.map((tc) => (
+							<TopicCollectionAccordionCard
+								collection={tc.collection}
+							/>
+						))}
+					</div>
+				</ScrollArea>
 				{/* </ScrollArea> */}
 
 				{/* </CardContainer> */}

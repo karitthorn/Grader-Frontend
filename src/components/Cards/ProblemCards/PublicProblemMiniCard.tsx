@@ -1,11 +1,12 @@
 import React from "react";
-import { Card } from "./shadcn/Card";
-import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
+import { Card } from "../../shadcn/Card";
+import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../../types/models/Problem.model";
 import { FileSpreadsheet, Puzzle } from "lucide-react";
-import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
-import { Button } from "./shadcn/Button";
-import TestcasesGradingMiniIndicator from "./TestcasesGradingMiniIndicator";
+import TestcasesGradingIndicator from "../../TestcasesGradingIndicator";
+import { Button } from "../../shadcn/Button";
+import TestcasesGradingMiniIndicator from "../../TestcasesGradingMiniIndicator";
 import { useNavigate } from "react-router-dom";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 
 const PublicProblemMiniCard = ({
 	problem,
@@ -18,7 +19,7 @@ const PublicProblemMiniCard = ({
 	return (
 		<Card className="px-5 cursor-pointer py-2">
 			<div className="flex items-center">
-				<h1 className="font-bold flex items-center w-3/12 font-mono">
+				<h1 className="font-bold flex items-center w-3/12 font-mono text-base">
 					<FileSpreadsheet size={18} className="text-blue-400 mr-2" />
 					{problem?.title}
 				</h1>
@@ -47,6 +48,7 @@ const PublicProblemMiniCard = ({
 
 				<div>
 					<Button
+						onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/problems/${problem.problem_id}`)}
 						onClick={() =>
 							navigate(`./problems/${problem.problem_id}`)
 						}

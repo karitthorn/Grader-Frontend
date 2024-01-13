@@ -30,7 +30,7 @@ const NavSidebar = () => {
 	const navigate = useNavigate();
 
 	const { isOpen, setIsOpen } = useContext(NavSidebarContext);
-
+	
 	const { section } = useContext(NavSidebarContext);
 
 	const customIconBehaviour = (selected: boolean) => {

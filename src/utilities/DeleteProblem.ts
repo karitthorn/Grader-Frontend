@@ -1,3 +1,3 @@
-export function handleDeleteProblem(problemId: number) {
+export function handleDeleteProblem(problemid: string) {
     
 }

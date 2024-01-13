@@ -6,11 +6,11 @@ import { TopicService } from '../services/Topic.service'
 
 const ExploreCourses = () => {
 
-	const accountId = Number(localStorage.getItem("account_id"))
+	const accountId = String(localStorage.getItem("account_id"))
 	const {courseId} = useParams()
 
 	useEffect(( )=> {
-		TopicService.getPublicByAccount(accountId,Number(courseId)).then(response => {
+		TopicService.getPublicByAccount(accountId,String(courseId)).then(response => {
 			console.log(response.data)
 		
 		})

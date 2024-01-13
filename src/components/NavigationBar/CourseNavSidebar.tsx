@@ -10,7 +10,7 @@ import { ScrollArea } from "../shadcn/ScrollArea";
 
 const CourseNavSidebar = () => {
 	const navigate = useNavigate();
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 	const { courseId } = useParams();
 
 	const courseNavSidebarContext = useContext(CourseNavSidebarContext);
@@ -19,7 +19,7 @@ const CourseNavSidebar = () => {
 
 
 	useEffect(() => {
-		TopicService.getPublicByAccount(accountId, Number(courseId)).then(
+		TopicService.getPublicByAccount(accountId, String(courseId)).then(
 			(response) => {
 				console.log(response.data);
 				setCourse(response.data);

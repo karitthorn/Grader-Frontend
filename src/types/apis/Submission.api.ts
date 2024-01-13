@@ -8,7 +8,7 @@ export type SubmitProblemRequest = {
 }
 
 export type SubmitProblemResponse = {
-    submission_id: number
+    submission_id: string
     problem: ProblemPopulateAccountSecureModel
     language: string
     submission_code: string
@@ -22,8 +22,8 @@ export type SubmitProblemResponse = {
 }
 
 export type GetAllSubmissionsQuery = {
-    problem_id?: number
-    account_id?: number
+    problem_id?: string
+    account_id?: string
     passed?: number
     sort_date?: number
     sort_score?: number
@@ -36,9 +36,9 @@ export type GetAllSubmissionsResponse = {
 }
 
 export type SubmissionServiceAPI = {
-    submit: (accountId:number,problemId:number,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
-    topicSubmit: (accountId:number,topicId:number,problemId:number,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
-    getByAccountProblem: (accountId:number,problemId:number) => Promise<AxiosResponse<GetSubmissionByAccountProblemResponse>>;
-    getByAccountProblemInTopic: (accountId:number,problemId:number,topicId:number) => Promise<AxiosResponse<GetSubmissionByAccountProblemResponse>>;
+    submit: (accountId:string,problemId:string,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
+    topicSubmit: (accountId:string,topicId:string,problemId:string,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
+    getByAccountProblem: (accountId:string,problemId:string) => Promise<AxiosResponse<GetSubmissionByAccountProblemResponse>>;
+    getByAccountProblemInTopic: (accountId:string,problemId:string,topicId:string) => Promise<AxiosResponse<GetSubmissionByAccountProblemResponse>>;
     getAll: (query?:GetAllSubmissionsQuery) => Promise<AxiosResponse<GetAllSubmissionsResponse>>;
 }

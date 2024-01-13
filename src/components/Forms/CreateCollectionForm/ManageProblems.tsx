@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 import { ReactSortable } from "react-sortablejs";
-import { Button } from "../../shadcn/Button";
-import AddProblemDialog from "../../AddProblemDialog";
-import { Separator } from "../../shadcn/Seperator";
-import { Input } from "../../shadcn/Input";
 import { ProblemService } from "../../../services/Problem.service";
-import {
-	ProblemHashedTable,
-	ProblemModel,
-	ProblemSecureModel,
-} from "../../../types/models/Problem.model";
-import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
-import MyProblemCard from "../../MyProblemCard";
-import CardContainer from "../../CardContainer";
-import SortableCardContainer from "../../SortableCardContainer";
-import MyProblemMiniCard from "../../MyProblemMiniCard";
-import { ScrollArea } from "../../shadcn/ScrollArea";
-import { Item } from "@radix-ui/react-context-menu";
 import { transformProblemModel2ProblemHashedTable } from "../../../types/adapters/Problem.adapter";
+import {
+	CreateCollectionRequestForm,
+	ProblemItemInterface,
+} from "../../../types/forms/CreateCollectionRequestForm";
+import { ProblemHashedTable } from "../../../types/models/Problem.model";
+import MyProblemMiniCard2 from "../../Cards/ProblemCards/MyProblemMiniCard2";
+import { Button } from "../../shadcn/Button";
+import { Input } from "../../shadcn/Input";
+import { ScrollArea } from "../../shadcn/ScrollArea";
+import { Separator } from "../../shadcn/Seperator";
+import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
 
 const ManageProblems = ({
 	createRequest,
@@ -29,48 +23,47 @@ const ManageProblems = ({
 		React.SetStateAction<CreateCollectionRequestForm>
 	>;
 }) => {
-	
-	const accountId = Number(localStorage.getItem("account_id"));
+	const accountId = String(localStorage.getItem("account_id"));
 
 	const [allProblemsSortable, setAllProblemsSortable] = useState<
-		ItemInterface[]
+		ProblemItemInterface[]
 	>([]);
 	const [selectedProblemsSortable, setSelectedProblemsSortable] = useState<
-		ItemInterface[]
+		ProblemItemInterface[]
 	>([]);
-	const [allProblems, setAllProblems] = useState<
-		ProblemHashedTable
-	>({});
+	const [allProblems, setAllProblems] = useState<ProblemHashedTable>({});
 
 	const [initial, setInitial] = useState(true);
-	const [selectedProblemSortableIds, setSelectedProblemSortableIds] = useState<number[]>([]);
+	const [selectedProblemSortableIds, setSelectedProblemSortableIds] =
+		useState<string[]>([]);
 
 	useEffect(() => {
-		setSelectedProblemSortableIds(selectedProblemsSortable.map((item) => item.id as number));
-	},[selectedProblemsSortable])
-
-	const handleRemoveSelectedProblem = (id: number) => {
-		setSelectedProblemsSortable(
-			[...selectedProblemsSortable.filter((item) => item.id !== id)]
+		setSelectedProblemSortableIds(
+			selectedProblemsSortable.map((item) => item.id as string)
 		);
-	}
+	}, [selectedProblemsSortable]);
 
-	const handleQuickToggleSelectedProblem = (item: ItemInterface) => {
+	const handleRemoveSelectedProblem = (id: string) => {
+		setSelectedProblemsSortable([
+			...selectedProblemsSortable.filter((item) => item.id !== id),
+		]);
+	};
+
+	const handleQuickToggleSelectedProblem = (item: ProblemItemInterface) => {
 		// if (selectedProblemsSortable.find((item1) => item1.id === item.id)) {
 		// 	console.log("Remove");
-		// 	handleRemoveSelectedProblem(item.id as number);
+		// 	handleRemoveSelectedProblem(item.id as string);
 		// } else {
 		// 	console.log("Add");
 		// 	setSelectedProblemsSortable([...selectedProblemsSortable, item]);
 		// }
 
-		if (selectedProblemSortableIds.includes(item.id as number)) {
-			handleRemoveSelectedProblem(item.id as number);
-		}
-		else {
+		if (selectedProblemSortableIds.includes(item.id as string)) {
+			handleRemoveSelectedProblem(item.id as string);
+		} else {
 			setSelectedProblemsSortable([...selectedProblemsSortable, item]);
 		}
-	}
+	};
 
 	useEffect(() => {
 		setCreateRequest({
@@ -80,54 +73,79 @@ const ManageProblems = ({
 	}, [selectedProblemsSortable]);
 
 	useEffect(() => {
-		ProblemService.getAllByAccount(accountId).then((response) => {
-			setAllProblems(transformProblemModel2ProblemHashedTable(response.data.problems));
+		ProblemService.getAllAsCreator(accountId).then((response) => {
+			setAllProblems(
+				transformProblemModel2ProblemHashedTable(response.data.problems)
+			);
 			setAllProblemsSortable(
 				response.data.problems.map((problem) => ({
-					id: problem?.problem_id,
-					name: problem?.title
+					id: problem.problem_id,
+					name: problem.title,
+					problem: problem,
+					groupPermissions: [],
 				}))
 			);
 		});
 	}, [accountId]);
 
 	useEffect(() => {
+		if (createRequest.collection) {
+			setAllProblems({
+				...allProblems,
+				...transformProblemModel2ProblemHashedTable(
+					createRequest.collection.problems.map((cp) => cp.problem)
+				),
+			});
+		}
+	}, [createRequest.collection, allProblems]);
+
+	useEffect(() => {
 		if (initial) {
-			setSelectedProblemsSortable(createRequest.problemsInterface)
+			console.log("AAA",createRequest)
+			// setSelectedProblemsSortable(createRequest.problemsInterface);
+			setSelectedProblemsSortable(
+				createRequest.collection?.problems.map((cp) => ({
+					id: cp.problem.problem_id,
+					name: cp.problem.title,
+					problem: cp.problem,
+					groupPermissions: cp.problem.group_permissions.map((gc) => ({
+						groupId: gc.group.group_id,
+						group: gc.group,
+						manageProblems: gc.permission_manage_problems,
+						viewProblems: gc.permission_view_problems,
+					})),
+				})) ?? ([] as ProblemItemInterface[])
+			);
 			setInitial(false);
 		}
 
-		console.log("Create Request", createRequest);
-	},[createRequest])
+		// console.log("Create Request", createRequest);
+	}, [createRequest]);
 
 	return (
 		<div>
-			<div className="flex justify-between">
-				<h1 className="text-2xl font-bold">Manage Problems</h1>
-
-				<Button>Add Problems</Button>
-			</div>
-
 			<div className="flex">
 				<div className="w-1/2">
 					<div className="mt-6 pr-5">
 						<div className="grid gap-y-3">
-							<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+							<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 								<ReactSortable
 									animation={150}
 									group="shared"
 									list={selectedProblemsSortable}
 									setList={setSelectedProblemsSortable}
-									className="grid gap-y-3 p-2 rounded-md"
+									className="grid gap-y-2 p-2 rounded-md"
 								>
 									{selectedProblemsSortable?.map((item) => (
-										<MyProblemMiniCard
+										<MyProblemMiniCard2
 											disabledHighlight
-											onClick={() => handleRemoveSelectedProblem(item.id as number)}
-											key={item.id}
-											problem={
-												allProblems[item.id as number]
+											onClick={() =>
+												handleRemoveSelectedProblem(
+													item.id as string
+												)
 											}
+											key={item.id}
+											problem={item.problem}
 										/>
 									))}
 								</ReactSortable>
@@ -142,7 +160,7 @@ const ManageProblems = ({
 
 				<div className="w-1/2">
 					<Input className="mt-2" />
-					<ScrollArea className="mt-6 h-[80vh] md:h-[65vh] pr-5">
+					<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 						<ReactSortable
 							group={{
 								name: "shared",
@@ -154,17 +172,27 @@ const ManageProblems = ({
 							list={allProblemsSortable}
 							setList={setAllProblemsSortable}
 							filter=".selected"
-							className="grid gap-y-3 p-2 rounded-md"
+							className="grid grid-cols-3 gap-2 p-2 rounded-md"
 						>
 							{allProblemsSortable?.map((item) => (
-								<div className={selectedProblemsSortable.includes(item) ? "selected" : ""}>
-									<MyProblemMiniCard
-										onClick={() => handleQuickToggleSelectedProblem(item)}
-										disabled={selectedProblemSortableIds.includes(item.id as number)}
-										key={item.id}
-										problem={
-											allProblems[item.id as number]
+								<div
+									className={
+										selectedProblemsSortable.includes(item)
+											? "selected"
+											: ""
+									}
+								>
+									<MyProblemMiniCard2
+										onClick={() =>
+											handleQuickToggleSelectedProblem(
+												item
+											)
 										}
+										disabled={selectedProblemSortableIds.includes(
+											item.id as string
+										)}
+										key={item.id}
+										problem={item.problem}
 									/>
 								</div>
 							))}
