@@ -100,7 +100,7 @@ const MyCourseContextMenu = ({
 				<ContextMenuSeparator />
 				<ContextMenuItem
 					onClick={() =>
-						navigate(`/my/courses/${course.topic_id}`)
+						navigate(`/my/courses/${course.topic_id}/edit`)
 					}
 				>
 					<PencilIcon className="mr-2" size={16} />

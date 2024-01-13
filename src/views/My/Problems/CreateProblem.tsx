@@ -47,7 +47,7 @@ const CreateProblem = () => {
 			toast({
 				title: "Create Completed",
 			});
-			navigate(`/my/problems/${response.data.problem_id}`);
+			navigate(`/my/problems/${response.data.problem_id}/edit`);
 		});
 	};
 

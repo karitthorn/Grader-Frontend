@@ -25,7 +25,7 @@ const MyCourseCard = ({
 						`/my/courses/${course.topic_id}`
 					)
 				}
-				onClick={() => navigate(`/my/courses/${course.topic_id}`)}
+				onClick={() => navigate(`/my/courses/${course.topic_id}/edit`)}
 				onMouseOver={() => setMouseOver(true)}
 				onMouseOut={() => setMouseOver(false)}
 				className={`pt-6 px-5 cursor-pointer ${

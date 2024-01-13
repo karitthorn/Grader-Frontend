@@ -181,7 +181,7 @@ const GroupAndPermissionManager = ({
 							(groupPermission, index) => (
 								<div onClick={() => setSelectedIndex(index)}>
 									<GroupListItemContextMenu
-										onClickViewGroup={() => navigate(`/my/groups/${groupPermission.group.group_id}`)}
+										onClickViewGroup={() => navigate(`/my/groups/${groupPermission.group.group_id}/edit`)}
 										onClickRemove={() => handleRemoveGroupPermission(index)}
 									>
 										<GroupListItem

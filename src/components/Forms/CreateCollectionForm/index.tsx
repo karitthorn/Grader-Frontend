@@ -1,6 +1,6 @@
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
 import { ProblemService } from "../../../services/Problem.service";
 import { toast } from "../../shadcn/UseToast";
@@ -46,7 +46,14 @@ const CreateCollectionForm = ({
 	onCollectionSave: (callback: OnCollectionSavedCallback) => void;
 }) => {
 	const navigate = useNavigate();
-	const [currentForm, setCurrentForm] = useState("general");
+	const [currentForm, setCurrentForm] = useSearchParams();
+
+	useEffect(() => {
+		if (!currentForm.get("section")) {
+			setCurrentForm({ section: "general" });
+		}
+	}, [currentForm])
+
 	const [loading, setLoading] = useState(false);
 	const [createRequest, setCreateRequest] =
 		useState<CreateCollectionRequestForm>(createRequestInitialValue);
@@ -73,14 +80,14 @@ const CreateCollectionForm = ({
 				</h1>
 				<div>
 					<div className="flex">
-						<Tabs defaultValue="general">
+						<Tabs value={currentForm.get("section") || "general"}>
 							<TabsList>
 								{TabList.map((tab, index) => (
 									<TabsTrigger
 										key={index}
 										value={tab.value}
 										onClick={() =>
-											setCurrentForm(tab.value)
+											setCurrentForm({section: tab.value})
 										}
 									>
 										{tab.label}
@@ -97,20 +104,20 @@ const CreateCollectionForm = ({
 			</div>
 
 			<div className="mt-3">
-				{currentForm === "general" && (
+				{currentForm.get("section") === "general" && (
 					<GeneralDetail
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{currentForm === "problems" && (
+				{currentForm.get("section") === "problems" && (
 					<ManageProblems
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
 
-				{currentForm === "groups" && (
+				{currentForm.get("section") === "groups" && (
 					<ManageGroups
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}

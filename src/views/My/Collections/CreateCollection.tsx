@@ -79,7 +79,7 @@ const CreateCollection = () => {
 				toast({
 					title: "Create Completed",
 				});
-				navigate(`/my/collections/${response.collection_id}`);
+				navigate(`/my/collections/${response.collection_id}/edit`);
 				setLoading(false);
 			});
 	};

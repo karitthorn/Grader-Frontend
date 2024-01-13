@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
@@ -52,7 +52,7 @@ const CreateGroupForm = ({
 	// onCollectionSave: (callback: OnCollectionSavedCallback) => void;
 }) => {
 	const navigate = useNavigate();
-	const [currentForm, setCurrentForm] = useState("general");
+	const [currentForm, setCurrentForm] = useSearchParams();
 	const [loading, setLoading] = useState(false);
 
 	const [groupId, setGroupId] = useState(-1);
@@ -60,6 +60,12 @@ const CreateGroupForm = ({
 	const [createRequest, setCreateRequest] = useState<CreateGroupRequestForm>(
 		createRequestInitialValue
 	);
+
+	useEffect(() => {
+		if (!currentForm.get("section")) {
+			setCurrentForm({ section: "general" });
+		}
+	}, [currentForm])
 
 	const handleSave = () => {
 		console.log(createRequest)
@@ -86,14 +92,14 @@ const CreateGroupForm = ({
 				</h1>
 				<div>
 					<div className="flex">
-						<Tabs defaultValue="general">
+						<Tabs value={currentForm.get("section") || "general"}>
 							<TabsList>
 								{TabList.map((tab, index) => (
 									<TabsTrigger
 										key={index}
 										value={tab.value}
 										onClick={() =>
-											setCurrentForm(tab.value)
+											setCurrentForm({section: tab.value})
 										}
 									>
 										{tab.label}
@@ -110,19 +116,19 @@ const CreateGroupForm = ({
 			</div>
 
 			<div className="mt-3">
-				{currentForm === "general" && (
+				{currentForm.get("section") === "general" && (
 					<GeneralDetail
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{currentForm === "members" && (
+				{currentForm.get("section") === "members" && (
 					<ManageMembers
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{currentForm === "permissions" && (
+				{currentForm.get("section") === "permissions" && (
 					<ManagePermissions
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}

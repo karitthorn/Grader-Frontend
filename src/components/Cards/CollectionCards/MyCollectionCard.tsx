@@ -31,8 +31,8 @@ const MyCollectionCard = ({
 	return (
 		<MyCollectionContextMenu collection={collection}>
 			<Card
-			onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/collections/${collection.collection_id}`)}
-			onClick={() => navigate(`/my/collections/${collection.collection_id}`)}
+			onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/collections/${collection.collection_id}/edit`)}
+			onClick={() => navigate(`/my/collections/${collection.collection_id}/edit`)}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}
 			className={`pt-6 px-5 cursor-pointer ${

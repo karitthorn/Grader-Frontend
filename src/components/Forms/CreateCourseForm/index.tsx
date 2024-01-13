@@ -1,21 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
-import { ProblemService } from "../../../services/Problem.service";
-import { toast } from "../../shadcn/UseToast";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ArrowLeft, ChevronLeftIcon, Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
-import { CreateProblemRequest } from "../../../types/apis/Problem.api";
-import { Button } from "../../shadcn/Button";
-import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import { TestcaseModel } from "../../../types/models/Problem.model";
-import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
+import FormSaveButton from "../FormSaveButton";
 import GeneralDetail from "./GeneralDetail";
 import ManageCollections from "./ManageCollections";
-import FormSaveButton from "../FormSaveButton";
 import ManageGroups from "./ManageGroups";
 
 const TabList = [
@@ -51,8 +41,16 @@ const CreateCourseForm = ({
 }) => {
 	const accountId = String(localStorage.getItem("account_id"));
 
+	const [currentForm, setCurrentForm] = useSearchParams();
+	
+	useEffect(() => {
+		if (!currentForm.get("section")) {
+			setCurrentForm({ section: "general" });
+		}
+	}, [currentForm])
+
 	const navigate = useNavigate();
-	const [currentForm, setCurrentForm] = useState("general");
+	// const [currentForm, setCurrentForm] = useState(searchParams.get("section"));
 	const [loading, setLoading] = useState(false);
 
 	const [courseId, setCourseId] = useState(-1);
@@ -85,7 +83,7 @@ const CreateCourseForm = ({
 				</h1>
 				<div>
 					<div className="flex">
-						<Tabs defaultValue="general">
+						<Tabs value={currentForm.get("section") || "general"}>
 							<TabsList>
 								{TabList.map((tab, index) => (
 									<TabsTrigger
@@ -97,7 +95,7 @@ const CreateCourseForm = ({
 												accountId
 										}
 										onClick={() =>
-											setCurrentForm(tab.value)
+											setCurrentForm({section: tab.value})
 										}
 									>
 										{tab.label}
@@ -114,20 +112,20 @@ const CreateCourseForm = ({
 			</div>
 
 			<div className="mt-3">
-				{currentForm === "general" && (
+				{currentForm.get("section") === "general" && (
 					<GeneralDetail
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
-				{currentForm === "collections" && (
+				{currentForm.get("section") === "collections" && (
 					<ManageCollections
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
 				)}
 
-				{currentForm === "groups" && (
+				{currentForm.get("section") === "groups" && (
 					<ManageGroups
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}

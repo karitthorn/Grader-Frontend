@@ -81,7 +81,7 @@ const MyProblemContextMenu = ({
 				<ContextMenuSeparator />
 				<ContextMenuItem
 					onClick={() =>
-						navigate(`/my/problems/${problem.problem_id}`)
+						navigate(`/my/problems/${problem.problem_id}/edit`)
 					}
 				>
 					<PencilIcon className="mr-2" size={16} />

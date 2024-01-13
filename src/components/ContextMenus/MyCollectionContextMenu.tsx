@@ -100,7 +100,7 @@ const MyCollectionContextMenu = ({
 				<ContextMenuSeparator />
 				<ContextMenuItem
 					onClick={() =>
-						navigate(`/my/collections/${collection.collection_id}`)
+						navigate(`/my/collections/${collection.collection_id}/edit`)
 					}
 				>
 					<PencilIcon className="mr-2" size={16} />

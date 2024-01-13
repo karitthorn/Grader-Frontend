@@ -47,7 +47,7 @@ const CreateGroup = () => {
 			})
 			.then((response) => {
 				setLoading(false);
-				navigate(`/my/groups/${response.data.group_id}`);
+				navigate(`/my/groups/${response.data.group_id}/edit`);
 			});
 	};
 

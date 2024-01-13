@@ -80,7 +80,7 @@ const CreateCourse = () => {
 				toast({
 					title: "Create Completed",
 				});
-				navigate(`/my/courses/${topic_id}`);
+				navigate(`/my/courses/${topic_id}/edit`);
 			});
 	};
 

@@ -81,8 +81,8 @@ const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 		<MyProblemContextMenu problem={problem}>
 			
 			<Card
-				onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/problems/${problem.problem_id}`)}
-				onClick={() => navigate(`/my/problems/${problem.problem_id}`)}
+				onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/problems/${problem.problem_id}/edit`)}
+				onClick={() => navigate(`/my/problems/${problem.problem_id}/edit`)}
 				onMouseOver={handleMouseOver}
 				onMouseOut={handleMouseOut}
 				className={`pt-6 px-5 cursor-pointer ${
