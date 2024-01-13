@@ -16,9 +16,10 @@ const DeleteProblemConfirmationDialog = ({
   afterDelete?: () => void
 }) => {
 
+	const accountId = String(localStorage.getItem("account_id"));
   const handleDelete = () => {
     setOpen(false)
-    ProblemService.delete(problem.problem_id).then(() => afterDelete())
+    ProblemService.delete(problem.problem_id,accountId).then(() => afterDelete())
     
   }
 
