@@ -16,8 +16,8 @@ export const CollectionService: CollectionServiceAPI = {
         return axios.get<GetCollectionByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/collections`);
     },
 
-    update: (collectionId,request) => {
-        return axios.put<CollectionModel>(`${BASE_URL}/api/collections/${collectionId}`,request);
+    update: (collectionId,accountId,request) => {
+        return axios.put<CollectionModel>(`${BASE_URL}/api/accounts/${accountId}/collections/${collectionId}`,request);
     },
 
     delete: (collectionId,accountId) => {

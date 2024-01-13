@@ -63,11 +63,6 @@ const CreateProblemForm = ({
 		onProblemSave(setLoading, createRequest);
 	};
 
-	useEffect(() => {
-		if (!currentForm.get("section")) {
-			setCurrentForm({ section: "general" });
-		}
-	}, [currentForm])
 
 	useEffect(() => {
 		if (validatedTestcases.length !== 0) {
@@ -117,7 +112,7 @@ const CreateProblemForm = ({
 			</div>
 
 			<div className="mt-3">
-				{currentForm.get("section") === "general" && (
+				{(!currentForm.get("section") || currentForm.get("section") === "general")  && (
 					<GeneralDetail
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}

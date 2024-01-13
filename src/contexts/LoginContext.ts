@@ -1,12 +1,12 @@
 import { createContext } from "react";
 
 export type LoginContextType = {
-	isLogin: boolean;
-	setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+	isLogin: boolean | null;
+	setIsLogin: React.Dispatch<React.SetStateAction<boolean|null>>; 
 }
 
 const iLoginContextState: LoginContextType = {
-	isLogin: false,
+	isLogin: null,
 	setIsLogin: () => {},
 }
 

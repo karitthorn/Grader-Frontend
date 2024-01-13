@@ -1,5 +1,5 @@
 import { ArrowLeft } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
@@ -37,12 +37,6 @@ const CreateCollectionForm = ({
 }) => {
 	const navigate = useNavigate();
 	const [currentForm, setCurrentForm] = useSearchParams();
-
-	useEffect(() => {
-		if (!currentForm.get("section")) {
-			setCurrentForm({ section: "general" });
-		}
-	}, [currentForm])
 
 	const [loading, setLoading] = useState(false);
 	const [createRequest, setCreateRequest] =
@@ -94,7 +88,7 @@ const CreateCollectionForm = ({
 			</div>
 
 			<div className="mt-3">
-				{currentForm.get("section") === "general" && (
+				{(!currentForm.get("section") || currentForm.get("section") === "general") && (
 					<GeneralDetail
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}

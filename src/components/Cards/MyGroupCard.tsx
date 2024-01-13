@@ -18,13 +18,13 @@ const MyGroupCard = ({
 
 	return (
 		<Card
-			onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/groups/${group?.group_id}`)}
+			onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/groups/${group?.group_id}/edit`)}
 			onMouseOver={() => setMouseOver(true)}
 			onMouseOut={() => setMouseOver(false)}
 			className={`pt-6 px-5 cursor-pointer ${
 				mouseOver ? "border-green-500 bg-green-100" : ""
 			}`}
-			onClick={() => navigate(`./${group?.group_id}`)}
+			onClick={() => navigate(`/my/groups/${group?.group_id}/edit`)}
 		>
 			<CardContent>
 				<div className="flex items-center font-bold mb-2">

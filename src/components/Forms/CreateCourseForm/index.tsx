@@ -1,5 +1,5 @@
 import { ArrowLeft } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
@@ -42,12 +42,6 @@ const CreateCourseForm = ({
 	const accountId = String(localStorage.getItem("account_id"));
 
 	const [currentForm, setCurrentForm] = useSearchParams();
-	
-	useEffect(() => {
-		if (!currentForm.get("section")) {
-			setCurrentForm({ section: "general" });
-		}
-	}, [currentForm])
 
 	const navigate = useNavigate();
 	// const [currentForm, setCurrentForm] = useState(searchParams.get("section"));
@@ -111,7 +105,7 @@ const CreateCourseForm = ({
 			</div>
 
 			<div className="mt-3">
-				{currentForm.get("section") === "general" && (
+				{(!currentForm.get("section") || currentForm.get("section") === "general") && (
 					<GeneralDetail
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}

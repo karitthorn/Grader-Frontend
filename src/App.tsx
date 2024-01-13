@@ -8,7 +8,7 @@ import Router from "./router";
 import { AuthService } from "./services/Auth.service";
 
 function App() {
-	const [isLogin, setIsLogin] = useState(false);
+	const [isLogin, setIsLogin] = useState<boolean|null>(null);
 	const [section, setSection] = useState("");
 	const [isOpenNavSidebar, setIsOpenNavSidebar] = useState(false);
 
@@ -17,6 +17,7 @@ function App() {
 		const account_id = String(localStorage.getItem("account_id"));
 
 		if (!token || !account_id) {
+			setIsLogin(false)
 			return;
 		}
 
@@ -25,6 +26,7 @@ function App() {
 				setIsLogin(true);
 			}
 			else {
+				setIsLogin(false)
 				localStorage.removeItem("token");
 				localStorage.removeItem("account_id");
 				localStorage.removeItem("username");

@@ -10,9 +10,9 @@ const PublicCourseCard = ({ course }: { course: TopicModel }) => {
 
 	return (
 		<Card className="p-6">
-			<div className="flex items-center font-bold text-2xl">
-				<LibraryBig className="mr-2 text-purple-400" />
-				<p>{course?.name}</p>
+			<div className="flex items-start font-bold text-xl">
+				<LibraryBig size={30} className="mr-2 text-purple-400" />
+				<p className="line-clamp-2 w-11/12 h-[6ex]">{course?.name}</p>
 			</div>
 
 			<div className="mt-3 flex justify-end">

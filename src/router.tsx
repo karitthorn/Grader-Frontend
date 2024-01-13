@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import CourseManagement from "./views/CourseManagement";
 import Dashboard from "./views/Dashboard";
 import ExploreCourses from "./views/ExploreCourses";
@@ -21,8 +21,19 @@ import Register from "./views/Register";
 import ViewCourse from "./views/ViewCourse";
 import ViewCourseProblem from "./views/ViewCourseProblem";
 import ViewProblem from "./views/ViewProblem";
+import { useContext, useEffect } from "react";
+import { LoginContext } from "./contexts/LoginContext";
 
 const Router = () => {
+
+	const navigate = useNavigate();
+	const {isLogin} = useContext(LoginContext);
+	useEffect(() => {
+		if (isLogin !== null && !isLogin) {
+			navigate("/login")
+		}
+	},[isLogin])
+
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
@@ -30,6 +41,8 @@ const Router = () => {
 			<Route path="/courses" element={<ExploreCourses />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
+
+			{isLogin && (<>
 			<Route path="/dashboard" element={<Dashboard />} />
 			<Route path="/management" element={<CourseManagement />} />
 
@@ -52,6 +65,8 @@ const Router = () => {
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
 			<Route path="/courses/:courseId" element={<ViewCourse />} />
 			<Route path="/courses/:courseId/problems/:problemId" element={<ViewCourseProblem />} />
+			</>)}
+			
 		</Routes>
 	);
 };

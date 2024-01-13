@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { Button } from "../components/shadcn/Button";
 import {
 	Card,
@@ -27,7 +26,6 @@ import { AuthService } from "../services/Auth.service";
 
 const Login = () => {
 	const form = useForm();
-	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState(false);
 	const [userNotFound, setUserNotFound] = useState(false);
@@ -50,8 +48,7 @@ const Login = () => {
 				if (account.token) {
 					localStorage.setItem("token", account.token);
 				}
-				window.location.reload();
-				navigate(-1);
+				window.location.href = "/dashboard";
 			}
 			setLoading(false);
 		}).catch((error) => {

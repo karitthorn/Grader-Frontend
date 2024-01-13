@@ -11,6 +11,7 @@ import {
 	AccordionTrigger,
 } from "./shadcn/Accordion";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./shadcn/Tooltip";
+import { onMiddleClickOpenInNewTab } from "../utilities/OnMiddleClickOpenInNewTab";
 
 const NavbarCollectionProblemCard = ({
 	problem
@@ -43,7 +44,9 @@ const NavbarCollectionProblemCard = ({
 	}
 
 	return (
-		<div onClick={() => {
+		<div 
+		onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/courses/${courseId}/problems/${problem.problem_id}`)}
+		onClick={() => {
 			navigate(`/courses/${courseId}/problems/${problem.problem_id}`)
 			window.location.reload()
 		}} className={backgroundCustomStyle()}>
