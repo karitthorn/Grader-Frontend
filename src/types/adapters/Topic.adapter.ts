@@ -1,10 +1,11 @@
+import { handleDeprecatedDescription } from "../../utilities/HandleDeprecatedDescription";
 import { CreateCourseRequestForm } from "../forms/CreateCourseRequestForm";
 import { TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel } from "../models/Topic.model";
 
 export function transformTopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel2CreateCourseRequest(topic:TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel): CreateCourseRequestForm {
     return {
         title: topic.name,
-        description: JSON.parse(String(topic.description)),
+        description: JSON.parse(handleDeprecatedDescription(String(topic.description))),
         image: topic.image_url,
         isPrivate: topic.is_private,
         collectionsInterface: topic.collections.map((tc) => ({

@@ -11,6 +11,7 @@ import { Badge } from "../../shadcn/Badge";
 import { Card } from "../../shadcn/Card";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import PublicProblemMiniCard from "../ProblemCards/PublicProblemMiniCard";
+import { handleDeprecatedDescription } from "../../../utilities/HandleDeprecatedDescription";
 
 const isPassed = (collection: CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel):boolean => {
 	return collection.problems.filter(
@@ -63,7 +64,7 @@ const TopicCollectionAccordianCard = ({
 					</AccordionTrigger>
 					<AccordionContent>
 						<ReadOnlyPlate
-							value={JSON.parse(String(collection.description))}
+							value={JSON.parse(handleDeprecatedDescription(String(collection.description)))}
 						/>
 
 						<ScrollArea className="mt-6 pr-5">

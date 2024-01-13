@@ -1,3 +1,4 @@
+import { handleDeprecatedDescription } from "../../utilities/HandleDeprecatedDescription";
 import { CreateCollectionRequestForm } from "../forms/CreateCollectionRequestForm";
 import { CollectionHashedTable, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel } from "../models/Collection.model";
 
@@ -13,7 +14,7 @@ export function transformCollectionPopulateCollectionProblemsPopulateProblemAndC
 
     return {
         title: collection.name,
-        description: JSON.parse(String(collection.description)),
+        description: JSON.parse(handleDeprecatedDescription(String(collection.description))),
         problemsInterface: collection.problems.map((cp) => ({
             id: cp.problem.problem_id,
             name: cp.problem.title,
