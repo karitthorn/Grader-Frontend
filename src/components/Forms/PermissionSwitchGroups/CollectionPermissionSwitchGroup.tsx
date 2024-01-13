@@ -1,7 +1,4 @@
-import React from "react";
 import PermissionSwitch from "../../Permissions/PermissionSwitch";
-import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
 import { Switch } from "../../shadcn/Switch";
 
 const CollectionPermissionSwitchGroup = ({

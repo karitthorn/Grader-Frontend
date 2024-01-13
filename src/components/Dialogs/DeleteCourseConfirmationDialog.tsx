@@ -1,16 +1,8 @@
-import React, { useState } from "react";
-import { Dialog, DialogContent, DialogTitle } from "../shadcn/Dialog";
-import { Button } from "../shadcn/Button";
-import { ProblemService } from "../../services/Problem.service";
-import {
-	ProblemModel,
-	ProblemPopulateTestcases,
-	ProblemSecureModel,
-} from "../../types/models/Problem.model";
-import { CollectionModel } from "../../types/models/Collection.model";
-import { CollectionService } from "../../services/Collection.service";
-import { TopicModel } from "../../types/models/Topic.model";
+import React from "react";
 import { TopicService } from "../../services/Topic.service";
+import { TopicModel } from "../../types/models/Topic.model";
+import { Button } from "../shadcn/Button";
+import { Dialog, DialogContent } from "../shadcn/Dialog";
 
 const DeleteCourseConfirmationDialog = ({
 	open,

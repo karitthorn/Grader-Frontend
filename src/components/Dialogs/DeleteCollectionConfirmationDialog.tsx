@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { Dialog, DialogContent, DialogTitle } from "../shadcn/Dialog";
-import { Button } from "../shadcn/Button";
-import { ProblemService } from "../../services/Problem.service";
-import { ProblemModel, ProblemPopulateTestcases, ProblemSecureModel } from "../../types/models/Problem.model";
-import { CollectionModel } from "../../types/models/Collection.model";
+import React from "react";
 import { CollectionService } from "../../services/Collection.service";
+import { CollectionModel } from "../../types/models/Collection.model";
+import { Button } from "../shadcn/Button";
+import { Dialog, DialogContent } from "../shadcn/Dialog";
 
 const DeleteCollectionConfirmationDialog = ({
   open,

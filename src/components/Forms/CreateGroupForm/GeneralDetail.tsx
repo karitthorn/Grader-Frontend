@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
-import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
-import { Label } from '../../shadcn/Label';
-import { Input } from '../../shadcn/Input';
-import DetailPlateEditor from '../../DetailPlateEditor';
-import { CreateCollectionRequestForm } from '../../../types/forms/CreateCollectionRequestForm';
-import { CreateCourseRequestForm } from '../../../types/forms/CreateCourseRequestForm';
-import { handleDeprecatedDescription } from '../../../utilities/HandleDeprecatedDescription';
-import { Textarea } from '../../shadcn/Textarea';
+import React from 'react';
 import { CreateGroupRequestForm } from '../../../types/forms/CreateGroupRequestForm';
+import { Input } from '../../shadcn/Input';
+import { Label } from '../../shadcn/Label';
+import { Textarea } from '../../shadcn/Textarea';
 
 const GeneralDetail = ({
 	createRequest,

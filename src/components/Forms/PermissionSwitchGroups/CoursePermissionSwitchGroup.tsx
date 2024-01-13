@@ -1,8 +1,4 @@
-import React from "react";
 import PermissionSwitch from "../../Permissions/PermissionSwitch";
-import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import { CreateCourseRequestForm } from "../../../types/forms/CreateCourseRequestForm";
-import { set } from 'react-hook-form';
 
 const CoursePermissionSwitchGroup = ({
 	disabled = false,

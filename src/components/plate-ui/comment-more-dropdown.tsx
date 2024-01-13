@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import {
   useCommentDeleteButton,
   useCommentDeleteButtonState,
@@ -9,7 +8,6 @@ import {
 } from '@udecode/plate-comments';
 
 import { cn } from '../../lib/utils';
-import { Icons } from './icons';
 import { Button } from './button';
 import {
   DropdownMenu,
@@ -17,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './dropdown-menu';
+import { Icons } from './icons';
 
 export function CommentMoreDropdown() {
   const editButtonState = useCommentEditButtonState();

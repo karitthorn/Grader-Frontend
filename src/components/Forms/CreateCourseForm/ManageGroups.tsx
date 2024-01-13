@@ -62,7 +62,7 @@ const ManageGroups = ({
 		setCreateRequest({
 			...createRequest,
 			groupPermissions: createRequest.groupPermissions.filter(
-				(v, i) => i !== index
+				(_, i) => i !== index
 			),
 		});
 	};
@@ -118,7 +118,7 @@ const ManageGroups = ({
 			<GroupAndPermissionManager
 				allGroups={allGroups}
 				createRequest={createRequest}
-				setCreateRequest={setCreateRequest}
+				// setCreateRequest={setCreateRequest}
 				onAddGroups={(e) => handleAddGroups(e)}
 				onRemoveGroup={(e) => handleRemoveGroup(e)}
 				selectedIndex={selectedIndex}

@@ -1,11 +1,10 @@
-import React from 'react';
 import {
   EmojiDropdownMenuOptions,
   useEmojiDropdownMenuState,
 } from '@udecode/plate-emoji';
 
-import { Icons } from './icons';
 import { EmojiToolbarDropdown } from './emoji-toolbar-dropdown';
+import { Icons } from './icons';
 import {
   ToolbarButton,
   ToolbarButtonProps,

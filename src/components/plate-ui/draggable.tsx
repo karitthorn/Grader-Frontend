@@ -1,12 +1,12 @@
 'use client';
 
-import React, { forwardRef } from 'react';
 import { ClassNames, PlateElementProps, TEditor } from '@udecode/plate-common';
 import {
   DragItemNode,
   useDraggable,
   useDraggableState,
 } from '@udecode/plate-dnd';
+import { forwardRef } from 'react';
 import { DropTargetMonitor } from 'react-dnd';
 
 import { cn } from '../../lib/utils';

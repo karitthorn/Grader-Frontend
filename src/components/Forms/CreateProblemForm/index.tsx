@@ -1,22 +1,15 @@
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+import { ArrowLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
-import { ProblemService } from "../../../services/Problem.service";
-import { toast } from "../../shadcn/UseToast";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ArrowLeft, ChevronLeftIcon, Loader2 } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
-import { CreateProblemRequest } from "../../../types/apis/Problem.api";
-import { Button } from "../../shadcn/Button";
 import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import GeneralDetail from "./GeneralDetail";
-import Scoring from "./Scoring";
-import Requirement from "./Requirement";
-import Privacy from "./Privacy";
 import { TestcaseModel } from "../../../types/models/Problem.model";
+import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import FormSaveButton from "../FormSaveButton";
+import GeneralDetail from "./GeneralDetail";
 import ManageGroups from "./ManageGroups";
+import Privacy from "./Privacy";
+import Requirement from "./Requirement";
+import Scoring from "./Scoring";
 
 const TabList = [
 	{
@@ -41,11 +34,6 @@ const TabList = [
 	},
 ];
 
-const testcaseFormat = (testcases: string, delimeter: string) => {
-	return testcases.replace(/\r\n/g, "\n").split(delimeter + "\n");
-};
-
-
 export type OnProblemSaveCallback = (
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 	// problemid: string,
@@ -62,7 +50,6 @@ const CreateProblemForm = ({
 	onProblemSave: OnProblemSaveCallback;
 	validatedTestcases?: TestcaseModel[];
 }) => {
-	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState(false);
@@ -71,7 +58,6 @@ const CreateProblemForm = ({
 	const [createRequest, setCreateRequest] =
 		useState<CreateProblemRequestForm>(createRequestInitialValue);
 
-	const [problemId, setProblemId] = useState(-1);
 
 	const handleSave = () => {
 		onProblemSave(setLoading, createRequest);
@@ -82,10 +68,6 @@ const CreateProblemForm = ({
 			setCurrentForm({ section: "general" });
 		}
 	}, [currentForm])
-
-	useEffect(() => {
-		console.log(problemId)
-	},[problemId])
 
 	useEffect(() => {
 		if (validatedTestcases.length !== 0) {

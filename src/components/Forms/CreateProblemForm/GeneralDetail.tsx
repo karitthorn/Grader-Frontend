@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
+import React, { useEffect } from 'react';
 import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
-import { Label } from '../../shadcn/Label';
-import { Input } from '../../shadcn/Input';
+import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
 import DetailPlateEditor from '../../DetailPlateEditor';
+import { Input } from '../../shadcn/Input';
+import { Label } from '../../shadcn/Label';
 
 const GeneralDetail = ({
 	createRequest,
@@ -12,17 +12,17 @@ const GeneralDetail = ({
 	createRequest: CreateProblemRequestForm;
 	setCreateRequest: React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
 }) => {
-	const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
+	// const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
 
 	const handleEditorChange = (value: PlateEditorValueType) => {
-		if (!editorUpdateCooldown) {
+		// if (!editorUpdateCooldown) {
 			setCreateRequest({ ...createRequest, description: value });
 
 			// setEditorUpdateCooldown(true);
 			// setTimeout(() => {
 			// 	setEditorUpdateCooldown(false);
 			// }, 1000);
-		}
+		// }
 	};
 
 	useEffect(()=>{

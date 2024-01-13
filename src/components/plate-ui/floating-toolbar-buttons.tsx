@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   MARK_BOLD,
   MARK_CODE,
@@ -8,8 +7,8 @@ import {
 } from '@udecode/plate-basic-marks';
 import { useEditorReadOnly } from '@udecode/plate-common';
 
-import { Icons } from './icons';
 import { CommentToolbarButton } from './comment-toolbar-button';
+import { Icons } from './icons';
 import { LinkToolbarButton } from './link-toolbar-button';
 
 import { MarkToolbarButton } from './mark-toolbar-button';

@@ -1,110 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardTitle } from "../../shadcn/Card";
-import { Button } from "../../shadcn/Button";
 import {
-	Check,
-	CheckCircle2,
-	FileSpreadsheet,
-	Folder,
-	Pencil,
-	PencilIcon,
-	Trash,
-	X,
+	Folder
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
-	ProblemModel,
-	ProblemPopulateTestcases,
-	ProblemSecureModel,
-	TestcaseModel,
-} from "../../../types/models/Problem.model";
-import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
-import {
-	ContextMenu,
-	ContextMenuTrigger,
-	ContextMenuContent,
-	ContextMenuItem,
-} from "../../shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
-import Checkmark from "../../Checkmark";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
-import {
-	CollectionModel,
 	CollectionPopulateCollectionProblemPopulateProblemModel,
-	CollectionPopulateProblemSecureModel,
-	CollectionProblemPopulateProblemModel,
+	CollectionPopulateProblemSecureModel
 } from "../../../types/models/Collection.model";
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import MyCollectionContextMenu from "../../ContextMenus/MyCollectionContextMenu";
+import { Card } from "../../shadcn/Card";
 
-const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
-	for (const testcase of testcases) {
-		if (testcase.runtime_status !== "OK") {
-			return false;
-		}
-	}
-	return true;
-};
 
-// const MyCollectionContextMenu = ({
-// 	children,
-// 	collection,
-// }: {
-// 	children: React.ReactNode;
-// 	collection: CollectionModel;
-// }) => {
-
-// 	const navigate = useNavigate();
-// 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-
-// 	return (
-// 		<ContextMenu>
-// 			{/* <DeleteProblemConfirmationDialog
-// 				problem={problem}
-// 				open={openDeleteDialog}
-// 				setOpen={setOpenDeleteDialog}
-// 				afterDelete={() => window.location.reload()}
-// 			/> */}
-// 			<ContextMenuTrigger>{children}</ContextMenuTrigger>
-// 			<ContextMenuContent>
-// 				<ContextMenuItem onClick={() => navigate(`/my/collections/${collection.collection_id}`)}>
-// 					<PencilIcon className="mr-2" size={16} />
-// 					Edit
-// 				</ContextMenuItem>
-// 				{/* <ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
-// 					<Trash className="mr-2" size={16} />
-// 					Delete
-// 				</ContextMenuItem> */}
-// 			</ContextMenuContent>
-// 		</ContextMenu>
-// 	);
-// };
 
 const MyCollectionMiniCard2 = ({
-	// problem,
 	collection,
 	disabled = false,
 	disabledHighlight = false,
 	onClick = () => {},
 }: {
-	// problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
 	collection: CollectionPopulateProblemSecureModel | CollectionPopulateCollectionProblemPopulateProblemModel;
 	disabled?: boolean;
 	disabledHighlight?: boolean;
 	onClick?: () => void;
 }) => {
-	const navigate = useNavigate();
 
 	const [highlightTitle, setHighlightTitle] = useState(false);
-	const [toolVisible, setToolVisible] = useState(true);
 
 	const handleMouseOver = () => {
 		setHighlightTitle(true);
-		setToolVisible(true);
 	};
 	const handleMouseOut = () => {
 		setHighlightTitle(false);
-		setToolVisible(false);
 	};
 
 	const customCardCSS = (): string => {
@@ -130,7 +56,6 @@ const MyCollectionMiniCard2 = ({
 				onMouseOut={handleMouseOut}
 				className={customCardCSS()}
 
-				// className={`pt-6 px-5 ${disabled ? "opacity-50" : }`}`}
 			>
 				<div className="flex items-center justify-between font-medium text-base ">
 					<div className="flex items-center w-11/12">

@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useRef } from 'react';
 import { CommentsProvider } from '@udecode/plate-comments';
 import { Plate } from '@udecode/plate-common';
-import { ELEMENT_PARAGRAPH } from '@udecode/plate-paragraph';
+import { useRef } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -11,6 +10,7 @@ import { commentsUsers, myUserId } from '../lib/plate/comments';
 import { MENTIONABLES } from '../lib/plate/mentionables';
 import { plugins } from '../lib/plate/plate-plugins';
 import { cn } from '../lib/utils';
+import { PlateEditorValueType } from '../types/PlateEditorValueType';
 import { CommentsPopover } from './plate-ui/comments-popover';
 import { CursorOverlay } from './plate-ui/cursor-overlay';
 import { Editor } from './plate-ui/editor';
@@ -19,21 +19,12 @@ import { FixedToolbarButtons } from './plate-ui/fixed-toolbar-buttons';
 import { FloatingToolbar } from './plate-ui/floating-toolbar';
 import { FloatingToolbarButtons } from './plate-ui/floating-toolbar-buttons';
 import { MentionCombobox } from './plate-ui/mention-combobox';
-import { PlateEditorValueType } from '../types/PlateEditorValueType';
 
 export default function DetailPlateEditor({value,onChange}:{
     value?: PlateEditorValueType,
     onChange?: (value: PlateEditorValueType) => void
 }) {
   const containerRef = useRef(null);
-
-  const initialValue = [
-    {
-      id: '1',
-      type: ELEMENT_PARAGRAPH,
-      children: [{ text: 'Type something ...' }],
-    },
-  ];
 
   return (
     <DndProvider backend={HTML5Backend}>

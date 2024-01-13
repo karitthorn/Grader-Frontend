@@ -30,7 +30,7 @@ const ManageGroups = ({
 		useState<ProblemGroupPermissionRequestForm>();
 
 	const [selectedIndex, setselectedIndex] = useState<number>(-1);
-	const [currentGroupId, setCurrentGroupId] = useState<string>("");
+	// const [currentGroupId, setCurrentGroupId] = useState<string>("");
 
 	const handleAddGroups = ({
 		addingGroups,
@@ -60,7 +60,7 @@ const ManageGroups = ({
 		setCreateRequest({
 			...createRequest,
 			groupPermissions: createRequest.groupPermissions.filter(
-				(v, i) => i !== index
+				(_, i) => i !== index
 			),
 		});
 	};
@@ -71,9 +71,9 @@ const ManageGroups = ({
 			selectedIndex < createRequest.groupPermissions.length
 		) {
 			setGroupPermission(createRequest.groupPermissions[selectedIndex]);
-			setCurrentGroupId(
-				createRequest.groupPermissions[selectedIndex].groupId
-			);
+			// setCurrentGroupId(
+			// 	createRequest.groupPermissions[selectedIndex].groupId
+			// );
 		}
 	}, [selectedIndex]);
 
@@ -102,7 +102,7 @@ const ManageGroups = ({
 		<GroupAndPermissionManager
 			allGroups={allGroups}
 			createRequest={createRequest}
-			setCreateRequest={setCreateRequest}
+			// setCreateRequest={setCreateRequest}
 			onAddGroups={(e) => handleAddGroups(e)}
 			onRemoveGroup={(e) => handleRemoveGroup(e)}
 			selectedIndex={selectedIndex}

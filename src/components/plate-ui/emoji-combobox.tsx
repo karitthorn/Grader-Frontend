@@ -1,4 +1,3 @@
-import React from 'react';
 import { ComboboxItemProps } from '@udecode/plate-combobox';
 import {
   EmojiItemData,

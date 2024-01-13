@@ -1,21 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import {
 	NavigationMenu,
-	NavigationMenuContent,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
-	NavigationMenuTrigger,
-	navigationMenuTriggerStyle,
+	navigationMenuTriggerStyle
 } from "../shadcn/NevigationMenu";
-import { cn } from "../../lib/utils";
-import { ListItem } from "../shadcn/ListItem";
-import { components } from "../../constants/NavigationBarData";
-import Register from "../../views/Register";
 
-import { Button } from "../shadcn/Button";
 
-import { AuthService } from "../../services/Auth.service";
 import { LoginContext } from "../../contexts/LoginContext";
 import ProfileDropdown from './ProfileDropdown';
 

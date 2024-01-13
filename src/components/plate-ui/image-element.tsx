@@ -1,4 +1,3 @@
-import React from 'react';
 import { PlateElement, PlateElementProps, Value } from '@udecode/plate-common';
 import {
   ELEMENT_IMAGE,
@@ -13,9 +12,9 @@ import { cn } from '../../lib/utils';
 import { Caption, CaptionTextarea } from './caption';
 import { MediaPopover } from './media-popover';
 import {
-  mediaResizeHandleVariants,
   Resizable,
   ResizeHandle,
+  mediaResizeHandleVariants,
 } from './resizable';
 
 export function ImageElement({

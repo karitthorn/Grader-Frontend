@@ -1,12 +1,8 @@
 import React from "react";
 import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import { Separator } from "../../shadcn/Seperator";
-import { ScrollArea } from "../../shadcn/ScrollArea";
-import { Switch } from "../../shadcn/Switch";
-import PermissionSwitch from "../../Permissions/PermissionSwitch";
 import PermissionSwitchScrollArea from "../../Permissions/PermissionSwitchScrollArea";
-import CoursePermissionSwitchGroup from "../PermissionSwitchGroups/CoursePermissionSwitchGroup";
 import CollectionPermissionSwitchGroup from "../PermissionSwitchGroups/CollectionPermissionSwitchGroup";
+import CoursePermissionSwitchGroup from "../PermissionSwitchGroups/CoursePermissionSwitchGroup";
 import ProblemPermissionSwitchGroup from "../PermissionSwitchGroups/ProblemPermissionSwitchGroup";
 
 const ManagePermissions = ({
@@ -72,8 +68,16 @@ const ManagePermissions = ({
 						Problem Permission
 					</p>
 					<ProblemPermissionSwitchGroup
-						createRequest={createRequest}
-						setCreateRequest={setCreateRequest}
+						manageProblemsChecked={createRequest.manageProblems}
+						viewProblemsChecked={createRequest.viewProblems}
+						onClickManageProblems={() => setCreateRequest({
+							...createRequest,
+							manageProblems: !createRequest.manageProblems
+						})}
+						onClickViewProblems={() => setCreateRequest({
+							...createRequest,
+							viewProblems: !createRequest.viewProblems
+						})}
 					/>
 				</PermissionSwitchScrollArea>
 			</div>

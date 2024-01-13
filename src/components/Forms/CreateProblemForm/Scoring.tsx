@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import { ValidateProgramResponse } from "../../../types/apis/Problem.api";
-import { ProblemService } from "../../../services/Problem.service";
-import {
-	testcaseParse,
-	testcasesStringify,
-} from "../../../utilities/TestcaseFormat";
-import { Combobox } from "../../shadcn/Combobox";
-import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
 import { Editor as MonacoEditor } from "@monaco-editor/react";
-import { Input } from "../../shadcn/Input";
-import { Button } from "../../shadcn/Button";
-import TestcaseValidationAccordion from "../../TestcaseValidationAccordion";
-import { Separator } from "../../shadcn/Seperator";
-import { Label } from "../../shadcn/Label";
 import { Loader2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
+import { ProblemService } from "../../../services/Problem.service";
+import { ValidateProgramResponse } from "../../../types/apis/Problem.api";
+import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
+import {
+	testcaseParse
+} from "../../../utilities/TestcaseFormat";
+import TestcaseValidationAccordion from "../../TestcaseValidationAccordion";
+import { Button } from "../../shadcn/Button";
+import { Combobox } from "../../shadcn/Combobox";
+import { Input } from "../../shadcn/Input";
+import { Label } from "../../shadcn/Label";
+import { Separator } from "../../shadcn/Seperator";
 
 const Scoring = ({
 	createRequest,
@@ -28,7 +27,6 @@ const Scoring = ({
 	const [loading, setLoading] = useState(false);
 	const [displayResult, setDisplayResult] = useState(false);
 
-	const [delimeter, setDelimeter] = useState(":::");
 	const [selectedLanguage, setSelectedLanguage] = useState("python");
 
 	const [validationResult, setValidationResult] =

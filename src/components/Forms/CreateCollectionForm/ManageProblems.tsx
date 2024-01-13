@@ -8,11 +8,9 @@ import {
 } from "../../../types/forms/CreateCollectionRequestForm";
 import { ProblemHashedTable } from "../../../types/models/Problem.model";
 import MyProblemMiniCard2 from "../../Cards/ProblemCards/MyProblemMiniCard2";
-import { Button } from "../../shadcn/Button";
 import { Input } from "../../shadcn/Input";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Separator } from "../../shadcn/Seperator";
-import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
 
 const ManageProblems = ({
 	createRequest,

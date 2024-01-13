@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStore } from '@udecode/plate-common';
 import {
   CursorData,

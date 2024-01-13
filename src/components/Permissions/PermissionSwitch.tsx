@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { Separator } from "../shadcn/Seperator";
 import { Switch } from "../shadcn/Switch";
 

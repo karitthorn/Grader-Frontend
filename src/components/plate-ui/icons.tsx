@@ -1,4 +1,3 @@
-import React from 'react';
 import { cva } from 'class-variance-authority';
 import {
   AlignCenter,
@@ -58,7 +57,7 @@ import {
   Twitter,
   Underline,
   WrapText,
-  X,
+  X
 } from 'lucide-react';
 
 import type { LucideIcon } from 'lucide-react';

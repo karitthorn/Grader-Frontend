@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useEffect } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import {
   comboboxActions,
@@ -19,6 +18,7 @@ import {
 } from '@udecode/plate-combobox';
 import { useEditorState, useEventEditorSelectors } from '@udecode/plate-common';
 import { createVirtualRef } from '@udecode/plate-floating';
+import { useEffect } from 'react';
 
 import { cn } from '../../lib/utils';
 

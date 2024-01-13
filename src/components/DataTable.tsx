@@ -1,14 +1,12 @@
-import React from "react";
+import { Props } from "../types/Props";
 import {
 	Table,
 	TableBody,
 	TableCaption,
-	TableCell,
 	TableHead,
 	TableHeader,
-	TableRow,
+	TableRow
 } from "./shadcn/Table";
-import { Props } from "../types/Props";
 
 
 

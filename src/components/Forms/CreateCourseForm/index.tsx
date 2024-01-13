@@ -53,7 +53,6 @@ const CreateCourseForm = ({
 	// const [currentForm, setCurrentForm] = useState(searchParams.get("section"));
 	const [loading, setLoading] = useState(false);
 
-	const [courseId, setCourseId] = useState(-1);
 
 	const [createRequest, setCreateRequest] = useState<CreateCourseRequestForm>(
 		createRequestInitialValue

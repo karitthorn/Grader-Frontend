@@ -1,16 +1,4 @@
-import { Check, Circle, X } from 'lucide-react';
-import React from 'react'
-
-const SolidCircle = ({className=""}:{
-	className?: string
-}) => {
-	return (
-		<div className={className}>
-			<div className='p-2 rounded-full'>
-			</div>
-		</div>
-	)
-}
+import { Check, X } from 'lucide-react';
 
 const Checkmark = ({ status,variant="check" }: { 
 	status: boolean,

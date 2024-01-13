@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Separator } from "../shadcn/Seperator";
 import { FileSpreadsheet, Folder, LibraryBig, Users } from "lucide-react";
-import { Card } from "../shadcn/Card";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavSidebarContext } from "../../contexts/NavSidebarContext";
+import { Separator } from "../shadcn/Seperator";
 
 const SectionButton = ({
 	selected = false,

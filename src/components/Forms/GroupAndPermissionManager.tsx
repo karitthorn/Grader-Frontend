@@ -1,31 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Separator } from "../shadcn/Seperator";
-import { ScrollArea } from "../shadcn/ScrollArea";
-import PermissionSwitchScrollArea from "../Permissions/PermissionSwitchScrollArea";
-import CoursePermissionSwitchGroup from "./PermissionSwitchGroups/CoursePermissionSwitchGroup";
-import {
-	CourseGroupPermissionRequestForm,
-	CreateCourseRequestForm,
-} from "../../types/forms/CreateCourseRequestForm";
 import { Eye, PlusCircle, Users, X } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../shadcn/Tooltip";
-import { Dialog, DialogContent } from "../shadcn/Dialog";
-import { Input } from "../shadcn/Input";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { CreateCollectionRequestForm } from "../../types/forms/CreateCollectionRequestForm";
+import {
+	CreateCourseRequestForm
+} from "../../types/forms/CreateCourseRequestForm";
+import { CreateProblemRequestForm } from "../../types/forms/CreateProblemRequestForm";
+import { GroupModel } from "../../types/models/Group.model";
 import GroupCheckbox from "../GroupCheckbox";
 import { Button } from "../shadcn/Button";
-import { GroupService } from "../../services/Group.service";
-import { GroupModel } from "../../types/models/Group.model";
-import { Command } from "../shadcn/Command";
 import {
 	ContextMenu,
 	ContextMenuContent,
 	ContextMenuItem,
 	ContextMenuTrigger,
 } from "../shadcn/ContextMenu";
-import { CreateCollectionRequestForm } from "../../types/forms/CreateCollectionRequestForm";
-import { set } from 'react-hook-form';
-import { useNavigate } from "react-router-dom";
-import { CreateProblemRequestForm } from "../../types/forms/CreateProblemRequestForm";
+import { Dialog, DialogContent } from "../shadcn/Dialog";
+import { ScrollArea } from "../shadcn/ScrollArea";
+import { Separator } from "../shadcn/Seperator";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../shadcn/Tooltip";
 
 export type GroupAndPermissionManagerOnAddGroupsCallback = {
 	addingGroups: GroupModel[];
@@ -101,7 +94,7 @@ const GroupListItemContextMenu = ({
 const GroupAndPermissionManager = ({
 	allGroups=[],
 	createRequest,
-	setCreateRequest,
+	// setCreateRequest,
 	onAddGroups=()=>{},
 	onRemoveGroup=()=>{},
 	selectedIndex=-1,
@@ -110,10 +103,10 @@ const GroupAndPermissionManager = ({
 }: {
 	allGroups: GroupModel[];
 	createRequest: CreateCourseRequestForm | CreateCollectionRequestForm | CreateProblemRequestForm;
-	setCreateRequest: 
-		React.Dispatch<React.SetStateAction<CreateCourseRequestForm>> |
-		React.Dispatch<React.SetStateAction<CreateCollectionRequestForm>> |
-		React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
+	// setCreateRequest: 
+	// 	React.Dispatch<React.SetStateAction<CreateCourseRequestForm>> |
+	// 	React.Dispatch<React.SetStateAction<CreateCollectionRequestForm>> |
+	// 	React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
 
 	onAddGroups?: (e: GroupAndPermissionManagerOnAddGroupsCallback) => void;
 	onRemoveGroup?: (e: GroupAndPermissionManagerOnRemoveGroupCallback) => void;

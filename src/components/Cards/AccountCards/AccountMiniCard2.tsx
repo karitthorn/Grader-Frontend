@@ -1,37 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardTitle } from "../../shadcn/Card";
-import { Button } from "../../shadcn/Button";
 import {
-	Check,
-	CheckCircle2,
-	FileSpreadsheet,
-	Folder,
-	Pencil,
-	PencilIcon,
-	Trash,
-	User,
-	Users,
-	X,
+	User
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import {
-	ProblemModel,
-	ProblemPopulateTestcases,
-	ProblemSecureModel,
-	TestcaseModel,
-} from "../../../types/models/Problem.model";
-import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
-import {
-	ContextMenu,
-	ContextMenuTrigger,
-	ContextMenuContent,
-	ContextMenuItem,
-} from "../../shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
-import Checkmark from "../../Checkmark";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
-import { CollectionModel, CollectionPopulateProblemSecureModel } from "../../../types/models/Collection.model";
+import { useState } from "react";
 import { AccountModel, AccountSecureModel } from "../../../types/models/Account.model";
+import { Card } from "../../shadcn/Card";
 
 const AccountMiniCard2 = ({
 	// problem,
@@ -46,18 +18,14 @@ const AccountMiniCard2 = ({
 	disabledHighlight?: boolean;
 	onClick?: () => void;
 }) => {
-	const navigate = useNavigate();
 
 	const [highlightTitle, setHighlightTitle] = useState(false);
-	const [toolVisible, setToolVisible] = useState(true);
 
 	const handleMouseOver = () => {
 		setHighlightTitle(true);
-		setToolVisible(true);
 	};
 	const handleMouseOut = () => {
 		setHighlightTitle(false);
-		setToolVisible(false);
 	};
 
 	const customCardCSS = ():string => {

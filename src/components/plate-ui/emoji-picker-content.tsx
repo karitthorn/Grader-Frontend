@@ -1,10 +1,10 @@
-import React, { memo, useCallback } from 'react';
 import {
   Emoji,
   EmojiSettings,
   GridRow,
   UseEmojiPickerType,
 } from '@udecode/plate-emoji';
+import { memo, useCallback } from 'react';
 
 import { cn } from '../../lib/utils';
 

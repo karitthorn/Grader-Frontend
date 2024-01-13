@@ -2,12 +2,12 @@
 
 import './code-block-element.css';
 
-import React, { forwardRef } from 'react';
 import {
   TCodeBlockElement,
   useCodeBlockElementState,
 } from '@udecode/plate-code-block';
 import { PlateElement, PlateElementProps, Value } from '@udecode/plate-common';
+import { forwardRef } from 'react';
 
 import { cn } from '../../lib/utils';
 

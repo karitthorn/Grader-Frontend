@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
-import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
-import { Label } from '../../shadcn/Label';
-import { Input } from '../../shadcn/Input';
-import DetailPlateEditor from '../../DetailPlateEditor';
-import { CreateCollectionRequestForm } from '../../../types/forms/CreateCollectionRequestForm';
+import React from 'react';
 import { CreateCourseRequestForm } from '../../../types/forms/CreateCourseRequestForm';
-import { handleDeprecatedDescription } from '../../../utilities/HandleDeprecatedDescription';
+import DetailPlateEditor from '../../DetailPlateEditor';
+import { Input } from '../../shadcn/Input';
+import { Label } from '../../shadcn/Label';
+import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
 
 const GeneralDetail = ({
 	createRequest,
@@ -15,17 +12,17 @@ const GeneralDetail = ({
 	createRequest: CreateCourseRequestForm;
 	setCreateRequest: React.Dispatch<React.SetStateAction<CreateCourseRequestForm>>;
 }) => {
-	const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
+	// const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
 
 	const handleEditorChange = (value: PlateEditorValueType) => {
-		if (!editorUpdateCooldown) {
+	// 	if (!editorUpdateCooldown) {
 			setCreateRequest({ ...createRequest, description: value });
 
-			// setEditorUpdateCooldown(true);
-			// setTimeout(() => {
-			// 	setEditorUpdateCooldown(false);
-			// }, 1000);
-		}
+	// 		// setEditorUpdateCooldown(true);
+	// 		// setTimeout(() => {
+	// 		// 	setEditorUpdateCooldown(false);
+	// 		// }, 1000);
+	// 	}
 	};
 
 	

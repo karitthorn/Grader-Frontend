@@ -1,41 +1,24 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
 import {
 	DropdownMenu,
-	DropdownMenuTrigger,
 	DropdownMenuContent,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuGroup,
 	DropdownMenuItem,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubTrigger,
-	DropdownMenuPortal,
-	DropdownMenuSubContent,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger
 } from "../shadcn/DropdownMenu";
 
 import {
-	User,
-	CreditCard,
-	Settings,
-	Keyboard,
-	Users,
-	UserPlus,
-	Mail,
-	MessageSquare,
-	PlusCircle,
-	Plus,
-	Github,
-	LifeBuoy,
-	Cloud,
+	FileSpreadsheet,
+	Folder,
+	LibraryBig,
 	LogOut,
-    FileSpreadsheet,
-    Folder,
-    LibraryBig,
+	Users
 } from "lucide-react";
-import { AuthService } from '../../services/Auth.service';
 import { useNavigate } from 'react-router-dom';
+import { AuthService } from '../../services/Auth.service';
 
 const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 

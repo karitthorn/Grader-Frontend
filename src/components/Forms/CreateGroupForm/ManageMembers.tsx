@@ -1,39 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 import { ReactSortable } from "react-sortablejs";
-import { Button } from "../../shadcn/Button";
-import { Separator } from "../../shadcn/Seperator";
-import { Input } from "../../shadcn/Input";
-import { ProblemService } from "../../../services/Problem.service";
-import {
-	ProblemHashedTable,
-	ProblemModel,
-	ProblemSecureModel,
-} from "../../../types/models/Problem.model";
-import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
-import MyProblemCard from "../../Cards/ProblemCards/MyProblemCard";
-import CardContainer from "../../CardContainer";
-import SortableCardContainer from "../../SortableCardContainer";
-import MyProblemMiniCard from "../../Cards/ProblemCards/MyProblemMiniCard";
-import { ScrollArea } from "../../shadcn/ScrollArea";
-import { Item } from "@radix-ui/react-context-menu";
-import { transformProblemModel2ProblemHashedTable } from "../../../types/adapters/Problem.adapter";
-import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import MyCollectionMiniCard from "../../Cards/CollectionCards/MyCollectionMiniCard";
-import { CollectionService } from "../../../services/Collection.service";
-import { transformCollectionPopulateProblemSecureModel2CollectionHashedTable } from "../../../types/adapters/Collection.adapter";
-import {
-	CollectionHashedTable,
-	CollectionPopulateProblemSecureModel,
-} from "../../../types/models/Collection.model";
-import AccountCheckboxCard from "../../Cards/AccountCards/AccountCheckboxCard";
-import { AccountHashedTable, AccountSecureModel } from "../../../types/models/Account.model";
-import { GroupHashedTable } from "../../../types/models/Group.model";
-import { GroupService } from "../../../services/Group.service";
 import { AccountService } from "../../../services/Account.service";
 import { transformAccountModels2AccountHashedTable } from "../../../types/adapters/Account.adapter";
-import AccountMiniCard from "../../Cards/AccountCards/AccountMiniCard";
+import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
+import { AccountHashedTable, AccountSecureModel } from "../../../types/models/Account.model";
 import AccountMiniCard2 from "../../Cards/AccountCards/AccountMiniCard2";
+import { Button } from "../../shadcn/Button";
+import { Input } from "../../shadcn/Input";
+import { ScrollArea } from "../../shadcn/ScrollArea";
+import { Separator } from "../../shadcn/Seperator";
+import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
 
 const ManageMembers = ({
 	createRequest,

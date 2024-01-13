@@ -1,41 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardTitle } from "../../shadcn/Card";
-import { Button } from "../../shadcn/Button";
 import {
-	Check,
-	CheckCircle2,
 	FileSpreadsheet,
-	Pencil,
 	PencilIcon,
-	Trash,
-	X,
+	Trash
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import {
 	ProblemModel,
 	ProblemPopulateTestcases,
-	ProblemSecureModel,
-	TestcaseModel,
+	ProblemSecureModel
 } from "../../../types/models/Problem.model";
-import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
+import Checkmark from "../../Checkmark";
+import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
+import { Card } from "../../shadcn/Card";
 import {
 	ContextMenu,
-	ContextMenuTrigger,
 	ContextMenuContent,
 	ContextMenuItem,
+	ContextMenuTrigger,
 } from "../../shadcn/ContextMenu";
-import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
-import Checkmark from "../../Checkmark";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
 
-const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
-	for (const testcase of testcases) {
-		if (testcase.runtime_status !== "OK") {
-			return false;
-		}
-	}
-	return true;
-};
+
 
 const MyProblemContextMenu = ({
 	children,
@@ -80,18 +65,14 @@ const MyProblemMiniCard = ({
 	disabledHighlight?: boolean;
 	onClick?: () => void;
 }) => {
-	const navigate = useNavigate();
 
 	const [highlightTitle, setHighlightTitle] = useState(false);
-	const [toolVisible, setToolVisible] = useState(true);
 
 	const handleMouseOver = () => {
 		setHighlightTitle(true);
-		setToolVisible(true);
 	};
 	const handleMouseOut = () => {
 		setHighlightTitle(false);
-		setToolVisible(false);
 	};
 
 	const customCardCSS = ():string => {

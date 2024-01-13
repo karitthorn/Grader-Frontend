@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
 import {
   CODE_BLOCK_LANGUAGES,
   CODE_BLOCK_LANGUAGES_POPULAR,
   useCodeBlockCombobox,
   useCodeBlockComboboxState,
 } from '@udecode/plate-code-block';
+import { useState } from 'react';
 
 import { cn } from '../../lib/utils';
 import { Icons } from './icons';

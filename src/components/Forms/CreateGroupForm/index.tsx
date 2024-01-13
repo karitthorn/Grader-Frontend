@@ -1,18 +1,8 @@
+import { ArrowLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
-import { ProblemService } from "../../../services/Problem.service";
-import { toast } from "../../shadcn/UseToast";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ArrowLeft, ChevronLeftIcon, Loader2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
-import { CreateProblemRequest } from "../../../types/apis/Problem.api";
-import { Button } from "../../shadcn/Button";
-import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import { TestcaseModel } from "../../../types/models/Problem.model";
-import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 // import GeneralDetail from "./GeneralDetail";
 // import ManageCollections from "./ManageCollections";
 import FormSaveButton from "../FormSaveButton";
@@ -55,7 +45,6 @@ const CreateGroupForm = ({
 	const [currentForm, setCurrentForm] = useSearchParams();
 	const [loading, setLoading] = useState(false);
 
-	const [groupId, setGroupId] = useState(-1);
 
 	const [createRequest, setCreateRequest] = useState<CreateGroupRequestForm>(
 		createRequestInitialValue

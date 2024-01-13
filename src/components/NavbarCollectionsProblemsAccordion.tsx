@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import { FileCheck, FileSpreadsheet, Folder } from "lucide-react";
+import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
+import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
+import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "./shadcn/Accordion";
-import { FileCheck, FileSpreadsheet, Folder } from "lucide-react";
-import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
-import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
-import { useNavigate, useParams } from "react-router-dom";
-import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./shadcn/Tooltip";
 
 const NavbarCollectionProblemCard = ({
@@ -60,12 +60,6 @@ const NavbarCollectionsProblemsAccordion = ({
 }) => {
 
 	const {
-        course,
-        setCourse,
-        isOpen,
-        setIsOpen,
-        section,
-        setSection,
         recentOpenCollection,
         setRecentOpenCollection
     } = useContext(CourseNavSidebarContext)

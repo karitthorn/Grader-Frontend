@@ -37,7 +37,6 @@ const ManageCollections = ({
 	);
 
 	const [initial, setInitial] = useState(true);
-	const [tabValue, setTabValue] = useState("add");
 	const [selectedCollectionsSortableIds, setSelectedCollectionsSortableIds] =
 		useState<string[]>([]);
 

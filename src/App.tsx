@@ -1,23 +1,16 @@
-import { createContext, useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
+import { Toaster } from "./components/shadcn/Toaster";
+import { CourseNavSidebarContext, getCourseNavSidebarContextStateValue } from "./contexts/CourseNavSidebarContexnt";
+import { LoginContext } from "./contexts/LoginContext";
+import { NavSidebarContext } from "./contexts/NavSidebarContext";
 import Router from "./router";
 import { AuthService } from "./services/Auth.service";
-import { LoginContext } from "./contexts/LoginContext";
-import { Toaster } from "./components/shadcn/Toaster";
-import { NavSidebarContext } from "./contexts/NavSidebarContext";
-import { CourseNavSidebarContext, getCourseNavSidebarContextStateValue } from "./contexts/CourseNavSidebarContexnt";
-import { TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "./types/models/Topic.model";
 
 function App() {
 	const [isLogin, setIsLogin] = useState(false);
 	const [section, setSection] = useState("");
 	const [isOpenNavSidebar, setIsOpenNavSidebar] = useState(false);
-
-	const [course, setCourse] = useState<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>();
-	const [isOpenCourseNavSidebar, setIsOpenCourseNavSidebar] = useState(false);
-	const [courseSection, setCourseSection] = useState("");
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");

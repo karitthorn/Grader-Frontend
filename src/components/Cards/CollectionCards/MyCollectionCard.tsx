@@ -1,12 +1,12 @@
 import { FileSpreadsheet, Folder } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CollectionPopulateCollectionProblemPopulateProblemModel, CollectionProblemModel } from "../../../types/models/Collection.model";
+import { CollectionPopulateCollectionProblemPopulateProblemModel } from "../../../types/models/Collection.model";
+import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import Checkmark from "../../Checkmark";
-import { Card, CardContent } from "../../shadcn/Card";
-import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import MyCollectionContextMenu from "../../ContextMenus/MyCollectionContextMenu";
+import { Card, CardContent } from "../../shadcn/Card";
 
 const MyCollectionCard = ({
 	collection
@@ -16,16 +16,13 @@ const MyCollectionCard = ({
 	const navigate = useNavigate();
 
 	const [highlightTitle, setHighlightTitle] = useState(false);
-	const [toolVisible, setToolVisible] = useState(true);
 
 	const handleMouseOver = () => {
 		setHighlightTitle(true);
-		setToolVisible(true);
 	};
 
 	const handleMouseOut = () => {
 		setHighlightTitle(false);
-		setToolVisible(false);
 	};
 
 	return (
