@@ -24,8 +24,8 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.put<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`, request);
     },
 
-    delete: async (problemId) => {
-        return axios.delete<null>(`${BASE_URL}/api/problems/${problemId}`);
+    delete: async (problemId,accountId) => {
+        return axios.delete<null>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`);
     },
 
     // deleteMultiple: async (problemIds) => {
