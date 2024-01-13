@@ -49,7 +49,7 @@ const MyProblemMiniCard2 = ({
 		problem && (
 			<MyProblemContextMenu problem={problem}>
 				<Card
-					onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/problems/${problem.problem_id}`)}
+					onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/problems/${problem.problem_id}/edit`)}
 					onClick={() => onClick()}
 					onMouseOver={handleMouseOver}
 					onMouseOut={handleMouseOut}

@@ -50,7 +50,7 @@ const MyCollectionMiniCard2 = ({
 		collection && (
 			<MyCollectionContextMenu collection={collection}>
 			<Card
-				onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/collections/${collection.collection_id}`)}
+				onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/collections/${collection.collection_id}/edit`)}
 				onClick={() => onClick()}
 				onMouseOver={handleMouseOver}
 				onMouseOut={handleMouseOut}

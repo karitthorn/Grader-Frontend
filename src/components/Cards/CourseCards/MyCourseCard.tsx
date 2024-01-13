@@ -21,7 +21,7 @@ const MyCourseCard = ({
 				onMouseDown={(e) =>
 					onMiddleClickOpenInNewTab(
 						e,
-						`/my/courses/${course.topic_id}`
+						`/my/courses/${course.topic_id}/edit`
 					)
 				}
 				onClick={() => navigate(`/my/courses/${course.topic_id}/edit`)}
