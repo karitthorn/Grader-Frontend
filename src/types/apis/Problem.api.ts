@@ -1,17 +1,12 @@
 import { AxiosResponse } from "axios";
-import { ErrorResponse } from "./ErrorHandling";
+import { GroupModel, ProblemGroupPermissionModel } from "../models/Group.model";
 import {
 	ProblemModel,
-	ProblemPoplulateCreatorModel,
 	ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel,
 	ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel,
 	ProblemPopulateCreatorSecureModel,
-	ProblemPopulateTestcases,
-	ProblemSecureModel,
-	TestcaseModel,
+	ProblemPopulateTestcases
 } from "../models/Problem.model";
-import { AccountModel } from "../models/Account.model";
-import { GroupModel, ProblemGroupPermissionModel } from "../models/Group.model";
 
 export type CreateProblemRequest = {
 	title: string;

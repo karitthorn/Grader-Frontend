@@ -35,7 +35,7 @@ const EditCollection = () => {
 
 		setLoading(true);
 
-		CollectionService.update(editCollectionId, request)
+		CollectionService.update(editCollectionId,accountId, request)
 			.then((response) => {
 				return CollectionService.updateProblem(
 					response.data.collection_id,
@@ -63,7 +63,7 @@ const EditCollection = () => {
 
 				return Promise.all(promise);
 			})
-			.then((response) => {
+			.then(() => {
 				setLoading(false);
 				console.log("Save");
 				toast({

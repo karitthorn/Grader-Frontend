@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 
-import {
-	Form,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormControl,
-	FormMessage,
-} from "../components/shadcn/Form";
-import { Button } from "../components/shadcn/Button";
-import { Input } from "../components/shadcn/Input";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../components/shadcn/Button";
 import {
 	Card,
 	CardContent,
@@ -19,11 +12,17 @@ import {
 	CardTitle,
 } from "../components/shadcn/Card";
 import { Checkbox } from "../components/shadcn/Checkbox";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "../components/shadcn/Form";
+import { Input } from "../components/shadcn/Input";
 import CenterContainer from "../layout/CenterLayout";
 import { AuthService } from "../services/Auth.service";
-import { AccountModel } from "../types/models/Account.model";
-import { useNavigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
 // import { getAuthorization, login } from "../services/auth.service";
 
 const Login = () => {

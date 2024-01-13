@@ -1,7 +1,7 @@
 import axios from "axios";
-import { GetAllSubmissionsResponse, SubmissionServiceAPI, SubmitProblemResponse } from "../types/apis/Submission.api";
-import { GetSubmissionByAccountProblemResponse, SubmissionModel, SubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Submission.model";
 import { BASE_URL } from "../constants/BackendBaseURL";
+import { GetAllSubmissionsResponse, SubmissionServiceAPI } from "../types/apis/Submission.api";
+import { GetSubmissionByAccountProblemResponse, SubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Submission.model";
 
 export const SubmissionService: SubmissionServiceAPI = {
     submit: async (accountId, problemId, request) => {

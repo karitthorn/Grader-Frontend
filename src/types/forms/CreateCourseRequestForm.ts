@@ -1,10 +1,10 @@
 import { ItemInterface } from "react-sortablejs";
 import { PlateEditorValueType } from "../PlateEditorValueType";
-import { CoursePermissionRequestForm } from "./CreateGroupRequestForm";
-import { GroupModel, TopicGroupPermissionPopulateGroupModel } from "../models/Group.model";
-import { TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel, TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel } from "../models/Topic.model";
+import { CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel } from "../models/Collection.model";
+import { GroupModel } from "../models/Group.model";
+import { TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel } from "../models/Topic.model";
 import { CollectionGroupPermissionRequestForm } from "./CreateCollectionRequestForm";
-import { CollectionModel, CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel } from "../models/Collection.model";
+import { CoursePermissionRequestForm } from "./CreateGroupRequestForm";
 
 export type CourseGroupPermissionRequestForm = {
     group_id: string;

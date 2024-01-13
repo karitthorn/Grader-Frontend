@@ -11,7 +11,7 @@ export function transformAccounts2ReactSortableItemInterfaces(accounts: AccountM
 }
 
 export function transformAccountModels2AccountHashedTable(accounts: AccountModel[] | AccountSecureModel[]): AccountHashedTable {
-    let result = []
+    let result:AccountHashedTable = {}
     for (const account of accounts) {
         result[account.account_id] = account
     }

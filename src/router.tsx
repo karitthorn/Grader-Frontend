@@ -1,27 +1,26 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
+import CourseManagement from "./views/CourseManagement";
+import Dashboard from "./views/Dashboard";
+import ExploreCourses from "./views/ExploreCourses";
+import ExploreProblems from "./views/ExploreProblems";
 import Home from "./views/Home";
 import Login from "./views/Login";
-import Register from "./views/Register";
-import CourseManagement from "./views/CourseManagement";
-import CreateProblem from "./views/My/Problems/CreateProblem";
-import MyProblems from "./views/My/Problems/MyProblems";
-import ViewProblem from "./views/ViewProblem";
-import MyCollections from "./views/My/Collections/MyCollections";
-import EditProblem from "./views/My/Problems/EditProblem";
 import CreateCollection from "./views/My/Collections/CreateCollection";
-import ExploreProblems from "./views/ExploreProblems";
 import EditCollection from "./views/My/Collections/EditCollection";
-import MyCourses from "./views/My/Courses/MyCourses";
+import MyCollections from "./views/My/Collections/MyCollections";
 import CreateCourse from "./views/My/Courses/CreateCourse";
 import EditCourse from "./views/My/Courses/EditCourse";
-import ExploreCourses from "./views/ExploreCourses";
-import ViewCourse from "./views/ViewCourse";
-import ViewCourseProblem from "./views/ViewCourseProblem";
-import Dashboard from "./views/Dashboard";
-import MyGroups from "./views/My/Groups/MyGroups";
+import MyCourses from "./views/My/Courses/MyCourses";
 import CreateGroup from "./views/My/Groups/CreateGroup";
 import EditGroup from "./views/My/Groups/EditGroup";
+import MyGroups from "./views/My/Groups/MyGroups";
+import CreateProblem from "./views/My/Problems/CreateProblem";
+import EditProblem from "./views/My/Problems/EditProblem";
+import MyProblems from "./views/My/Problems/MyProblems";
+import Register from "./views/Register";
+import ViewCourse from "./views/ViewCourse";
+import ViewCourseProblem from "./views/ViewCourseProblem";
+import ViewProblem from "./views/ViewProblem";
 
 const Router = () => {
 	return (

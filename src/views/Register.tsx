@@ -1,15 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import {
-	Form,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormControl,
-	FormMessage,
-} from "../components/shadcn/Form";
-import { Button } from "../components/shadcn/Button";
-import { Input } from "../components/shadcn/Input";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../components/shadcn/Button";
 import {
 	Card,
 	CardContent,
@@ -18,12 +11,18 @@ import {
 	CardTitle,
 } from "../components/shadcn/Card";
 import { Checkbox } from "../components/shadcn/Checkbox";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "../components/shadcn/Form";
+import { Input } from "../components/shadcn/Input";
+import { ErrorResponseTypes } from "../constants/ErrorResponseTypes";
 import CenterContainer from "../layout/CenterLayout";
 import { AccountService } from "../services/Account.service";
-import {ErrorResponseType} from "../types/apis/ErrorHandling";
-import { ErrorResponseTypes } from "../constants/ErrorResponseTypes";
-import { useState } from "react";
-import { Loader2 } from "lucide-react";
 
 type RegisterForm = {
 	username: string;
@@ -76,7 +75,7 @@ const Register = () => {
 				username: data.username,
 				email: data.email,
 				password: data.password,
-			}).then(response => {
+			}).then(() => {
 				nevigate("/login")
 				setLoading(false)
 			}).catch(error => {

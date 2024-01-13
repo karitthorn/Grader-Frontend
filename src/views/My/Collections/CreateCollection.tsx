@@ -1,15 +1,14 @@
-import React from "react";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
+import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+import { useNavigate } from "react-router-dom";
 import CreateCollectionForm, {
 	OnCollectionSavedCallback,
 } from "../../../components/Forms/CreateCollectionForm";
-import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { transformCreateCollectionRequestForm2CreateCollectionRequestForm } from "../../../types/adapters/CreateCollectionRequestForm.adapter";
-import { CollectionService } from "../../../services/Collection.service";
 import { toast } from "../../../components/shadcn/UseToast";
-import { useNavigate } from "react-router-dom";
+import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
+import { CollectionService } from "../../../services/Collection.service";
 import { ProblemService } from "../../../services/Problem.service";
+import { transformCreateCollectionRequestForm2CreateCollectionRequestForm } from "../../../types/adapters/CreateCollectionRequestForm.adapter";
+import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 
 const formInitialValue: CreateCollectionRequestForm = {
 	title: "",

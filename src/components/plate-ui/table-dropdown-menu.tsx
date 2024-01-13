@@ -1,11 +1,10 @@
-import React from 'react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import { focusEditor, someNode, useEditorState } from '@udecode/plate-common';
 import {
+  ELEMENT_TABLE,
   deleteColumn,
   deleteRow,
   deleteTable,
-  ELEMENT_TABLE,
   insertTable,
   insertTableColumn,
   insertTableRow,

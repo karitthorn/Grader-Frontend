@@ -1,51 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import NavbarMenuLayout from "../layout/NavbarMenuLayout";
-import { useParams } from "react-router-dom";
-import { TopicService } from "../services/Topic.service";
-import {
-	TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel,
-	TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel,
-} from "../types/models/Topic.model";
-import ReadOnlyPlate from "../components/ReadOnlyPlate";
-import {
-	DummyEditorValue,
-	EmptyEditorValue,
-} from "../constants/DummyEditorValue";
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "../components/shadcn/Accordion";
 import { LibraryBig } from "lucide-react";
-import { Card } from "../components/shadcn/Card";
+import { useContext } from "react";
 import TopicCollectionAccordionCard from "../components/Cards/CollectionCards/TopicCollectionAccordionCard";
-import CardContainer from "../components/CardContainer";
+import ReadOnlyPlate from "../components/ReadOnlyPlate";
 import { ScrollArea } from "../components/shadcn/ScrollArea";
-import TopicCollectionsAccordion from "../components/TopicCollectionsAccordion";
-import { CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Collection.model";
-import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
 import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
+import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
 
 const ViewCourse = () => {
-	const accountId = String(localStorage.getItem("account_id"));
-	const { courseId } = useParams();
-
-	// const [course, setCourse] =
-	// 	useState<TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>();
-
-	// const [course,setCourse]
-
-	const { course, setCourse } = useContext(CourseNavSidebarContext);
-
-	// useEffect(() => {
-	// 	TopicService.getPublicByAccount(accountId, String(courseId)).then(
-	// 		(response) => {
-	// 			console.log(response.data);
-	// 			setCourse(response.data);
-	// 		}
-	// 	);
-	// }, [accountId, courseId]);
+	const { course } = useContext(CourseNavSidebarContext);
 
 	return (
 		<CourseNavbarSidebarLayout>
@@ -59,11 +21,6 @@ const ViewCourse = () => {
 						value={JSON.parse(String(course.description))}
 					/>
 				)}
-				{/* <CardContainer> */}
-				{/* <ScrollArea className="mt-6 pr-5 "> */}
-				{/* <TopicCollectionsAccordion
-						collections={course?.collections as TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]}
-					/> */}
 
 				<ScrollArea className="h-[70vh]">
 					<div className="grid gap-y-2">
@@ -74,9 +31,6 @@ const ViewCourse = () => {
 						))}
 					</div>
 				</ScrollArea>
-				{/* </ScrollArea> */}
-
-				{/* </CardContainer> */}
 			</div>
 		</CourseNavbarSidebarLayout>
 	);

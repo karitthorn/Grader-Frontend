@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
+import * as React from "react";
 
 import { cn } from "../../lib/utils";
 import { Button } from "./Button";
@@ -48,7 +48,7 @@ export function Combobox({
 	placeholder,
 	emptyMessage,
 	onSelect,
-	initialValue,
+	// initialValue,
 	value,
 	setValue
 }: {
@@ -56,7 +56,7 @@ export function Combobox({
 	options?: ComboboxOption[];
 	placeholder?: string;
 	emptyMessage?: string;
-	initialValue?: string;
+	// initialValue?: string;
 	onSelect?: (value: string) => void;
   value: string;
   setValue: (value: string) => void;

@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardTitle } from "./shadcn/Card";
+import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
+import { RuntimeResult } from "../types/apis/Problem.api";
+import { TestcaseModel } from "../types/models/Problem.model";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "./shadcn/Accordion";
-import { Label } from "./shadcn/Label";
-import { Input } from "./shadcn/Input";
-import { Textarea } from "./shadcn/Textarea";
-import { RuntimeResult } from "../types/apis/Problem.api";
-import { Files } from "lucide-react";
-import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
-import { TestcaseModel } from "../types/models/Problem.model";
 import { Badge } from "./shadcn/Badge";
+import { Label } from "./shadcn/Label";
+import { Textarea } from "./shadcn/Textarea";
 
 const TestcaseValidationInstance = ({
 	value,

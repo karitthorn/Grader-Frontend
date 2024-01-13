@@ -1,18 +1,13 @@
-import React from "react";
-import { Card } from "./shadcn/Card";
+import { FileSpreadsheet, Folder } from "lucide-react";
+import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
+import PublicProblemMiniCard from "./Cards/ProblemCards/PublicProblemMiniCard";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "./shadcn/Accordion";
-import { FileSpreadsheet, Folder } from "lucide-react";
-import PublicProblemCard from "./Cards/ProblemCards/PublicProblemCard";
-import { CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Collection.model";
-import CardContainer from "./CardContainer";
 import { ScrollArea } from "./shadcn/ScrollArea";
-import PublicProblemMiniCard from "./Cards/ProblemCards/PublicProblemMiniCard";
-import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
 
 const TopicCollectionsAccordian = ({
 	collections,

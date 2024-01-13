@@ -1,5 +1,4 @@
 import { ItemInterface } from "react-sortablejs";
-import { AccountSecureModel } from "../models/Account.model";
 
 export type CoursePermissionRequestForm = {
     manageCourses: boolean;

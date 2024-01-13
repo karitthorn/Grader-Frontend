@@ -1,13 +1,11 @@
-import React from "react";
-import NavbarMenuLayout from "../layout/NavbarMenuLayout";
-import { Card, CardContent, CardDescription } from "../components/shadcn/Card";
 import MyCollectionCard from "../components/CoursePlaylist/CollectionCard";
 import {
 	Accordion,
+	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-	AccordionContent,
 } from "../components/shadcn/Accordion";
+import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 
 const CourseManagement = () => {
 	return (

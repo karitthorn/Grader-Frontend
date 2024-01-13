@@ -1,10 +1,10 @@
 import { ItemInterface } from "react-sortablejs";
-import { CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel, CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel, CollectionProblemPopulateProblemSecureModel } from "../models/Collection.model";
 import { PlateEditorValueType } from "../PlateEditorValueType";
+import { CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel } from "../models/Collection.model";
 import { GroupModel } from "../models/Group.model";
+import { ProblemPopulateTestcases } from "../models/Problem.model";
 import { CollectionPermissionRequestForm } from "./CreateGroupRequestForm";
 import { ProblemGroupPermissionRequestForm } from "./CreateProblemRequestForm";
-import { ProblemPopulateTestcases } from "../models/Problem.model";
 
 export type CollectionGroupPermissionRequestForm = {
     group_id: string;

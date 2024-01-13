@@ -1,4 +1,3 @@
-import React from 'react';
 import { PlateElement, PlateElementProps, Value } from '@udecode/plate-common';
 import {
   TTodoListItemElement,

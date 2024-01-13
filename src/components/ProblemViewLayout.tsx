@@ -1,19 +1,18 @@
-import { ArrowLeft, Loader2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { readableDateFormat } from "../utilities/ReadableDateFormat";
-import { ProblemPoplulateCreatorModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
-import ReadOnlyPlate from "./ReadOnlyPlate";
-import { handleDeprecatedDescription } from "../utilities/HandleDeprecatedDescription";
-import { Separator } from "./shadcn/Seperator";
-import { Combobox } from "./shadcn/Combobox";
-import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
-import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
-import { GetSubmissionByAccountProblemResponse, SubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Submission.model";
-import styled from "styled-components";
-import { Button } from "./shadcn/Button";
-import PreviousSubmissionsCombobox from "./PreviousSubmissionsCombobox";
 import { Editor as MonacoEditor } from "@monaco-editor/react";
+import { ArrowLeft, Loader2 } from "lucide-react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
+import { ProblemPoplulateCreatorModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
+import { GetSubmissionByAccountProblemResponse, SubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Submission.model";
+import { handleDeprecatedDescription } from "../utilities/HandleDeprecatedDescription";
+import { readableDateFormat } from "../utilities/ReadableDateFormat";
+import PreviousSubmissionsCombobox from "./PreviousSubmissionsCombobox";
+import ReadOnlyPlate from "./ReadOnlyPlate";
+import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
+import { Button } from "./shadcn/Button";
+import { Combobox } from "./shadcn/Combobox";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./shadcn/Resizable";
 
 export type OnSubmitProblemViewLayoutCallback = {
@@ -133,7 +132,7 @@ const ProblemViewLayout = ({
 							label="Select Language"
 							options={ProgrammingLanguageOptions.filter(lang => problem?.allowed_languages.includes(lang.value))}
 							onSelect={(value) => setSelectedLanguage(value)}
-							initialValue={selectedLanguage}
+							// initialValue={selectedLanguage}
 							value={selectedLanguage}
 							setValue={setSelectedLanguage}
 						/>

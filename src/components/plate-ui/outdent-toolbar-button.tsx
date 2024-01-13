@@ -1,4 +1,3 @@
-import React from 'react';
 import { useOutdentButton } from '@udecode/plate-indent';
 
 import { Icons } from './icons';

@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import { SubmissionTestcaseSecureModel } from "../types/models/Submission.model";
 import {
 	HoverCard,
 	HoverCardContent,
 	HoverCardTrigger,
 } from "./shadcn/HoverCard";
-import { SubmissionTestcaseSecureModel } from "../types/models/Submission.model";
-import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
 
 type TestcaseGradingResultStatus = "OK" | "TIMEOUT" | "ERROR" | "FAILED"
 
@@ -17,7 +15,6 @@ const TestcaseGradingResult = ({ no,status,disableHover=false,sizeX=2,sizeY=4 }:
 	sizeY?: number;
 }) => {
 
-	const ColorMap = TestcaseStatusIndicatorColor
 	const chartStyledFunction = () => {
 		let result = `px-${sizeX} py-${sizeY} cursor-pointer `
 		if (status === "OK") {

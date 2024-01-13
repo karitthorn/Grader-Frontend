@@ -1,31 +1,21 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
 import { CommentsProvider } from "@udecode/plate-comments";
 import { Plate } from "@udecode/plate-common";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+import { useRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+import { EmptyEditorValue } from "../constants/DummyEditorValue";
 import { commentsUsers, myUserId } from "../lib/plate/comments";
 import { MENTIONABLES } from "../lib/plate/mentionables";
 import { plugins } from "../lib/plate/plate-plugins";
 import { cn } from "../lib/utils";
+import { PlateEditorValueType } from "../types/PlateEditorValueType";
 import { CommentsPopover } from "./plate-ui/comments-popover";
 import { CursorOverlay } from "./plate-ui/cursor-overlay";
 import { Editor } from "./plate-ui/editor";
-import { FixedToolbar } from "./plate-ui/fixed-toolbar";
-import { FixedToolbarButtons } from "./plate-ui/fixed-toolbar-buttons";
-import { FloatingToolbar } from "./plate-ui/floating-toolbar";
-import { FloatingToolbarButtons } from "./plate-ui/floating-toolbar-buttons";
 import { MentionCombobox } from "./plate-ui/mention-combobox";
-import { DummyEditorValue, EmptyEditorValue } from "../constants/DummyEditorValue";
-import {
-	useMyPlateActions,
-	useMyPlateSelectors,
-} from "../lib/plate/plate-types";
-import { ScrollArea } from "./shadcn/ScrollArea";
-import { PlateEditorValueType } from "../types/PlateEditorValueType";
 
 export default function ReadOnlyPlate({
 	className,
@@ -35,46 +25,6 @@ export default function ReadOnlyPlate({
 	value?: PlateEditorValueType;
 }) {
 	const containerRef = useRef(null);
-
-	const initialValue = [
-		{
-			id: "1",
-			type: ELEMENT_PARAGRAPH,
-			children: [{ text: "Hello, World! 12345" }],
-		},
-	];
-
-	const lazyFormat = (description: string) => {
-		return [
-			{
-				id: "1",
-				type: ELEMENT_PARAGRAPH,
-				children: [{ text: description }],
-			},
-		];
-	};
-
-	const [cooldown, setCooldown] = useState(false);
-	const [previousValue, setPreviousValue] = useState<PlateEditorValueType>(EmptyEditorValue);
-
-	const sameWithPrevious = () => {
-		if (previousValue.length !== value.length) return false;
-		return JSON.stringify(value) === JSON.stringify(previousValue);
-	}
-
-	// useEffect(() => {
-
-		
-	// 	if (!cooldown && !sameWithPrevious()) {
-
-	// 		setCooldown(true);
-	// 		setTimeout(() => {
-	// 			setCooldown(false);
-	// 		}, 1);
-	// 	}
-
-	// 	setPreviousValue(value);
-	// }, [value]);
 
 	return (
 		<DndProvider backend={HTML5Backend}>

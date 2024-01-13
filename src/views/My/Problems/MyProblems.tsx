@@ -1,17 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { Input } from "../../../components/shadcn/Input";
-import { Button } from "../../../components/shadcn/Button";
-import { Card, CardContent, CardTitle } from "../../../components/shadcn/Card";
-import MyProblemCard from "../../../components/Cards/ProblemCards/MyProblemCard";
-import { useNavigate } from "react-router-dom";
-import { ProblemService } from "../../../services/Problem.service";
-import { ProblemModel, ProblemPopulateTestcases } from "../../../types/models/Problem.model";
-import CardContainer from "../../../components/CardContainer";
-import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
-import DeleteProblemConfirmationDialog from "../../../components/Dialogs/DeleteProblemConfirmationDialog";
 import { FilePlus } from "lucide-react";
-import { Tabs,TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CardContainer from "../../../components/CardContainer";
+import MyProblemCard from "../../../components/Cards/ProblemCards/MyProblemCard";
+import { Button } from "../../../components/shadcn/Button";
+import { Input } from "../../../components/shadcn/Input";
+import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
+import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
+import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
+import { ProblemService } from "../../../services/Problem.service";
+import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
 
 const MyProblems = () => {
 	const accountId = String(localStorage.getItem("account_id"));
@@ -22,7 +20,7 @@ const MyProblems = () => {
 	const [filteredProblems, setFilteredProblems] = useState<ProblemPopulateTestcases[]>([]);
 	const [filteredManageableProblems, setFilteredManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
 	
-	const {section,setSection} = useContext(NavSidebarContext)
+	const {setSection} = useContext(NavSidebarContext)
 
 	const [tabValue, setTabValue] = useState("personal")
 	const [searchValue, setSearchValue] = useState("")

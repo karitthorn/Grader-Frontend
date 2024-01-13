@@ -1,70 +1,24 @@
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { styled } from "styled-components";
+import { useParams } from "react-router-dom";
 import ProblemViewLayout, {
 	OnSubmitProblemViewLayoutCallback,
 } from "../components/ProblemViewLayout";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { ProblemService } from "../services/Problem.service";
 import { SubmissionService } from "../services/Submission.service";
-import { ProblemPoplulateCreatorModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
+import { ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
 import {
-	GetSubmissionByAccountProblemResponse,
-	SubmissionPopulateSubmissionTestcasesSecureModel
+	GetSubmissionByAccountProblemResponse
 } from "../types/models/Submission.model";
 
-const handleDeprecatedDescription = (description: string): string => {
-	if (description[0] === "[") {
-		return description;
-	} else {
-		return JSON.stringify([
-			{
-				id: "1",
-				type: ELEMENT_PARAGRAPH,
-				children: [{ text: description }],
-			},
-		]);
-	}
-};
-
 const ViewProblem = () => {
-	const navigate = useNavigate();
 	const { problemId } = useParams();
 	const accountId = String(localStorage.getItem("account_id"));
 
-	const [selectedLanguage, setSelectedLanguage] = useState("python");
 	const [problem, setProblem] = useState<ProblemPopulateCreatorSecureModel>();
 
-	const [grading, setGrading] = useState<boolean>(false);
-	const [submitCodeValue, setSubmitCodeValue] = useState<any>("");
-
 	const [previousSubmissions, setPreviousSubmissions] =
-		useState<GetSubmissionByAccountProblemResponse>();
-	const [lastedSubmission, setLastedSubmission] =
-		useState<SubmissionPopulateSubmissionTestcasesSecureModel>();
-
-	const handleSelectPreviousSubmission = (submissionId: string) => {
-		let submission = null;
-		if (
-			submissionId === previousSubmissions?.best_submission?.submission_id
-		) {
-			submission = previousSubmissions?.best_submission;
-		} else {
-			previousSubmissions?.submissions?.forEach((sub) => {
-				if (sub.submission_id === submissionId) {
-					submission = sub;
-					return;
-				}
-			});
-		}
-
-		if (submission) {
-			setSubmitCodeValue(submission.submission_code);
-			setLastedSubmission(submission);
-			setSelectedLanguage(submission.language);
-		}
-	};
+		useState<GetSubmissionByAccountProblemResponse>()
 
 	useEffect(() => {
 		ProblemService.getPublic(String(problemId)).then((response) => {
@@ -117,11 +71,4 @@ const ViewProblem = () => {
 	);
 };
 
-const MonacoEditorWrapper = styled.div`
-	height: 80vh;
-
-	@media (max-height: 900px) {
-		height: 75vh;
-	}
-`;
 export default ViewProblem;

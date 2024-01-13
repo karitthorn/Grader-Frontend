@@ -1,13 +1,10 @@
-import React, { useContext, useState } from "react";
-import { Separator } from "../components/shadcn/Seperator";
-import NavbarMenuLayout from "./NavbarMenuLayout";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 import NavSidebar from "../components/NavigationBar/NavSidebar";
+import { Separator } from "../components/shadcn/Seperator";
 import { LoginContext } from "../contexts/LoginContext";
+import NavbarMenuLayout from "./NavbarMenuLayout";
 
 const NavbarSidebarLayout = ({ children }: { children: React.ReactNode }) => {
-	const navigate = useNavigate();
-	const [close, setClose] = useState(false);
 	const { isLogin } = useContext(LoginContext);
 
 	return (

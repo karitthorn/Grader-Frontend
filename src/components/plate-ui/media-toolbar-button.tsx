@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ELEMENT_IMAGE,
   ELEMENT_MEDIA_EMBED,

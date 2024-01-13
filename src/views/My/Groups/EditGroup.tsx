@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CreateGroupForm, { OnGroupSavedCallback } from "../../../components/Forms/CreateGroupForm";
+import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { GroupService } from "../../../services/Group.service";
-import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
 import { transformCreateGroupRequestForm2CreateGroupRequest } from "../../../types/adapters/CreateGroupRequestForm.adapter";
 import { transformGroupPopulateGroupMemberPopulateAccountSecureModel2CreateGroupRequestForm } from "../../../types/adapters/Group.adapter";
+import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
+import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
 
 const EditGroup = () => {
 	const { groupId } = useParams();
-	const navigate = useNavigate();
-	const accountId = String(localStorage.getItem("account_id"));
 
 	const [createRequest, setCreateRequest] =
 		useState<CreateGroupRequestForm>();
@@ -35,7 +33,7 @@ const EditGroup = () => {
 		console.log("EditGroup",request)
 		GroupService.update(String(groupId),request).then((response) => {
 			return GroupService.updateMembers(response.data.group_id,memberIds)
-		}).then((response) => {
+		}).then(() => {
 			setLoading(false)
 		})
 	}

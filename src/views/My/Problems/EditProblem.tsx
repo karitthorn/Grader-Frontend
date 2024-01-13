@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CreateProblemForm, {
 	OnProblemSaveCallback,
 } from "../../../components/Forms/CreateProblemForm";
-import { ProblemService } from "../../../services/Problem.service";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import { toast } from "../../../components/shadcn/UseToast";
+import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
+import { ProblemService } from "../../../services/Problem.service";
 import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
-import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import { useParams } from "react-router-dom";
-import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.model";
 import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "../../../types/adapters/Problem.adapter";
+import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
+import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.model";
 
 const EditProblem = () => {
 	
@@ -21,7 +20,6 @@ const EditProblem = () => {
 
 	const [problem,setProblem] = useState<ProblemPoplulateCreatorModel>();
 
-	const [currentForm, setCurrentForm] = React.useState("general");
 	const [createRequest, setCreateRequest] = useState<CreateProblemRequestForm>();
 
 	const handleSave: OnProblemSaveCallback = (
@@ -44,20 +42,6 @@ const EditProblem = () => {
 				title: "Problem Updated",
 			});
 		});
-	};
-
-	const handleDeprecatedDescription = (description: string): string => {
-		if (description[0] === "[") {
-			return description;
-		} else {
-			return JSON.stringify([
-				{
-					id: "1",
-					type: ELEMENT_PARAGRAPH,
-					children: [{ text: description }],
-				},
-			]);
-		}
 	};
 
 	useEffect(() => {

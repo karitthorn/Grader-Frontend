@@ -1,17 +1,5 @@
 import React from "react";
-import { Props } from "../types/Props";
-import { 
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
- } from "../components/shadcn/NevigationMenu";
-import { cn } from "../lib/utils";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
-import { InferProps, any } from "prop-types";
 
 
 export const NavbarMenuLayout = ({ children, yPad=true, xPad=true }:{

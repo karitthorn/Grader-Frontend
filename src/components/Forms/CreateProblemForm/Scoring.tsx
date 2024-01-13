@@ -76,7 +76,7 @@ const Scoring = ({
 									language: value,
 								})
 							}
-							initialValue={selectedLanguage}
+							// initialValue={selectedLanguage}
 							value={selectedLanguage}
 							setValue={setSelectedLanguage}
 						/>

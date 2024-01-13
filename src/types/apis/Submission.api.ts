@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
-import { GetSubmissionByAccountProblemResponse, SubmissionModel, SubmissionPopulateProblemModel, SubmissionPopulateSubmissionTestcaseAndProblemSecureModel, SubmissionPopulateSubmissionTestcasesSecureModel, SubmissionTestcaseSecureModel } from "../models/Submission.model";
 import { ProblemPopulateAccountSecureModel } from "../models/Problem.model";
+import { GetSubmissionByAccountProblemResponse, SubmissionPopulateSubmissionTestcaseAndProblemSecureModel, SubmissionPopulateSubmissionTestcasesSecureModel, SubmissionTestcaseSecureModel } from "../models/Submission.model";
 
 export type SubmitProblemRequest = {
     language: string

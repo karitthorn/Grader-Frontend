@@ -1,6 +1,5 @@
-import CreateGroupForm from "../../components/Forms/CreateGroupForm";
 import { CreateGroupRequestForm } from "../forms/CreateGroupRequestForm";
-import { GroupModel, GroupPopulateGroupMemberPopulateAccountSecureModel } from "../models/Group.model";
+import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../models/Group.model";
 
 export function transformGroupPopulateGroupMemberPopulateAccountSecureModel2CreateGroupRequestForm(group: GroupPopulateGroupMemberPopulateAccountSecureModel): CreateGroupRequestForm {
     return {

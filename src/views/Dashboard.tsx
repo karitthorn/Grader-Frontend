@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import NavbarSidebarLayout from "../layout/NavbarSidebarLayout";
-import NavbarMenuLayout from "../layout/NavbarMenuLayout";
-import { SubmissionService } from "../services/Submission.service";
-import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../types/models/Submission.model";
-import SubmissionCard from "../components/Cards/SubmissionCard";
-import { TopicModel } from "../types/models/Topic.model";
-import { TopicService } from "../services/Topic.service";
+import { useEffect, useState } from "react";
 import PublicCourseCard from "../components/Cards/CourseCards/PublicCourseCard";
+import SubmissionCard from "../components/Cards/SubmissionCard";
 import {
 	Carousel,
 	CarouselContent,
@@ -14,6 +8,11 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "../components/shadcn/Carousel";
+import NavbarMenuLayout from "../layout/NavbarMenuLayout";
+import { SubmissionService } from "../services/Submission.service";
+import { TopicService } from "../services/Topic.service";
+import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../types/models/Submission.model";
+import { TopicModel } from "../types/models/Topic.model";
 
 const Dashboard = () => {
 	const accountId = String(localStorage.getItem("account_id"));

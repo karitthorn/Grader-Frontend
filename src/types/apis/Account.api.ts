@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
 import { AccountModel, AccountSecureModel } from "../models/Account.model";
-import { ErrorResponse } from "./ErrorHandling";
 
 export type AccountCreateRequest = {
     username: string;
