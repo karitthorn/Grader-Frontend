@@ -31,33 +31,39 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	const [loading, setLoading] = useState(false);
+	const [userNotFound, setUserNotFound] = useState(false);
+	const [wrongPassword, setWrongPassword] = useState(false);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setLoading(true);
+		setWrongPassword(false);
+		setUserNotFound(false);
 		const { username, password } = form.getValues();
-		const { data, status } = await AuthService.login({
+		AuthService.login({
 			username,
 			password,
-		});
-		
-		const WRONG_PASSWORD = status === 406
-		const SUCCESS = status === 202
-
-		if (WRONG_PASSWORD) {
-			return
-		}
-		else if (SUCCESS) {
-			const account = data
-			localStorage.setItem('account_id',String(account.account_id))
-			localStorage.setItem('username',account.username)
-			if (account.token) {
-				localStorage.setItem('token',account.token)
+		}).then((response) => {
+			if (response.status === 202) {
+				const account = response.data;
+				localStorage.setItem("account_id", String(account.account_id));
+				localStorage.setItem("username", account.username);
+				if (account.token) {
+					localStorage.setItem("token", account.token);
+				}
+				window.location.reload();
+				navigate(-1);
 			}
-			window.location.reload()
-			navigate(-1)
-		}
-		setLoading(false);
+			setLoading(false);
+		}).catch((error) => {
+			if (error.response.status === 404) {
+				setUserNotFound(true);
+			}
+			else if (error.response.status === 406) {
+				setWrongPassword(true);
+			}
+			setLoading(false);
+		})
 	};
 
 	return (
@@ -82,7 +88,9 @@ const Login = () => {
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
-										<FormMessage />
+										<FormMessage>
+											{userNotFound && "User doesn't exist."}
+										</FormMessage>
 									</FormItem>
 								)}
 							/>
@@ -96,7 +104,9 @@ const Login = () => {
 										<FormControl>
 											<Input type="password" {...field} />
 										</FormControl>
-										<FormMessage />
+										<FormMessage>
+											{wrongPassword && "Wrong password."}
+										</FormMessage>
 									</FormItem>
 								)}
 							/>
@@ -119,13 +129,17 @@ const Login = () => {
 								)}
 							/>
 
-							<Button className="w-full" type="submit">
+							<Button
+								disabled={loading}
+								className="w-full"
+								type="submit"
+							>
 								{loading ? (
 									<>
 										<Loader2 className="animate-spin mr-2" />
 										Logging
 									</>
-								):(
+								) : (
 									<>Login</>
 								)}
 							</Button>
