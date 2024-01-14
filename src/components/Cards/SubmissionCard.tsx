@@ -37,9 +37,10 @@ const SubmissionCard = ({
 
 			<div className="flex justify-between">
 				<TestcasesGradingIndicator
-                    sizeX={1}
-                    sizeY={3}
+                    sizeX={1.5}
+                    sizeY={2}
 					submissionTestcases={submission.runtime_output}
+					testcaseGradingResultClassName="rounded-[15%]"
 				/>
 
 				<Button

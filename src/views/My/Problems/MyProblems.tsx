@@ -10,6 +10,7 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
+import MyProblemsTable from "../../../components/Tables/MyProblemsTable";
 
 const MyProblems = () => {
 	const accountId = String(localStorage.getItem("account_id"));
@@ -78,6 +79,9 @@ const MyProblems = () => {
 				</div>
 
 				<CardContainer>
+					{/* <MyProblemsTable
+						problems={filteredProblems}
+					/> */}
 					{tabValue === "personal" && filteredProblems.map((problem, index) => (
 						<MyProblemCard problem={problem} key={index} />
 					))}
