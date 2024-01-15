@@ -78,6 +78,7 @@ const ManageCollections = ({
 			...createRequest,
 			collectionsInterface: [...selectedCollectionsSortable],
 		});
+		console.log('selectedCollectionsSortable',selectedCollectionsSortable)
 	}, [selectedCollectionsSortable]);
 
 	useEffect(() => {
@@ -116,16 +117,16 @@ const ManageCollections = ({
 	useEffect(() => {
 		if (initial) {
 			setSelectedCollectionsSortable(
-				createRequest.course?.collections.map((cc) => ({
+				createRequest.collectionsInterface.map((cc) => ({
 					id: cc.collection.collection_id,
 					name: cc.collection.name,
 					collection: cc.collection,
-					groupPermissions: cc.collection.group_permissions.map(
+					groupPermissions: cc.groupPermissions.map(
 						(gc) => ({
 							group_id: gc.group.group_id,
 							group: gc.group,
-							manageCollections: gc.permission_manage_collections,
-							viewCollections: gc.permission_view_collections,
+							manageCollections: gc.manageCollections,
+							viewCollections: gc.viewCollections,
 						})
 					),
 				})) ?? ([] as CollectionItemInterface[])

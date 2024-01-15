@@ -3,12 +3,12 @@
 import { Check, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
 
-import { ProgrammingLanguageLabel } from "../constants/ProgrammingLanguage";
+import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
 import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
 import { cn } from "../lib/utils";
 import {
 	SubmissionPopulateSubmissionTestcasesSecureModel,
-	SubmissionTestcaseSecureModel
+	SubmissionTestcaseSecureModel,
 } from "../types/models/Submission.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import { Button } from "./shadcn/Button";
@@ -20,6 +20,7 @@ import {
 	CommandItem,
 } from "./shadcn/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "./shadcn/Popover";
+import { ScrollArea } from "./shadcn/ScrollArea";
 import { Separator } from "./shadcn/Seperator";
 
 const TestcaseGradingMiniResult = ({
@@ -63,7 +64,7 @@ export function PreviousSubmissionsCombobox({
 	onSelect,
 }: {
 	submissions: SubmissionPopulateSubmissionTestcasesSecureModel[];
-	bestSubmission: SubmissionPopulateSubmissionTestcasesSecureModel ;
+	bestSubmission: SubmissionPopulateSubmissionTestcasesSecureModel;
 	onSelect?: (value: string) => void;
 }) {
 	const [open, setOpen] = React.useState(false);
@@ -74,7 +75,8 @@ export function PreviousSubmissionsCombobox({
 			<div className="w-full">
 				<div className="flex justify-between items-center">
 					<div className="font-mono">
-						{readableDateFormat(bestSubmission?.date)} {ProgrammingLanguageLabel[bestSubmission?.language]}
+						{readableDateFormat(bestSubmission?.date)}{" "}
+						{ProgrammingLanguageOptions.find((Languages	) => Languages.value === bestSubmission?.language)?.badge}
 					</div>
 					<div>
 						<TestcasesGradingMiniIndicator
@@ -87,25 +89,24 @@ export function PreviousSubmissionsCombobox({
 		value: String(bestSubmission?.submission_id),
 	};
 
-	const options = submissions.map(
-		(submission) => ({
-			label: (
-				<div className="w-full">
-					<div className="flex justify-between items-center">
-						<div className="font-mono">
-							{readableDateFormat(submission?.date)} {ProgrammingLanguageLabel[submission?.language]}
-						</div>
-						<div>
-							<TestcasesGradingMiniIndicator
-								submissionTestcases={submission?.runtime_output}
-							/>
-						</div>
+	const options = submissions.map((submission) => ({
+		label: (
+			<div className="w-full">
+				<div className="flex justify-between items-center">
+					<div className="font-mono">
+						{readableDateFormat(submission?.date)}{" "}
+						{ProgrammingLanguageOptions.find((Languages	) => Languages.value === submission?.language)?.badge}
+					</div>
+					<div>
+						<TestcasesGradingMiniIndicator
+							submissionTestcases={submission?.runtime_output}
+						/>
 					</div>
 				</div>
-			),
-			value: String(submission?.submission_id),
-		})
-	);
+			</div>
+		),
+		value: String(submission?.submission_id),
+	}));
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -119,7 +120,9 @@ export function PreviousSubmissionsCombobox({
 					{value
 						? options.find((framework) => framework.value === value)
 								?.label
-						: (submissions.length === 0 ?  "No Previous Submission" : "Previous Submissions")}
+						: submissions.length === 0
+						? "No Previous Submission"
+						: "Previous Submissions"}
 					<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 				</Button>
 			</PopoverTrigger>
@@ -129,38 +132,14 @@ export function PreviousSubmissionsCombobox({
 						placeholder={"Select Previous Submissions ..."}
 					/>
 					<CommandEmpty>{"Not found"}</CommandEmpty>
-                    <div className="mt-2 ml-2 text-sm font-bold">Best Submission</div>
-					<CommandGroup className="">
-						<CommandItem
-							key={bestOptions.value}
-							value={bestOptions.value}
-							onSelect={(currentValue) => {
-								if (onSelect) {
-									onSelect(currentValue);
-								}
-								// setValue(currentValue === value ? "" : currentValue)
-								setValue(currentValue);
-								setOpen(false);
-							}}
-						>
-							<Check
-								className={cn(
-									"mr-2 h-4 w-4 text-green-400",
-									value === bestOptions.value
-										? "opacity-100"
-										: "opacity-0"
-								)}
-							/>
-
-							{bestOptions.label}
-						</CommandItem>
-					</CommandGroup>
-                    <Separator/>
-					<CommandGroup className="h-[50vh] overflow-y-scroll">
-						{options.map((framework) => (
+					<div className="mt-2 ml-2 text-sm font-bold">
+						Best Submission
+					</div>
+					<CommandGroup>
+						<div className="pr-1">
 							<CommandItem
-								key={framework.value}
-								value={framework.value}
+								key={bestOptions.value}
+								value={bestOptions.value}
 								onSelect={(currentValue) => {
 									if (onSelect) {
 										onSelect(currentValue);
@@ -173,15 +152,45 @@ export function PreviousSubmissionsCombobox({
 								<Check
 									className={cn(
 										"mr-2 h-4 w-4 text-green-400",
-										value === framework.value
+										value === bestOptions.value
 											? "opacity-100"
 											: "opacity-0"
 									)}
 								/>
 
-								{framework.label}
+								{bestOptions.label}
 							</CommandItem>
-						))}
+						</div>
+					</CommandGroup>
+					<Separator />
+					<CommandGroup>
+						<ScrollArea className="h-[50vh] pr-1">
+							{options.map((framework) => (
+								<CommandItem
+									key={framework.value}
+									value={framework.value}
+									onSelect={(currentValue) => {
+										if (onSelect) {
+											onSelect(currentValue);
+										}
+										// setValue(currentValue === value ? "" : currentValue)
+										setValue(currentValue);
+										setOpen(false);
+									}}
+								>
+									<Check
+										className={cn(
+											"mr-2 h-4 w-4 text-green-400",
+											value === framework.value
+												? "opacity-100"
+												: "opacity-0"
+										)}
+									/>
+
+									{framework.label}
+								</CommandItem>
+							))}
+						</ScrollArea>
 					</CommandGroup>
 				</Command>
 			</PopoverContent>

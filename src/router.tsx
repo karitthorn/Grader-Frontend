@@ -23,6 +23,7 @@ import ViewCourseProblem from "./views/ViewCourseProblem";
 import ViewProblem from "./views/ViewProblem";
 import { useContext, useEffect } from "react";
 import { LoginContext } from "./contexts/LoginContext";
+import ProblemStatistic from "./views/My/Problems/ProblemStatistic";
 
 const Router = () => {
 
@@ -48,6 +49,7 @@ const Router = () => {
 
 			<Route path="/my/problems" element={<MyProblems />} />
 			<Route path="/my/problems/create" element={<CreateProblem />} />
+			<Route path="/my/problems/:problemId" element={<ProblemStatistic />} />
 			<Route path="/my/problems/:problemId/edit" element={<EditProblem />} />
 
 			<Route path="/my/collections" element={<MyCollections />} />

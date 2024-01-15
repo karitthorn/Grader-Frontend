@@ -1,6 +1,8 @@
 import { Check, FileCheck, Folder } from "lucide-react";
 import { CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../../types/models/Collection.model";
+import { handleDeprecatedDescription } from "../../../utilities/HandleDeprecatedDescription";
 import ReadOnlyPlate from "../../ReadOnlyPlate";
+import PublicProblemsTable from "../../Tables/ProblemTables/PublicProblemsTable";
 import {
 	Accordion,
 	AccordionContent,
@@ -9,9 +11,6 @@ import {
 } from "../../shadcn/Accordion";
 import { Badge } from "../../shadcn/Badge";
 import { Card } from "../../shadcn/Card";
-import { ScrollArea } from "../../shadcn/ScrollArea";
-import PublicProblemMiniCard from "../ProblemCards/PublicProblemMiniCard";
-import { handleDeprecatedDescription } from "../../../utilities/HandleDeprecatedDescription";
 
 const isPassed = (collection: CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel):boolean => {
 	return collection.problems.filter(
@@ -67,7 +66,14 @@ const TopicCollectionAccordianCard = ({
 							value={JSON.parse(handleDeprecatedDescription(String(collection.description)))}
 						/>
 
-						<ScrollArea className="mt-6 pr-5">
+						<PublicProblemsTable
+							problems={collection.problems.map(
+								(collectionProblem) =>
+									collectionProblem.problem
+							)}
+						/>
+
+						{/* <ScrollArea className="mt-6 pr-5">
 							<div className="grid gap-y-2">
 								{collection.problems.map((problem) => (
 									<PublicProblemMiniCard
@@ -75,7 +81,7 @@ const TopicCollectionAccordianCard = ({
 									/>
 								))}
 							</div>
-						</ScrollArea>
+						</ScrollArea> */}
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>

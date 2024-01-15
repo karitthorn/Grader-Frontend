@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { ProblemPopulateAccountSecureModel } from "../models/Problem.model";
-import { GetSubmissionByAccountProblemResponse, SubmissionPopulateSubmissionTestcaseAndProblemSecureModel, SubmissionPopulateSubmissionTestcasesSecureModel, SubmissionTestcaseSecureModel } from "../models/Submission.model";
+import { GetSubmissionByAccountProblemResponse, SubmissionPopulateSubmissionTestcaseAndAccountModel, SubmissionPopulateSubmissionTestcaseAndProblemSecureModel, SubmissionPopulateSubmissionTestcasesSecureModel, SubmissionTestcaseSecureModel } from "../models/Submission.model";
 
 export type SubmitProblemRequest = {
     language: string
@@ -35,9 +35,14 @@ export type GetAllSubmissionsResponse = {
     submissions: SubmissionPopulateSubmissionTestcaseAndProblemSecureModel[]
 }
 
+export type GetSubmissionsByCretorProblemResponse = {
+    submissions: SubmissionPopulateSubmissionTestcaseAndAccountModel[]
+}
+
 export type SubmissionServiceAPI = {
     submit: (accountId:string,problemId:string,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
     topicSubmit: (accountId:string,topicId:string,problemId:string,request: SubmitProblemRequest) => Promise<AxiosResponse<SubmissionPopulateSubmissionTestcasesSecureModel>>;
+    getByCreatorProblem: (accountId:string,problemId:string) => Promise<AxiosResponse<GetSubmissionsByCretorProblemResponse>>;
     getByAccountProblem: (accountId:string,problemId:string) => Promise<AxiosResponse<GetSubmissionByAccountProblemResponse>>;
     getByAccountProblemInTopic: (accountId:string,problemId:string,topicId:string) => Promise<AxiosResponse<GetSubmissionByAccountProblemResponse>>;
     getAll: (query?:GetAllSubmissionsQuery) => Promise<AxiosResponse<GetAllSubmissionsResponse>>;

@@ -71,7 +71,21 @@ const ManageProblems = ({
 	}, [selectedProblemsSortable]);
 
 	useEffect(() => {
-		ProblemService.getAllAsCreator(accountId).then((response) => {
+		ProblemService.getAllAsCreator(accountId,{end:10}).then((response) => {
+			setAllProblems(
+				transformProblemModel2ProblemHashedTable(response.data.problems)
+			);
+			setAllProblemsSortable(
+				response.data.problems.map((problem) => ({
+					id: problem.problem_id,
+					name: problem.title,
+					problem: problem,
+					groupPermissions: [],
+				}))
+			);
+
+			return ProblemService.getAllAsCreator(accountId,{start:10})
+		}).then((response) => {
 			setAllProblems(
 				transformProblemModel2ProblemHashedTable(response.data.problems)
 			);
@@ -102,15 +116,15 @@ const ManageProblems = ({
 			console.log("AAA",createRequest)
 			// setSelectedProblemsSortable(createRequest.problemsInterface);
 			setSelectedProblemsSortable(
-				createRequest.collection?.problems.map((cp) => ({
+				createRequest.problemsInterface?.map((cp) => ({
 					id: cp.problem.problem_id,
 					name: cp.problem.title,
 					problem: cp.problem,
-					groupPermissions: cp.problem.group_permissions.map((gc) => ({
+					groupPermissions: cp.groupPermissions.map((gc) => ({
 						groupId: gc.group.group_id,
 						group: gc.group,
-						manageProblems: gc.permission_manage_problems,
-						viewProblems: gc.permission_view_problems,
+						manageProblems: gc.manageProblems,
+						viewProblems: gc.viewProblems,
 					})),
 				})) ?? ([] as ProblemItemInterface[])
 			);
@@ -170,7 +184,7 @@ const ManageProblems = ({
 							list={allProblemsSortable}
 							setList={setAllProblemsSortable}
 							filter=".selected"
-							className="grid grid-cols-3 gap-2 p-2 rounded-md"
+							className="grid grid-cols-1 gap-2 p-2 rounded-md"
 						>
 							{allProblemsSortable?.map((item) => (
 								<div

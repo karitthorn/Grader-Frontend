@@ -2,16 +2,14 @@ import { FolderPlus } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyCollectionCard from "../../../components/Cards/CollectionCards/MyCollectionCard";
+import MyCollectionsTable from "../../../components/Tables/MyCollectionsTable";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { CollectionService } from "../../../services/Collection.service";
-import {
-	CollectionPopulateCollectionProblemPopulateProblemModel
-} from "../../../types/models/Collection.model";
+import { CollectionPopulateCollectionProblemPopulateProblemModel } from "../../../types/models/Collection.model";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
@@ -26,25 +24,35 @@ const MyCollections = () => {
 	const [filteredCollections, setFilteredCollections] = useState<
 		CollectionPopulateCollectionProblemPopulateProblemModel[]
 	>([]);
-	const [filteredManageableCollections, setFilteredManageableCollections] = useState<
-		CollectionPopulateCollectionProblemPopulateProblemModel[]
-	>([]);
+	const [filteredManageableCollections, setFilteredManageableCollections] =
+		useState<CollectionPopulateCollectionProblemPopulateProblemModel[]>([]);
 
 	const { setSection } = useContext(NavSidebarContext);
 
 	const [tabValue, setTabValue] = useState("personal");
-	const [searchValue, setSearchValue] = useState("")
+	const [searchValue, setSearchValue] = useState("");
 
 	useEffect(() => {
 		if (!searchValue || searchValue === "") {
-			setFilteredCollections(collections)
-			setFilteredManageableCollections(manageableCollections)
+			setFilteredCollections(collections);
+			setFilteredManageableCollections(manageableCollections);
+		} else {
+			setFilteredCollections(
+				collections.filter((collection) =>
+					collection.name
+						.toLowerCase()
+						.includes(searchValue.toLowerCase())
+				)
+			);
+			setFilteredManageableCollections(
+				manageableCollections.filter((collection) =>
+					collection.name
+						.toLowerCase()
+						.includes(searchValue.toLowerCase())
+				)
+			);
 		}
-		else {
-			setFilteredCollections(collections.filter((collection) => collection.name.toLowerCase().includes(searchValue.toLowerCase())))
-			setFilteredManageableCollections(manageableCollections.filter((collection) => collection.name.toLowerCase().includes(searchValue.toLowerCase())))
-		}
-	},[searchValue,collections,manageableCollections])
+	}, [searchValue, collections, manageableCollections]);
 
 	useEffect(() => {
 		setSection("COLLECTIONS");
@@ -64,7 +72,11 @@ const MyCollections = () => {
 						</h1>
 					</div>
 					<div className="w-7/12 md:w-5/12">
-						<Input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search ..." />
+						<Input
+							value={searchValue}
+							onChange={(e) => setSearchValue(e.target.value)}
+							placeholder="Search ..."
+						/>
 					</div>
 					<div>
 						<Tabs
@@ -92,14 +104,22 @@ const MyCollections = () => {
 				</div>
 
 				<CardContainer>
-					{tabValue === "personal" &&
-						filteredCollections.map((collection) => (
-							<MyCollectionCard collection={collection} />
-						))}
+					{/* <MyCollectionsTable collections={filteredCollections} /> */}
+					{
+						tabValue === "personal" && (
+							<MyCollectionsTable
+								collections={filteredCollections}
+							/>
+						)
+						// <MyCollectionCard collection={collection} />
+					}
 					{tabValue === "manageable" &&
-						filteredManageableCollections.map((collection) => (
-							<MyCollectionCard collection={collection} />
-						))}
+						// filteredManageableCollections.map((collection) => (
+							<MyCollectionsTable
+								collections={filteredManageableCollections}
+							/>
+							// <MyCollectionCard collection={collection} />
+						}
 				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>

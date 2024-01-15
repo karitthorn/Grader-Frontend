@@ -2,7 +2,7 @@ import { FilePlus } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyProblemCard from "../../../components/Cards/ProblemCards/MyProblemCard";
+import MyProblemsTable from "../../../components/Tables/ProblemTables/MyProblemsTable";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
@@ -37,7 +37,14 @@ const MyProblems = () => {
 	},[searchValue,problems,manageableProblems])
 
 	useEffect(() => {
-		ProblemService.getAllAsCreator(accountId).then((response) => {
+		ProblemService.getAllAsCreator(accountId,{
+			start: 0,
+			end: 10
+		}).then((response) => {
+			setProblems(response.data.problems);
+			setManageableProblems(response.data.manageable_problems)
+			return ProblemService.getAllAsCreator(accountId)
+		}).then((response) => {
 			setProblems(response.data.problems);
 			setManageableProblems(response.data.manageable_problems)
 		});
@@ -78,12 +85,13 @@ const MyProblems = () => {
 				</div>
 
 				<CardContainer>
-					{tabValue === "personal" && filteredProblems.map((problem, index) => (
-						<MyProblemCard problem={problem} key={index} />
-					))}
-					{tabValue === "manageable" && filteredManageableProblems.map((problem, index) => (
-						<MyProblemCard problem={problem} key={index} />
-					))}
+					
+					{tabValue === "personal" && <MyProblemsTable
+						problems={filteredProblems}
+					/>}
+					{tabValue === "manageable" && <MyProblemsTable
+						problems={filteredManageableProblems}
+					/>}
 				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>

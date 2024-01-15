@@ -8,12 +8,12 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.post<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems`, request);
     },
 
-    getAll: async () => {
-        return axios.get<GetAllProblemsResponse>(`${BASE_URL}/api/problems`);
+    getAll: async (query) => {
+        return axios.get<GetAllProblemsResponse>(`${BASE_URL}/api/problems`,{params:query});
     },
 
-    getAllAsCreator: async (accountId) => {
-        return axios.get<GetAllProblemsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/problems`);
+    getAllAsCreator: async (accountId,query) => {
+        return axios.get<GetAllProblemsByAccountResponse>(`${BASE_URL}/api/accounts/${accountId}/problems`,{params:query});
     },
 
     get: async (accountId,problemId) => {

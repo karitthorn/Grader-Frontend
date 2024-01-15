@@ -28,6 +28,10 @@ export type UpdateProblemRequest = {
 };
 
 export type GetAllProblemsByAccountResponse = {
+	start: number;
+	end: number;
+	total_personal_problems: number;
+	total_manageable_problems: number;
 	problems: ProblemPopulateTestcases[];
 	manageable_problems: ProblemPopulateTestcases[];
 };
@@ -52,6 +56,11 @@ export type ValidateProgramResponse = {
 	runtime_results: RuntimeResult[];
 };
 
+export type GetAllProblemsQuery = {
+	start?: number;
+	end?: number;
+}
+
 export type GetAllProblemsResponse = {
 	problems: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[];
 };
@@ -72,9 +81,10 @@ export type ProblemServiceAPI = {
 		accountId: string,
 		request: CreateProblemRequest
 	) => Promise<AxiosResponse<ProblemModel>>;
-	getAll: () => Promise<AxiosResponse<GetAllProblemsResponse>>;
+	getAll: (query?: GetAllProblemsQuery) => Promise<AxiosResponse<GetAllProblemsResponse>>;
 	getAllAsCreator: (
-		accountId: string
+		accountId: string,
+		query?: GetAllProblemsQuery
 	) => Promise<AxiosResponse<GetAllProblemsByAccountResponse>>;
 	get: (
 		accountId: string,
