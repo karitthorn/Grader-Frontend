@@ -1,17 +1,12 @@
-import { FileSpreadsheet, Tally4 } from "lucide-react";
+import { FileSpreadsheet } from "lucide-react";
 import { useState } from "react";
 import {
 	ProblemModel,
-	ProblemPopulateTestcases,
-	ProblemSecureModel,
+	ProblemPopulateTestcases
 } from "../../../types/models/Problem.model";
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import MyProblemContextMenu from "../../ContextMenus/MyProblemContextMenu";
 import { Card } from "../../shadcn/Card";
-import CheckBadge from "../../CheckBadge";
-import { checkRuntimeStatus } from "../../../utilities/CheckRuntimeStatus";
-import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
-import { Link } from "react-router-dom";
 
 const MyProblemMiniCard2 = ({
 	problem,

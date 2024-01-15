@@ -2,7 +2,7 @@ import { FilePlus } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyProblemCard from "../../../components/Cards/ProblemCards/MyProblemCard";
+import MyProblemsTable from "../../../components/Tables/ProblemTables/MyProblemsTable";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
@@ -10,7 +10,6 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
-import MyProblemsTable from "../../../components/Tables/ProblemTables/MyProblemsTable";
 
 const MyProblems = () => {
 	const accountId = String(localStorage.getItem("account_id"));

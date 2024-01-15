@@ -1,6 +1,8 @@
 import { Check, FileCheck, Folder } from "lucide-react";
 import { CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../../types/models/Collection.model";
+import { handleDeprecatedDescription } from "../../../utilities/HandleDeprecatedDescription";
 import ReadOnlyPlate from "../../ReadOnlyPlate";
+import PublicProblemsTable from "../../Tables/ProblemTables/PublicProblemsTable";
 import {
 	Accordion,
 	AccordionContent,
@@ -9,10 +11,6 @@ import {
 } from "../../shadcn/Accordion";
 import { Badge } from "../../shadcn/Badge";
 import { Card } from "../../shadcn/Card";
-import { ScrollArea } from "../../shadcn/ScrollArea";
-import PublicProblemMiniCard from "../ProblemCards/PublicProblemMiniCard";
-import { handleDeprecatedDescription } from "../../../utilities/HandleDeprecatedDescription";
-import PublicProblemsTable from "../../Tables/ProblemTables/PublicProblemsTable";
 
 const isPassed = (collection: CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel):boolean => {
 	return collection.problems.filter(

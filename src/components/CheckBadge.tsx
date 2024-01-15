@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react'
-import { Badge } from './shadcn/Badge';
 import { Check, X } from 'lucide-react';
+import { ReactNode } from 'react';
+import { Badge } from './shadcn/Badge';
 
 const CheckBadge = ({
     checked = false,

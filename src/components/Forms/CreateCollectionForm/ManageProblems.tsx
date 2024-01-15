@@ -11,7 +11,6 @@ import MyProblemMiniCard2 from "../../Cards/ProblemCards/MyProblemMiniCard2";
 import { Input } from "../../shadcn/Input";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Separator } from "../../shadcn/Seperator";
-import MyProblemsTable from "../../Tables/ProblemTables/MyProblemsTable";
 
 const ManageProblems = ({
 	createRequest,

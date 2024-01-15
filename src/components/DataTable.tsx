@@ -8,6 +8,7 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 
+import { DataTablePagination } from "./DataTablePagination";
 import {
 	Table,
 	TableBody,
@@ -16,8 +17,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "./shadcn/Table";
-import { Button } from "./shadcn/Button";
-import { DataTablePagination } from "./DataTablePagination";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];

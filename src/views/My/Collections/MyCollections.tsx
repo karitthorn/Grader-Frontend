@@ -2,7 +2,7 @@ import { FolderPlus } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyCollectionCard from "../../../components/Cards/CollectionCards/MyCollectionCard";
+import MyCollectionsTable from "../../../components/Tables/MyCollectionsTable";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
@@ -10,7 +10,6 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { CollectionService } from "../../../services/Collection.service";
 import { CollectionPopulateCollectionProblemPopulateProblemModel } from "../../../types/models/Collection.model";
-import MyCollectionsTable from "../../../components/Tables/MyCollectionsTable";
 
 const MyCollections = () => {
 	const navigate = useNavigate();

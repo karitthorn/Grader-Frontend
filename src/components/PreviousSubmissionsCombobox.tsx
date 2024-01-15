@@ -1,9 +1,9 @@
 "use client";
 
-import { Check, ChevronsUpDown, Languages } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
 
-import { ProgrammingLanguageLabel, ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
+import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
 import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
 import { cn } from "../lib/utils";
 import {
@@ -20,8 +20,8 @@ import {
 	CommandItem,
 } from "./shadcn/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "./shadcn/Popover";
-import { Separator } from "./shadcn/Seperator";
 import { ScrollArea } from "./shadcn/ScrollArea";
+import { Separator } from "./shadcn/Seperator";
 
 const TestcaseGradingMiniResult = ({
 	status,

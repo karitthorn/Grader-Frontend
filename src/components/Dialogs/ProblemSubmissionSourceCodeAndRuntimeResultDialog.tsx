@@ -1,13 +1,11 @@
-import React from "react";
-import { Dialog, DialogContent, DialogTrigger } from "../shadcn/Dialog";
-import { Maximize2 } from "lucide-react";
-import { Button } from "../shadcn/Button";
-import { SubmissionPopulateSubmissionTestcaseAndAccountModel } from "../../types/models/Submission.model";
 import { Editor as MonacoEditor } from "@monaco-editor/react";
-import TestcaseValidationAccordian from "../TestcaseValidationAccordion";
-import { Separator } from "../shadcn/Seperator";
-import { ScrollArea } from "../shadcn/ScrollArea";
+import React from "react";
 import { ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel } from "../../types/models/Problem.model";
+import { SubmissionPopulateSubmissionTestcaseAndAccountModel } from "../../types/models/Submission.model";
+import TestcaseValidationAccordian from "../TestcaseValidationAccordion";
+import { Dialog, DialogContent, DialogTrigger } from "../shadcn/Dialog";
+import { ScrollArea } from "../shadcn/ScrollArea";
+import { Separator } from "../shadcn/Seperator";
 
 const ProblemSubmissionSourceCodeAndRuntimeResultDialog = ({
 	submission,
