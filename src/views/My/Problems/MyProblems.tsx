@@ -38,7 +38,14 @@ const MyProblems = () => {
 	},[searchValue,problems,manageableProblems])
 
 	useEffect(() => {
-		ProblemService.getAllAsCreator(accountId).then((response) => {
+		ProblemService.getAllAsCreator(accountId,{
+			start: 0,
+			end: 10
+		}).then((response) => {
+			setProblems(response.data.problems);
+			setManageableProblems(response.data.manageable_problems)
+			return ProblemService.getAllAsCreator(accountId,{start: 10})
+		}).then((response) => {
 			setProblems(response.data.problems);
 			setManageableProblems(response.data.manageable_problems)
 		});
@@ -79,15 +86,15 @@ const MyProblems = () => {
 				</div>
 
 				<CardContainer>
-					{/* <MyProblemsTable
+					<MyProblemsTable
 						problems={filteredProblems}
-					/> */}
-					{tabValue === "personal" && filteredProblems.map((problem, index) => (
+					/>
+					{/* {tabValue === "personal" && filteredProblems.map((problem, index) => (
 						<MyProblemCard problem={problem} key={index} />
 					))}
 					{tabValue === "manageable" && filteredManageableProblems.map((problem, index) => (
 						<MyProblemCard problem={problem} key={index} />
-					))}
+					))} */}
 				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>
