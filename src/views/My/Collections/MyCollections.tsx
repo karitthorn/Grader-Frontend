@@ -12,6 +12,7 @@ import { CollectionService } from "../../../services/Collection.service";
 import {
 	CollectionPopulateCollectionProblemPopulateProblemModel
 } from "../../../types/models/Collection.model";
+import MyCollectionsTable from "../../../components/Tables/MyCollectionsTable";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
@@ -92,14 +93,17 @@ const MyCollections = () => {
 				</div>
 
 				<CardContainer>
-					{tabValue === "personal" &&
+					<MyCollectionsTable
+						collections={filteredCollections}
+					/>
+					{/* {tabValue === "personal" &&
 						filteredCollections.map((collection) => (
 							<MyCollectionCard collection={collection} />
 						))}
 					{tabValue === "manageable" &&
 						filteredManageableCollections.map((collection) => (
 							<MyCollectionCard collection={collection} />
-						))}
+						))} */}
 				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>

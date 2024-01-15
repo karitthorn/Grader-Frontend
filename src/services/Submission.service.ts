@@ -1,11 +1,13 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/BackendBaseURL";
-import { GetAllSubmissionsResponse, SubmissionServiceAPI } from "../types/apis/Submission.api";
+import { GetAllSubmissionsResponse, GetSubmissionsByCretorProblemResponse, SubmissionServiceAPI } from "../types/apis/Submission.api";
 import { GetSubmissionByAccountProblemResponse, SubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Submission.model";
+
+
 
 export const SubmissionService: SubmissionServiceAPI = {
     submit: async (accountId, problemId, request) => {
-        const response = await axios.post<SubmissionPopulateSubmissionTestcasesSecureModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}/submissions`,request);
+        const response = await axios.post<SubmissionPopulateSubmissionTestcasesSecureModel>(`${BASE_URL}/api/problems/${problemId}/accounts/${accountId}/submissions`,request);
         return response;
     },
 
@@ -14,8 +16,13 @@ export const SubmissionService: SubmissionServiceAPI = {
         return response;
     },
 
+    getByCreatorProblem: async (accountId, problemId) => {
+        const response = await axios.get<GetSubmissionsByCretorProblemResponse>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}/submissions`);
+        return response;
+    },
+
     getByAccountProblem: async (accountId, problemId) => {
-        const response = await axios.get<GetSubmissionByAccountProblemResponse>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}/submissions`);
+        const response = await axios.get<GetSubmissionByAccountProblemResponse>(`${BASE_URL}/api/problems/${problemId}/accounts/${accountId}/submissions`);
         return response;
     },
 

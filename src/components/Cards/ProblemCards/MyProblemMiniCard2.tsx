@@ -1,15 +1,17 @@
-import {
-	FileSpreadsheet
-} from "lucide-react";
+import { FileSpreadsheet, Tally4 } from "lucide-react";
 import { useState } from "react";
 import {
 	ProblemModel,
 	ProblemPopulateTestcases,
-	ProblemSecureModel
+	ProblemSecureModel,
 } from "../../../types/models/Problem.model";
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import MyProblemContextMenu from "../../ContextMenus/MyProblemContextMenu";
 import { Card } from "../../shadcn/Card";
+import CheckBadge from "../../CheckBadge";
+import { checkRuntimeStatus } from "../../../utilities/CheckRuntimeStatus";
+import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
+import { Link } from "react-router-dom";
 
 const MyProblemMiniCard2 = ({
 	problem,
@@ -17,12 +19,11 @@ const MyProblemMiniCard2 = ({
 	disabledHighlight = false,
 	onClick = () => {},
 }: {
-	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
+	problem: ProblemPopulateTestcases | ProblemModel;
 	disabled?: boolean;
 	disabledHighlight?: boolean;
 	onClick?: () => void;
 }) => {
-
 	const [highlightTitle, setHighlightTitle] = useState(false);
 
 	const handleMouseOver = () => {
@@ -49,7 +50,12 @@ const MyProblemMiniCard2 = ({
 		problem && (
 			<MyProblemContextMenu problem={problem}>
 				<Card
-					onMouseDown={(e) => onMiddleClickOpenInNewTab(e,`/my/problems/${problem.problem_id}/edit`)}
+					onMouseDown={(e) =>
+						onMiddleClickOpenInNewTab(
+							e,
+							`/my/problems/${problem.problem_id}/edit`
+						)
+					}
 					onClick={() => onClick()}
 					onMouseOver={handleMouseOver}
 					onMouseOut={handleMouseOut}
@@ -57,17 +63,55 @@ const MyProblemMiniCard2 = ({
 
 					// className={`pt-6 px-5 ${disabled ? "opacity-50" : }`}`}
 				>
-					<div className="flex items-center justify-between font-medium text-base ">
-						<div className="flex items-center w-full">
+					<div className="flex items-center font-medium text-base ">
+						<div className="flex items-center w-4/12">
 							<FileSpreadsheet
 								size={20}
 								className="text-blue-400 mr-2"
 							/>
-							<p className="font-mono line-clamp-1 w-4/5">{problem.title}</p>
+						
+								<p className="font-mono line-clamp-1 w-4/5">
+									{problem.title}
+								</p>
 						</div>
-						{/* <div className="bg-blue-600 w-4 h-4 text-center text-white rounded-full text-xs">
-							{collection.problems.length}
-						</div> */}
+						<div className="font-medium flex items-center w-1/12">
+							<Tally4 className="text-green-400 mr-2" size={20} />
+							<div>{problem.testcases.length}</div>
+						</div>
+						<div className="flex items-center w-3/12">
+							<CheckBadge
+								noIcon
+								checked={problem.solution !== ""}
+							>
+								SC
+							</CheckBadge>
+							<CheckBadge
+								className="mx-1"
+								noIcon
+								checked={problem.testcases.length > 0}
+							>
+								TC
+							</CheckBadge>
+							<CheckBadge
+								noIcon
+								checked={checkRuntimeStatus(problem.testcases)}
+							>
+								NRE
+							</CheckBadge>
+						</div>
+						<div className="font-medium">
+							{problem.allowed_languages
+								.split(",")
+								.map((lang, index) => {
+									if (index < 3) {
+										return ProgrammingLanguageOptions.find(
+											(option) => option.value === lang
+										)?.badge;
+									} else if (index === 3) {
+										return <span>...</span>;
+									}
+								})}
+						</div>
 					</div>
 				</Card>
 			</MyProblemContextMenu>

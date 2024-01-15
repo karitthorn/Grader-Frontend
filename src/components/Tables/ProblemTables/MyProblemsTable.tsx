@@ -1,14 +1,26 @@
 import React, { ReactNode } from "react";
-import { ProblemPopulateTestcases } from "../../types/models/Problem.model";
+import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
 import { ColumnDef } from "@tanstack/react-table";
-import { Table } from "../shadcn/Table";
-import { DataTable } from "../DataTable";
-import { readableDateFormat } from "../../utilities/ReadableDateFormat";
-import { Check, FileSpreadsheet, X } from "lucide-react";
+import { Table } from "../../shadcn/Table";
+import { DataTable } from "../../DataTable";
+import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
+import {
+	Check,
+	FileSpreadsheet,
+	Layers3,
+	MoreHorizontal,
+	MoreVertical,
+	Tally4,
+	Timer,
+	X,
+} from "lucide-react";
 import { Link } from "react-router-dom";
-import { Badge } from "../shadcn/Badge";
-import { checkRuntimeStatus } from "../../utilities/CheckRuntimeStatus";
-import { ProgrammingLanguageOptions } from "../../constants/ProgrammingLanguage";
+import { Badge } from "../../shadcn/Badge";
+import { checkRuntimeStatus } from "../../../utilities/CheckRuntimeStatus";
+import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
+import MyProblemContextMenu from "../../ContextMenus/MyProblemContextMenu";
+import MyProblemDropdown from "../../Dropdowns/MyProblemDropdown";
+import CheckBadge from "../../CheckBadge";
 
 const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 	{
@@ -18,7 +30,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 			console.log(row.original.allowed_languages);
 
 			return (
-				<div className="font-mono flex items-center">
+				<div className="font-mono flex items-center py-2">
 					<FileSpreadsheet className="mr-2 text-blue-400" size={20} />
 					<Link to={`/my/problems/${row.original.problem_id}/edit`}>
 						{row.original.title}
@@ -32,7 +44,13 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		accessorKey: "testcases",
 		header: "Testcases",
 		cell: ({ row }) => (
-			<div className="font-medium">{row.original.testcases.length}</div>
+			<div className="font-medium">
+				<Tally4
+					className="inline-block text-green-400 mr-2"
+					size={20}
+				/>
+				{row.original.testcases.length}
+			</div>
 		),
 	},
 
@@ -40,7 +58,10 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		accessorKey: "time_limit",
 		header: "Time Limit",
 		cell: ({ row }) => (
-			<div className="font-medium">{row.original.time_limit}</div>
+			<div className="font-medium">
+				<Timer className="inline-block mr-2" size={20} />
+				{row.original.time_limit}
+			</div>
 		),
 	},
 
@@ -48,28 +69,8 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		accessorKey: "testcases",
 		header: "Status",
 		cell: ({ row }) => {
-			const CheckBadge = ({
-				checked = false,
-				children,
-			}: {
-				checked?: boolean;
-				children?: ReactNode;
-			}) => {
-				return checked ? (
-					<Badge className="cursor-pointer ">
-						<Check className="mr-1" size={12} />
-						{children}
-					</Badge>
-				) : (
-					<Badge className="cursor-pointer bg-red-500 hover:bg-red-400">
-						<X className="mr-1" size={12} />
-						{children}
-					</Badge>
-				);
-			};
-
 			return (
-				<div className="gap-y-1">
+				<div className="">
 					<CheckBadge checked={row.original.solution !== ""}>
 						Source Code
 					</CheckBadge>
@@ -121,6 +122,17 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		cell: ({ row }) => (
 			<div className="">
 				{readableDateFormat(row.original.created_date)}
+			</div>
+		),
+	},
+	{
+		accessorKey: "action",
+		header: "Action",
+		cell: ({ row }) => (
+			<div className=" flex items-center">
+				<MyProblemDropdown problem={row.original}>
+					<MoreHorizontal size={20} />
+				</MyProblemDropdown>
 			</div>
 		),
 	},

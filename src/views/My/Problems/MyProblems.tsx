@@ -10,7 +10,7 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
-import MyProblemsTable from "../../../components/Tables/MyProblemsTable";
+import MyProblemsTable from "../../../components/Tables/ProblemTables/MyProblemsTable";
 
 const MyProblems = () => {
 	const accountId = String(localStorage.getItem("account_id"));
@@ -44,7 +44,7 @@ const MyProblems = () => {
 		}).then((response) => {
 			setProblems(response.data.problems);
 			setManageableProblems(response.data.manageable_problems)
-			return ProblemService.getAllAsCreator(accountId,{start: 10})
+			return ProblemService.getAllAsCreator(accountId)
 		}).then((response) => {
 			setProblems(response.data.problems);
 			setManageableProblems(response.data.manageable_problems)

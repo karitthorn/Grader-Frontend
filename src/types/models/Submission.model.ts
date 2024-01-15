@@ -1,3 +1,4 @@
+import { AccountSecureModel } from "./Account.model";
 import { ProblemModel, ProblemSecureModel } from "./Problem.model";
 
 export type SubmissionTestcaseModel = {
@@ -103,4 +104,9 @@ export type SubmissionPopulateSubmissionTestcasesSecureModel = {
 export type SubmissionPopulateSubmissionTestcaseAndProblemSecureModel = SubmissionModel & {
     problem: ProblemSecureModel;
     runtime_output: SubmissionTestcaseSecureModel[];
+}
+
+export type SubmissionPopulateSubmissionTestcaseAndAccountModel = SubmissionModel & {
+    account: AccountSecureModel;
+    runtime_output: SubmissionTestcaseModel[];
 }

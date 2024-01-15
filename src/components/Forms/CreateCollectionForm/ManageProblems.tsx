@@ -11,6 +11,7 @@ import MyProblemMiniCard2 from "../../Cards/ProblemCards/MyProblemMiniCard2";
 import { Input } from "../../shadcn/Input";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Separator } from "../../shadcn/Seperator";
+import MyProblemsTable from "../../Tables/ProblemTables/MyProblemsTable";
 
 const ManageProblems = ({
 	createRequest,
@@ -102,15 +103,15 @@ const ManageProblems = ({
 			console.log("AAA",createRequest)
 			// setSelectedProblemsSortable(createRequest.problemsInterface);
 			setSelectedProblemsSortable(
-				createRequest.collection?.problems.map((cp) => ({
+				createRequest.problemsInterface?.map((cp) => ({
 					id: cp.problem.problem_id,
 					name: cp.problem.title,
 					problem: cp.problem,
-					groupPermissions: cp.problem.group_permissions.map((gc) => ({
+					groupPermissions: cp.groupPermissions.map((gc) => ({
 						groupId: gc.group.group_id,
 						group: gc.group,
-						manageProblems: gc.permission_manage_problems,
-						viewProblems: gc.permission_view_problems,
+						manageProblems: gc.manageProblems,
+						viewProblems: gc.viewProblems,
 					})),
 				})) ?? ([] as ProblemItemInterface[])
 			);
@@ -170,7 +171,7 @@ const ManageProblems = ({
 							list={allProblemsSortable}
 							setList={setAllProblemsSortable}
 							filter=".selected"
-							className="grid grid-cols-3 gap-2 p-2 rounded-md"
+							className="grid grid-cols-1 gap-2 p-2 rounded-md"
 						>
 							{allProblemsSortable?.map((item) => (
 								<div
