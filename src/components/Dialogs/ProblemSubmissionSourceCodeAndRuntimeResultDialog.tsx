@@ -48,7 +48,7 @@ const ProblemSubmissionSourceCodeAndRuntimeResultDialog = ({
 							<TestcaseValidationAccordian
 								runtimeResults={submission.runtime_output.map((output,index) => ({
                   ...output,
-                  input: problem.testcases[index].input
+                  input: problem.testcases[index]?.input
                 }))}
 							/>
 						</ScrollArea>

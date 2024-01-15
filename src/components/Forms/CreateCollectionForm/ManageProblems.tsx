@@ -72,7 +72,21 @@ const ManageProblems = ({
 	}, [selectedProblemsSortable]);
 
 	useEffect(() => {
-		ProblemService.getAllAsCreator(accountId).then((response) => {
+		ProblemService.getAllAsCreator(accountId,{end:10}).then((response) => {
+			setAllProblems(
+				transformProblemModel2ProblemHashedTable(response.data.problems)
+			);
+			setAllProblemsSortable(
+				response.data.problems.map((problem) => ({
+					id: problem.problem_id,
+					name: problem.title,
+					problem: problem,
+					groupPermissions: [],
+				}))
+			);
+
+			return ProblemService.getAllAsCreator(accountId,{start:10})
+		}).then((response) => {
 			setAllProblems(
 				transformProblemModel2ProblemHashedTable(response.data.problems)
 			);

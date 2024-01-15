@@ -74,7 +74,7 @@ const MyProblemMiniCard2 = ({
 									{problem.title}
 								</p>
 						</div>
-						<div className="font-medium flex items-center w-1/12">
+						{/* <div className="font-medium flex items-center w-1/12">
 							<Tally4 className="text-green-400 mr-2" size={20} />
 							<div>{problem.testcases.length}</div>
 						</div>
@@ -111,7 +111,7 @@ const MyProblemMiniCard2 = ({
 										return <span>...</span>;
 									}
 								})}
-						</div>
+						</div> */}
 					</div>
 				</Card>
 			</MyProblemContextMenu>

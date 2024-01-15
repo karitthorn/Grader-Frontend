@@ -86,15 +86,13 @@ const MyProblems = () => {
 				</div>
 
 				<CardContainer>
-					<MyProblemsTable
+					
+					{tabValue === "personal" && <MyProblemsTable
 						problems={filteredProblems}
-					/>
-					{/* {tabValue === "personal" && filteredProblems.map((problem, index) => (
-						<MyProblemCard problem={problem} key={index} />
-					))}
-					{tabValue === "manageable" && filteredManageableProblems.map((problem, index) => (
-						<MyProblemCard problem={problem} key={index} />
-					))} */}
+					/>}
+					{tabValue === "manageable" && <MyProblemsTable
+						problems={filteredManageableProblems}
+					/>}
 				</CardContainer>
 			</div>
 		</NavbarSidebarLayout>

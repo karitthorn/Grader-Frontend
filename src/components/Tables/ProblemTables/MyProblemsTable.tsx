@@ -111,7 +111,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		accessorKey: "updated_date",
 		header: "Updated Date",
 		cell: ({ row }) => (
-			<div className="">
+			<div className="font-mono">
 				{readableDateFormat(row.original.updated_date)}
 			</div>
 		),
@@ -120,7 +120,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		accessorKey: "created_date",
 		header: "Created Date",
 		cell: ({ row }) => (
-			<div className="">
+			<div className="font-mono">
 				{readableDateFormat(row.original.created_date)}
 			</div>
 		),
