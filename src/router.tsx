@@ -24,6 +24,7 @@ import ViewProblem from "./views/ViewProblem";
 import { useContext, useEffect } from "react";
 import { LoginContext } from "./contexts/LoginContext";
 import ProblemStatistic from "./views/My/Problems/ProblemStatistic";
+import MyPreviousSubmissions from "./views/My/MyPreviousSubmissions";
 
 const Router = () => {
 
@@ -63,6 +64,8 @@ const Router = () => {
 			<Route path="/my/groups" element={<MyGroups />} />
 			<Route path="/my/groups/create" element={<CreateGroup />} />
 			<Route path="/my/groups/:groupId/edit" element={<EditGroup />} />
+			
+			<Route path="/my/submissions" element={<MyPreviousSubmissions />} />
 			
 			<Route path="/problems/:problemId" element={<ViewProblem />} />
 			<Route path="/courses/:courseId" element={<ViewCourse />} />

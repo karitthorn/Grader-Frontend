@@ -3,14 +3,14 @@ import { FileSpreadsheet, Folder } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CollectionPopulateCollectionProblemPopulateProblemModel } from '../../types/models/Collection.model'
 import { readableDateFormat } from '../../utilities/ReadableDateFormat'
-import { DataTable } from '../DataTable'
+import { DataTable } from './Prototype/DataTable'
 
 const columns: ColumnDef<CollectionPopulateCollectionProblemPopulateProblemModel>[] = [
     {
         accessorKey: "name",
         header: "Title",
         cell: ({ row }) => (
-            <div className="flex items-center font-medium py-2">
+            <div className="flex items-center font-medium py-2 hover:underline hover:text-green-500">
                 <Folder className="mr-2 text-yellow-400" size={20} />
                 <Link to={`/my/collections/${row.original.collection_id}/edit`}>
                     {row.original.name}

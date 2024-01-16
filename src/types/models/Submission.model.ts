@@ -1,5 +1,6 @@
 import { AccountSecureModel } from "./Account.model";
 import { ProblemModel, ProblemSecureModel } from "./Problem.model";
+import { TopicSecureModel } from "./Topic.model";
 
 export type SubmissionTestcaseModel = {
     submission_testcase_id: string;
@@ -18,7 +19,7 @@ export type SubmissionTestcaseSecureModel = {
 export type SubmissionModel = {
 	submission_id: string;
 	problem: number;
-    topic: number | null;
+    topic: string | null;
     language: string;
 	submission_code: string;
 	is_passed: boolean;
@@ -31,7 +32,7 @@ export type SubmissionModel = {
 
 export type SubmissionPopulateProblemModel = {
     submission_id: string;
-    account: number;
+    account: string;
     problem: ProblemModel;
     language:  string;
     submission_code: string;
@@ -104,9 +105,11 @@ export type SubmissionPopulateSubmissionTestcasesSecureModel = {
 export type SubmissionPopulateSubmissionTestcaseAndProblemSecureModel = SubmissionModel & {
     problem: ProblemSecureModel;
     runtime_output: SubmissionTestcaseSecureModel[];
+    topic: TopicSecureModel | null;
 }
 
 export type SubmissionPopulateSubmissionTestcaseAndAccountModel = SubmissionModel & {
     account: AccountSecureModel;
     runtime_output: SubmissionTestcaseModel[];
+    topic: TopicSecureModel | null;
 }

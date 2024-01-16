@@ -60,6 +60,7 @@ export type ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecure
 }
 
 export type ProblemPopulateTestcases = ProblemModel & {
+    creator: AccountSecureModel
     testcases: TestcaseModel[]
 }
 

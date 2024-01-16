@@ -1,4 +1,4 @@
-import { CopyPlus, PencilIcon, Trash } from "lucide-react";
+import { BarChart3, CopyPlus, PencilIcon, Trash } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../services/Problem.service";
@@ -83,13 +83,14 @@ const MyProblemDropdown = ({
 						navigate(`/my/problems/${problem.problem_id}`)
 					}
 				>
-					<PencilIcon className="mr-2" size={16} />
-					View Problem
+					<BarChart3 className="mr-2" size={16} />
+					View Statistic
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					onClick={() =>
-						navigate(`/my/problems/${problem.problem_id}/edit`)
+						window.open(`/my/problems/${problem.problem_id}/edit`, "_blank")
 					}
+					
 				>
 					<PencilIcon className="mr-2" size={16} />
 					Edit Problem

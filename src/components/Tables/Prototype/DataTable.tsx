@@ -2,9 +2,11 @@
 
 import {
 	ColumnDef,
+	SortingState,
 	flexRender,
 	getCoreRowModel,
 	getPaginationRowModel,
+	getSortedRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
 
@@ -16,7 +18,8 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from "./shadcn/Table";
+} from "../../shadcn/Table";
+import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -27,11 +30,18 @@ export function DataTable<TData, TValue>({
 	columns,
 	data,
 }: DataTableProps<TData, TValue>) {
+	const [sorting, setSorting] = useState<SortingState>([]);
+
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
+		onSortingChange: setSorting,
+		getSortedRowModel: getSortedRowModel(),
+		state: {
+			sorting,
+		},
 	});
 
 	return (
@@ -90,7 +100,7 @@ export function DataTable<TData, TValue>({
 				</Table>
 			</div>
 			<div className="mt-3">
-			<DataTablePagination table={table} />
+				<DataTablePagination table={table} />
 			</div>
 			{/* <div className="flex items-center justify-end space-x-2 py-4">
 				<Button
