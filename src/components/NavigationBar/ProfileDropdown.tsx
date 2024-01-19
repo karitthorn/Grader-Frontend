@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 import {
 	DropdownMenu,
@@ -7,7 +7,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
-	DropdownMenuTrigger
+	DropdownMenuTrigger,
 } from "../shadcn/DropdownMenu";
 
 import {
@@ -15,37 +15,34 @@ import {
 	Folder,
 	LibraryBig,
 	LogOut,
-	Users
+	Users,
 } from "lucide-react";
-import { useNavigate } from 'react-router-dom';
-import { AuthService } from '../../services/Auth.service';
+import { useNavigate } from "react-router-dom";
+import { AuthService } from "../../services/Auth.service";
 
 const ProfileDropdown = ({ children }: { children: ReactNode }) => {
+	const navigate = useNavigate();
 
-    const navigate = useNavigate()
+	const username = localStorage.getItem("username");
+	const account_id = String(localStorage.getItem("account_id"));
+	const token = localStorage.getItem("token");
 
-    const username = localStorage.getItem('username')
-    const account_id = String(localStorage.getItem('account_id'))
-    const token = localStorage.getItem('token')
+	const handleLogout = async () => {
+		if (!token) {
+			return;
+		}
 
-    const handleLogout = async () => {
+		const { status } = await AuthService.logout({ account_id, token });
 
-        if (!token) {
-            return
-        }
+		if (status === 200) {
+			localStorage.removeItem("account_id");
+			localStorage.removeItem("username");
+			localStorage.removeItem("token");
+			window.location.reload();
+		}
+	};
 
-        const {status} = await AuthService.logout({account_id,token})
-
-        if (status === 200) {
-            localStorage.removeItem('account_id')
-            localStorage.removeItem('username')
-            localStorage.removeItem('token')
-            window.location.reload()
-        }
-
-    }
-
-  return (
+	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
@@ -55,14 +52,16 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 					{/* <DropdownMenuItem dis>
 						<User className="mr-2 h-4 w-4" />
 						<span>Profile</span> */}
-						{/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+					{/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
 					{/* </DropdownMenuItem> */}
 					<DropdownMenuItem onClick={() => navigate("/my/problems")}>
 						<FileSpreadsheet className="mr-2 h-4 w-4" />
 						<span>My Problems</span>
 						{/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
 					</DropdownMenuItem>
-					<DropdownMenuItem onClick={() => navigate("/my/collections")}>
+					<DropdownMenuItem
+						onClick={() => navigate("/my/collections")}
+					>
 						<Folder className="mr-2 h-4 w-4" />
 						<span>My Collections</span>
 						{/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
@@ -76,6 +75,14 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 						<Users className="mr-2 h-4 w-4" />
 						<span>My Groups</span>
 						{/* <DropdownMenuShortcut>⌘K</DropdownMenuShortcut> */}
+					</DropdownMenuItem>
+				</DropdownMenuGroup>
+				<DropdownMenuSeparator />
+				<DropdownMenuGroup>
+					<DropdownMenuItem onClick={() => navigate("/my/submissions")}>
+						<FileSpreadsheet className="mr-2 h-4 w-4" />
+						<span>My Previous Submissions</span>
+						{/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
 					</DropdownMenuItem>
 				</DropdownMenuGroup>
 				{/* <DropdownMenuSeparator />
@@ -134,7 +141,6 @@ const ProfileDropdown = ({ children }: { children: ReactNode }) => {
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-	
-  )
-}
-export default ProfileDropdown
+	);
+};
+export default ProfileDropdown;

@@ -59,7 +59,7 @@ const CreateCollectionForm = ({
 						onClick={() => navigate(-1)}
 					/>
 					{createRequest.title === ""
-						? "Create Problem"
+						? "Create Collection"
 						: createRequest.title}
 				</h1>
 				<div>

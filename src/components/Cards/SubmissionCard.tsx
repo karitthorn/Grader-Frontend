@@ -1,4 +1,4 @@
-import { FileSpreadsheet, StepForward } from "lucide-react";
+import { FileSpreadsheet, LibraryBig, StepForward } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../../types/models/Submission.model";
 import { readableDateFormat } from "../../utilities/ReadableDateFormat";
@@ -16,7 +16,7 @@ const SubmissionCard = ({
 
     const handleNavigateProblem = () => {
         if (submission.topic) {
-            navigate(`/courses/${submission.topic}/problems/${submission.problem.problem_id}`)
+            navigate(`/courses/${submission.topic.topic_id}/problems/${submission.problem.problem_id}`)
         }
         else {
             navigate(`/problems/${submission.problem.problem_id}`)
@@ -29,6 +29,20 @@ const SubmissionCard = ({
 				<FileSpreadsheet size={30} className="text-blue-400 mr-2" />
 				{submission.problem.title}
 			</p>
+
+			{
+				submission.topic ? (
+					<div className="flex items-center text-sm font-medium my-2">
+						<LibraryBig size={20} className="mr-1 text-purple-400"/>
+						{submission.topic.name}
+					</div>
+				) : (
+					<div className="flex items-center text-sm font-medium my-2 invisible">
+						<LibraryBig size={20} className="mr-1 text-purple-400"/>
+						
+					</div>
+				)
+			}	
 
 			<div className="text-sm font-medium my-3">
 				<p>Submitted Date</p>

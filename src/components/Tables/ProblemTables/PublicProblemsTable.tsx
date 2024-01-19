@@ -3,17 +3,27 @@ import {
 	FileSpreadsheet,
 	Puzzle
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
 import {
 	ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel
 } from "../../../types/models/Problem.model";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
-import { DataTable } from "../../DataTable";
+import { DataTable } from "../Prototype/DataTable";
 import TestcasesGradingIndicator from "../../TestcasesGradingIndicator";
 import { Button } from "../../shadcn/Button";
 
-const columns: ColumnDef<ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>[] =
+
+
+const PublicProblemsTable = ({
+	problems,
+}: {
+	problems: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[];
+}) => {
+
+	const {courseId} = useParams()
+
+	const columns: ColumnDef<ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>[] =
 	[
 		{
 			accessorKey: "title",
@@ -92,7 +102,7 @@ const columns: ColumnDef<ProblemPopulateAccountAndSubmissionPopulateSubmissionTe
 			header: "",
 			cell: ({ row }) => (
 				<div className="flex items-center">
-					<Link to={`/problems/${row.original.problem_id}`}>
+					<Link to={courseId ? `/courses/${courseId}/problems/${row.original.problem_id}` : `/problems/${row.original.problem_id}`}>
 						<Button
 
 						// onClick={() =>
@@ -109,11 +119,6 @@ const columns: ColumnDef<ProblemPopulateAccountAndSubmissionPopulateSubmissionTe
 		},
 	];
 
-const PublicProblemsTable = ({
-	problems,
-}: {
-	problems: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[];
-}) => {
 	return (
 		<div>
 			<DataTable columns={columns} data={problems} />

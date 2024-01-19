@@ -1,13 +1,14 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Maximize2 } from "lucide-react";
+import { LibraryBig, Maximize2 } from "lucide-react";
 import { ProgrammingLanguageOptions } from "../../constants/ProgrammingLanguage";
 import { ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel } from "../../types/models/Problem.model";
 import { SubmissionPopulateSubmissionTestcaseAndAccountModel } from "../../types/models/Submission.model";
 import { readableDateFormat } from "../../utilities/ReadableDateFormat";
-import { DataTable } from "../DataTable";
+import { DataTable } from "./Prototype/DataTable";
 import ProblemSubmissionSourceCodeAndRuntimeResultDialog from "../Dialogs/ProblemSubmissionSourceCodeAndRuntimeResultDialog";
 import TestcasesGradingIndicator from "../TestcasesGradingIndicator";
 import { Button } from "../shadcn/Button";
+import { Link } from "react-router-dom";
 
 
 
@@ -25,16 +26,38 @@ const MyProblemSubmissionsTable = ({
 			accessorKey: "username",
 			header: "Username",
 			cell: ({ row }) => (
-				<div className="font-medium py-2">
+				<div className="font-medium">
 					{row.original.account.username}
 				</div>
 			),
 		},
 		{
-			accessorKey: "language",
-			header: "Language",
+			accessorKey: "course",
+			header: "Course",
 			cell: ({ row }) => (
-				<div className="font-medium py-2">
+				<div className="">
+						{row.original.topic ? (
+							<div className="font-medium hover:underline hover:text-green-500 flex items-center">
+								<LibraryBig size={20} className="text-purple-400 mr-1"/>
+								<Link
+									to={`/courses/${row.original.topic.topic_id}`}
+								>
+									{row.original.topic.name}
+								</Link>
+							</div>
+						) : (
+							<div className="italic text-gray-400">
+								Public Submitted
+							</div>
+						)}
+					</div>
+			),
+		},
+		{
+			accessorKey: "language",
+			header: () => <div className="text-center">Language</div>,
+			cell: ({ row }) => (
+				<div className="font-medium flex justify-center">
 					{
 						ProgrammingLanguageOptions.find(
 							(language) =>
@@ -61,7 +84,7 @@ const MyProblemSubmissionsTable = ({
 			accessorKey: "date",
 			header: "Submitted Date",
 			cell: ({ row }) => (
-				<div className="">{readableDateFormat(row.original.date)}</div>
+				<div className="font-mono">{readableDateFormat(row.original.date)}</div>
 			),
 		},
 		{
