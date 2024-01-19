@@ -1,14 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { LibraryBig, Maximize2 } from "lucide-react";
+import { LibraryBig } from "lucide-react";
+import { Link } from "react-router-dom";
 import { ProgrammingLanguageOptions } from "../../constants/ProgrammingLanguage";
-import { ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel } from "../../types/models/Problem.model";
 import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../../types/models/Submission.model";
 import { readableDateFormat } from "../../utilities/ReadableDateFormat";
-import { DataTable } from "./Prototype/DataTable";
-import ProblemSubmissionSourceCodeAndRuntimeResultDialog from "../Dialogs/ProblemSubmissionSourceCodeAndRuntimeResultDialog";
 import TestcasesGradingIndicator from "../TestcasesGradingIndicator";
-import { Button } from "../shadcn/Button";
-import { Link } from "react-router-dom";
+import { DataTable } from "./Prototype/DataTable";
 
 const MyPreviousSubmissionsTable = ({
 	submissions = [],
