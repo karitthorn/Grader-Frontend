@@ -84,7 +84,7 @@ const ManageProblems = ({
 				}))
 			);
 
-			return ProblemService.getAllAsCreator(accountId,{start:10})
+			return ProblemService.getAllAsCreator(accountId)
 		}).then((response) => {
 			setAllProblems(
 				transformProblemModel2ProblemHashedTable(response.data.problems)
