@@ -32,7 +32,7 @@ const Router = () => {
 	const {isLogin} = useContext(LoginContext);
 	useEffect(() => {
 		if (isLogin !== null && !isLogin) {
-			navigate("/login")
+			// navigate("/login")
 		}
 	},[isLogin])
 
