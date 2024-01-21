@@ -1,6 +1,6 @@
 import { Editor as MonacoEditor } from "@monaco-editor/react";
 import { ArrowLeft, Loader2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
@@ -69,6 +69,12 @@ const ProblemViewLayout = ({
 			setSelectedLanguage(submission.language);
 		}
 	};
+
+	useEffect(() => {
+		if (problem && problem?.allowed_languages.length > 0) {
+			setSelectedLanguage(ProgrammingLanguageOptions.filter(lang => problem?.allowed_languages.includes(lang.value))[0].value)
+		}
+	},[problem])
 
 
 	// useEffect(() => {
