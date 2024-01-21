@@ -28,7 +28,7 @@ import MyPreviousSubmissions from "./views/My/MyPreviousSubmissions";
 
 const Router = () => {
 
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	const {isLogin} = useContext(LoginContext);
 	useEffect(() => {
 		if (isLogin !== null && !isLogin) {
