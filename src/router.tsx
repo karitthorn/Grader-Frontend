@@ -1,4 +1,6 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { LoginContext } from "./contexts/LoginContext";
 import CourseManagement from "./views/CourseManagement";
 import Dashboard from "./views/Dashboard";
 import ExploreCourses from "./views/ExploreCourses";
@@ -14,17 +16,15 @@ import MyCourses from "./views/My/Courses/MyCourses";
 import CreateGroup from "./views/My/Groups/CreateGroup";
 import EditGroup from "./views/My/Groups/EditGroup";
 import MyGroups from "./views/My/Groups/MyGroups";
+import MyPreviousSubmissions from "./views/My/MyPreviousSubmissions";
 import CreateProblem from "./views/My/Problems/CreateProblem";
 import EditProblem from "./views/My/Problems/EditProblem";
 import MyProblems from "./views/My/Problems/MyProblems";
+import ProblemStatistic from "./views/My/Problems/ProblemStatistic";
 import Register from "./views/Register";
 import ViewCourse from "./views/ViewCourse";
 import ViewCourseProblem from "./views/ViewCourseProblem";
 import ViewProblem from "./views/ViewProblem";
-import { useContext, useEffect } from "react";
-import { LoginContext } from "./contexts/LoginContext";
-import ProblemStatistic from "./views/My/Problems/ProblemStatistic";
-import MyPreviousSubmissions from "./views/My/MyPreviousSubmissions";
 
 const Router = () => {
 
