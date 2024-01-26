@@ -59,6 +59,7 @@ export type ValidateProgramResponse = {
 export type GetAllProblemsQuery = {
 	start?: number;
 	end?: number;
+	account_id?: string;
 }
 
 export type GetAllProblemsResponse = {

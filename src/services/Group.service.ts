@@ -38,7 +38,15 @@ export const GroupService: GroupSerivceAPI = {
     },
 
     updateMembers: async (groupId,accountIds) => {
-        const response = await axios.put(`${BASE_URL}/api/groups/${groupId}/members`,{
+        const response = await axios.put(`${BASE_URL}/api/groups/${groupId}/members/update`,{
+            account_ids: accountIds
+        })
+
+        return response;
+    },
+
+    addMembers: async (groupId,accountIds) => {
+        const response = await axios.put(`${BASE_URL}/api/groups/${groupId}/members/add`,{
             account_ids: accountIds
         })
 

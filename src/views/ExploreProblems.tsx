@@ -11,8 +11,12 @@ const ExploreProblems = () => {
 		ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
 	>([]);
 
+	const accountId = String(localStorage.getItem("account_id"));
+
 	useEffect(() => {
-		ProblemService.getAll().then((response) => {
+		ProblemService.getAll({
+			account_id: accountId,
+		}).then((response) => {
       console.log('prob',response.data.problems)
 			setProblems(response.data.problems);
 		});

@@ -25,6 +25,7 @@ export type ProblemModel = {
     created_date: string;
     updated_date: string;
     allowed_languages: string
+    difficulty: number;
 }
 
 export type ProblemSecureModel = {
@@ -37,6 +38,7 @@ export type ProblemSecureModel = {
     updated_date: string
     allowed_languages: string
     creator: string
+    difficulty: number;
 }
 
 export type ProblemPopulateCreatorSecureModel = ProblemSecureModel & {
