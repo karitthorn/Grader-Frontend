@@ -1,4 +1,3 @@
-import React from 'react'
 import { Badge } from './shadcn/Badge'
 
 const DifficultyBadge = ({level=0}:{

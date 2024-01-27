@@ -12,10 +12,8 @@ import { Button } from "../../shadcn/Button";
 import { Input } from "../../shadcn/Input";
 import { ScrollArea } from "../../shadcn/ScrollArea";
 import { Separator } from "../../shadcn/Seperator";
-import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
-import { Textarea } from "../../shadcn/Textarea";
-import { Badge } from "../../shadcn/Badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../shadcn/Tabs";
+import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
 
 const ManageMembers = ({
 	createRequest,
