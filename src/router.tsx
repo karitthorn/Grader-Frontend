@@ -31,8 +31,8 @@ const Router = () => {
 	// const navigate = useNavigate();
 	const {isLogin} = useContext(LoginContext);
 	useEffect(() => {
+		console.log('isLogin',isLogin)
 		if (isLogin !== null && !isLogin) {
-			// navigate("/login")
 		}
 	},[isLogin])
 
@@ -43,6 +43,8 @@ const Router = () => {
 			<Route path="/courses" element={<ExploreCourses />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
+
+			{(isLogin !== null && !isLogin) && (<Route path="/*" element={<Login />} />)}
 
 			{isLogin && (<>
 			<Route path="/dashboard" element={<Dashboard />} />

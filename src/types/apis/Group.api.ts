@@ -29,4 +29,5 @@ export type GroupSerivceAPI = {
     update: (groupId:string,request:GroupCreateRequest) => Promise<AxiosResponse<GroupModel>>;
     delete: (groupId:string) => Promise<AxiosResponse<null>>;
     updateMembers: (groupId:string,accountIds:string[]) => Promise<AxiosResponse<GroupPopulateGroupMemberPopulateAccountSecureModel>>;
+    addMembers: (groupId:string,accountIds:string[]) => Promise<AxiosResponse<GroupPopulateGroupMemberPopulateAccountSecureModel>>;
 }

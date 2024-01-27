@@ -12,6 +12,7 @@ import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import { DataTable } from "../Prototype/DataTable";
 import TestcasesGradingIndicator from "../../TestcasesGradingIndicator";
 import { Button } from "../../shadcn/Button";
+import DifficultyBadge from "../../DifficultyBadge";
 
 
 
@@ -88,10 +89,18 @@ const PublicProblemsTable = ({
 		},
 
 		{
+			accessorKey: "difficulty",
+			header: "Difficulty",
+			cell: ({ row }) => (
+				<DifficultyBadge level={row.original.difficulty}/>
+			),
+		},
+
+		{
 			accessorKey: "updated_date",
 			header: "Updated Date",
 			cell: ({ row }) => (
-				<div className="">
+				<div className="font-mono">
 					{readableDateFormat(row.original.updated_date)}
 				</div>
 			),

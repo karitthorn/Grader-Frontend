@@ -14,6 +14,7 @@ import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
 import { Button } from "./shadcn/Button";
 import { Combobox } from "./shadcn/Combobox";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./shadcn/Resizable";
+import DifficultyBadge from "./DifficultyBadge";
 
 export type OnSubmitProblemViewLayoutCallback = {
     setGrading: React.Dispatch<React.SetStateAction<boolean>>
@@ -89,7 +90,7 @@ const ProblemViewLayout = ({
 	return (
 		<ResizablePanelGroup direction="horizontal" className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]">
 			<ResizablePanel defaultSize={50} className="w-1/2 grid content-between">
-				<div className="ml-3">
+				<div className="ml-3 ">
 					<div className="text-3xl text-green-700 font-bold mb-2 flex">
 						<ArrowLeft
 							size={40}
@@ -98,7 +99,8 @@ const ProblemViewLayout = ({
 						/>
 						{problem?.title}
 					</div>
-					<div className="flex text-base">
+					
+					<div className="flex text-base justify-between">
 						<div className="flex mr-10">
 							<b className="mr-2">Author</b>
 							<p className="">{problem?.creator.username}</p>
@@ -110,6 +112,13 @@ const ProblemViewLayout = ({
 								{readableDateFormat(
 									String(problem?.updated_date)
 								)}
+							</p>
+						</div>
+
+						<div className="flex">
+							<b className="mr-2">Difficulty</b>
+							<p className="">
+								<DifficultyBadge level={problem?.difficulty}/>
 							</p>
 						</div>
 					</div>

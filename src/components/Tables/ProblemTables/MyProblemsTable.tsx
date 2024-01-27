@@ -16,6 +16,7 @@ import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import MyProblemDropdown from "../../Dropdowns/MyProblemDropdown";
 import { DataTable } from "../Prototype/DataTable";
 import DataTableSortableLayout from "../Prototype/DataTableSortableLayout";
+import DifficultyBadge from "../../DifficultyBadge";
 
 const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 	{
@@ -157,6 +158,14 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 					</span>
 				))}
 			</div>
+		),
+	},
+
+	{
+		accessorKey: "difficulty",
+		header: "Difficulty",
+		cell: ({ row }) => (
+			<DifficultyBadge level={row.original.difficulty}/>
 		),
 	},
 

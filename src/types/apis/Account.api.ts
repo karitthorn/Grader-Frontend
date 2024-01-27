@@ -7,8 +7,13 @@ export type AccountCreateRequest = {
     email: string;
 }
 
+
+export type GetAllAccountQuery = {
+    search?: string;
+}
+
 export type AccountServiceAPI = {
     create: (request: AccountCreateRequest) => Promise<AxiosResponse<AccountModel>>;
-    getAll: () => Promise<AxiosResponse<{accounts: AccountSecureModel[]}>>;
+    getAll: (query?:GetAllAccountQuery) => Promise<AxiosResponse<{accounts: AccountSecureModel[]}>>;
     get: (accountId:string) => Promise<AxiosResponse<AccountModel>>;
 }
