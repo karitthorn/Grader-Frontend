@@ -1,4 +1,3 @@
-import { Button } from "../components/shadcn/Button";
 import CenterContainer from "../layout/CenterLayout";
 
 const Home = () => {
