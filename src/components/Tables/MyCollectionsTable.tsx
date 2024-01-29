@@ -1,9 +1,10 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { FileSpreadsheet, Folder } from 'lucide-react'
+import { FileSpreadsheet, Folder, MoreHorizontal } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CollectionPopulateCollectionProblemPopulateProblemModel } from '../../types/models/Collection.model'
 import { readableDateFormat } from '../../utilities/ReadableDateFormat'
 import { DataTable } from './Prototype/DataTable'
+import MyCollectionDropdown from '../Dropdowns/MyCollectionDropdown'
 
 const columns: ColumnDef<CollectionPopulateCollectionProblemPopulateProblemModel>[] = [
     {
@@ -37,15 +38,30 @@ const columns: ColumnDef<CollectionPopulateCollectionProblemPopulateProblemModel
 			</div>
 		),
 	},
-	{
-		accessorKey: "created_date",
-		header: "Created Date",
+    {
+		accessorKey: "action",
+		header: () => (
+			<div className="text-center">
+				Action
+			</div>
+		),
 		cell: ({ row }) => (
-			<div className="font-mono">
-				{readableDateFormat(row.original.created_date)}
+			<div className=" flex items-center justify-center">
+				<MyCollectionDropdown collection={row.original}>
+					<MoreHorizontal size={20} />
+				</MyCollectionDropdown>
 			</div>
 		),
 	},
+	// {
+	// 	accessorKey: "created_date",
+	// 	header: "Created Date",
+	// 	cell: ({ row }) => (
+	// 		<div className="font-mono">
+	// 			{readableDateFormat(row.original.created_date)}
+	// 		</div>
+	// 	),
+	// },
 ]
 
 const MyCollectionsTable = ({

@@ -10,6 +10,7 @@ import {
 
 import { LoginContext } from "../../contexts/LoginContext";
 import ProfileDropdown from './ProfileDropdown';
+import { LayoutDashboard, Library, StickyNote } from "lucide-react";
 
 
 
@@ -20,7 +21,7 @@ const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
 	const customNavigationMenuTriggerStyle = () => {
 		return (
 			navigationMenuTriggerStyle() +
-			" bg-green-600 hover:bg-green-700 hover:text-white text-white cursor-pointer"
+			" bg-green-600 hover:bg-green-700 hover:text-white text-white cursor-pointer active:bg-green-800 active:text-white focus:bg-green-600 focus:text-white"
 		);
 	};
 
@@ -33,15 +34,19 @@ const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
 				<div className="flex gap-1">
 					<NavigationMenuItem className="">
 						<NavigationMenuLink
-							className={customNavigationMenuTriggerStyle()}
+							className={navigationMenuTriggerStyle() +
+								" py-0 bg-green-600 hover:bg-green-700 hover:text-white text-white cursor-pointer active:bg-green-800 active:text-white focus:bg-green-600 focus:text-white"}
 							href="/"
 						>
-							Home
+							{/* <img width={10} src='/favicon.ico'/> */}
+							<StickyNote size={20} className="mr-1"/>
+							ModelGrader
 						</NavigationMenuLink>
 						<NavigationMenuLink
 							className={customNavigationMenuTriggerStyle()}
 							href="/explore"
 						>
+							<Library size={20} className="mr-1"/>
 							Explore
 						</NavigationMenuLink>
 						{/* <NavigationMenuLink
@@ -50,12 +55,13 @@ const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
 						>
 							Courses
 						</NavigationMenuLink> */}
-						<NavigationMenuLink
+						{isLogin && <NavigationMenuLink
 							className={customNavigationMenuTriggerStyle()}
 							href="/dashboard"
 						>
+							<LayoutDashboard size={20} className="mr-1"/>
 							Dashboard
-						</NavigationMenuLink>
+						</NavigationMenuLink>}
 					</NavigationMenuItem>
 					{/* <NavigationMenuItem>
 						<NavigationMenuTrigger>

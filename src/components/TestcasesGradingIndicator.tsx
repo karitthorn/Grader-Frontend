@@ -70,7 +70,7 @@ const TestcaseGradingResult = ({
 					</p>
 					<p className="font-bold text-sm">
 						Time Used:{" "}
-						<span className="font-normal">1.234 seconds</span>
+						<span className="font-normal">-.--- seconds</span>
 					</p>
 				</HoverCardContent>
 			)}

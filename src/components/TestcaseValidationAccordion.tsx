@@ -34,9 +34,9 @@ const TestcaseValidationInstance = ({
 			<AccordionTrigger>
 				Testcase #{value}
 				{status === "OK" ? (
-					<Badge className="bg-green-400">OK</Badge>
+					<Badge className="bg-green-500">OK</Badge>
 				) : status === "ERROR" ? (
-					<Badge className="bg-red-400">ERROR</Badge>
+					<Badge className="bg-gray-500">ERROR</Badge>
 				) : status === "TIMEOUT" ? (
 					<Badge className="bg-yellow-400">TIMEOUT</Badge>
 				) : (

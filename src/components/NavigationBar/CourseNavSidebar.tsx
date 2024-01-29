@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CourseNavSidebarContext } from "../../contexts/CourseNavSidebarContexnt";
 import { TopicService } from "../../services/Topic.service";
 import { Separator } from "../shadcn/Seperator";
-import { ChevronLeft, ChevronRight, LibraryBig } from "lucide-react";
+import { ChevronLeft, ChevronRight, LibraryBig, X } from "lucide-react";
 import NavbarCollectionsProblemsAccordion from "../NavbarCollectionsProblemsAccordion";
 import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../types/models/Topic.model";
 import { ScrollArea } from "../shadcn/ScrollArea";
@@ -74,7 +74,7 @@ const CourseNavSidebar = () => {
 								onClick={() => setIsOpen(false)}
 								className="cursor-pointer border-l py-4"
 							>
-								<ChevronLeft />
+								<X />
 							</div>
 						</div>
 						<Separator />
@@ -87,7 +87,7 @@ const CourseNavSidebar = () => {
 						</ScrollArea>
 					</div>
 				) : (
-					<div>
+					<div className="flex items-center">
 						<div onClick={() => setIsOpen(true)} className="p-2 border-b cursor-pointer">
 							<ChevronRight />
 						</div>

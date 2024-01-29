@@ -9,6 +9,7 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { GroupService } from "../../../services/Group.service";
 import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
+import MyGroupsTable from "../../../components/Tables/MyGroupsTable";
 
 const MyGroups = () => {
 
@@ -62,9 +63,12 @@ const MyGroups = () => {
 
 				<CardContainer>
 					{
-						filteredGroups.map((group) => (
-							<MyGroupCard group={group}/>
-						))
+						<MyGroupsTable
+							groups={filteredGroups}
+						/>
+						// filteredGroups.map((group) => (
+						// 	<MyGroupCard group={group}/>
+						// ))
 					}
 				</CardContainer>
 			</div>

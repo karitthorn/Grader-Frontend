@@ -5,9 +5,7 @@ import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLangua
 import { ProblemService } from "../../../services/Problem.service";
 import { ValidateProgramResponse } from "../../../types/apis/Problem.api";
 import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import {
-	testcaseParse
-} from "../../../utilities/TestcaseFormat";
+import { testcaseParse } from "../../../utilities/TestcaseFormat";
 import TestcaseValidationAccordion from "../../TestcaseValidationAccordion";
 import { Button } from "../../shadcn/Button";
 import { Combobox } from "../../shadcn/Combobox";
@@ -27,7 +25,7 @@ const Scoring = ({
 	const [loading, setLoading] = useState(false);
 	const [displayResult, setDisplayResult] = useState(false);
 
-	const [selectedLanguage, setSelectedLanguage] = useState("python");
+	const [selectedLanguage, setSelectedLanguage] = useState<string>("");
 
 	const [validationResult, setValidationResult] =
 		useState<ValidateProgramResponse>();
@@ -35,10 +33,10 @@ const Scoring = ({
 	const handleValidation = () => {
 		setLoading(true);
 
-		// console.log({
-		// 	og: createRequest.testcases,
-		// 	testcaseFormat: testcaseFormat(createRequest.testcases)
-		// });
+		if (!selectedLanguage) {
+			return;
+		}
+
 		ProblemService.validateProgram({
 			source_code: createRequest.solution.replace(/\r\n/g, "\n"),
 			testcases: testcaseParse(
@@ -56,8 +54,11 @@ const Scoring = ({
 	};
 
 	useEffect(() => {
-		console.log(selectedLanguage);
-	}, [selectedLanguage]);
+		console.log(createRequest)
+		if (createRequest.language) {
+			setSelectedLanguage(createRequest.language);
+		}
+	}, [createRequest]);
 
 	return (
 		<div className="flex h-[80vh]">
@@ -85,7 +86,6 @@ const Scoring = ({
 				<MonacoEditor
 					theme="vs-dark"
 					height="35vh"
-					defaultLanguage="python"
 					value={createRequest.solution}
 					onChange={(e) =>
 						setCreateRequest({
@@ -145,20 +145,19 @@ const Scoring = ({
 					)}
 				</div>
 				<div className="flex justify-end">
-					<Button disabled={loading} onClick={handleValidation} className="px-10">
-						{
-							loading ? (
-								<>
-								<Loader2 className="animate-spin mr-2"/>
+					<Button
+						disabled={loading}
+						onClick={handleValidation}
+						className="px-10"
+					>
+						{loading ? (
+							<>
+								<Loader2 className="animate-spin mr-2" />
 								Validating
-								</>
-							) : (
-								<>
-								Validate
-								</>
-							)
-						}
-						
+							</>
+						) : (
+							<>Validate</>
+						)}
 					</Button>
 				</div>
 			</div>
