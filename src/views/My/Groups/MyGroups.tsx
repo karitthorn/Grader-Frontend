@@ -2,14 +2,13 @@ import { LibraryBig } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyGroupCard from "../../../components/Cards/MyGroupCard";
+import MyGroupsTable from "../../../components/Tables/MyGroupsTable";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { GroupService } from "../../../services/Group.service";
 import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../../types/models/Group.model";
-import MyGroupsTable from "../../../components/Tables/MyGroupsTable";
 
 const MyGroups = () => {
 

@@ -1,12 +1,12 @@
+import { ChevronRight, LibraryBig, X } from "lucide-react";
 import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CourseNavSidebarContext } from "../../contexts/CourseNavSidebarContexnt";
 import { TopicService } from "../../services/Topic.service";
-import { Separator } from "../shadcn/Seperator";
-import { ChevronLeft, ChevronRight, LibraryBig, X } from "lucide-react";
-import NavbarCollectionsProblemsAccordion from "../NavbarCollectionsProblemsAccordion";
 import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../types/models/Topic.model";
+import NavbarCollectionsProblemsAccordion from "../NavbarCollectionsProblemsAccordion";
 import { ScrollArea } from "../shadcn/ScrollArea";
+import { Separator } from "../shadcn/Seperator";
 
 const CourseNavSidebar = () => {
 	const navigate = useNavigate();

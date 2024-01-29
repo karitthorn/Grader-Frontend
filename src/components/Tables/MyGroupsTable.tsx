@@ -1,10 +1,9 @@
-import React from 'react'
-import { GroupPopulateGroupMemberPopulateAccountSecureModel } from '../../types/models/Group.model'
 import { ColumnDef } from '@tanstack/react-table'
-import { DataTable } from './Prototype/DataTable'
 import { User, Users } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { GroupPopulateGroupMemberPopulateAccountSecureModel } from '../../types/models/Group.model'
 import { readableDateFormat } from '../../utilities/ReadableDateFormat'
+import { DataTable } from './Prototype/DataTable'
 
 const MyGroupsTable = ({
     groups=[]
