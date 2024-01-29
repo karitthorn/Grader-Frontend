@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { LibraryBig } from "lucide-react";
+import { Check, LibraryBig, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ProgrammingLanguageOptions } from "../../constants/ProgrammingLanguage";
 import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../../types/models/Submission.model";
@@ -66,6 +66,24 @@ const MyPreviousSubmissionsTable = ({
 						}
 					</div>
 				),
+			},
+			{
+				accessorKey: "is_passed",
+				header: () => <div className="text-center">
+					
+					Is Passed
+					</div>,
+				cell: ({ row }) => {
+					return (
+						<div className="flex justify-center">
+							{row.original.is_passed ? (
+								<Check className="text-green-500" />
+							) : (
+								<X className="text-red-500" />
+							)}
+						</div>
+					);
+				},
 			},
 			{
 				accessorKey: "runtime_result",

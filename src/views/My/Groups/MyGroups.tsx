@@ -2,7 +2,7 @@ import { LibraryBig } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardContainer from "../../../components/CardContainer";
-import MyGroupCard from "../../../components/Cards/MyGroupCard";
+import MyGroupsTable from "../../../components/Tables/MyGroupsTable";
 import { Button } from "../../../components/shadcn/Button";
 import { Input } from "../../../components/shadcn/Input";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
@@ -62,9 +62,12 @@ const MyGroups = () => {
 
 				<CardContainer>
 					{
-						filteredGroups.map((group) => (
-							<MyGroupCard group={group}/>
-						))
+						<MyGroupsTable
+							groups={filteredGroups}
+						/>
+						// filteredGroups.map((group) => (
+						// 	<MyGroupCard group={group}/>
+						// ))
 					}
 				</CardContainer>
 			</div>

@@ -1,6 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useBeforeUnload, useNavigate, useSearchParams } from "react-router-dom";
 import { CreateCollectionRequestForm } from "../../../types/forms/CreateCollectionRequestForm";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import FormSaveButton from "../FormSaveButton";
@@ -48,6 +48,8 @@ const CreateCollectionForm = ({
 			createRequest,
 		});
 	};
+
+	useBeforeUnload(() => "Some change has not been saved yet. Are you sure to close this tab?")
 
 	return (
 		<div className="w-[96%] mx-auto mt-10">

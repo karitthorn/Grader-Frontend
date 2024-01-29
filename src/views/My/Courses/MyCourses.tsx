@@ -10,6 +10,7 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { TopicService } from "../../../services/Topic.service";
 import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";
+import MyCoursesTable from "../../../components/Tables/MyCoursesTable";
 
 const MyCourses = () => {
 
@@ -82,9 +83,7 @@ const MyCourses = () => {
 
 				<CardContainer>
 					{
-						tabValue === "personal" && filteredTopics.map(topic => (
-							<MyCourseCard course={topic}/>
-						))
+						tabValue === "personal" && <MyCoursesTable courses={filteredTopics}/>
 					}
 					{
 						tabValue === "manageable" && filteredManageableTopics.map(topic => (

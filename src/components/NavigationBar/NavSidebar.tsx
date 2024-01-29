@@ -45,10 +45,11 @@ const NavSidebar = () => {
 	return (
 		<>
 			{!isOpen ? (
-				<div className="w-1/8 h-screen pr-5 pt-10">
-					<div>
-						<div className="grid ml-3 gap-1 gap-y-1">
-							<p onClick={() => setIsOpen(true)}>Open</p>
+				<div className="w-1/8 h-screen pt-10 ">
+					<div className="">
+						<div className="mx-1 grid gap-1 gap-y-1">
+							{/* <p onClick={() => setIsOpen(true)}>Open</p> */}
+							<div className="mt-4"></div>
 							<SectionButton
 								selected={section === "PROBLEMS"}
 								onClick={() => navigate("/my/problems")}

@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { LibraryBig, Maximize2 } from "lucide-react";
+import { Check, LibraryBig, Maximize2, X } from "lucide-react";
 import { ProgrammingLanguageOptions } from "../../constants/ProgrammingLanguage";
 import { ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel } from "../../types/models/Problem.model";
 import { SubmissionPopulateSubmissionTestcaseAndAccountModel } from "../../types/models/Submission.model";
@@ -66,6 +66,24 @@ const MyProblemSubmissionsTable = ({
 					}
 				</div>
 			),
+		},
+		{
+			accessorKey: "is_passed",
+			header: () => <div className="text-center">
+				
+				Is Passed
+				</div>,
+			cell: ({ row }) => {
+				return (
+					<div className="flex justify-center">
+						{row.original.is_passed ? (
+							<Check className="text-green-500" />
+						) : (
+							<X className="text-red-500" />
+						)}
+					</div>
+				);
+			},
 		},
 		{
 			accessorKey: "runtime_result",
