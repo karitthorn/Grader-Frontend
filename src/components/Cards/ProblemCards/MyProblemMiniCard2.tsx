@@ -65,7 +65,7 @@ const MyProblemMiniCard2 = ({
 								className="text-blue-400 mr-2"
 							/>
 						
-								<p className="font-mono line-clamp-1 w-4/5">
+								<p className="font-mono line-clamp-1 w-5/6">
 									{problem.title}
 								</p>
 						</div>

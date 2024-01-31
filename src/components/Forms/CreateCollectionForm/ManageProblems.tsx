@@ -70,6 +70,17 @@ const ManageProblems = ({
 		});
 	}, [selectedProblemsSortable]);
 
+	const [filteredProblems, setFilteredProblems] = useState<ProblemItemInterface[]>([]);
+	const [searchValue, setSearchValue] = useState("");
+
+	useEffect(() => {
+		setFilteredProblems(
+			allProblemsSortable.filter(
+				(item) => searchValue === "" || item.problem.title.includes(searchValue)
+			)
+		);
+	},[searchValue, allProblemsSortable])
+
 	useEffect(() => {
 		ProblemService.getAllAsCreator(accountId,{end:10}).then((response) => {
 			setAllProblems(
@@ -171,7 +182,7 @@ const ManageProblems = ({
 				</div>
 
 				<div className="w-1/2">
-					<Input className="mt-2" />
+					<Input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} className="mt-2" />
 					<ScrollArea className="mt-6 h-[80vh] md:h-[60vh] pr-5">
 						<ReactSortable
 							group={{
@@ -186,7 +197,7 @@ const ManageProblems = ({
 							filter=".selected"
 							className="grid grid-cols-1 gap-2 p-2 rounded-md"
 						>
-							{allProblemsSortable?.map((item) => (
+							{filteredProblems?.map((item) => (
 								<div
 									className={
 										selectedProblemsSortable.includes(item)
