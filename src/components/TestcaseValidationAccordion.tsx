@@ -1,5 +1,4 @@
 import { FileDown } from "lucide-react";
-import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
 import { RuntimeResult } from "../types/apis/Problem.api";
 import { TestcaseModel } from "../types/models/Problem.model";
 import {
@@ -9,7 +8,6 @@ import {
 	AccordionTrigger,
 } from "./shadcn/Accordion";
 import { Badge } from "./shadcn/Badge";
-import { Button } from "./shadcn/Button";
 import { Label } from "./shadcn/Label";
 import { Textarea } from "./shadcn/Textarea";
 
