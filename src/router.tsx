@@ -25,6 +25,7 @@ import Register from "./views/Register";
 import ViewCourse from "./views/ViewCourse";
 import ViewCourseProblem from "./views/ViewCourseProblem";
 import ViewProblem from "./views/ViewProblem";
+import Ourcontribution from "./views/ourcontribution";
 
 const Router = () => {
 
@@ -43,6 +44,7 @@ const Router = () => {
 			<Route path="/courses" element={<ExploreCourses />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
+			<Route path="/con" element={<Ourcontribution/>}/>
 
 			{(isLogin !== null && !isLogin) && (<Route path="/*" element={<Login />} />)}
 
