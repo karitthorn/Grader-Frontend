@@ -25,7 +25,7 @@ import Register from "./views/Register";
 import ViewCourse from "./views/ViewCourse";
 import ViewCourseProblem from "./views/ViewCourseProblem";
 import ViewProblem from "./views/ViewProblem";
-import Ourcontribution from "./views/ourcontribution";
+import Ourcontribution from "./views/Ourcontribution";
 
 const Router = () => {
 
